@@ -1,0 +1,34 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** types */
+import type { Control, FieldPath, FieldValues } from 'react-hook-form';
+import type { TextFieldProps } from '@mui/material/TextField';
+import type { ButtonProps } from '@mui/material/Button';
+
+export type TypeAuthBreadcrumbsItem = {
+    title: string;
+    path: string;
+    append?: string;
+    hidden?: boolean;
+};
+
+export type TypeAuthBreadcrumbsProps = {
+    name?: 'signin' | 'register' | 'recover';
+};
+
+export type TypeAuthTitleProps = {
+    className?: string;
+} & TypeAuthBreadcrumbsProps;
+
+export interface TypeAuthButtonSubmitProps extends Omit<ButtonProps, 'name'>, TypeAuthBreadcrumbsProps {
+    loading?: boolean;
+}
+
+export interface TypeFormTextFieldProps<T extends FieldValues> extends Omit<TextFieldProps<'outlined'>, 'variant'> {
+    name: FieldPath<T>;
+    control: Control<T>;
+}

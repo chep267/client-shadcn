@@ -1,0 +1,24 @@
+{
+    "extends": "@tsconfig/vite-react/tsconfig.json",
+    "include": ["src/**/*", "test/**/*"],
+    "exclude": ["src/**/__tests__/*", "node_modules", "dist"],
+    "compilerOptions": {
+        "target": "ESNext",
+        "lib": ["ES2024", "ESNext", "DOM", "DOM.Iterable"],
+        "noImplicitAny": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"],
+            "@src/*": ["src/*"],
+            "@langs/*": ["src/langs/*"],
+            "@modules/*": ["src/modules/*"],
+            "@module-base/*": ["src/modules/module-base/*"],
+            "@module-global/*": ["src/modules/module-global/*"],
+            "@module-user/*": ["src/modules/module-user/*"],
+            "@module-auth/*": ["src/modules/module-auth/*"]
+        }
+    }
+}
