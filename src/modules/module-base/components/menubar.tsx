@@ -222,35 +222,6 @@ function MenubarSubContent({ className, ...props }: React.ComponentProps<typeof 
     );
 }
 
-function MenuItemCustom(props: { item: App.ModuleBase.Component.NestedItemProps; step?: number }) {
-    const { item, step = 1 } = props;
-    const hasGroup = Boolean(item.subMenu);
-
-    return (
-        <>
-            {item.divide?.includes('top') ? <MenubarSeparator /> : null}
-            {!hasGroup ? (
-                <MenubarItem className={item.className} disabled={item.disabled} onClick={item.onClick}>
-                    {item.title}
-                    <MenubarShortcut>{item.icon}</MenubarShortcut>
-                </MenubarItem>
-            ) : (
-                <MenubarSub>
-                    <MenubarSubTrigger>{item.title}</MenubarSubTrigger>
-                    <MenubarPortal>
-                        <MenubarSubContent sideOffset={step * 8}>
-                            {item.subMenu?.map((subItem) => (
-                                <MenuItemCustom key={subItem.id} item={subItem} step={step + 1}></MenuItemCustom>
-                            ))}
-                        </MenubarSubContent>
-                    </MenubarPortal>
-                </MenubarSub>
-            )}
-            {item.divide?.includes('bottom') ? <MenubarSeparator /> : null}
-        </>
-    );
-}
-
 export {
     Menubar,
     MenubarPortal,
@@ -268,5 +239,4 @@ export {
     MenubarSub,
     MenubarSubTrigger,
     MenubarSubContent,
-    MenuItemCustom,
 };

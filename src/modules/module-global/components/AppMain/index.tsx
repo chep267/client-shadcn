@@ -19,26 +19,20 @@ const AuthRoute = React.lazy(() => import('@module-auth/screens/AuthRoute'));
 
 export default function AppMain() {
     return (
-        <main className={clsx('flex shrink grow', 'scrollbar-custom overflow-auto overscroll-auto')}>
-            <div className="h-1000 w-full" />
+        <main className={clsx('flex shrink grow', 'pt-(--app-size-height-header)')}>
+            <React.Suspense fallback={<StartLoading />}>
+                <Routes>
+                    <Route
+                        path="*"
+                        element={
+                            <AuthRoute>
+                                <AppSider />
+                                <MainRoute />
+                            </AuthRoute>
+                        }
+                    />
+                </Routes>
+            </React.Suspense>
         </main>
-
-        // <Box component="main" className="flex shrink grow pt-(--app-size-height-header)">
-        //     <Container id="app-container" className="flex h-full w-full max-w-full p-0">
-        //         <React.Suspense fallback={<StartLoading />}>
-        //             <Routes>
-        //                 <Route
-        //                     path="*"
-        //                     element={
-        //                         <AuthRoute>
-        //                             <AppSider />
-        //                             <MainRoute />
-        //                         </AuthRoute>
-        //                     }
-        //                 />
-        //             </Routes>
-        //         </React.Suspense>
-        //     </Container>
-        // </Box>
     );
 }

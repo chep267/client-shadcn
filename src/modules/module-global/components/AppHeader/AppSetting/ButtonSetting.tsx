@@ -15,25 +15,26 @@ import { GlobalLanguage } from '@module-global/constants/GlobalLanguage';
 /** components */
 import { Button } from '@module-base/components/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@module-base/components/tooltip';
-import { MenubarTrigger } from '@module-base/components/menubar';
+import { DropdownMenuTrigger } from '@module-base/components/dropdown-menu';
 
 export default function ButtonSetting() {
     return (
         <Tooltip>
             <TooltipTrigger asChild>
-                <MenubarTrigger asChild>
+                <DropdownMenuTrigger asChild>
                     <Button
                         variant="outline"
                         className={clsx(
                             'h-10 w-10 min-w-10 border-0 p-0',
                             'cursor-pointer rounded-full bg-inherit text-inherit shadow-none',
-                            'hover:border hover:bg-inherit'
+                            'focus-visible:ring-0',
+                            'hover:border hover:text-inherit'
                         )}
                         aria-label="menu-setting"
                     >
                         <MenuIcon />
                     </Button>
-                </MenubarTrigger>
+                </DropdownMenuTrigger>
             </TooltipTrigger>
             <TooltipContent>
                 <FormattedMessage id={GlobalLanguage.component.label.setting} />

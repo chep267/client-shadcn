@@ -6,22 +6,23 @@
 
 /** libs */
 import clsx from 'clsx';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
 import { BaseLanguage } from '@module-base/constants/BaseLanguage';
+
+/** components */
+import { Typography } from '@module-base/components/typography';
 
 /** styles */
 import './index.css';
 
 export default function StartLoading() {
     return (
-        <Stack className={clsx('absolute', 'items-center justify-center', 'top-0 right-0 bottom-0 left-0')}>
-            <Stack
+        <div className={clsx('absolute flex items-center justify-center', 'top-0 right-0 bottom-0 left-0')}>
+            <div
                 className={clsx(
-                    'absolute flex items-center justify-center',
+                    'absolute z-1 flex items-center justify-center',
                     'h-40 w-40',
                     'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
                     'rounded-full bg-transparent shadow-lg'
@@ -30,18 +31,21 @@ export default function StartLoading() {
                 <div
                     className={clsx(
                         'animate-start-anim absolute',
-                        'inset-0 rounded-full border-3 border-transparent shadow-lg',
+                        'bg-background inset-0 rounded-full border-3 border-transparent shadow-lg',
                         'border-t-main border-r-main',
                         'dark:border-t-warning dark:border-r-warning'
                     )}
                 />
-                <Typography variant="h5" className={clsx('tracking-wide uppercase', 'text-main', 'dark:text-warning')}>
+                <Typography
+                    component="h5"
+                    className={clsx('z-1 tracking-wide uppercase', 'text-main', 'dark:text-warning')}
+                >
                     <FormattedMessage id={BaseLanguage.component.label.start} />
                 </Typography>
-                <Stack
+                <div
                     className={clsx(
                         'animate-loading-anim',
-                        'absolute',
+                        'absolute flex',
                         'origin-left bg-transparent',
                         'top-[calc(50%-2px)] left-1/2 h-1 w-1/2'
                     )}
@@ -54,8 +58,8 @@ export default function StartLoading() {
                             'dark:bg-warning'
                         )}
                     />
-                </Stack>
-            </Stack>
-        </Stack>
+                </div>
+            </div>
+        </div>
     );
 }

@@ -18,7 +18,7 @@ export default function AppHeader() {
     return (
         <header
             className={clsx(
-                'sticky top-0 z-1',
+                'fixed top-0 z-(--z-index-header)',
                 'flex items-center justify-between',
                 'h-(--app-size-height-header) max-h-(--app-size-height-header) min-h-(--app-size-height-header) w-full',
                 'border-b px-5 py-0 shadow-lg',
@@ -30,7 +30,7 @@ export default function AppHeader() {
                 <AppInfo />
                 <AppTimer />
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center gap-1">
                 <AppButtonDev icon={<Bell />} />
                 <AppSetting />
             </div>

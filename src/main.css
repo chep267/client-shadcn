@@ -5,7 +5,6 @@
  */
 
 @import 'tailwindcss';
-@import '@fontsource/roboto';
 @import 'tw-animate-css';
 
 @custom-variant light (&:where(.light, .light *));
@@ -68,11 +67,13 @@
 
 @layer base {
     :root {
-        --color-custom-main: var(--color-blue-800);
-        --color-custom-danger: var(--color-red-500);
-        --color-custom-warning: var(--color-amber-500);
-        --color-custom-success: var(--color-green-500);
-        --color-custom-info: var(--color-blue-500);
+        --color-custom-main: theme(colors.blue.800);
+        --color-custom-danger: theme(colors.red.500);
+        --color-custom-warning: theme(colors.amber.500);
+        --color-custom-success: theme(colors.green.500);
+        --color-custom-info: theme(colors.blue.500);
+        --scrollbar-thumb: theme(colors.gray.400);
+        --scrollbar-track: theme(colors.gray.200);
 
         --app-size-height-header: 64px;
         --app-size-height-sidebar-mini: 48px;
@@ -80,6 +81,8 @@
         --app-size-width-sidebar-expand: 267px;
         --app-size-breakpoint-sidebar-collapse: 1030px;
         --app-size-breakpoint-sidebar-hidden: 600px;
+
+        --z-index-header: 100;
 
         --radius: 0.625rem;
         --background: oklch(1 0 0);
@@ -117,7 +120,10 @@
     /* Theme dark */
     [data-theme='dark'],
     .dark {
-        --color-custom-main: var(--color-blue-400);
+        --color-custom-main: theme(colors.blue.400);
+        --scrollbar-thumb: theme(colors.gray.600);
+        --scrollbar-track: theme(colors.gray.900);
+
         --background: oklch(0.145 0 0);
         --foreground: oklch(0.985 0 0);
         --card: oklch(0.205 0 0);
@@ -188,9 +194,12 @@
 }
 
 @layer utilities {
-    /* Theme light */
     .scrollbar-thin {
         scrollbar-width: thin;
+    }
+    .scrollbar-thin::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
     }
     .scrollbar-hidden {
         scrollbar-width: none; /* Firefox */
@@ -198,32 +207,21 @@
     .scrollbar-hidden::-webkit-scrollbar-track {
         display: none; /* Chrome, Edge, Safari */
     }
+    .scrollbar-custom {
+        scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+    }
     .scrollbar-custom::-webkit-scrollbar-track {
-        background: var(--color-red-200);
+        background: var(--scrollbar-track);
         border-radius: calc(var(--spacing) * 2.5);
     }
     .scrollbar-custom::-webkit-scrollbar-thumb {
-        background: var(--color-gray-500);
+        background-color: var(--scrollbar-thumb);
         border-radius: calc(var(--spacing) * 2.5);
     }
     .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-        background: var(--color-gray-600);
+        background-color: color-mix(in srgb, var(--scrollbar-thumb), black 15%);
     }
     .scrollbar-custom::-webkit-scrollbar-thumb:active {
-        background: var(--color-gray-600);
-    }
-
-    /* Theme dark */
-    [data-theme='dark'],
-    .dark {
-        .scrollbar-custom::-webkit-scrollbar-track {
-            background: var(--color-gray-800);
-        }
-        .scrollbar-custom::-webkit-scrollbar-thumb {
-            background: var(--color-gray-600);
-        }
-        .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-            background: var(--color-gray-400);
-        }
+        background-color: color-mix(in srgb, var(--scrollbar-thumb), black 15%);
     }
 }

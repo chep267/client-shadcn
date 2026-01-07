@@ -33,7 +33,7 @@ export default function AppButtonDev(props: any) {
                     className={clsx(
                         'h-10 w-10 min-w-10 border-0 p-0',
                         'cursor-pointer rounded-full text-inherit shadow-none',
-                        'hover:border'
+                        'hover:border hover:text-inherit'
                     )}
                     aria-label="dev"
                     onClick={onDev}

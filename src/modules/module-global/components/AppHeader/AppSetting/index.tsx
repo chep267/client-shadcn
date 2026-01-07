@@ -5,17 +5,15 @@
  */
 
 /** components */
-import { Menubar, MenubarMenu } from '@module-base/components/menubar';
+import { DropdownMenu } from '@module-base/components/dropdown-menu';
 import ButtonSetting from '@module-global/components/AppHeader/AppSetting/ButtonSetting';
-import MenuSetting from '@module-global/components/AppHeader/AppSetting/a';
+import MenuSetting from '@module-global/components/AppHeader/AppSetting/MenuSetting';
 
 export default function AppSetting() {
     return (
-        <Menubar className="border-0 bg-inherit shadow-none">
-            <MenubarMenu>
-                <ButtonSetting />
-                <MenuSetting />
-            </MenubarMenu>
-        </Menubar>
+        <DropdownMenu modal={false}>
+            <ButtonSetting />
+            <MenuSetting />
+        </DropdownMenu>
     );
 }
