@@ -21,17 +21,19 @@ interface SidebarMiniItemProps {
     active: boolean;
 }
 
-const AppSidebarMiniItem = React.memo(function SidebarMiniItem(props: SidebarMiniItemProps) {
+const AppSidebarMiniItem = React.memo(function AppSidebarMiniItem(props: SidebarMiniItemProps) {
     const { item, active } = props;
 
     return (
-        <Button asChild variant="ghost" size="lg">
-            <Link
-                to={item.path}
-                className={clsx('grow rounded-none', {
-                    '!text-main': active,
-                })}
-            >
+        <Button
+            asChild
+            variant="ghost"
+            size="lg"
+            className={clsx('grow rounded-none', {
+                'text-main hover:text-main': active,
+            })}
+        >
+            <Link to={item.path}>
                 <item.icon />
             </Link>
         </Button>

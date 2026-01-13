@@ -15,7 +15,6 @@ import {
     SidebarContent,
     SidebarGroup,
     SidebarGroupContent,
-    SidebarGroupLabel,
     SidebarMenu,
     useSidebar,
 } from '@module-base/components/sidebar';
@@ -28,7 +27,6 @@ export default function AppSidebarContent() {
     return (
         <SidebarContent className="scrollbar-custom scrollbar-thin overscroll-none">
             <SidebarGroup>
-                <SidebarGroupLabel>Application</SidebarGroupLabel>
                 <SidebarGroupContent>
                     <SidebarMenu>
                         {SidebarItems.map((item) => (

@@ -6,7 +6,6 @@
 
 /** libs */
 import * as React from 'react';
-import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
@@ -44,7 +43,7 @@ const AppSidebarItem = React.memo(function SidebarItem(props: SidebarItemProps) 
                         {ButtonContent}
                     </SidebarMenuButton>
                 </TooltipTrigger>
-                <TooltipContent side="right" className={clsx('invisible', { visible: tooltip })}>
+                <TooltipContent side="right" hidden={!tooltip}>
                     <FormattedMessage id={item.name} />
                 </TooltipContent>
             </Tooltip>
