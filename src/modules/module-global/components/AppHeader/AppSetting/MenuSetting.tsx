@@ -121,7 +121,7 @@ export default function MenuSetting() {
     const locale = useSettingStore((store) => store.data.locale);
     const settingAction = useSettingStore((store) => store.action);
     const user = useAuthStore((store) => store.data.user);
-    const isAuthentication = Boolean(user);
+    const isAuthentication = !!user;
     const hookSignout = useSignout();
 
     const menuBase: MenuSettingItemProps[] = [
@@ -142,7 +142,6 @@ export default function MenuSetting() {
                     value: ThemeObject.dark,
                     title: <FormattedMessage id={ThemeLanguage.component.label.dark} />,
                     icon: <MoonStarIcon className="size-5" />,
-                    onClick: () => settingAction.changeTheme(ThemeObject.dark),
                 },
                 {
                     id: 'theme-light',
@@ -151,7 +150,6 @@ export default function MenuSetting() {
                     value: ThemeObject.light,
                     title: <FormattedMessage id={ThemeLanguage.component.label.light} />,
                     icon: <SunIcon className="text-warning size-5" />,
-                    onClick: () => settingAction.changeTheme(ThemeObject.light),
                 },
             ],
         },
@@ -207,7 +205,7 @@ export default function MenuSetting() {
             className={clsx(
                 'mt-3 w-fit',
                 'scrollbar-thin scrollbar-custom overflow-auto overscroll-none',
-                'max-h-[calc(100dvh-var(--app-size-height-header)-8px)]'
+                'max-h-[calc(var(--app-size-height-sidebar)-var(--spacing)*2)]'
             )}
             side="bottom"
             align="end"
@@ -217,9 +215,13 @@ export default function MenuSetting() {
                     <MenuSettingItem key={item.id} item={item} />
                 ))}
             </DropdownMenuGroup>
-            <DropdownMenuGroup>
-                {!isAuthentication && menuAuth.map((item) => <MenuSettingItem key={item.id} item={item} />)}
-            </DropdownMenuGroup>
+            {isAuthentication && (
+                <DropdownMenuGroup>
+                    {menuAuth.map((item) => (
+                        <MenuSettingItem key={item.id} item={item} />
+                    ))}
+                </DropdownMenuGroup>
+            )}
         </DropdownMenuContent>
     );
 }

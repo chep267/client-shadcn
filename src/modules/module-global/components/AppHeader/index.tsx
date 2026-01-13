@@ -6,7 +6,7 @@
 
 /** libs */
 import clsx from 'clsx';
-import { Bell } from 'lucide-react';
+import { BellIcon } from 'lucide-react';
 
 /** components */
 import AppInfo from '@module-global/components/AppHeader/AppInfo';
@@ -31,7 +31,7 @@ export default function AppHeader() {
                 <AppTimer />
             </div>
             <div className="flex items-center gap-1">
-                <AppButtonDev icon={<Bell />} />
+                <AppButtonDev icon={<BellIcon />} />
                 <AppSetting />
             </div>
         </header>

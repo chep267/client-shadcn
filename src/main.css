@@ -75,14 +75,15 @@
         --scrollbar-thumb: theme(colors.gray.400);
         --scrollbar-track: theme(colors.gray.200);
 
-        --app-size-height-header: 64px;
-        --app-size-height-sidebar-mini: 48px;
+        --app-size-height-header: calc(var(--spacing) * 16); /* 64px */
+        --app-size-height-sidebar: calc(100svh - var(--app-size-height-header));
+        --app-size-height-sidebar-mini: calc(var(--spacing) * 12); /* 48px */
         --app-size-width-sidebar-collapse: 56px;
         --app-size-width-sidebar-expand: 267px;
         --app-size-breakpoint-sidebar-collapse: 1030px;
         --app-size-breakpoint-sidebar-hidden: 600px;
 
-        --z-index-header: 100;
+        --z-index-header: 1;
 
         --radius: 0.625rem;
         --background: oklch(1 0 0);
@@ -225,3 +226,31 @@
         background-color: color-mix(in srgb, var(--scrollbar-thumb), black 15%);
     }
 }
+
+/*---break---
+ */
+
+/*:root {*/
+/*    --sidebar: hsl(0 0% 98%);*/
+/*    --sidebar-foreground: hsl(240 5.3% 26.1%);*/
+/*    --sidebar-primary: hsl(240 5.9% 10%);*/
+/*    --sidebar-primary-foreground: hsl(0 0% 98%);*/
+/*    --sidebar-accent: hsl(240 4.8% 95.9%);*/
+/*    --sidebar-accent-foreground: hsl(240 5.9% 10%);*/
+/*    --sidebar-border: hsl(220 13% 91%);*/
+/*    --sidebar-ring: hsl(217.2 91.2% 59.8%);*/
+/*}*/
+
+/*!*---break---*/
+/* *!*/
+
+/*.dark {*/
+/*    --sidebar: hsl(240 5.9% 10%);*/
+/*    --sidebar-foreground: hsl(240 4.8% 95.9%);*/
+/*    --sidebar-primary: hsl(224.3 76.3% 48%);*/
+/*    --sidebar-primary-foreground: hsl(0 0% 100%);*/
+/*    --sidebar-accent: hsl(240 3.7% 15.9%);*/
+/*    --sidebar-accent-foreground: hsl(240 4.8% 95.9%);*/
+/*    --sidebar-border: hsl(240 3.7% 15.9%);*/
+/*    --sidebar-ring: hsl(217.2 91.2% 59.8%);*/
+/*}*/

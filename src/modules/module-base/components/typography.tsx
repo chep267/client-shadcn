@@ -13,7 +13,7 @@ import { cn } from '@module-base/utils/shadcn';
 export function Typography(
     props: React.PropsWithChildren<{
         component?: 'span' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-        className: string;
+        className?: string;
     }>
 ) {
     const { children, className, component: TextComponent = 'span', ...rest } = props;

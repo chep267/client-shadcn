@@ -83,7 +83,6 @@ export default ({ mode }: ConfigEnv) => {
                     compact: true, // Compact output
                     manualChunks: {
                         'vite-chunks-react-core': ['react', 'react-dom', 'react-router-dom', 'react-intl'],
-                        'vite-chunks-mui': ['@mui/material', '@mui/icons-material', '@mui/utils'],
                         'vite-chunks-particles': ['@tsparticles/react', '@tsparticles/slim'],
                         'vite-chunks-vendor': ['@tanstack/react-query'],
                     },

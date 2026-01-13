@@ -4,9 +4,6 @@
  *
  */
 
-/** libs */
-import { blue, orange } from '@mui/material/colors';
-
 /** constants */
 import { ThemeObject } from '@module-base/constants/ThemeObject';
 
@@ -54,7 +51,7 @@ export const ParticleOptions = (mode: App.ModuleBase.Store.Theme): IParticlesPro
             },
         },
         color: {
-            value: mode === ThemeObject.light ? blue[800] : orange[800],
+            value: mode === ThemeObject.light ? '#1565c0' : '#ef6c00',
             animation: {
                 h: {
                     count: 0,

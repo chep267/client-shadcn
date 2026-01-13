@@ -11,7 +11,6 @@ export interface TypeAppItem {
     path: string;
     name: ReactNode;
     icon: ReactNode;
-    onClick(): void;
 }
 
 export interface ListAppProps {

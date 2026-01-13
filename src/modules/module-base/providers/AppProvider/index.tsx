@@ -13,7 +13,6 @@ import { BrowserRouter } from 'react-router-dom';
 import NotifyProvider from '@module-base/providers/NotifyProvider';
 import ThemeProvider from '@module-base/providers/ThemeProvider';
 import LanguageProvider from '@module-base/providers/LanguageProvider';
-import WindowProvider from '@module-base/providers/WindowProvider';
 
 /** Create a client */
 const queryClient = new QueryClient({
@@ -37,9 +36,7 @@ export default function AppProvider(props: React.PropsWithChildren) {
             <BrowserRouter>
                 <LanguageProvider>
                     <ThemeProvider>
-                        <NotifyProvider>
-                            <WindowProvider>{children}</WindowProvider>
-                        </NotifyProvider>
+                        <NotifyProvider>{children}</NotifyProvider>
                     </ThemeProvider>
                 </LanguageProvider>
             </BrowserRouter>

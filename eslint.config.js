@@ -55,7 +55,6 @@ export default tsEslint.config({
         'no-restricted-imports': [
             'error',
             {
-                patterns: ['@mui/*/*/*'],
                 paths: ['lodash'],
             },
         ],

@@ -1,14 +1,6 @@
-/**
- *
- * @author dongntd267@gmail.com
- *
- */
-
-/** libs */
 import * as React from 'react';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 
-/** utils */
 import { cn } from '@module-base/utils/shadcn';
 
 function TooltipProvider({ delayDuration = 0, ...props }: React.ComponentProps<typeof TooltipPrimitive.Provider>) {

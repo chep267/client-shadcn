@@ -11,11 +11,12 @@ import { Routes, Route } from 'react-router-dom';
 
 /** components */
 import StartLoading from '@module-base/components/StartLoading';
+import { SidebarProvider } from '@module-base/components/sidebar';
 
 /** lazy components */
-const AppSider = React.lazy(() => import('@module-global/components/AppSider'));
+const AppSidebar = React.lazy(() => import('@module-global/components/AppSidebar'));
 const MainRoute = React.lazy(() => import('@module-global/components/AppMain/MainRoute'));
-const AuthRoute = React.lazy(() => import('@module-auth/screens/AuthRoute'));
+// const AuthRoute = React.lazy(() => import('@module-auth/screens/AuthRoute'));
 
 export default function AppMain() {
     return (
@@ -25,10 +26,10 @@ export default function AppMain() {
                     <Route
                         path="*"
                         element={
-                            <AuthRoute>
-                                <AppSider />
+                            <SidebarProvider className="min-h-(--app-size-height-sidebar)">
+                                <AppSidebar />
                                 <MainRoute />
-                            </AuthRoute>
+                            </SidebarProvider>
                         }
                     />
                 </Routes>
