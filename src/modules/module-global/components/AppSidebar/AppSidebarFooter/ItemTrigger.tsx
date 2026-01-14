@@ -20,7 +20,10 @@ export default function ItemTrigger() {
 
     return (
         <DropdownMenuTrigger asChild>
-            <SidebarMenuButton className="cursor-pointer" size="lg">
+            <SidebarMenuButton
+                className="cursor-pointer group-data-[collapsible=icon]:rounded-full group-data-[collapsible=icon]:!p-0"
+                size="lg"
+            >
                 <Avatar className="border">
                     <AvatarImage src={user?.photo ?? undefined} />
                     <AvatarFallback className="text-xs">{user?.name?.substring(0, 2)?.toUpperCase()}</AvatarFallback>
