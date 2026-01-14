@@ -11,5 +11,6 @@ export const AppRouterPath = {
     game: '/game',
     feed: '/feed',
     messenger: '/messenger',
+    account: '/account',
     notFound: '/not-found',
 } as const;

@@ -8,7 +8,7 @@ export declare interface TypeUser {
     /**
      * The display name of the user.
      */
-    readonly displayName: string | null;
+    readonly name: string | null;
     /**
      * The email of the user.
      */
@@ -20,17 +20,13 @@ export declare interface TypeUser {
      * @remarks
      * This is null if the user has no phone credential linked to the account.
      */
-    readonly phoneNumber: string | null;
+    readonly phone: string | null;
     /**
      * The profile photo URL of the user.
      */
-    readonly photoURL: string | null;
-    /**
-     * The provider used to authenticate the user.
-     */
-    readonly providerId: string;
-    /**
-     * The user's unique ID, scoped to the project.
-     */
+    readonly photo: string | null;
     readonly uid: string;
+    readonly role: string;
+    readonly createdAt?: string;
+    readonly updatedAt?: string;
 }

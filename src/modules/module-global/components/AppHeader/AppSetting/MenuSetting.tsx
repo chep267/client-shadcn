@@ -8,17 +8,15 @@
 import * as React from 'react';
 import clsx from 'clsx';
 import { FormattedMessage } from 'react-intl';
-import { PaletteIcon, LanguagesIcon, MoonStarIcon, SunIcon, LogOutIcon } from 'lucide-react';
+import { PaletteIcon, LanguagesIcon, MoonStarIcon, SunIcon } from 'lucide-react';
 
 /** constants */
 import { LocaleObject } from '@module-base/constants/LocaleObject';
 import { ThemeObject } from '@module-base/constants/ThemeObject';
 import { LangLanguage } from '@module-base/constants/LangLanguage';
 import { ThemeLanguage } from '@module-base/constants/ThemeLanguage';
-import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 
 /** components */
-import { Spinner } from '@module-base/components/spinner';
 import {
     DropdownMenuContent,
     DropdownMenuSub,
@@ -33,12 +31,8 @@ import {
     DropdownMenuRadioItem,
 } from '@module-base/components/dropdown-menu';
 
-/** hooks */
-import { useSignout } from '@module-auth/hooks/useSignout';
-
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';
-import { useAuthStore } from '@module-auth/stores/useAuthStore';
 
 interface MenuSettingItemProps {
     id: string;
@@ -120,9 +114,6 @@ export default function MenuSetting() {
     const theme = useSettingStore((store) => store.data.theme);
     const locale = useSettingStore((store) => store.data.locale);
     const settingAction = useSettingStore((store) => store.action);
-    const user = useAuthStore((store) => store.data.user);
-    const isAuthentication = !!user;
-    const hookSignout = useSignout();
 
     const menuBase: MenuSettingItemProps[] = [
         {
@@ -181,25 +172,6 @@ export default function MenuSetting() {
         },
     ];
 
-    const menuAuth: MenuSettingItemProps[] = [
-        {
-            id: 'sign-out',
-            className: 'group hover:text-danger focus:text-danger cursor-pointer',
-            title: AuthLanguage.component.title.signout,
-            icon: hookSignout.isPending ? (
-                <Spinner className="group-hover:text-danger size-5" />
-            ) : (
-                <LogOutIcon className="group-hover:text-danger size-5" />
-            ),
-            divide: 'bottom',
-            onClick: (event) => {
-                event.preventDefault();
-                event.stopPropagation();
-                hookSignout.mutate(undefined, { onSettled: () => {} });
-            },
-        },
-    ];
-
     return (
         <DropdownMenuContent
             className={clsx(
@@ -215,13 +187,6 @@ export default function MenuSetting() {
                     <MenuSettingItem key={item.id} item={item} />
                 ))}
             </DropdownMenuGroup>
-            {isAuthentication && (
-                <DropdownMenuGroup>
-                    {menuAuth.map((item) => (
-                        <MenuSettingItem key={item.id} item={item} />
-                    ))}
-                </DropdownMenuGroup>
-            )}
         </DropdownMenuContent>
     );
 }
