@@ -30,7 +30,7 @@ const AppSidebarItem = React.memo(function SidebarItem(props: SidebarItemProps) 
         <Link to={item.path}>
             <item.icon />
             <span className="truncate">
-                <FormattedMessage id={item.name} />
+                <FormattedMessage id={item.name} defaultMessage={item.name} />
             </span>
         </Link>
     );
@@ -44,7 +44,7 @@ const AppSidebarItem = React.memo(function SidebarItem(props: SidebarItemProps) 
                     </SidebarMenuButton>
                 </TooltipTrigger>
                 <TooltipContent side="right" hidden={!tooltip}>
-                    <FormattedMessage id={item.name} />
+                    <FormattedMessage id={item.name} defaultMessage={item.name} />
                 </TooltipContent>
             </Tooltip>
         </SidebarMenuItem>

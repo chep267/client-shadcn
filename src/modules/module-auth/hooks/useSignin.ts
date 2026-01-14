@@ -6,12 +6,13 @@
 
 /** libs */
 import Cookies from 'js-cookie';
+import { useIntl } from 'react-intl';
 import { useMutation } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 /** constants */
 import { AppKey } from '@module-base/constants/AppKey';
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
-import { AppNotifyColor } from '@module-base/constants/AppNotifyColor';
 
 /** utils */
 import { isCallApiErrorByClient } from '@module-base/utils/isClientCallApiError';
@@ -20,14 +21,13 @@ import { isCallApiErrorByClient } from '@module-base/utils/isClientCallApiError'
 import { authService } from '@module-auth/services';
 
 /** stores */
-import { useSettingStore } from '@module-base/stores/useSettingStore';
 import { useAuthStore } from '@module-auth/stores/useAuthStore';
 
 /** types */
 import type { AxiosError } from 'axios';
 
 export function useSignin() {
-    const settingAction = useSettingStore(({ action }) => action);
+    const { formatMessage } = useIntl();
     const authAction = useAuthStore(({ action }) => action);
 
     return useMutation({
@@ -47,11 +47,7 @@ export function useSignin() {
                 default:
                     messageIntl = AuthLanguage.notify.server.error;
             }
-            settingAction.changeNotify({
-                open: true,
-                color: AppNotifyColor.error,
-                messageIntl,
-            });
+            toast.error(formatMessage({ id: messageIntl, defaultMessage: messageIntl }));
         },
     });
 }

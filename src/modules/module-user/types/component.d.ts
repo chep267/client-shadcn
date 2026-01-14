@@ -5,15 +5,13 @@
  */
 
 /** types */
-import type { AvatarProps } from '@mui/material/Avatar';
-import type { TypographyProps } from '@mui/material/Typography';
 import type { TypeUser } from '@module-user/types/data.d';
 
-export interface TypeUserAvatarProps extends AvatarProps {
+export interface TypeUserAvatarProps {
     uid?: TypeUser['uid'];
 }
 
-export interface TypeUserNameProps extends TypographyProps {
+export interface TypeUserNameProps {
     uid?: TypeUser['uid'];
     name?: TypeUser['displayName'];
 }

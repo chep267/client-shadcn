@@ -11,9 +11,6 @@ import Cookie from 'js-cookie';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormattedMessage } from 'react-intl';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 
 /** constants */
 import { AppKey } from '@module-base/constants/AppKey';
@@ -26,6 +23,8 @@ import { delay } from '@module-base/utils/delay';
 import { isCallApiErrorByClient } from '@module-base/utils/isClientCallApiError';
 
 /** components */
+import { Card, CardContent, CardFooter } from '@module-base/components/card';
+import { FieldGroup } from '@module-base/components/field';
 import AuthTitle from '@module-auth/components/general/AuthTitle';
 import AuthBreadcrumbs from '@module-auth/components/general/AuthBreadcrumbs';
 import FieldEmail from '@module-auth/components/general/FieldEmail';
@@ -82,30 +81,29 @@ export default function RecoverForm() {
     };
 
     return (
-        <Paper
-            className={clsx(
-                'flex flex-col',
-                'w-full max-w-xl',
-                'z-1 gap-y-5 rounded-md p-6',
-                'overflow-hidden shadow-lg'
-            )}
-            component="form"
-            noValidate
-        >
-            <AuthTitle className="pb-6" name="recover" />
-
-            <FieldEmail
-                name={FormFieldsName.email}
-                control={control}
-                label={<FormattedMessage id={AuthLanguage.component.label.email} />}
-                autoComplete="username"
-                autoFocus
-            />
-
-            <Box className={clsx('flex flex-col items-end justify-between', 'w-full gap-2', 'xs:flex-row')}>
+        <Card className={clsx('w-full max-w-xl min-w-0', 'z-1 rounded-md', 'overflow-hidden shadow-lg')}>
+            <AuthTitle name="recover" />
+            <CardContent>
+                <FieldGroup className="gap-4">
+                    <FieldEmail
+                        name={FormFieldsName.email}
+                        control={control}
+                        label={AuthLanguage.component.label.email}
+                        autoComplete="username"
+                        autoFocus
+                    />
+                </FieldGroup>
+            </CardContent>
+            <CardFooter
+                className={clsx(
+                    'w-full justify-between gap-2',
+                    'mobile:items-end items-start',
+                    'mobile:flex-row flex-col'
+                )}
+            >
                 <AuthBreadcrumbs name="recover" />
                 <ButtonRecover handleSubmit={handleSubmit} onSubmitError={onSubmitError} />
-            </Box>
-        </Paper>
+            </CardFooter>
+        </Card>
     );
 }

@@ -5,9 +5,8 @@
  */
 
 /** types */
+import * as React from 'react';
 import type { Control, FieldPath, FieldValues } from 'react-hook-form';
-import type { TextFieldProps } from '@mui/material/TextField';
-import type { ButtonProps } from '@mui/material/Button';
 
 export type TypeAuthBreadcrumbsItem = {
     title: string;
@@ -20,15 +19,14 @@ export type TypeAuthBreadcrumbsProps = {
     name?: 'signin' | 'register' | 'recover';
 };
 
-export type TypeAuthTitleProps = {
-    className?: string;
-} & TypeAuthBreadcrumbsProps;
+export type TypeAuthTitleProps = TypeAuthBreadcrumbsProps;
 
-export interface TypeAuthButtonSubmitProps extends Omit<ButtonProps, 'name'>, TypeAuthBreadcrumbsProps {
+export interface TypeAuthButtonSubmitProps extends TypeAuthBreadcrumbsProps {
     loading?: boolean;
 }
 
-export interface TypeFormTextFieldProps<T extends FieldValues> extends Omit<TextFieldProps<'outlined'>, 'variant'> {
+export interface TypeFormTextFieldProps<T extends FieldValues> extends React.ComponentProps<'input'> {
     name: FieldPath<T>;
     control: Control<T>;
+    label?: string;
 }

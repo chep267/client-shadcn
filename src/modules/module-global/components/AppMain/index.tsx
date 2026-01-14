@@ -16,7 +16,7 @@ import { SidebarProvider } from '@module-base/components/sidebar';
 /** lazy components */
 const AppSidebar = React.lazy(() => import('@module-global/components/AppSidebar'));
 const MainRoute = React.lazy(() => import('@module-global/components/AppMain/MainRoute'));
-// const AuthRoute = React.lazy(() => import('@module-auth/screens/AuthRoute'));
+const AuthRoute = React.lazy(() => import('@module-auth/screens/AuthRoute'));
 
 export default function AppMain() {
     return (
@@ -26,10 +26,12 @@ export default function AppMain() {
                     <Route
                         path="*"
                         element={
-                            <SidebarProvider className="min-h-(--app-size-height-sidebar)">
-                                <AppSidebar />
-                                <MainRoute />
-                            </SidebarProvider>
+                            <AuthRoute>
+                                <SidebarProvider className="min-h-(--app-size-height-sidebar)">
+                                    <AppSidebar />
+                                    <MainRoute />
+                                </SidebarProvider>
+                            </AuthRoute>
                         }
                     />
                 </Routes>

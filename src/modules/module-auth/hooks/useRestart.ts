@@ -7,12 +7,13 @@
 /** libs */
 import Cookies from 'js-cookie';
 import { useMutation } from '@tanstack/react-query';
+import { useIntl } from 'react-intl';
+import { toast } from 'sonner';
 
 /** constants */
 import { AppKey } from '@module-base/constants/AppKey';
 import { AppTimer } from '@module-base/constants/AppTimer';
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
-import { AppNotifyColor } from '@module-base/constants/AppNotifyColor';
 
 /** utils */
 import { delay } from '@module-base/utils/delay';
@@ -22,14 +23,13 @@ import { isCallApiErrorByClient } from '@module-base/utils/isClientCallApiError'
 import { authService } from '@module-auth/services';
 
 /** stores */
-import { useSettingStore } from '@module-base/stores/useSettingStore';
 import { useAuthStore } from '@module-auth/stores/useAuthStore';
 
 /** types */
 import type { AxiosError } from 'axios';
 
 export function useRestart() {
-    const settingAction = useSettingStore(({ action }) => action);
+    const { formatMessage } = useIntl();
     const authAction = useAuthStore(({ action }) => action);
     const uid = Cookies.get(AppKey.uid) || '';
 
@@ -51,11 +51,8 @@ export function useRestart() {
                 default:
                     messageIntl = AuthLanguage.notify.server.error;
             }
-            settingAction.changeNotify({
-                open: true,
-                color: AppNotifyColor.error,
-                messageIntl,
-            });
+
+            toast.error(formatMessage({ id: messageIntl, defaultMessage: messageIntl }));
             authAction.setData({ user: null, prePath: '/' });
         },
     });

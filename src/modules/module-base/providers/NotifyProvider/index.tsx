@@ -36,7 +36,7 @@ class NotifyProvider extends React.Component<
         const { hasError } = this.state;
 
         return (
-            <React.Suspense fallback={null}>
+            <React.Suspense>
                 {hasError ? <FallBack isAutoReload={isAutoReload} /> : children}
                 <NotifyBoundary />
             </React.Suspense>

@@ -28,9 +28,9 @@ export default function LayerScreen(props: LayerScreenProps) {
     const theme = useSettingStore((store) => store.data.theme);
 
     return (
-        <div className={cn('flex items-center justify-center', 'h-full w-full', className)}>
+        <div className={cn('flex shrink grow items-center justify-center', className)}>
             {children}
-            <React.Suspense fallback={null}>
+            <React.Suspense>
                 <Particle options={ParticleOptions(theme)} />
             </React.Suspense>
         </div>

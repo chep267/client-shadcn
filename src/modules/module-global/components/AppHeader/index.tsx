@@ -18,7 +18,7 @@ export default function AppHeader() {
     return (
         <header
             className={clsx(
-                'fixed top-0 z-(--z-index-header)',
+                'fixed top-0 right-0 left-0 z-(--z-index-header)',
                 'flex items-center justify-between',
                 'h-(--app-size-height-header) max-h-(--app-size-height-header) min-h-(--app-size-height-header) w-full',
                 'border-b px-5 py-0 shadow-lg',

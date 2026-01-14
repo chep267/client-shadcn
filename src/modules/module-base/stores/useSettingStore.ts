@@ -17,20 +17,10 @@ import { getDeviceLanguage } from '@module-base/utils/getDeviceLanguage';
 import { getDeviceTheme } from '@module-base/utils/getDeviceTheme';
 import { getSiderState } from '@module-base/utils/getSiderState';
 
-const defaultNotifyStoreData: Readonly<App.ModuleBase.Store.SettingStore['data']['notify']> = {
-    open: false,
-    message: '',
-    messageIntl: '',
-    color: undefined,
-    duration: undefined,
-    anchorOrigin: { vertical: 'top', horizontal: 'right' },
-};
-
 const defaultSettingStore: Readonly<App.ModuleBase.Store.SettingStore['data']> = {
     locale: getDeviceLanguage(),
     theme: getDeviceTheme(),
     sider: getSiderState(),
-    notify: defaultNotifyStoreData,
 };
 
 export const useSettingStore = create<App.ModuleBase.Store.SettingStore>((set) => ({
@@ -56,13 +46,6 @@ export const useSettingStore = create<App.ModuleBase.Store.SettingStore>((set) =
             set(
                 produce<App.ModuleBase.Store.SettingStore>((store) => {
                     store.data.sider = sider;
-                })
-            );
-        },
-        changeNotify: (notifyData = structuredClone(defaultNotifyStoreData)) => {
-            set(
-                produce<App.ModuleBase.Store.SettingStore>((store) => {
-                    store.data.notify = { ...store.data.notify, ...notifyData };
                 })
             );
         },

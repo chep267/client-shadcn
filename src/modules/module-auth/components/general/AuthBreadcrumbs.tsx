@@ -5,19 +5,27 @@
  */
 
 /** libs */
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Link from '@mui/material/Link';
-import { Link as RouterLink } from 'react-router-dom';
+import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
 import { AuthRouterPath } from '@module-auth/constants/AuthRouterPath';
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 
+/** components */
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbSeparator,
+} from '@module-base/components/breadcrumb';
+
 export default function AuthBreadcrumbs(props: App.ModuleAuth.Component.AuthBreadcrumbsProps) {
     const { name = 'signin' } = props;
 
-    const breadcrumbs: App.ModuleAuth.Component.AuthBreadcrumbsItem[] = [
+    const items: App.ModuleAuth.Component.AuthBreadcrumbsItem[] = [
         {
             title: AuthLanguage.component.title.signin,
             path: AuthRouterPath.signin,
@@ -36,22 +44,23 @@ export default function AuthBreadcrumbs(props: App.ModuleAuth.Component.AuthBrea
     ];
 
     return (
-        <Breadcrumbs aria-label="breadcrumb" className="text-main w-full">
-            {breadcrumbs.map((item) =>
-                item.hidden ? undefined : (
-                    <Link
-                        key={item.path}
-                        component={RouterLink}
-                        to={item.path}
-                        className="text-inherit"
-                        replace
-                        underline="hover"
-                        fontSize="larger"
-                    >
-                        <FormattedMessage id={item.title} />
-                    </Link>
-                )
-            )}
-        </Breadcrumbs>
+        <Breadcrumb>
+            <BreadcrumbList>
+                {items
+                    .filter((item) => !item.hidden)
+                    .map((item, index) => (
+                        <React.Fragment key={item.path}>
+                            {index > 0 && <BreadcrumbSeparator />}
+                            <BreadcrumbItem>
+                                <BreadcrumbLink asChild className="hover:text-main text-base">
+                                    <Link key={item.path} to={item.path} replace>
+                                        <FormattedMessage id={item.title} defaultMessage={item.title} />
+                                    </Link>
+                                </BreadcrumbLink>
+                            </BreadcrumbItem>
+                        </React.Fragment>
+                    ))}
+            </BreadcrumbList>
+        </Breadcrumb>
     );
 }

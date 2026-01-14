@@ -6,10 +6,11 @@
 
 /** libs */
 import { useMutation } from '@tanstack/react-query';
+import { useIntl } from 'react-intl';
+import { toast } from 'sonner';
 
 /** constants */
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
-import { AppNotifyColor } from '@module-base/constants/AppNotifyColor';
 
 /** utils */
 import { isCallApiErrorByClient } from '@module-base/utils/isClientCallApiError';
@@ -17,23 +18,16 @@ import { isCallApiErrorByClient } from '@module-base/utils/isClientCallApiError'
 /** services */
 import { authService } from '@module-auth/services';
 
-/** stores */
-import { useSettingStore } from '@module-base/stores/useSettingStore';
-
 /** types */
 import type { AxiosError } from 'axios';
 
 export function useRecover() {
-    const settingAction = useSettingStore(({ action }) => action);
+    const { formatMessage } = useIntl();
 
     return useMutation({
         mutationFn: authService.recover,
         onSuccess: () => {
-            settingAction.changeNotify({
-                open: true,
-                color: AppNotifyColor.success,
-                messageIntl: AuthLanguage.notify.recover.success,
-            });
+            toast.success(formatMessage({ id: AuthLanguage.notify.recover.success }));
         },
         onError: (error: AxiosError) => {
             let messageIntl: string;
@@ -44,11 +38,7 @@ export function useRecover() {
                 default:
                     messageIntl = AuthLanguage.notify.server.error;
             }
-            settingAction.changeNotify({
-                open: true,
-                color: AppNotifyColor.error,
-                messageIntl,
-            });
+            toast.error(formatMessage({ id: messageIntl, defaultMessage: messageIntl }));
         },
     });
 }

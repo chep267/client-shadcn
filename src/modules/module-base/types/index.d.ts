@@ -42,33 +42,13 @@ declare global {
             type NotifyProviderStates = TypeComponent.TypeNotifyProviderStates;
             type FallbackDefaultProps = TypeComponent.TypeFallbackDefaultProps;
 
-            type NotifyBoundaryProps = TypeComponent.TypeNotifyBoundaryProps;
-
             type IconBaseProps = TypeComponent.TypeIconBaseProps;
             type IconSVGProps = TypeComponent.TypeIconSVGProps;
             type IconList = TypeComponent.TypeIconList;
 
-            type ImageBaseProps = TypeComponent.TypeImageBaseProps;
-            type InputSearchProps = TypeComponent.TypeInputSearchProps;
-            type PasswordFieldProps = TypeComponent.TypePasswordFieldProps;
-            type MenuBaseProps = TypeComponent.TypeMenuBaseProps;
-
             type OrderType = TypeComponent.TypeOrderType;
             type TableData = TypeComponent.TypeTableData;
             type DataKey<Data extends TableData> = TypeComponent.TypeDataKey<Data>;
-
-            type ListBaseProps<Data> = TypeComponent.TypeListBaseProps<Data>;
-            type NestedItemProps = TypeComponent.TypeNestedItemProps;
-            type VirtualListProps<Data, Context> = TypeComponent.TypeVirtualListProps<Data, Context>;
-
-            type TableBaseProps<Data extends TableData = TableData> = TypeComponent.TypeTableBaseProps<Data>;
-            type TableHeaderProps<Data extends TableData = TableData> = TypeComponent.TypeTableHeaderProps<Data>;
-            type TableContentProps<Data extends TableData = TableData> = TypeComponent.TypeTableContentProps<Data>;
-            type CheckboxColumnProps = TypeComponent.TypeCheckboxColumnProps;
-            type VirtualTableProps<
-                Data extends TableData = TableData,
-                Context = any,
-            > = TypeComponent.TypeVirtualTableProps<Data, Context>;
         }
     }
 }

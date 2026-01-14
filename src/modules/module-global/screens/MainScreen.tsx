@@ -13,7 +13,7 @@ import AppMain from '@module-global/components/AppMain';
 
 export default function MainScreen() {
     return (
-        <div className={clsx('relative', 'flex flex-col', 'h-dvh w-dvw')}>
+        <div className={clsx('relative', 'flex flex-col', 'min-h-dvh w-full')}>
             <AppHeader />
             <AppMain />
         </div>

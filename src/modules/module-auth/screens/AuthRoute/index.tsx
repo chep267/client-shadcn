@@ -25,7 +25,7 @@ export default function AuthRoute(props: React.PropsWithChildren) {
     const { children } = props;
     const { pathname } = useLocation();
     const navigate = useNavigate();
-    const isAuthentication = useAuthStore((store) => Boolean(store.data.user));
+    const isAuthentication = useAuthStore((store) => !!store.data.user);
     const prePath = useAuthStore((store) => store.data.prePath);
     const authAction = useAuthStore((store) => store.action);
 

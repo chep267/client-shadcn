@@ -44,7 +44,7 @@ interface MenuSettingItemProps {
     id: string;
     className?: string;
     icon?: React.ReactNode;
-    title?: React.ReactNode;
+    title?: string;
     value?: string;
     divide?: 'top' | 'bottom' | 'top-bottom';
     type?: 'item' | 'sub' | 'group';
@@ -66,7 +66,7 @@ function MenuSettingItem(props: { item: MenuSettingItemProps; step?: number }) {
                 <DropdownMenuSub>
                     <DropdownMenuSubTrigger className={item.className}>
                         {step === 1 && <DropdownMenuShortcut className="mr-2 ml-0">{item.icon}</DropdownMenuShortcut>}
-                        {item.title}
+                        <FormattedMessage id={item.title} defaultMessage={item.title} />
                         {step !== 1 && <DropdownMenuShortcut>{item.icon}</DropdownMenuShortcut>}
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
@@ -74,7 +74,7 @@ function MenuSettingItem(props: { item: MenuSettingItemProps; step?: number }) {
                             <DropdownMenuRadioGroup value={item.value} onValueChange={item.onChange}>
                                 {item.subMenu?.map((subItem) => (
                                     <DropdownMenuRadioItem key={subItem.id} value={subItem.value!}>
-                                        {subItem.title}
+                                        <FormattedMessage id={subItem.title} defaultMessage={subItem.title} />
                                         <DropdownMenuShortcut>{subItem.icon}</DropdownMenuShortcut>
                                     </DropdownMenuRadioItem>
                                 ))}
@@ -89,7 +89,7 @@ function MenuSettingItem(props: { item: MenuSettingItemProps; step?: number }) {
                 <DropdownMenuSub>
                     <DropdownMenuSubTrigger className={item.className}>
                         {step === 1 && <DropdownMenuShortcut className="mr-2 ml-0">{item.icon}</DropdownMenuShortcut>}
-                        {item.title}
+                        <FormattedMessage id={item.title} defaultMessage={item.title} />
                         {step !== 1 && <DropdownMenuShortcut>{item.icon}</DropdownMenuShortcut>}
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
@@ -106,7 +106,7 @@ function MenuSettingItem(props: { item: MenuSettingItemProps; step?: number }) {
             {(!item.type || item.type === 'item') && (
                 <DropdownMenuItem className={item.className} disabled={item.disabled} onClick={item.onClick}>
                     {step === 1 && <DropdownMenuShortcut className="mr-2 ml-0">{item.icon}</DropdownMenuShortcut>}
-                    {item.title}
+                    <FormattedMessage id={item.title} defaultMessage={item.title} />
                     {step !== 1 && <DropdownMenuShortcut>{item.icon}</DropdownMenuShortcut>}
                 </DropdownMenuItem>
             )}
@@ -127,9 +127,9 @@ export default function MenuSetting() {
     const menuBase: MenuSettingItemProps[] = [
         {
             id: 'theme',
-            type: 'group',
+            type: 'sub',
             className: 'cursor-pointer data-[state=open]:text-main data-[state=open]:[&_svg]:!text-main',
-            title: <FormattedMessage id={ThemeLanguage.component.label.router} />,
+            title: ThemeLanguage.component.label.router,
             icon: <PaletteIcon className="size-5 text-inherit" />,
             divide: 'top',
             value: theme,
@@ -140,7 +140,7 @@ export default function MenuSetting() {
                     className: 'cursor-pointer',
                     disabled: theme === ThemeObject.dark,
                     value: ThemeObject.dark,
-                    title: <FormattedMessage id={ThemeLanguage.component.label.dark} />,
+                    title: ThemeLanguage.component.label.dark,
                     icon: <MoonStarIcon className="size-5" />,
                 },
                 {
@@ -148,7 +148,7 @@ export default function MenuSetting() {
                     className: 'cursor-pointer',
                     disabled: theme === ThemeObject.light,
                     value: ThemeObject.light,
-                    title: <FormattedMessage id={ThemeLanguage.component.label.light} />,
+                    title: ThemeLanguage.component.label.light,
                     icon: <SunIcon className="text-warning size-5" />,
                 },
             ],
@@ -157,7 +157,7 @@ export default function MenuSetting() {
             id: 'language',
             type: 'sub',
             className: 'cursor-pointer data-[state=open]:text-main data-[state=open]:[&_svg]:!text-main',
-            title: <FormattedMessage id={LangLanguage.component.label.router} />,
+            title: LangLanguage.component.label.router,
             icon: <LanguagesIcon className="size-5 text-inherit" />,
             divide: 'bottom',
             subMenu: [
@@ -165,7 +165,7 @@ export default function MenuSetting() {
                     id: 'Language-Vi',
                     className: 'cursor-pointer',
                     disabled: locale === LocaleObject.vi,
-                    title: <FormattedMessage id={LangLanguage.component.label.vi} />,
+                    title: LangLanguage.component.label.vi,
                     icon: <span>🇻🇳</span>,
                     onClick: () => settingAction.changeLocale(LocaleObject.vi),
                 },
@@ -173,7 +173,7 @@ export default function MenuSetting() {
                     id: 'Language-En',
                     className: 'cursor-pointer',
                     disabled: locale === LocaleObject.en,
-                    title: <FormattedMessage id={LangLanguage.component.label.en} />,
+                    title: LangLanguage.component.label.en,
                     icon: <span>🇬🇧</span>,
                     onClick: () => settingAction.changeLocale(LocaleObject.en),
                 },
@@ -185,7 +185,7 @@ export default function MenuSetting() {
         {
             id: 'sign-out',
             className: 'group hover:text-danger focus:text-danger cursor-pointer',
-            title: <FormattedMessage id={AuthLanguage.component.title.signout} />,
+            title: AuthLanguage.component.title.signout,
             icon: hookSignout.isPending ? (
                 <Spinner className="group-hover:text-danger size-5" />
             ) : (

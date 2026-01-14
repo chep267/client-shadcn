@@ -11,23 +11,10 @@ import type {
     LazyExoticComponent,
     RefObject,
     SVGProps,
-    ImgHTMLAttributes,
     ReactNode,
-    Ref,
     ChangeEvent,
     MouseEvent,
 } from 'react';
-import type { TextFieldProps } from '@mui/material/TextField';
-import type { ListProps } from '@mui/material/List';
-import type { ButtonProps } from '@mui/material/Button';
-import type { MenuProps } from '@mui/material/Menu';
-import type { TableCellProps } from '@mui/material/TableCell';
-import type { TooltipProps } from '@mui/material/Tooltip';
-import type { SnackbarProps } from '@mui/material/Snackbar';
-import type { CheckboxProps } from '@mui/material/Checkbox';
-import type { TableVirtuosoProps, VirtuosoProps } from 'react-virtuoso';
-import type { ListItemProps } from '@mui/material/ListItem';
-import type { TableProps } from '@mui/material/Table';
 
 export type TypeInputElem = HTMLInputElement | null;
 
@@ -52,66 +39,6 @@ export interface TypeIconBaseProps extends SVGProps<SVGSVGElement> {
     ref?: ((instance: SVGSVGElement | null) => void) | RefObject<SVGSVGElement> | null;
 }
 export type TypeIconList = Readonly<Record<TypeIconBase, LazyExoticComponent<(props: IconBaseProps) => JSX.Element>>>;
-
-/** ImageBase */
-export type TypeImageBaseProps = ImgHTMLAttributes<HTMLImageElement>;
-
-/** InputSearch */
-export type TypeInputSearchProps<Variant extends TextFieldProps['variant'] = 'outlined'> = Omit<
-    TextFieldProps<Variant>,
-    'value'
-> & {
-    timer?: number;
-    onLoading?(loading: boolean): void;
-    onChangeValue?(value: string): void;
-};
-
-/** PasswordField */
-export type TypePasswordFieldProps<Variant extends TextFieldProps['variant'] = 'outlined'> = TextFieldProps<Variant>;
-
-/** MenuBase */
-export interface TypeMenuBaseProps {
-    mode?: 'button' | 'icon';
-    menuProps?: Omit<MenuProps, 'open'>;
-    tooltipProps?: Omit<TooltipProps, 'children'>;
-    buttonProps?: Omit<ButtonProps, 'onClick' | 'children'>;
-    buttonChildren?: TooltipProps['children'] | ButtonProps['children'];
-    menuChildren?: MenuProps['children'] | ((props: { closeMenu: menuProps['onClose'] }) => MenuProps['children']);
-}
-
-/** NotifyBoundary */
-export type TypeNotifyBoundaryProps = Omit<SnackbarProps, 'open' | 'autoHideDuration' | 'anchorOrigin' | 'onClose'>;
-
-/** ListBase */
-export interface TypeListBaseProps<Data> extends Omit<ListProps, 'ref'> {
-    ref?: Ref<{
-        scrollTop(): void;
-    }>;
-    classNameContainer?: string;
-    loading?: boolean;
-    emptyContent?: string;
-    data?: Data[];
-    itemContent?(item: Data, index: number): ReactNode;
-}
-export interface TypeNestedItemProps {
-    id: string;
-    className?: string;
-    icon?: ReactNode;
-    loading?: boolean;
-    title?: ReactNode;
-    divide?: 'top' | 'bottom' | 'top-bottom';
-    disabled?: boolean;
-    subMenu?: TypeNestedItemProps[];
-    subIndex?: number;
-    onClick?(event: MouseEvent<HTMLDivElement>): void;
-}
-
-/** Virtual List */
-export interface TypeVirtualListProps<Data, Context> extends VirtuosoProps<Data, Context> {
-    loading?: boolean;
-    emptyContent?: ReactNode;
-    itemProps?: ListItemProps;
-}
 
 /** TableBase */
 export type TypeOrderType = 'asc' | 'desc';

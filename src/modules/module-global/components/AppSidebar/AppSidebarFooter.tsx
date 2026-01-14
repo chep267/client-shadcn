@@ -37,7 +37,7 @@ export default function AppSidebarFooter() {
                                 <ChevronUpIcon className="ml-auto" />
                             </SidebarMenuButton>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent side="top">
+                        <DropdownMenuContent side="top" align="start">
                             <DropdownMenuItem>
                                 <span>Account</span>
                             </DropdownMenuItem>

@@ -7,7 +7,6 @@
 /** libs */
 import clsx from 'clsx';
 import { FormattedMessage } from 'react-intl';
-import Button from '@mui/material/Button';
 
 /** constants */
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
@@ -15,30 +14,25 @@ import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 /** hooks */
 import { useSignin } from '@module-auth/hooks/useSignin';
 
+/** components */
+import { Button } from '@module-base/components/button';
+import { Spinner } from '@module-base/components/spinner';
+
 /** types */
 import type { AxiosError } from 'axios';
-import type { ButtonProps } from '@mui/material/Button';
 import type { UseFormHandleSubmit } from 'react-hook-form';
 
 type TypeFormData = {
     email: string;
     password: string;
 };
-interface TypeButtonSignin extends ButtonProps {
+interface TypeButtonSignin {
     handleSubmit: UseFormHandleSubmit<TypeFormData>;
     onSubmitError: (error: AxiosError) => void;
 }
 
 export default function ButtonSignin(props: TypeButtonSignin) {
-    const {
-        type = 'button',
-        size = 'large',
-        variant = 'contained',
-        className,
-        handleSubmit,
-        onSubmitError,
-        ...btnProps
-    } = props;
+    const { handleSubmit, onSubmitError, ...btnProps } = props;
 
     const hookSignin = useSignin();
 
@@ -50,15 +44,14 @@ export default function ButtonSignin(props: TypeButtonSignin) {
 
     return (
         <Button
-            type={type}
-            size={size}
-            variant={variant}
-            className={clsx('bg-main font-bold tracking-normal capitalize', 'w-full', 'xs:w-1/3', className)}
-            loading={hookSignin.isPending}
+            type="button"
+            variant="outline"
+            className={clsx('hover:text-main hover:border-main', 'mobile:w-1/3 w-full')}
+            size="lg"
             onClick={onSubmit}
             {...btnProps}
         >
-            <FormattedMessage id={AuthLanguage.component.button.signin} />
+            {hookSignin.isPending ? <Spinner /> : <FormattedMessage id={AuthLanguage.component.button.signin} />}
         </Button>
     );
 }

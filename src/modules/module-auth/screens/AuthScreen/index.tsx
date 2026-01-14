@@ -21,8 +21,8 @@ const RecoverForm = React.lazy(() => import('@module-auth/components/AuthForm/Re
 
 export default function AuthScreen() {
     return (
-        <LayerScreen className="px-2">
-            <React.Suspense fallback={null}>
+        <LayerScreen className="p-2">
+            <React.Suspense>
                 <Routes>
                     <Route path={AuthRouterPath.signin} element={<SigninForm />} />
                     <Route path={AuthRouterPath.register} element={<RegisterForm />} />

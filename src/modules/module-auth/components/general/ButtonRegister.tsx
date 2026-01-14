@@ -7,7 +7,6 @@
 /** libs */
 import clsx from 'clsx';
 import { FormattedMessage } from 'react-intl';
-import Button from '@mui/material/Button';
 
 /** constants */
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
@@ -15,9 +14,12 @@ import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 /** hooks */
 import { useRegister } from '@module-auth/hooks/useRegister';
 
+/** components */
+import { Button } from '@module-base/components/button';
+import { Spinner } from '@module-base/components/spinner';
+
 /** types */
 import type { AxiosError } from 'axios';
-import type { ButtonProps } from '@mui/material/Button';
 import type { UseFormHandleSubmit } from 'react-hook-form';
 
 type TypeFormData = {
@@ -25,21 +27,13 @@ type TypeFormData = {
     password: string;
     confirmPassword: string;
 };
-interface TypeButtonRegister extends ButtonProps {
+interface TypeButtonRegister {
     handleSubmit: UseFormHandleSubmit<TypeFormData>;
     onSubmitError: (error: AxiosError) => void;
 }
 
 export default function ButtonRegister(props: TypeButtonRegister) {
-    const {
-        type = 'button',
-        size = 'large',
-        variant = 'contained',
-        className,
-        handleSubmit,
-        onSubmitError,
-        ...btnProps
-    } = props;
+    const { handleSubmit, onSubmitError, ...btnProps } = props;
 
     const hookRegister = useRegister();
 
@@ -51,15 +45,14 @@ export default function ButtonRegister(props: TypeButtonRegister) {
 
     return (
         <Button
-            type={type}
-            size={size}
-            variant={variant}
-            className={clsx('bg-main font-bold tracking-normal capitalize', 'w-full', 'xs:w-1/3', className)}
-            loading={hookRegister.isPending}
+            type="button"
+            variant="outline"
+            className={clsx('hover:text-main hover:border-main', 'mobile:w-1/3 w-full')}
+            size="lg"
             onClick={onSubmit}
             {...btnProps}
         >
-            <FormattedMessage id={AuthLanguage.component.button.register} />
+            {hookRegister.isPending ? <Spinner /> : <FormattedMessage id={AuthLanguage.component.button.register} />}
         </Button>
     );
 }

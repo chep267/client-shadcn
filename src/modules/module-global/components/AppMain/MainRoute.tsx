@@ -13,6 +13,7 @@ import { AppRouterPath } from '@module-base/constants/AppRouterPath';
 
 /** components */
 import AppSidebarMini from '@module-global/components/AppSidebarMini';
+import StartLoading from '@module-base/components/StartLoading';
 
 /** screens */
 const NotFoundScreen = React.lazy(() => import('@module-base/screens/NotFoundScreen'));
@@ -22,7 +23,7 @@ export default function MainRoute() {
     return (
         <div className="flex h-full w-full flex-col">
             <AppSidebarMini />
-            <React.Suspense fallback={null}>
+            <React.Suspense fallback={<StartLoading />}>
                 <Routes>
                     <Route path={AppRouterPath.home} element={<Navigate to={AppRouterPath.defaultPath} />} />
                     <Route path={AppRouterPath.feed} element={<FeedScreen />} />

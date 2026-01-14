@@ -7,7 +7,6 @@
 /** libs */
 import clsx from 'clsx';
 import { FormattedMessage } from 'react-intl';
-import Button from '@mui/material/Button';
 
 /** constants */
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
@@ -15,29 +14,24 @@ import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 /** hooks */
 import { useRecover } from '@module-auth/hooks/useRecover';
 
+/** components */
+import { Button } from '@module-base/components/button';
+import { Spinner } from '@module-base/components/spinner';
+
 /** types */
 import type { AxiosError } from 'axios';
-import type { ButtonProps } from '@mui/material/Button';
 import type { UseFormHandleSubmit } from 'react-hook-form';
 
 type TypeFormData = {
     email: string;
 };
-interface TypeButtonRecover extends ButtonProps {
+interface TypeButtonRecover {
     handleSubmit: UseFormHandleSubmit<TypeFormData>;
     onSubmitError: (error: AxiosError) => void;
 }
 
 export default function ButtonRecover(props: TypeButtonRecover) {
-    const {
-        type = 'button',
-        size = 'large',
-        variant = 'contained',
-        className,
-        handleSubmit,
-        onSubmitError,
-        ...btnProps
-    } = props;
+    const { handleSubmit, onSubmitError, ...btnProps } = props;
 
     const hookRecover = useRecover();
 
@@ -49,15 +43,14 @@ export default function ButtonRecover(props: TypeButtonRecover) {
 
     return (
         <Button
-            type={type}
-            size={size}
-            variant={variant}
-            className={clsx('bg-main font-bold tracking-normal capitalize', 'w-full', 'xs:w-1/3', className)}
-            loading={hookRecover.isPending}
+            type="button"
+            variant="outline"
+            className={clsx('hover:text-main hover:border-main', 'mobile:w-1/3 w-full')}
+            size="lg"
             onClick={onSubmit}
             {...btnProps}
         >
-            <FormattedMessage id={AuthLanguage.component.button.recover} />
+            {hookRecover.isPending ? <Spinner /> : <FormattedMessage id={AuthLanguage.component.button.recover} />}
         </Button>
     );
 }
