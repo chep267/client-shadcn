@@ -6,7 +6,7 @@
 
 /** libs */
 import { describe, it, expect } from 'vitest';
-import { render } from '@testing-library/react';
+import { render } from '@test/utils/test-utils';
 import { useForm } from 'react-hook-form';
 
 /** components */
