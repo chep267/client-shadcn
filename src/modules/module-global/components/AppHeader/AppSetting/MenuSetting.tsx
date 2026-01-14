@@ -133,6 +133,7 @@ export default function MenuSetting() {
                     value: ThemeObject.dark,
                     title: ThemeLanguage.component.label.dark,
                     icon: <MoonStarIcon className="size-5" />,
+                    onClick: () => settingAction.changeTheme(ThemeObject.dark),
                 },
                 {
                     id: 'theme-light',
@@ -141,6 +142,7 @@ export default function MenuSetting() {
                     value: ThemeObject.light,
                     title: ThemeLanguage.component.label.light,
                     icon: <SunIcon className="text-warning size-5" />,
+                    onClick: () => settingAction.changeTheme(ThemeObject.light),
                 },
             ],
         },

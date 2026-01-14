@@ -31,21 +31,21 @@ interface TypeButtonRecover {
 }
 
 export default function ButtonRecover(props: TypeButtonRecover) {
-    const { handleSubmit, onSubmitError, ...btnProps } = props;
+    const { handleSubmit, onSubmitError: onError, ...btnProps } = props;
 
     const hookRecover = useRecover();
 
     const onSubmit = handleSubmit((data) => {
-        hookRecover.mutate(data, {
-            onError: onSubmitError,
-        });
+        hookRecover.mutate(data, { onError });
     });
 
     return (
         <Button
             type="button"
             variant="outline"
-            className={clsx('hover:text-main hover:border-main', 'mobile:w-1/3 w-full')}
+            className={clsx('hover:text-main hover:border-main', 'mobile:w-1/3 w-full', {
+                'text-main border-main': hookRecover.isPending,
+            })}
             size="lg"
             onClick={onSubmit}
             {...btnProps}

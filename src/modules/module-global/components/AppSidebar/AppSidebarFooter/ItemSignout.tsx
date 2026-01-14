@@ -19,10 +19,10 @@ import { DropdownMenuItem } from '@module-base/components/dropdown-menu';
 export default function ItemSignout() {
     const hookSignout = useSignout();
 
-    const onSignout = () => (event: React.MouseEvent) => {
+    const onSignout = (event: React.MouseEvent) => {
         event.preventDefault();
         event.stopPropagation();
-        hookSignout.mutate(undefined, { onSettled: () => {} });
+        hookSignout.mutate();
     };
 
     return (

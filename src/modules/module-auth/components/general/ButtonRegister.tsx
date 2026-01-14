@@ -33,21 +33,21 @@ interface TypeButtonRegister {
 }
 
 export default function ButtonRegister(props: TypeButtonRegister) {
-    const { handleSubmit, onSubmitError, ...btnProps } = props;
+    const { handleSubmit, onSubmitError: onError, ...btnProps } = props;
 
     const hookRegister = useRegister();
 
     const onSubmit = handleSubmit((data) => {
-        hookRegister.mutate(data, {
-            onError: onSubmitError,
-        });
+        hookRegister.mutate(data, { onError });
     });
 
     return (
         <Button
             type="button"
             variant="outline"
-            className={clsx('hover:text-main hover:border-main', 'mobile:w-1/3 w-full')}
+            className={clsx('hover:text-main hover:border-main', 'mobile:w-1/3 w-full', {
+                'text-main border-main': hookRegister.isPending,
+            })}
             size="lg"
             onClick={onSubmit}
             {...btnProps}

@@ -32,21 +32,21 @@ interface TypeButtonSignin {
 }
 
 export default function ButtonSignin(props: TypeButtonSignin) {
-    const { handleSubmit, onSubmitError, ...btnProps } = props;
+    const { handleSubmit, onSubmitError: onError, ...btnProps } = props;
 
     const hookSignin = useSignin();
 
     const onSubmit = handleSubmit((data) => {
-        hookSignin.mutate(data, {
-            onError: onSubmitError,
-        });
+        hookSignin.mutate(data, { onError });
     });
 
     return (
         <Button
             type="button"
             variant="outline"
-            className={clsx('hover:text-main hover:border-main', 'mobile:w-1/3 w-full')}
+            className={clsx('hover:text-main hover:border-main', 'mobile:w-1/3 w-full', {
+                'text-main border-main': hookSignin.isPending,
+            })}
             size="lg"
             onClick={onSubmit}
             {...btnProps}

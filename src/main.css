@@ -72,8 +72,8 @@
         --color-custom-warning: theme(colors.amber.500);
         --color-custom-success: theme(colors.green.500);
         --color-custom-info: theme(colors.blue.500);
-        --scrollbar-thumb: theme(colors.gray.400);
-        --scrollbar-track: theme(colors.gray.200);
+        --scrollbar-thumb: var(--sidebar-ring);
+        --scrollbar-track: var(--muted);
 
         --app-size-height-header: calc(var(--spacing) * 16); /* 64px */
         --app-size-height-sidebar: calc(100dvh - var(--app-size-height-header));
@@ -122,8 +122,6 @@
     [data-theme='dark'],
     .dark {
         --color-custom-main: theme(colors.blue.400);
-        --scrollbar-thumb: theme(colors.gray.600);
-        --scrollbar-track: theme(colors.gray.900);
 
         --background: oklch(0.145 0 0);
         --foreground: oklch(0.985 0 0);
@@ -210,19 +208,5 @@
     }
     .scrollbar-custom {
         scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
-    }
-    .scrollbar-custom::-webkit-scrollbar-track {
-        background: var(--scrollbar-track);
-        border-radius: calc(var(--spacing) * 2.5);
-    }
-    .scrollbar-custom::-webkit-scrollbar-thumb {
-        background-color: var(--scrollbar-thumb);
-        border-radius: calc(var(--spacing) * 2.5);
-    }
-    .scrollbar-custom::-webkit-scrollbar-thumb:hover {
-        background-color: color-mix(in srgb, var(--scrollbar-thumb), black 15%);
-    }
-    .scrollbar-custom::-webkit-scrollbar-thumb:active {
-        background-color: color-mix(in srgb, var(--scrollbar-thumb), black 15%);
     }
 }
