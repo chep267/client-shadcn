@@ -14,12 +14,10 @@ export type TypeSiderState = 'collapse' | 'expand' | 'hidden' | 'force';
 type TypeSettingData = {
     locale: TypeLocale;
     theme: TypeTheme;
-    sider: TypeSiderState;
 };
 type TypeSettingAction = {
     changeLocale: (locale?: TypeLocale) => void;
     changeTheme: (theme?: TypeTheme) => void;
-    changeSider: (sider?: TypeSiderState) => void;
 };
 export type TypeSettingStore = {
     data: TypeSettingData;

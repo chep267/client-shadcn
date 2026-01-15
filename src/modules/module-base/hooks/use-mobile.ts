@@ -1,18 +1,28 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** libs */
 import * as React from 'react';
 
-const MOBILE_BREAKPOINT = 768;
+/** utils */
+import { getCssVariable } from '@module-base/utils/shadcn';
 
 export function useIsMobile() {
     const [isMobile, setIsMobile] = React.useState<boolean>(false);
 
     React.useEffect(() => {
-        const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
-        const onChange = () => {
-            setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
-        };
-        mql.addEventListener('change', onChange);
-        setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
-        return () => mql.removeEventListener('change', onChange);
+        if (typeof window === 'undefined') return;
+
+        const MOBILE_BREAKPOINT = getCssVariable('--breakpoint-tablet', 768);
+        const media = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+        const listener = () => setIsMobile(media.matches);
+        media.addEventListener('change', listener);
+
+        setIsMobile(media.matches);
+        return () => media.removeEventListener('change', listener);
     }, []);
 
     return isMobile;

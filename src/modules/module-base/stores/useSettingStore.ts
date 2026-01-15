@@ -15,12 +15,10 @@ import { AppKey } from '@module-base/constants/AppKey';
 /** utils */
 import { getDeviceLanguage } from '@module-base/utils/getDeviceLanguage';
 import { getDeviceTheme } from '@module-base/utils/getDeviceTheme';
-import { getSiderState } from '@module-base/utils/getSiderState';
 
 const defaultSettingStore: Readonly<App.ModuleBase.Store.SettingStore['data']> = {
     locale: getDeviceLanguage(),
     theme: getDeviceTheme(),
-    sider: getSiderState(),
 };
 
 export const useSettingStore = create<App.ModuleBase.Store.SettingStore>((set) => ({
@@ -39,13 +37,6 @@ export const useSettingStore = create<App.ModuleBase.Store.SettingStore>((set) =
             set(
                 produce<App.ModuleBase.Store.SettingStore>((store) => {
                     store.data.theme = theme;
-                })
-            );
-        },
-        changeSider: (sider = defaultSettingStore.sider) => {
-            set(
-                produce<App.ModuleBase.Store.SettingStore>((store) => {
-                    store.data.sider = sider;
                 })
             );
         },

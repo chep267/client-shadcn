@@ -13,10 +13,10 @@
 
 @theme {
     --breakpoint-xs: 30rem; /* 480px */
-    --breakpoint-mobile: 30rem; /* 480px */
-    --breakpoint-tablet: 40rem; /* 640px */
+    --breakpoint-mobile: 40rem; /* 640px */
+    --breakpoint-tablet: 48rem; /* 768px */
     --breakpoint-laptop: 64rem; /* 1024px */
-    --breakpoint-desktop: 88rem; /* 1408px */
+    --breakpoint-desktop: 80rem; /* 1280px */
 }
 
 @theme inline {

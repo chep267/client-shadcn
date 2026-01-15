@@ -46,7 +46,7 @@ axiosClient.interceptors.response.use(
         if (error.response?.status === axios.HttpStatusCode.Unauthorized) {
             Cookies.remove(AppKey.uid);
         }
-        /** Waiting, pause for about 600ms */
+        /** Waiting, pause for about 600 ms */
         await delay(AppTimer.pendingApi);
         return Promise.reject(error);
     }
