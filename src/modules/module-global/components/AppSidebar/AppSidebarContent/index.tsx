@@ -11,18 +11,11 @@ import { useLocation } from 'react-router-dom';
 import { SidebarItems } from '@module-global/constants/SidebarItems';
 
 /** components */
-import {
-    SidebarContent,
-    SidebarGroup,
-    SidebarGroupContent,
-    SidebarMenu,
-    useSidebar,
-} from '@module-base/components/sidebar';
-import AppSidebarItem from '@module-global/components/AppSidebar/AppSidebarItem';
+import { SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu } from '@module-base/components/sidebar';
+import AppSidebarItem from '@module-global/components/AppSidebar/AppSidebarContent/AppSidebarItem';
 
 export default function AppSidebarContent() {
     const { pathname } = useLocation();
-    const { open } = useSidebar();
 
     return (
         <SidebarContent className="scrollbar-custom scrollbar-thin overscroll-none">
@@ -30,12 +23,7 @@ export default function AppSidebarContent() {
                 <SidebarGroupContent>
                     <SidebarMenu>
                         {SidebarItems.map((item) => (
-                            <AppSidebarItem
-                                key={item.path}
-                                item={item}
-                                active={item.path === pathname}
-                                tooltip={!open}
-                            />
+                            <AppSidebarItem key={item.path} item={item} active={item.path === pathname} />
                         ))}
                     </SidebarMenu>
                 </SidebarGroupContent>

@@ -5,19 +5,15 @@
  */
 
 /** types */
-import type { ReactNode } from 'react';
+import * as React from 'react';
 
 export interface TypeAppItem {
     path: string;
-    name: ReactNode;
-    icon: ReactNode;
+    icon: React.ElementType;
+    name: string;
 }
 
-export interface ListAppProps {
-    hasTooltip: boolean;
-}
-
-export interface AppItemProps extends ListAppProps {
+export interface SidebarItemProps {
     item: TypeAppItem;
-    isSelected: boolean;
+    active?: boolean;
 }

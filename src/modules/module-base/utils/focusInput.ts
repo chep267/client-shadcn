@@ -12,7 +12,7 @@ export const focusInput = (payload: { timer?: number; elem?: App.ModuleBase.Comp
     if (!elem) {
         return cb?.();
     }
-    return delay(timer, () => {
+    return delay(timer).then(() => {
         elem.selectionStart = elem.selectionEnd = elem.value?.length || 0;
         elem.focus?.();
         cb?.();

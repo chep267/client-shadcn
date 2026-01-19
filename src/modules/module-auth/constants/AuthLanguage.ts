@@ -7,10 +7,10 @@
 export const AuthLanguage = {
     component: {
         button: {
-            signin: 'module.auth.component.button.signin.text',
-            register: 'module.auth.component.button.register.text',
-            recover: 'module.auth.component.button.recover.text',
-            clear: 'module.auth.component.button.clear.text',
+            signin: 'module.auth.component.button.signin',
+            register: 'module.auth.component.button.register',
+            recover: 'module.auth.component.button.recover',
+            clear: 'module.auth.component.button.clear',
         },
         label: {
             email: 'module.auth.component.label.email',

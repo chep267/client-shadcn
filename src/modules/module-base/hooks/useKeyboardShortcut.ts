@@ -1,0 +1,42 @@
+// /**
+//  *
+//  * @author dongntd267@gmail.com
+//  *
+//  */
+//
+// /** libs */
+// import * as React from 'react';
+// import useSWRSubscription from 'swr/subscription';
+//
+// // Module-level Map to track callbacks per key
+// const keyCallbacks = new Map<string, Set<() => void>>();
+//
+// function useKeyboardShortcut(key: string, callback: () => void) {
+//     // Register this callback in the Map
+//     React.useEffect(() => {
+//         if (!keyCallbacks.has(key)) {
+//             keyCallbacks.set(key, new Set());
+//         }
+//         keyCallbacks.get(key)!.add(callback);
+//
+//         return () => {
+//             const set = keyCallbacks.get(key);
+//             if (set) {
+//                 set.delete(callback);
+//                 if (set.size === 0) {
+//                     keyCallbacks.delete(key);
+//                 }
+//             }
+//         };
+//     }, [key, callback]);
+//
+//     useSWRSubscription('global-keydown', () => {
+//         const handler = (e: KeyboardEvent) => {
+//             if (e.metaKey && keyCallbacks.has(e.key)) {
+//                 keyCallbacks.get(e.key)!.forEach((cb) => cb());
+//             }
+//         };
+//         window.addEventListener('keydown', handler);
+//         return () => window.removeEventListener('keydown', handler);
+//     });
+// }

@@ -97,7 +97,7 @@ export default function RegisterForm() {
         setError(FormFieldsName.email, { message: messageIntl });
         setError(FormFieldsName.password, { message: messageIntl });
         setError(FormFieldsName.confirmPassword, { message: messageIntl });
-        delay(AppTimer.notifyDuration, clearErrors).then();
+        delay(AppTimer.notifyDuration).then(() => clearErrors());
     };
 
     return (

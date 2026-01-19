@@ -12,22 +12,18 @@ import { useLocation } from 'react-router-dom';
 import { SidebarItems } from '@module-global/constants/SidebarItems';
 
 /** components */
-import { useSidebar } from '@module-base/components/sidebar';
 import { ButtonGroup } from '@module-base/components/button-group';
 import AppSidebarMiniItem from '@module-global/components/AppSidebarMini/AppSidebarMiniItem';
 
 export default function AppSidebarMini() {
     const { pathname } = useLocation();
-    const { isMobile } = useSidebar();
 
     return (
         <ButtonGroup
             className={clsx(
                 'bg-background sticky top-(--app-size-height-header) z-(--z-index-header) w-full border-b',
                 '[&>a:not(:first-child)]:!border-l',
-                {
-                    ['hidden']: !isMobile,
-                }
+                'tablet:hidden'
             )}
         >
             {SidebarItems.map((item) => (

@@ -12,16 +12,7 @@ import { Link } from 'react-router-dom';
 /** components */
 import { Button } from '@module-base/components/button';
 
-interface SidebarMiniItemProps {
-    item: {
-        path: string;
-        icon: React.ElementType;
-        name: string;
-    };
-    active: boolean;
-}
-
-const AppSidebarMiniItem = React.memo(function AppSidebarMiniItem(props: SidebarMiniItemProps) {
+const AppSidebarMiniItem = React.memo(function AppSidebarMiniItem(props: App.ModuleGlobal.Component.SidebarItemProps) {
     const { item, active } = props;
 
     return (

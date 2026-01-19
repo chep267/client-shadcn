@@ -14,7 +14,7 @@ import ItemTrigger from '@module-global/components/AppSidebar/AppSidebarFooter/I
 import ItemSignout from '@module-global/components/AppSidebar/AppSidebarFooter/ItemSignout';
 import ItemAccount from '@module-global/components/AppSidebar/AppSidebarFooter/ItemAccount';
 
-export default function Index() {
+export default function AppSidebarFooter() {
     const user = useAuthStore((store) => store.data.user);
     const isAuthentication = !!user;
 

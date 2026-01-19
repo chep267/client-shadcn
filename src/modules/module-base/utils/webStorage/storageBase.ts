@@ -7,9 +7,11 @@
 export default class StorageBase {
     constructor(storageName: App.ModuleBase.Data.StorageName) {
         this.storageName = storageName;
+        this.storageCache = new Map();
     }
 
     private readonly storageName: App.ModuleBase.Data.StorageName;
+    private storageCache: Map<string, string | null>;
 
     private checkParams = (method: string, variable: any, name: string) => {
         if (!variable) {
@@ -19,7 +21,10 @@ export default class StorageBase {
 
     get = (key: string) => {
         this.checkParams('get', key, 'storage key');
-        return window[this.storageName].getItem(key) || '';
+        if (!this.storageCache.has(key)) {
+            this.storageCache.set(key, window[this.storageName].getItem(key));
+        }
+        return this.storageCache.get(key);
     };
     getList = (keys: string[]) => {
         this.checkParams('getList', keys, 'array storage key');
@@ -33,7 +38,9 @@ export default class StorageBase {
     set = (key: string, data: App.ModuleBase.Data.StorageValue) => {
         this.checkParams('set', key, 'storage key');
         this.checkParams('set', data, 'data');
-        window[this.storageName].setItem(key, `${data || ''}`);
+        const value = `${data || ''}`;
+        window[this.storageName].setItem(key, value);
+        this.storageCache.set(key, value);
     };
     setList = (keys: string[], data: App.ModuleBase.Data.StorageValue[]) => {
         this.checkParams('setList', keys, 'array storage key');
@@ -44,13 +51,17 @@ export default class StorageBase {
     remove = (key: string) => {
         this.checkParams('remove', key, 'storage key');
         window[this.storageName].removeItem(key);
+        this.storageCache.delete(key);
     };
     removeList = (keys: string[]) => {
         this.checkParams('removeList', keys, 'array storage key');
         keys.forEach(this.remove);
     };
 
-    clearAll = () => window[this.storageName].clear();
+    clearAll = () => {
+        window[this.storageName].clear();
+        this.storageCache.clear();
+    };
     clearIgnoreKeys = (keys: string[]) => {
         this.checkParams('clearIgnoreKeys', keys, 'array storage key');
         const ignoreData = this.getList(keys);

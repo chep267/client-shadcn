@@ -39,7 +39,7 @@ export function useRestart() {
             const { user, token } = response.data.data;
             const exp = !isNaN(token.exp) ? token.exp : AppTimer.restart;
             authAction.setData({ user });
-            delay(exp, () => hookRestart.mutate()).then();
+            delay(exp).then(() => hookRestart.mutate());
         },
         onError: async (error: AxiosError) => {
             Cookies.remove(AppKey.uid);

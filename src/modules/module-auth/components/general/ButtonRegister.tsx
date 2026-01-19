@@ -46,7 +46,7 @@ export default function ButtonRegister(props: TypeButtonRegister) {
             type="button"
             variant="outline"
             className={clsx('hover:text-main hover:border-main', 'mobile:w-1/3 w-full', {
-                'text-main border-main': hookRegister.isPending,
+                'text-main !border-main': hookRegister.isPending,
             })}
             size="lg"
             onClick={onSubmit}

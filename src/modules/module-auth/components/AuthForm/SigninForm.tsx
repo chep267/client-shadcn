@@ -86,7 +86,7 @@ export default function SigninForm() {
         }
         setError(FormFieldsName.email, { message: messageIntl });
         setError(FormFieldsName.password, { message: messageIntl });
-        delay(AppTimer.notifyDuration, clearErrors).then();
+        delay(AppTimer.notifyDuration).then(() => clearErrors());
     };
 
     return (

@@ -8,9 +8,7 @@
 import clsx, { type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-export const cn = (...inputs: ClassValue[]) => {
-    return twMerge(clsx(inputs));
-};
+export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
 export const getCssVariable = (name: string, defaultValue: number = NaN) => {
     if (typeof window === 'undefined') return defaultValue;

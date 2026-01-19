@@ -11,9 +11,7 @@ declare global {
     namespace App {
         namespace ModuleGlobal {
             namespace Component {
-                type AppItem = TypeComponent.TypeAppItem;
-                type ListAppProps = TypeComponent.ListAppProps;
-                type AppItemProps = TypeComponent.AppItemProps;
+                type SidebarItemProps = TypeComponent.SidebarItemProps;
             }
         }
     }

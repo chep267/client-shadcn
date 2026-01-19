@@ -11,7 +11,7 @@ import { CalendarIcon, HomeIcon, SendIcon } from 'lucide-react';
 import { AppRouterPath } from '@module-base/constants/AppRouterPath';
 import { GlobalLanguage } from '@module-global/constants/GlobalLanguage';
 
-const SidebarItems = [
+const SidebarItems: App.ModuleGlobal.Component.SidebarItemProps['item'][] = [
     {
         path: AppRouterPath.feed,
         name: GlobalLanguage.component.label.feed,

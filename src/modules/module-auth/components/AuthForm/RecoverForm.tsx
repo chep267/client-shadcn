@@ -77,7 +77,7 @@ export default function RecoverForm() {
                 break;
         }
         setError(FormFieldsName.email, { message: messageIntl });
-        delay(AppTimer.notifyDuration, clearErrors).then();
+        delay(AppTimer.notifyDuration).then(() => clearErrors());
     };
 
     return (

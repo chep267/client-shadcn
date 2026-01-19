@@ -7,13 +7,28 @@
 /** constants */
 import { AppTimer } from '@module-base/constants/AppTimer';
 
-export const debounce = (timer: number = AppTimer.debounce, cb?: (...args: any[]) => void) => {
-    // closure function
-    let timeout: NodeJS.Timeout;
-    return (...args: any[]) => {
+export function debounce<T extends (...args: any[]) => void>(cb: T, ms: number = AppTimer.debounce) {
+    let timeout: ReturnType<typeof setTimeout> | undefined;
+
+    const debounced = (...args: Parameters<T>) => {
+        if (timeout) clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            timeout = undefined;
+            cb(...args);
+        }, ms);
+    };
+
+    debounced.cancel = () => {
         if (timeout) {
             clearTimeout(timeout);
+            timeout = undefined;
         }
-        timeout = setTimeout(() => cb?.(...args), timer);
     };
-};
+
+    debounced.flush = (...args: Parameters<T>) => {
+        debounced.cancel();
+        cb(...args);
+    };
+
+    return debounced;
+}

@@ -30,24 +30,28 @@ export async function getMessage(locale: App.ModuleBase.Store.Locale): Promise<A
     const loaderPath = `/src/langs/${locale}.ts`;
     const loader = localeLoaders[loaderPath];
     if (!loader) {
+        if (locale === defaultLocale) {
+            throw new Error('Default locale is missing');
+        }
         console.warn(`Loader not found for locale: "${locale}". Falling back to "${defaultLocale}".`);
         return getMessage(defaultLocale);
     }
 
-    pendingPromises[locale] = (async () => {
-        try {
-            const messages = await loader();
+    pendingPromises[locale] = loader()
+        .then((messages) => {
             if (messages?.[locale]) {
                 messagesCache[locale] = messages[locale];
                 return messages[locale];
             }
             return getMessage(defaultLocale);
-        } catch (error) {
+        })
+        .catch((error) => {
             console.error(`Failed to load locale ${locale} due to network or file error:`, error);
             return getMessage(defaultLocale);
-        } finally {
+        })
+        .finally(() => {
             pendingPromises[locale] = undefined;
-        }
-    })();
+        });
+
     return pendingPromises[locale];
 }

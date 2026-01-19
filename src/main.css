@@ -72,8 +72,8 @@
         --color-custom-warning: theme(colors.amber.500);
         --color-custom-success: theme(colors.green.500);
         --color-custom-info: theme(colors.blue.500);
-        --scrollbar-thumb: var(--sidebar-ring);
-        --scrollbar-track: var(--muted);
+        --color-scrollbar-thumb: var(--sidebar-ring);
+        --color-scrollbar-track: var(--muted);
 
         --app-size-height-header: calc(var(--spacing) * 16); /* 64px */
         --app-size-height-sidebar: calc(100dvh - var(--app-size-height-header));
@@ -207,6 +207,6 @@
         display: none; /* Chrome, Edge, Safari */
     }
     .scrollbar-custom {
-        scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+        scrollbar-color: var(--color-scrollbar-thumb) var(--color-scrollbar-track);
     }
 }

@@ -44,7 +44,7 @@ export default function ButtonRecover(props: TypeButtonRecover) {
             type="button"
             variant="outline"
             className={clsx('hover:text-main hover:border-main', 'mobile:w-1/3 w-full', {
-                'text-main border-main': hookRecover.isPending,
+                'text-main !border-main': hookRecover.isPending,
             })}
             size="lg"
             onClick={onSubmit}

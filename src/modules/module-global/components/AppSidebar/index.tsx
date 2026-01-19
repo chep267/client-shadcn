@@ -7,8 +7,8 @@
 /** components */
 import { Sidebar, SidebarRail } from '@module-base/components/sidebar';
 import AppSidebarHeader from '@module-global/components/AppSidebar/AppSidebarHeader';
-import Index from '@module-global/components/AppSidebar/AppSidebarFooter';
 import AppSidebarContent from '@module-global/components/AppSidebar/AppSidebarContent';
+import AppSidebarFooter from '@module-global/components/AppSidebar/AppSidebarFooter';
 
 export default function AppSidebar() {
     return (
@@ -19,7 +19,7 @@ export default function AppSidebar() {
             <SidebarRail />
             <AppSidebarHeader />
             <AppSidebarContent />
-            <Index />
+            <AppSidebarFooter />
         </Sidebar>
     );
 }
