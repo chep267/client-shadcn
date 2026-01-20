@@ -24,14 +24,17 @@ function InputPassword(props: React.ComponentProps<typeof InputGroupInput>) {
         setShowPassword((prev) => !prev);
     }, []);
 
-    const Icon = showPassword ? EyeIcon : EyeClosed;
-
     return (
         <InputGroup>
             <InputGroupInput {...props} type={showPassword ? 'text' : 'password'} />
             <InputGroupAddon align="inline-end">
                 <InputGroupButton aria-label="show-hide" onClick={toggleShowPassword}>
-                    <Icon />
+                    <React.Activity mode={showPassword ? 'visible' : 'hidden'}>
+                        <EyeIcon />
+                    </React.Activity>
+                    <React.Activity mode={!showPassword ? 'visible' : 'hidden'}>
+                        <EyeClosed />
+                    </React.Activity>
                 </InputGroupButton>
             </InputGroupAddon>
         </InputGroup>

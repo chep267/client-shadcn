@@ -21,7 +21,7 @@ function Timer() {
 
 export default function AppTimer() {
     return (
-        <div className={clsx('items-center gap-2', 'hidden', 'md:flex')}>
+        <div className={clsx('items-center gap-2', 'hidden', 'tablet:flex')}>
             <div className={clsx('bg-main h-2 w-2 rounded-full', 'dark:bg-foreground')} />
             <Typography className="text-sm capitalize">
                 <Timer />

@@ -8,8 +8,8 @@
 import * as React from 'react';
 
 /** lazy components */
-const FallbackDefault = React.lazy(() => import('@module-base/providers/NotifyProvider/FallbackDefault'));
-const NotifyBoundary = React.lazy(() => import('@module-base/providers/NotifyProvider/NotifyBoundary'));
+import FallbackDefault from '@module-base/providers/NotifyProvider/FallbackDefault';
+import NotifyBoundary from '@module-base/providers/NotifyProvider/NotifyBoundary';
 
 class NotifyProvider extends React.Component<
     App.ModuleBase.Component.NotifyProviderProps,
@@ -36,10 +36,10 @@ class NotifyProvider extends React.Component<
         const { hasError } = this.state;
 
         return (
-            <React.Suspense>
+            <React.Fragment>
                 {hasError ? <FallBack isAutoReload={isAutoReload} /> : children}
                 <NotifyBoundary />
-            </React.Suspense>
+            </React.Fragment>
         );
     }
 }

@@ -13,7 +13,7 @@ import { AppEnv } from '@module-base/constants/AppEnv';
 import { AppRouterPath } from '@module-base/constants/AppRouterPath';
 
 /** components */
-import IconBase from '@module-base/components/IconBase';
+import { IconBase } from '@module-base/components/IconBase';
 import { Typography } from '@module-base/components/typography';
 
 export default function AppInfo() {

@@ -30,4 +30,4 @@ const IconBase = React.memo<App.ModuleBase.Component.IconBaseProps>(function Ico
     );
 });
 
-export default IconBase;
+export { IconBase };

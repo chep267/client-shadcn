@@ -17,7 +17,9 @@ import { cn } from '@module-base/utils/shadcn';
 import { useSettingStore } from '@module-base/stores/useSettingStore';
 
 /** lazy components */
-const Particle = React.lazy(() => import('@module-base/components/Particles'));
+const Particle = React.lazy(() =>
+    import('@module-base/components/Particles').then((module) => ({ default: module.Particle }))
+);
 
 type LayerScreenProps = React.PropsWithChildren<{
     className?: string;
@@ -30,7 +32,7 @@ export default function LayerScreen(props: LayerScreenProps) {
     return (
         <div className={cn('flex shrink grow items-center justify-center', className)}>
             {children}
-            <React.Suspense>
+            <React.Suspense fallback={null}>
                 <Particle options={ParticleOptions(theme)} />
             </React.Suspense>
         </div>

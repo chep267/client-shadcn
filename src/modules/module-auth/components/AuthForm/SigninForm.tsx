@@ -41,27 +41,22 @@ type TypeFormData = {
 };
 
 export default function SigninForm() {
-    const FormFieldsName = React.useMemo<Readonly<{ [Key in TypeFormFieldsName]: Key }>>(
-        () => ({
-            email: 'email',
-            password: 'password',
-        }),
-        []
-    );
+    const [FormFieldsName] = React.useState<{ [Key in TypeFormFieldsName]: Key }>({
+        email: 'email',
+        password: 'password',
+    });
 
-    const schema = React.useMemo<z.ZodType<TypeFormData, TypeFormData>>(
-        () =>
-            z.object({
-                [FormFieldsName.email]: z
-                    .string()
-                    .nonempty(AuthLanguage.status.email.empty)
-                    .regex(AppRegex.email, AuthLanguage.status.email.invalid),
-                [FormFieldsName.password]: z
-                    .string()
-                    .nonempty(AuthLanguage.status.password.empty)
-                    .regex(AppRegex.password, AuthLanguage.status.password.invalid),
-            }),
-        []
+    const [schema] = React.useState<z.ZodType<TypeFormData, TypeFormData>>(() =>
+        z.object({
+            [FormFieldsName.email]: z
+                .string()
+                .nonempty(AuthLanguage.status.email.empty)
+                .regex(AppRegex.email, AuthLanguage.status.email.invalid),
+            [FormFieldsName.password]: z
+                .string()
+                .nonempty(AuthLanguage.status.password.empty)
+                .regex(AppRegex.password, AuthLanguage.status.password.invalid),
+        })
     );
 
     const { handleSubmit, control, setError, clearErrors } = useForm<TypeFormData>({

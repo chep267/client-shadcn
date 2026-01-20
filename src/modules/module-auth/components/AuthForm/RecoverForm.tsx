@@ -39,22 +39,17 @@ type TypeFormData = {
 };
 
 export default function RecoverForm() {
-    const FormFieldsName = React.useMemo<Readonly<{ [Key in TypeFormFieldsName]: Key }>>(
-        () => ({
-            email: 'email',
-        }),
-        []
-    );
+    const [FormFieldsName] = React.useState<{ [Key in TypeFormFieldsName]: Key }>({
+        email: 'email',
+    });
 
-    const schema = React.useMemo<z.ZodType<TypeFormData, TypeFormData>>(
-        () =>
-            z.object({
-                [FormFieldsName.email]: z
-                    .string()
-                    .nonempty(AuthLanguage.status.email.empty)
-                    .regex(AppRegex.email, AuthLanguage.status.email.invalid),
-            }),
-        []
+    const [schema] = React.useState<z.ZodType<TypeFormData, TypeFormData>>(() =>
+        z.object({
+            [FormFieldsName.email]: z
+                .string()
+                .nonempty(AuthLanguage.status.email.empty)
+                .regex(AppRegex.email, AuthLanguage.status.email.invalid),
+        })
     );
 
     const { handleSubmit, control, setError, clearErrors } = useForm<TypeFormData>({

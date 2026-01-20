@@ -28,7 +28,7 @@ const Particle = React.memo<IParticlesProps>(function Particle(props) {
         return null;
     }
 
-    return <Particles id={`Particles-${id}`} options={options} />;
+    return <Particles id={`client-particle-${id}`} options={options} />;
 });
 
-export default Particle;
+export { Particle };

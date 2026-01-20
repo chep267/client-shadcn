@@ -40,37 +40,32 @@ type TypeFormData = {
 };
 
 export default function RegisterForm() {
-    const FormFieldsName = React.useMemo<Readonly<{ [Key in TypeFormFieldsName]: Key }>>(
-        () => ({
-            email: 'email',
-            password: 'password',
-            confirmPassword: 'confirmPassword',
-        }),
-        []
-    );
+    const [FormFieldsName] = React.useState<{ [Key in TypeFormFieldsName]: Key }>({
+        email: 'email',
+        password: 'password',
+        confirmPassword: 'confirmPassword',
+    });
 
-    const schema = React.useMemo<z.ZodType<TypeFormData, TypeFormData>>(
-        () =>
-            z
-                .object({
-                    [FormFieldsName.email]: z
-                        .string()
-                        .nonempty(AuthLanguage.status.email.empty)
-                        .regex(AppRegex.email, AuthLanguage.status.email.invalid),
-                    [FormFieldsName.password]: z
-                        .string()
-                        .nonempty(AuthLanguage.status.password.empty)
-                        .regex(AppRegex.password, AuthLanguage.status.password.invalid),
-                    [FormFieldsName.confirmPassword]: z
-                        .string()
-                        .nonempty(AuthLanguage.status.password.empty)
-                        .regex(AppRegex.password, AuthLanguage.status.password.invalid),
-                })
-                .refine((data) => data[FormFieldsName.password] === data[FormFieldsName.confirmPassword], {
-                    path: [FormFieldsName.confirmPassword],
-                    message: AuthLanguage.status.password.different,
-                }),
-        []
+    const [schema] = React.useState<z.ZodType<TypeFormData, TypeFormData>>(() =>
+        z
+            .object({
+                [FormFieldsName.email]: z
+                    .string()
+                    .nonempty(AuthLanguage.status.email.empty)
+                    .regex(AppRegex.email, AuthLanguage.status.email.invalid),
+                [FormFieldsName.password]: z
+                    .string()
+                    .nonempty(AuthLanguage.status.password.empty)
+                    .regex(AppRegex.password, AuthLanguage.status.password.invalid),
+                [FormFieldsName.confirmPassword]: z
+                    .string()
+                    .nonempty(AuthLanguage.status.password.empty)
+                    .regex(AppRegex.password, AuthLanguage.status.password.invalid),
+            })
+            .refine((data) => data[FormFieldsName.password] === data[FormFieldsName.confirmPassword], {
+                path: [FormFieldsName.confirmPassword],
+                message: AuthLanguage.status.password.different,
+            })
     );
 
     const { handleSubmit, control, setError, clearErrors } = useForm<TypeFormData>({

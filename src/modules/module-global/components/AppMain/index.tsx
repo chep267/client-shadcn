@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import { Routes, Route } from 'react-router-dom';
 
 /** components */
-import StartLoading from '@module-base/components/StartLoading';
+import { StartLoading } from '@module-base/components/StartLoading';
 import { SidebarProvider } from '@module-base/components/sidebar';
 
 /** lazy components */

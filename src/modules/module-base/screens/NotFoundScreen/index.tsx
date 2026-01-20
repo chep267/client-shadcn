@@ -5,7 +5,7 @@
  */
 
 /** components */
-import IconBase from '@module-base/components/IconBase';
+import { IconBase } from '@module-base/components/IconBase';
 
 /** screens */
 import LayerScreen from '@module-base/screens/LayerScreen';

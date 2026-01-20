@@ -11,7 +11,7 @@ import * as React from 'react';
 import { useRestart } from '@module-auth/hooks/useRestart';
 
 /** components */
-import StartLoading from '@module-base/components/StartLoading';
+import { StartLoading } from '@module-base/components/StartLoading';
 
 /** screens */
 import LayerScreen from '@module-base/screens/LayerScreen';
