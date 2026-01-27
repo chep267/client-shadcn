@@ -44,9 +44,6 @@ export default tsEslint.config({
         '@typescript-eslint/no-explicit-any': 'off',
         'react-hooks/exhaustive-deps': 'off',
 
-        // intl
-        // 'formatjs/no-offset': 'error',
-
         // @tanstack/query
         '@tanstack/query/exhaustive-deps': 'off',
         '@tanstack/query/no-rest-destructuring': 'warn',
