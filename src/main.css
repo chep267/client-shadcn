@@ -157,25 +157,18 @@
     }
 
     * {
-        @apply border-border outline-ring/50;
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
+        @apply border-border outline-ring/50 m-0 box-border p-0;
+    }
+    button {
+        @apply select-none;
     }
     body {
-        @apply bg-background text-foreground;
+        @apply bg-background text-foreground overscroll-none scroll-smooth;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        overscroll-behavior: none;
-        scroll-behavior: smooth;
     }
     html {
-        overflow: hidden auto;
-        overscroll-behavior: none;
-        scroll-behavior: smooth;
-        -webkit-user-select: none; /* Safari */
-        -ms-user-select: none; /* IE 10 and IE 11 */
-        user-select: none; /* Standard syntax */
+        @apply overflow-x-hidden overflow-y-auto overscroll-none scroll-smooth;
         font-size: 16px; /* 1rem */
     }
     :root {
@@ -185,7 +178,6 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         -webkit-text-size-adjust: 100%;
-        user-select: none;
     }
     code {
         font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
