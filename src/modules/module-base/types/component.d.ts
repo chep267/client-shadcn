@@ -12,9 +12,11 @@ import type {
     RefObject,
     SVGProps,
     ReactNode,
-    ChangeEvent,
     MouseEvent,
 } from 'react';
+import type { TableVirtuosoProps } from 'react-virtuoso';
+import type { ColumnDef } from '@tanstack/react-table';
+import type { TypeItemIds } from '@module-base/types/data';
 
 export type TypeInputElem = HTMLInputElement | null;
 
@@ -31,7 +33,7 @@ export interface TypeFallbackDefaultProps {
 }
 
 /** IconBase */
-type TypeIconBase = 'appLogo' | 'error' | 'notFound';
+type TypeIconBase = 'app-logo' | 'error' | 'not-found';
 export type TypeIconSVGProps = SVGProps<SVGSVGElement>;
 export interface TypeIconBaseProps extends SVGProps<SVGSVGElement> {
     name: TypeIconBase;
@@ -42,48 +44,49 @@ export type TypeIconList = Readonly<Record<TypeIconBase, LazyExoticComponent<(pr
 
 /** TableBase */
 export type TypeOrderType = 'asc' | 'desc';
-export type TypeTableData = Record<string | number, any> | any[];
-export type TypeDataKey<Data extends TypeTableData> = Data extends any[]
-    ? number
-    : Extract<keyof Data, string | number>;
-export interface TypeTableBaseProps<Data extends TypeTableData = TypeTableData> extends TableProps {
-    data?: readonly Data[];
+export type TypeTableData<Data extends Record<string | 'id', any>> = Data;
+export type TypeDataKey<Data extends TypeTableData> = Extract<keyof Data, string | number> | 'id';
+export interface TypeTableBaseProps<Data extends TypeTableData> {
+    className?: string;
+    containerClassName?: string;
+    headerClassName?: string;
+    bodyClassName?: string;
     loading?: boolean;
     emptyContent?: ReactNode;
     hasCheckbox?: boolean;
+    selectedItems?: TypeItemIds;
+    items?: Data[];
     dataKeyForCheckbox?: TypeDataKey<Data>;
-    columns?: (Omit<TableCellProps, 'children'> & {
+    columns?: {
         dataKey: TypeDataKey<Data>;
-        label: ReactNode;
-        hasSort?: boolean;
+        className?: string;
+        label?: ReactNode;
+        sortable?: boolean;
         onClickItem?(
             event: MouseEvent<HTMLTableCellElement>,
             data: { indexRow: number; indexCell: number; item: Data }
         ): void;
-        itemContent?(data: { indexRow: number; indexCell: number; item: Data }): ReactNode;
-    })[];
+        render?(data: { indexRow: number; indexCell: number; item: Data }): ReactNode;
+    }[];
     onChangeSelected?(arr: Array<Data[TypeDataKey<Data>]>): void;
 }
-export interface TypeTableHeaderProps<Data extends TypeTableData = TypeTableData> {
+export interface TypeTableBaseHeaderProps<Data extends TypeTableData> {
+    className?: string;
     columns?: TypeTableBaseProps<Data>['columns'];
     hasCheckbox?: boolean;
-    checked?: boolean;
-    indeterminate?: boolean;
+    checked?: boolean | 'indeterminate';
     orderType?: TypeOrderType;
     orderBy?: TypeDataKey<Data>;
-    onSort?(newKey: TypeDataKey<Data>, prevKey: TypeDataKey<Data>): void;
-    onSelectAll?(event: ChangeEvent<HTMLInputElement>): void;
+    onSort?(dataKey: TypeDataKey<Data>): void;
+    onSelect?(checked: boolean | 'indeterminate'): void;
 }
-export interface TypeTableContentProps<Data extends TypeTableData = TypeTableData> {
-    columns?: TypeTableBaseProps<Data>['columns'];
-    hasCheckbox?: boolean;
-    indexRow: number;
-    item: Data;
-    checked?: boolean;
+export interface TypeTableBaseBodyProps<Data extends TypeTableData> extends Pick<
+    TypeTableBaseProps<Data>,
+    'className' | 'columns' | 'dataKeyForCheckbox' | 'hasCheckbox' | 'loading' | 'emptyContent'
+> {
+    items: NonNullable<TypeTableBaseProps<Data>['items']>;
+    selectedIds: Set<Data[App.ModuleBase.Component.DataKey<Data>]>;
     onSelect?(item: Data): void;
-}
-export interface TypeCheckboxColumnProps extends CheckboxProps {
-    hasCheckbox?: boolean;
 }
 
 /** Virtual Table */
@@ -95,6 +98,6 @@ export interface TypeVirtualTableProps<Data extends TypeTableData, Context = any
     emptyContent?: ReactNode;
     hasCheckbox?: boolean;
     dataKeyForCheckbox?: TypeDataKey<Data>;
-    columns?: TypeTableBaseProps<Data>['columns'];
+    columns?: ColumnDef<{ id: string | number; name: string; test: string }>[];
     onChangeSelected?(arr: Array<Data[TypeDataKey<Data>]>): void;
 }

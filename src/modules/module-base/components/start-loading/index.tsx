@@ -5,11 +5,13 @@
  */
 
 /** libs */
-import clsx from 'clsx';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
 import { BaseLanguage } from '@module-base/constants/BaseLanguage';
+
+/** utils */
+import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { Typography } from '@module-base/components/typography';
@@ -19,17 +21,18 @@ import './index.css';
 
 function StartLoading() {
     return (
-        <div className={clsx('absolute flex items-center justify-center', 'top-0 right-0 bottom-0 left-0')}>
+        <div className={cn('absolute flex items-center justify-center', 'top-0 right-0 bottom-0 left-0')}>
             <div
-                className={clsx(
-                    'absolute z-1 flex items-center justify-center',
+                className={cn(
+                    'absolute z-1',
+                    'flex items-center justify-center',
                     'h-40 w-40',
                     'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
                     'rounded-full bg-transparent shadow-lg'
                 )}
             >
                 <div
-                    className={clsx(
+                    className={cn(
                         'animate-start-anim absolute',
                         'bg-background inset-0 rounded-full border-3 border-transparent shadow-lg',
                         'border-t-main border-r-main',
@@ -38,12 +41,12 @@ function StartLoading() {
                 />
                 <Typography
                     component="h5"
-                    className={clsx('z-1 tracking-wide uppercase', 'text-main', 'dark:text-warning')}
+                    className={cn('z-1 tracking-wide uppercase', 'text-main', 'dark:text-warning')}
                 >
                     <FormattedMessage id={BaseLanguage.component.label.start} />
                 </Typography>
                 <div
-                    className={clsx(
+                    className={cn(
                         'animate-loading-anim',
                         'absolute flex',
                         'origin-left bg-transparent',
@@ -51,10 +54,11 @@ function StartLoading() {
                     )}
                 >
                     <div
-                        className={clsx(
+                        className={cn(
                             'absolute',
                             '-top-1.5 -right-2 h-4 w-4',
-                            'bg-main rounded-full shadow-lg',
+                            'rounded-full shadow-lg',
+                            'bg-main',
                             'dark:bg-warning'
                         )}
                     />

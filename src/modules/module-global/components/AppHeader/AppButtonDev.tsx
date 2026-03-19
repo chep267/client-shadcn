@@ -5,12 +5,14 @@
  */
 
 /** libs */
-import clsx from 'clsx';
 import { FormattedMessage } from 'react-intl';
 import { toast } from 'sonner';
 
 /** constants */
 import { BaseLanguage } from '@module-base/constants/BaseLanguage';
+
+/** utils */
+import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { Button } from '@module-base/components/button';
@@ -30,7 +32,7 @@ export default function AppButtonDev(props: any) {
             <TooltipTrigger asChild>
                 <Button
                     variant="outline"
-                    className={clsx(
+                    className={cn(
                         'h-10 w-10 min-w-10 border-0 p-0',
                         'cursor-pointer rounded-full text-inherit shadow-none',
                         'hover:border hover:text-inherit'

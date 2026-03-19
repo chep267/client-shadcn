@@ -7,7 +7,7 @@
 /** libs */
 import { resolve } from 'node:path';
 import { type ConfigEnv, defineConfig, loadEnv } from 'vite';
-import pluginReact from '@vitejs/plugin-react-swc';
+import pluginReact from '@vitejs/plugin-react';
 import pluginBasicSsl from '@vitejs/plugin-basic-ssl';
 import pluginTailwindcss from '@tailwindcss/vite';
 import pluginViteCompression from 'vite-plugin-compression';
@@ -59,35 +59,14 @@ export default ({ mode }: ConfigEnv) => {
             alias: resolveAlias(),
             extensions: ['.js', '.jsx', '.ts', '.tsx'],
         },
-        esbuild: {
-            target: 'esnext', // Target modern browsers that support ES Modules
-            treeShaking: true, // Remove unnecessary code
-            minifySyntax: true, // Minify syntax while preserving ES Modules
-            legalComments: 'none', // Remove comments
-            format: 'esm',
-        },
         build: {
-            outDir: 'dist', // Output directory
-            target: 'esnext', // Target modern browsers
-            minify: 'esbuild', // Enable minification
-            sourcemap: false, // Generate sourcemaps (optional, disable for smaller builds)
-            chunkSizeWarningLimit: 500, // Set the maximum chunk size (in bytes)
+            outDir: 'dist',
+            target: 'esnext',
+            minify: 'esbuild',
+            sourcemap: false,
+            chunkSizeWarningLimit: 500,
             assetsInlineLimit: 4096,
-            cssCodeSplit: true, // Enable CSS code splitting
-            commonjsOptions: {
-                transformMixedEsModules: true, // Enable tree-shaking
-            },
-            rollupOptions: {
-                output: {
-                    minifyInternalExports: true, // Minify output
-                    compact: true, // Compact output
-                    manualChunks: {
-                        'vite-chunks-react-core': ['react', 'react-dom', 'react-router-dom', 'react-intl'],
-                        'vite-chunks-particles': ['@tsparticles/react', '@tsparticles/slim'],
-                        'vite-chunks-vendor': ['@tanstack/react-query'],
-                    },
-                },
-            },
+            cssCodeSplit: true,
         },
         server: {
             host: config.host,
@@ -95,7 +74,13 @@ export default ({ mode }: ConfigEnv) => {
             open: config.isDevMode,
         },
         optimizeDeps: {
-            esbuildOptions: { target: 'esnext', treeShaking: true },
+            include: ['react', 'react-dom'],
+            rolldownOptions: {
+                treeshake: true,
+                output: {
+                    minifyInternalExports: true,
+                },
+            },
         },
     });
 };

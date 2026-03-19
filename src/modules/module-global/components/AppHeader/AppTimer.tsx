@@ -5,8 +5,10 @@
  */
 
 /** libs */
-import clsx from 'clsx';
 import dayjs from 'dayjs';
+
+/** utils */
+import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { Typography } from '@module-base/components/typography';
@@ -21,12 +23,12 @@ function Timer() {
 
 export default function AppTimer() {
     return (
-        <div className={clsx('items-center gap-2', 'hidden', 'tablet:flex')}>
-            <div className={clsx('bg-main h-2 w-2 rounded-full', 'dark:bg-foreground')} />
+        <div className={cn('items-center gap-2', 'hidden', 'tablet:flex')}>
+            <div className={cn('bg-main h-2 w-2 rounded-full', 'dark:bg-foreground')} />
             <Typography className="text-sm capitalize">
                 <Timer />
             </Typography>
-            <div className={clsx('bg-main h-2 w-2 rounded-full', 'dark:bg-foreground')} />
+            <div className={cn('bg-main h-2 w-2 rounded-full', 'dark:bg-foreground')} />
         </div>
     );
 }

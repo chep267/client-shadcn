@@ -17,9 +17,7 @@ import { cn } from '@module-base/utils/shadcn';
 import { useSettingStore } from '@module-base/stores/useSettingStore';
 
 /** lazy components */
-const Particle = React.lazy(() =>
-    import('@module-base/components/Particles').then((module) => ({ default: module.Particle }))
-);
+const Particle = React.lazy(() => import('@module-base/components/particles'));
 
 type LayerScreenProps = React.PropsWithChildren<{
     className?: string;

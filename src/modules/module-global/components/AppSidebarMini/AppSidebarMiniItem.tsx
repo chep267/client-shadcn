@@ -6,8 +6,10 @@
 
 /** libs */
 import * as React from 'react';
-import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+
+/** utils */
+import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { Button } from '@module-base/components/button';
@@ -20,7 +22,7 @@ const AppSidebarMiniItem = React.memo(function AppSidebarMiniItem(props: App.Mod
             asChild
             variant="ghost"
             size="lg"
-            className={clsx('grow rounded-none', {
+            className={cn('grow rounded-none', {
                 'text-main hover:text-main': active,
             })}
         >

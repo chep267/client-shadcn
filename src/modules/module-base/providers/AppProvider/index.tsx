@@ -9,10 +9,13 @@ import * as React from 'react';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
 
+/** constants */
+import { AppTimer } from '@module-base/constants/AppTimer';
+
 /** providers */
-import NotifyProvider from '@module-base/providers/NotifyProvider';
-import ThemeProvider from '@module-base/providers/ThemeProvider';
 import LanguageProvider from '@module-base/providers/LanguageProvider';
+import ThemeProvider from '@module-base/providers/ThemeProvider';
+import NotifyProvider from '@module-base/providers/NotifyProvider';
 
 /** Create a client */
 const queryClient = new QueryClient({
@@ -23,7 +26,7 @@ const queryClient = new QueryClient({
             refetchIntervalInBackground: false,
             refetchInterval: false,
             refetchOnReconnect: false,
-            retryDelay: 1000,
+            retryDelay: AppTimer.delay,
         },
     },
 });

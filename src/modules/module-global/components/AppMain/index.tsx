@@ -6,11 +6,13 @@
 
 /** libs */
 import * as React from 'react';
-import clsx from 'clsx';
 import { Routes, Route } from 'react-router-dom';
 
+/** utils */
+import { cn } from '@module-base/utils/shadcn';
+
 /** components */
-import { StartLoading } from '@module-base/components/StartLoading';
+import { StartLoading } from '@module-base/components/start-loading';
 import { SidebarProvider } from '@module-base/components/sidebar';
 
 /** lazy components */
@@ -20,7 +22,7 @@ const AuthRoute = React.lazy(() => import('@module-auth/screens/AuthRoute'));
 
 export default function AppMain() {
     return (
-        <main className={clsx('flex shrink grow', 'pt-(--app-size-height-header)')}>
+        <main className={cn('flex shrink grow', 'pt-(--app-size-height-header)')}>
             <React.Suspense fallback={<StartLoading />}>
                 <Routes>
                     <Route

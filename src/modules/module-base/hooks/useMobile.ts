@@ -10,7 +10,7 @@ import * as React from 'react';
 /** utils */
 import { getCssVariable } from '@module-base/utils/shadcn';
 
-export function useMobile() {
+export function useIsMobile() {
     const [isMobile, setIsMobile] = React.useState<boolean>(false);
 
     React.useEffect(() => {

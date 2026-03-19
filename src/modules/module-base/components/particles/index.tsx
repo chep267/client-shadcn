@@ -12,7 +12,7 @@ import { loadSlim } from '@tsparticles/slim';
 /** types */
 import type { IParticlesProps } from '@tsparticles/react';
 
-const Particle = React.memo<IParticlesProps>(function Particle(props) {
+function Particle(props: IParticlesProps) {
     const { options } = props;
 
     const id = React.useId();
@@ -29,6 +29,6 @@ const Particle = React.memo<IParticlesProps>(function Particle(props) {
     }
 
     return <Particles id={`client-particle-${id}`} options={options} />;
-});
+}
 
-export { Particle };
+export default Particle;

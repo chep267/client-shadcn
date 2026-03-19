@@ -6,8 +6,10 @@
 
 /** libs */
 import * as React from 'react';
-import clsx from 'clsx';
 import { LogOutIcon } from 'lucide-react';
+
+/** utils */
+import { cn } from '@module-base/utils/shadcn';
 
 /** hooks */
 import { useSignout } from '@module-auth/hooks/useSignout';
@@ -27,7 +29,7 @@ export default function ItemSignout() {
 
     return (
         <DropdownMenuItem
-            className={clsx('hover:*:!text-danger cursor-pointer', { '*:!text-danger': hookSignout.isPending })}
+            className={cn('hover:*:!text-danger cursor-pointer', { '*:!text-danger': hookSignout.isPending })}
             onClick={onSignout}
         >
             {hookSignout.isPending ? <Spinner /> : <LogOutIcon />}

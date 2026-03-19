@@ -5,11 +5,13 @@
  */
 
 /** libs */
-import clsx from 'clsx';
 import { useLocation } from 'react-router-dom';
 
 /** constants */
 import { SidebarItems } from '@module-global/constants/SidebarItems';
+
+/** utils */
+import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { ButtonGroup } from '@module-base/components/button-group';
@@ -20,7 +22,7 @@ export default function AppSidebarMini() {
 
     return (
         <ButtonGroup
-            className={clsx(
+            className={cn(
                 'bg-background sticky top-(--app-size-height-header) z-(--z-index-header) w-full border-b',
                 '[&>a:not(:first-child)]:!border-l',
                 'tablet:hidden'

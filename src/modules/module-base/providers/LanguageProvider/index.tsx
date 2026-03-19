@@ -7,6 +7,7 @@
 /** libs */
 import * as React from 'react';
 import { IntlProvider } from 'react-intl';
+import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
 import 'dayjs/locale/en';
 
@@ -26,6 +27,7 @@ export default function LanguageProvider(props: React.PropsWithChildren) {
     const [messages, setMessages] = React.useState<App.ModuleBase.Store.LanguageMessages | null>(null);
 
     React.useEffect(() => {
+        dayjs.locale(locale);
         getMessage(locale).then(setMessages);
     }, [locale]);
 

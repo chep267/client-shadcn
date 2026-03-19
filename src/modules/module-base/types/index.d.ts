@@ -48,7 +48,15 @@ declare global {
 
             type OrderType = TypeComponent.TypeOrderType;
             type TableData = TypeComponent.TypeTableData;
-            type DataKey<Data extends TableData> = TypeComponent.TypeDataKey<Data>;
+            type DataKey<Data extends TableData = TableData> = TypeComponent.TypeDataKey<Data>;
+            type TableBaseProps<Data extends TableData = TableData> = TypeComponent.TypeTableBaseProps<Data>;
+            type TableBaseHeaderProps<Data extends TableData = TableData> =
+                TypeComponent.TypeTableBaseHeaderProps<Data>;
+            type TableBaseBodyProps<Data extends TableData = TableData> = TypeComponent.TypeTableBaseBodyProps<Data>;
+            type VirtualTableProps<
+                Data extends TableData = TableData,
+                Context = any,
+            > = TypeComponent.TypeVirtualTableProps<Data, Context>;
         }
     }
 }
