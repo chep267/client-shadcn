@@ -10,7 +10,7 @@ import { cn } from '@module-base/utils/shadcn';
 /** components */
 import { TableBody } from '@module-base/components/table';
 import { TableEmpty } from '@module-base/components/table-base/table-empty';
-import { TableBaseRow } from '@module-base/components/table-base/table-row';
+import { TableBodyRow } from '@module-base/components/table-base/table-body-row';
 
 export function TableBaseBody<Data extends App.ModuleBase.Component.TableData>(
     props: App.ModuleBase.Component.TableBaseBodyProps<Data>
@@ -33,7 +33,7 @@ export function TableBaseBody<Data extends App.ModuleBase.Component.TableData>(
             {items.map((item, indexRow) => {
                 const checked = hasCheckbox && dataKeyForCheckbox ? selectedIds.has(item[dataKeyForCheckbox]) : false;
                 return (
-                    <TableBaseRow
+                    <TableBodyRow
                         key={item[dataKeyForCheckbox]}
                         indexRow={indexRow}
                         hasCheckbox={hasCheckbox}

@@ -12,13 +12,14 @@ import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { Checkbox } from '@module-base/components/checkbox';
-import { TableCell } from '@module-base/components/table';
+import { TableCell, TableHead } from '@module-base/components/table';
 import { Checkbox as CheckboxPrimitive } from 'radix-ui';
 
 interface CheckboxCellProps<Data> extends Pick<
     App.ModuleBase.Component.TableBaseBodyProps<Data>,
     'className' | 'hasCheckbox'
 > {
+    component?: 'th' | 'tr';
     checked?: boolean;
     indeterminate?: boolean;
     onSelect: React.ComponentProps<typeof CheckboxPrimitive.Root>['onCheckedChange'];
@@ -27,18 +28,20 @@ interface CheckboxCellProps<Data> extends Pick<
 const CellCheckbox = React.memo(function CellCheckbox<Data extends App.ModuleBase.Component.TableData>(
     props: CheckboxCellProps<Data>
 ) {
-    const { className, hasCheckbox, checked, indeterminate, onSelect } = props;
+    const { className, component, hasCheckbox, checked, indeterminate, onSelect } = props;
 
     if (!hasCheckbox) return null;
 
+    const Component = component === 'th' ? TableHead : TableCell;
+
     return (
-        <TableCell className={cn('w-10', className)}>
+        <Component className={cn('w-10', className)}>
             <Checkbox
                 className="cursor-pointer"
                 checked={indeterminate ? 'indeterminate' : checked}
                 onCheckedChange={onSelect}
             />
-        </TableCell>
+        </Component>
     );
 });
 

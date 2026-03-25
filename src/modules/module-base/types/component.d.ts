@@ -48,9 +48,6 @@ export type TypeTableData<Data extends Record<string | 'id', any>> = Data;
 export type TypeDataKey<Data extends TypeTableData> = Extract<keyof Data, string | number> | 'id';
 export interface TypeTableBaseProps<Data extends TypeTableData> {
     className?: string;
-    containerClassName?: string;
-    headerClassName?: string;
-    bodyClassName?: string;
     loading?: boolean;
     emptyContent?: ReactNode;
     hasCheckbox?: boolean;
@@ -71,6 +68,7 @@ export interface TypeTableBaseProps<Data extends TypeTableData> {
     onChangeSelected?(arr: Array<Data[TypeDataKey<Data>]>): void;
 }
 export interface TypeTableBaseHeaderProps<Data extends TypeTableData> {
+    asChild?: boolean;
     className?: string;
     columns?: TypeTableBaseProps<Data>['columns'];
     hasCheckbox?: boolean;

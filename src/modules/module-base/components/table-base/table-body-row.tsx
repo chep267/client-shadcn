@@ -14,30 +14,37 @@ import { cn } from '@module-base/utils/shadcn';
 import { TableCell, TableRow } from '@module-base/components/table';
 import { CellCheckbox } from '@module-base/components/table-base/cell-checkbox';
 
-interface TableBaseRowProps<Data> extends Pick<
+interface TableBodyRowProps<Data> extends Pick<
     App.ModuleBase.Component.TableBaseBodyProps<Data>,
     'hasCheckbox' | 'columns' | 'onSelect'
 > {
+    asChild?: boolean;
     checked: boolean;
     indexRow: number;
     item: Data;
 }
 
-const TableBaseRow = React.memo(function TableBaseRow<Data extends App.ModuleBase.Component.TableData>(
-    props: TableBaseRowProps<Data>
-) {
-    const { hasCheckbox, indexRow, checked, columns, item, onSelect } = props;
+function TableBodyRow<Data extends App.ModuleBase.Component.TableData>(props: TableBodyRowProps<Data>) {
+    const { asChild, hasCheckbox, indexRow, checked, columns, item, onSelect } = props;
 
     const renderRow = React.useMemo(() => {
-        return columns?.map(({ dataKey, render, ...cellProps }, indexCell) => {
-            const value = item[dataKey] as string | number;
+        return columns?.map(({ dataKey, sortable: _sortable, render, ...cellProps }, indexCell) => {
             return (
                 <TableCell key={dataKey} {...cellProps}>
-                    {typeof render === 'function' ? render({ indexRow, indexCell, item }) : value}
+                    {typeof render === 'function' ? render({ indexRow, indexCell, item }) : item[dataKey]}
                 </TableCell>
             );
         });
     }, [indexRow, columns, item]);
+
+    if (asChild) {
+        return (
+            <React.Fragment>
+                <CellCheckbox hasCheckbox={hasCheckbox} checked={checked} onSelect={() => onSelect?.(item)} />
+                {renderRow}
+            </React.Fragment>
+        );
+    }
 
     return (
         <TableRow className={cn('h-10')}>
@@ -45,6 +52,6 @@ const TableBaseRow = React.memo(function TableBaseRow<Data extends App.ModuleBas
             {renderRow}
         </TableRow>
     );
-});
+}
 
-export { TableBaseRow };
+export { TableBodyRow };

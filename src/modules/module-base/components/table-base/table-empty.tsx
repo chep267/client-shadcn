@@ -10,12 +10,9 @@ import { cn } from '@module-base/utils/shadcn';
 /** components */
 import { TableRow } from '@module-base/components/table';
 
-type TableEmptyProps = Pick<
-    App.ModuleBase.Component.TableBaseProps<App.ModuleBase.Component.TableData>,
-    'loading' | 'emptyContent'
->;
-
-export function TableEmpty(props: TableEmptyProps) {
+export function TableEmpty(
+    props: Pick<App.ModuleBase.Component.TableBaseProps<App.ModuleBase.Component.TableData>, 'loading' | 'emptyContent'>
+) {
     const { loading, emptyContent } = props;
 
     if (loading) return null;
