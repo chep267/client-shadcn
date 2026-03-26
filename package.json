@@ -53,7 +53,7 @@
         "react-dom": "^19.2.4",
         "react-hook-form": "^7.72.0",
         "react-intl": "^10.1.0",
-        "react-resizable-panels": "^4.7.6",
+        "react-resizable-panels": "^4",
         "react-router-dom": "^7.13.2",
         "react-virtuoso": "^4.18.3",
         "recharts": "3.8.0",
