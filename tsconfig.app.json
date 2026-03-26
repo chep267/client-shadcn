@@ -19,7 +19,8 @@
             "@module-base/*": ["src/modules/module-base/*"],
             "@module-global/*": ["src/modules/module-global/*"],
             "@module-user/*": ["src/modules/module-user/*"],
-            "@module-auth/*": ["src/modules/module-auth/*"]
+            "@module-auth/*": ["src/modules/module-auth/*"],
+            "@module-dashboard/*": ["src/modules/module-dashboard/*"]
         }
     }
 }

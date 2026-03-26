@@ -6,7 +6,7 @@ import {
 } from '@module-base/components/dropdown-menu';
 import { Button } from '@module-base/components/button';
 import { MoreHorizontal } from 'lucide-react';
-import type { TaskData } from '@module-global/services/project';
+import type { TaskData } from '@module-dashboard/services/project';
 
 interface ActionMenuProps {
     item: TaskData;

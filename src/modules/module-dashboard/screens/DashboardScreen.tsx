@@ -1,14 +1,26 @@
-import * as React from 'react';
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
 
-import { Button } from '@module-base/components/button';
-import { Card, CardContent } from '@module-base/components/card';
-import { ProjectTable } from '@module-global/components/Project/ProjectTable';
-import { generateTasks, type TaskData } from '@module-global/services/project';
-import { ModalDelete } from '@module-global/components/Project/ModalDelete';
-import { cn } from '@module-base/utils/shadcn';
+/** libs */
+import * as React from 'react';
 import { toast } from 'sonner';
 
-export default function ProjectPage() {
+/** utils */
+import { cn } from '@module-base/utils/shadcn';
+
+/** services */
+import { generateTasks, type TaskData } from '@module-dashboard/services/project';
+
+/** components */
+import { Button } from '@module-base/components/button';
+import { Card, CardContent } from '@module-base/components/card';
+import { ProjectTable } from '@module-dashboard/components/ProjectTable';
+import { ModalDelete } from '@module-dashboard/components/ModalDelete';
+
+export default function DashboardScreen() {
     const [data, setData] = React.useState(() => generateTasks(50));
     const [deleteItem, setDeleteItem] = React.useState<TaskData>();
 

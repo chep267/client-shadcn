@@ -45,7 +45,7 @@ export default function ButtonRecover(props: TypeButtonRecover) {
         <Button
             type="button"
             variant="outline"
-            className={cn('hover:text-main hover:border-main', 'mobile:w-1/3 w-full', {
+            className={cn('cursor-pointer', 'hover:text-main hover:border-main', 'mobile:w-1/3 w-full', {
                 'text-main !border-main': hookRecover.isPending,
             })}
             size="lg"

@@ -1,6 +1,6 @@
 import { ModalConfirm } from '@module-base/components/modal-base/modal-confirm';
 import { Trash2Icon } from 'lucide-react';
-import type { TaskData } from '@module-global/services/project';
+import type { TaskData } from '@module-dashboard/services/project';
 
 interface ModalDeleteProps {
     item?: TaskData;

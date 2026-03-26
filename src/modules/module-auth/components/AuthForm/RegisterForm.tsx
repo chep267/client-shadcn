@@ -99,27 +99,29 @@ export default function RegisterForm() {
         <Card className={cn('w-full max-w-xl min-w-0', 'z-1 rounded-md', 'overflow-hidden shadow-lg')}>
             <AuthTitle name="register" />
             <CardContent>
-                <FieldGroup className="gap-4">
-                    <FieldEmail
-                        name={FormFieldsName.email}
-                        control={control}
-                        label={AuthLanguage.component.label.email}
-                        autoComplete="username"
-                        autoFocus
-                    />
-                    <FieldPassword
-                        name={FormFieldsName.password}
-                        control={control}
-                        label={AuthLanguage.component.label.password}
-                        autoComplete="new-password"
-                    />
-                    <FieldPassword
-                        name={FormFieldsName.confirmPassword}
-                        control={control}
-                        label={AuthLanguage.component.label.confirmPassword}
-                        autoComplete="new-password"
-                    />
-                </FieldGroup>
+                <form>
+                    <FieldGroup className="gap-4">
+                        <FieldEmail
+                            name={FormFieldsName.email}
+                            control={control}
+                            label={AuthLanguage.component.label.email}
+                            autoComplete="username"
+                            autoFocus
+                        />
+                        <FieldPassword
+                            name={FormFieldsName.password}
+                            control={control}
+                            label={AuthLanguage.component.label.password}
+                            autoComplete="new-password"
+                        />
+                        <FieldPassword
+                            name={FormFieldsName.confirmPassword}
+                            control={control}
+                            label={AuthLanguage.component.label.confirmPassword}
+                            autoComplete="new-password"
+                        />
+                    </FieldGroup>
+                </form>
             </CardContent>
             <CardFooter
                 className={cn(

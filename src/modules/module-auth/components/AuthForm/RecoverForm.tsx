@@ -79,15 +79,17 @@ export default function RecoverForm() {
         <Card className={cn('w-full max-w-xl min-w-0', 'z-1 rounded-md', 'overflow-hidden shadow-lg')}>
             <AuthTitle name="recover" />
             <CardContent>
-                <FieldGroup className="gap-4">
-                    <FieldEmail
-                        name={FormFieldsName.email}
-                        control={control}
-                        label={AuthLanguage.component.label.email}
-                        autoComplete="username"
-                        autoFocus
-                    />
-                </FieldGroup>
+                <form>
+                    <FieldGroup className="gap-4">
+                        <FieldEmail
+                            name={FormFieldsName.email}
+                            control={control}
+                            label={AuthLanguage.component.label.email}
+                            autoComplete="username"
+                            autoFocus
+                        />
+                    </FieldGroup>
+                </form>
             </CardContent>
             <CardFooter
                 className={cn(

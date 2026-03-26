@@ -18,7 +18,7 @@ import { cn } from '@module-base/utils/shadcn';
 /** screens */
 const NotFoundScreen = React.lazy(() => import('@module-base/screens/NotFoundScreen'));
 const FeedScreen = React.lazy(() => import('@module-global/screens/FeedScreen'));
-const ProjectPage = React.lazy(() => import('@module-global/screens/ProjectPage'));
+const DashboardScreen = React.lazy(() => import('@module-dashboard/screens/DashboardScreen'));
 
 export default function MainRoute() {
     return (
@@ -28,7 +28,7 @@ export default function MainRoute() {
                 <Routes>
                     <Route path={AppRouterPath.home} element={<Navigate to={AppRouterPath.defaultPath} />} />
                     <Route path={AppRouterPath.feed} element={<FeedScreen />} />
-                    <Route path={AppRouterPath.dashboard} element={<ProjectPage />} />
+                    <Route path={AppRouterPath.dashboard} element={<DashboardScreen />} />
                     <Route path="*" element={<NotFoundScreen />} />
                 </Routes>
             </React.Suspense>

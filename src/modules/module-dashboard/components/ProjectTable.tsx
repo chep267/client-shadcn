@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 import { TableBase } from '@module-base/components/table-base';
-import { StatusBadge } from '@module-global/components/Project/StatusBadge';
-import { ActionMenu } from '@module-global/components/Project/ActionMenu';
-import type { TaskData } from '@module-global/services/project';
-import { User } from '@module-global/components/Project/User';
+import { StatusBadge } from '@module-dashboard/components/StatusBadge';
+import { ActionMenu } from '@module-dashboard/components/ActionMenu';
+import type { TaskData } from '@module-dashboard/services/project';
+import { User } from '@module-dashboard/components/User';
 
 interface ProjectTableProps {
     data: TaskData[];
