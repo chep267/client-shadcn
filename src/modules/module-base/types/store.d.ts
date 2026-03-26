@@ -7,7 +7,7 @@
 /** types */
 export type TypeLocale = 'vi' | 'en';
 export type TypeLanguageMessages = Record<string, string>;
-export type TypeTheme = 'dark' | 'light' | 'system';
+export type TypeTheme = 'dark' | 'light';
 export type TypeSiderState = 'collapse' | 'expand' | 'hidden' | 'force';
 
 /** Setting store */

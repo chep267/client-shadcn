@@ -5,12 +5,14 @@
  */
 
 /** libs */
-import clsx from 'clsx';
 import { FormattedMessage } from 'react-intl';
 import { MenuIcon } from 'lucide-react';
 
 /** constants */
 import { GlobalLanguage } from '@module-global/constants/GlobalLanguage';
+
+/** utils */
+import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { Button } from '@module-base/components/button';
@@ -24,7 +26,7 @@ export default function ButtonSetting() {
                 <DropdownMenuTrigger asChild>
                     <Button
                         variant="outline"
-                        className={clsx(
+                        className={cn(
                             'h-10 w-10 min-w-10 border-0 p-0',
                             'cursor-pointer rounded-full bg-inherit text-inherit shadow-none',
                             'focus-visible:ring-0',

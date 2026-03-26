@@ -8,7 +8,6 @@
 import * as React from 'react';
 import * as z from 'zod';
 import Cookie from 'js-cookie';
-import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -19,6 +18,7 @@ import { AppTimer } from '@module-base/constants/AppTimer';
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 
 /** utils */
+import { cn } from '@module-base/utils/shadcn';
 import { delay } from '@module-base/utils/delay';
 import { isCallApiErrorByClient } from '@module-base/utils/isClientCallApiError';
 
@@ -76,7 +76,7 @@ export default function RecoverForm() {
     };
 
     return (
-        <Card className={clsx('w-full max-w-xl min-w-0', 'z-1 rounded-md', 'overflow-hidden shadow-lg')}>
+        <Card className={cn('w-full max-w-xl min-w-0', 'z-1 rounded-md', 'overflow-hidden shadow-lg')}>
             <AuthTitle name="recover" />
             <CardContent>
                 <FieldGroup className="gap-4">
@@ -90,7 +90,7 @@ export default function RecoverForm() {
                 </FieldGroup>
             </CardContent>
             <CardFooter
-                className={clsx(
+                className={cn(
                     'w-full justify-between gap-2',
                     'mobile:items-end items-start',
                     'mobile:flex-row flex-col'

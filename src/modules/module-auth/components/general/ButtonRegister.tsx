@@ -5,11 +5,13 @@
  */
 
 /** libs */
-import clsx from 'clsx';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
+
+/** utils */
+import { cn } from '@module-base/utils/shadcn';
 
 /** hooks */
 import { useRegister } from '@module-auth/hooks/useRegister';
@@ -45,7 +47,7 @@ export default function ButtonRegister(props: TypeButtonRegister) {
         <Button
             type="button"
             variant="outline"
-            className={clsx('hover:text-main hover:border-main', 'mobile:w-1/3 w-full', {
+            className={cn('hover:text-main hover:border-main', 'mobile:w-1/3 w-full', {
                 'text-main !border-main': hookRegister.isPending,
             })}
             size="lg"

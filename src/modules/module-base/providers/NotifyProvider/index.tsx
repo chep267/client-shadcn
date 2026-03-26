@@ -22,14 +22,11 @@ class NotifyProvider extends React.Component<
     }
 
     static getDerivedStateFromError() {
-        // Update the state so the next render will show the fallback UI.
         return { hasError: true };
     }
 
     componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-        // You can also log the error to an error reporting service
-        // logErrorToMyService(error, errorInfo);
-        console.log('ErrorBoundary: ', error, '\n--\n', errorInfo, '\n--');
+        console.error('ErrorBoundary: ', error, '\n--\n', errorInfo, '\n--');
     }
 
     render() {

@@ -6,7 +6,6 @@
 
 /** libs */
 import * as React from 'react';
-import clsx from 'clsx';
 import { FormattedMessage } from 'react-intl';
 import { PaletteIcon, LanguagesIcon, MoonStarIcon, SunIcon } from 'lucide-react';
 
@@ -15,6 +14,9 @@ import { LocaleObject } from '@module-base/constants/LocaleObject';
 import { ThemeObject } from '@module-base/constants/ThemeObject';
 import { LangLanguage } from '@module-base/constants/LangLanguage';
 import { ThemeLanguage } from '@module-base/constants/ThemeLanguage';
+
+/** utils */
+import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import {
@@ -176,7 +178,7 @@ export default function MenuSetting() {
 
     return (
         <DropdownMenuContent
-            className={clsx(
+            className={cn(
                 'mt-3 w-fit',
                 'scrollbar-thin scrollbar-custom overflow-auto overscroll-none',
                 'max-h-[calc(var(--app-size-height-sidebar)-var(--spacing)*2)]'

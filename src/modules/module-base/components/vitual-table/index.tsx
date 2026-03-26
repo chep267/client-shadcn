@@ -5,6 +5,7 @@
  */
 
 /** libs */
+import * as React from 'react';
 import { Slot } from 'radix-ui';
 import { type TableComponents, TableVirtuoso } from 'react-virtuoso';
 
@@ -16,7 +17,6 @@ import { Table, TableBody, TableRow } from '@module-base/components/table';
 import { useTableBase } from '@module-base/components/table-base/useTableBase';
 import { TableBaseHeader } from '@module-base/components/table-base/table-header';
 import { TableBodyRow } from '@module-base/components/table-base/table-body-row';
-import React from 'react';
 import { TableLoading } from '@module-base/components/table-base/table-loading';
 
 export function VirtualTable<Data extends App.ModuleBase.Component.TableData>(

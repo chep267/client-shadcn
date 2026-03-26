@@ -21,15 +21,7 @@ export default function ThemeProvider(props: React.PropsWithChildren) {
     React.useEffect(() => {
         const root = window.document.documentElement;
         root.classList.remove(ThemeObject.light, ThemeObject.dark);
-
-        if (theme !== ThemeObject.system) {
-            return root.classList.add(theme);
-        }
-
-        const systemTheme = window.matchMedia(`(prefers-color-scheme: ${ThemeObject.dark})`).matches
-            ? ThemeObject.dark
-            : ThemeObject.light;
-        root.classList.add(systemTheme);
+        root.classList.add(theme);
     }, [theme]);
 
     return children;

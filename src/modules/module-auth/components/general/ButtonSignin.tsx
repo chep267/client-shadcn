@@ -5,11 +5,13 @@
  */
 
 /** libs */
-import clsx from 'clsx';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
+
+/** utils */
+import { cn } from '@module-base/utils/shadcn';
 
 /** hooks */
 import { useSignin } from '@module-auth/hooks/useSignin';
@@ -44,7 +46,7 @@ export default function ButtonSignin(props: TypeButtonSignin) {
         <Button
             type="button"
             variant="outline"
-            className={clsx('hover:text-main hover:border-main', 'mobile:w-1/3 w-full', {
+            className={cn('hover:text-main hover:border-main', 'mobile:w-1/3 w-full', {
                 'text-main !border-main': hookSignin.isPending,
             })}
             size="lg"
