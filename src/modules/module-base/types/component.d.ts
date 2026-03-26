@@ -75,7 +75,7 @@ export interface TypeTableBaseHeaderProps<Data extends TypeTableData> {
     checked?: boolean | 'indeterminate';
     orderType?: TypeOrderType;
     orderBy?: string;
-    onSort?(dataKey: string): void;
+    onSort?(dataKey?: string): void;
     onSelect?(checked: boolean | 'indeterminate'): void;
 }
 export interface TypeTableBaseBodyProps<Data extends TypeTableData> extends Pick<

@@ -67,9 +67,10 @@ export function useTableBase<Data extends App.ModuleBase.Component.TableData>(pa
         return hookValueRef.current.selectedIds.has(id);
     }, []);
 
-    const onSort = React.useCallback((nextOrderBy: string) => {
+    const onSort = React.useCallback((dataKey?: string) => {
         setLoading(true);
         hookValueRef.current.timingStart = performance.now();
+        const nextOrderBy = dataKey || hookValueRef.current.dataKeyForCheckbox;
         delay(1).then(() => {
             if (hookValueRef.current.orderBy === nextOrderBy) {
                 return setOrderType((prev) => (prev === OrderType.asc ? OrderType.desc : OrderType.asc));
