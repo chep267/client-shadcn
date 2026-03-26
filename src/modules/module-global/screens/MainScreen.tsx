@@ -13,7 +13,7 @@ import { cn } from '@module-base/utils/shadcn';
 
 export default function MainScreen() {
     return (
-        <div className={cn('relative', 'flex flex-col', 'min-h-dvh w-full')}>
+        <div className={cn('relative', 'flex flex-col', 'h-dvh w-dvw')}>
             <AppHeader />
             <AppMain />
         </div>

@@ -24,6 +24,7 @@ export default function AppSidebarMini() {
         <ButtonGroup
             className={cn(
                 'bg-background sticky top-(--app-size-height-header) z-(--z-index-header) w-full border-b',
+                'h-(--app-size-height-sidebar-mini) items-center justify-between',
                 '[&>a:not(:first-child)]:!border-l',
                 'tablet:hidden'
             )}

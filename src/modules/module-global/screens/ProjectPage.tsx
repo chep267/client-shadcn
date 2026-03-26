@@ -4,12 +4,13 @@ import { Button } from '@module-base/components/button';
 import { Card, CardContent } from '@module-base/components/card';
 import { ProjectTable } from '@module-global/components/Project/ProjectTable';
 import { generateTasks, type TaskData } from '@module-global/services/project';
-import { ModalConfirm } from '@module-base/components/modal-base/modal-confirm';
-import { Trash2Icon } from 'lucide-react';
+import { ModalDelete } from '@module-global/components/Project/ModalDelete';
+import { cn } from '@module-base/utils/shadcn';
+import { toast } from 'sonner';
 
 export default function ProjectPage() {
     const [data, setData] = React.useState(() => generateTasks(50));
-    const [deleteItem, setDeleteItem] = React.useState<TaskData | null>(null);
+    const [deleteItem, setDeleteItem] = React.useState<TaskData>();
 
     const status = React.useMemo(() => {
         return data.reduce(
@@ -22,12 +23,24 @@ export default function ProjectPage() {
         );
     }, [data]);
 
-    const handleDelete = (id: number) => {
-        setData(data.filter((task) => task.id !== id));
+    const handleDelete = () => {
+        setData(data.filter((task) => task.id !== deleteItem?.id));
+        setDeleteItem(undefined);
+        toast.success('Successfully deleted!', {
+            description: 'You have successfully deleted the task',
+            richColors: true,
+        });
     };
 
     return (
-        <div className="flex h-full max-h-[calc(100dvh-64px)] w-full flex-col space-y-6 overflow-hidden p-6">
+        <div
+            className={cn(
+                'flex shrink grow flex-col overflow-hidden',
+                'w-full max-w-dvw space-y-6 py-4',
+                'max-h-[calc(100dvh-var(--app-size-height-header)-var(--app-size-height-sidebar-mini))] px-2',
+                'tablet:px-4 tablet:max-h-[calc(100dvh-var(--app-size-height-header))]'
+            )}
+        >
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div>
@@ -66,16 +79,7 @@ export default function ProjectPage() {
 
             {/* Table */}
             <ProjectTable data={data} onDelete={setDeleteItem} />
-            <ModalConfirm
-                open={!!deleteItem}
-                title="Delete Task"
-                description={`Are you sure you want to delete this task "${deleteItem?.title}"?`}
-                confirmText="Delete"
-                variant="destructive"
-                media={<Trash2Icon className="text-red-500" />}
-                onCancel={() => setDeleteItem(null)}
-                onConfirm={() => handleDelete(deleteItem?.id ?? 0)}
-            />
+            <ModalDelete item={deleteItem} onCancel={() => setDeleteItem(undefined)} onConfirm={handleDelete} />
         </div>
     );
 }

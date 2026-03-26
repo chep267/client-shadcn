@@ -24,6 +24,7 @@ export default function AppButtonDev(props: any) {
     const onDev = () => {
         toast.warning('In developing!', {
             description: 'Sunday, December 03, 2023 at 9:00 AM',
+            richColors: true,
         });
     };
 

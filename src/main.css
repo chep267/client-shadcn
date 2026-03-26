@@ -78,8 +78,8 @@
         --app-size-height-header: calc(var(--spacing) * 16); /* 64px */
         --app-size-height-sidebar: calc(100dvh - var(--app-size-height-header));
         --app-size-height-sidebar-mini: calc(var(--spacing) * 12); /* 48px */
-        --app-size-width-sidebar-collapse: 56px;
-        --app-size-width-sidebar-expand: 267px;
+        --app-size-width-sidebar-collapse: 48px;
+        --app-size-width-sidebar-expand: 256px;
         --app-size-breakpoint-sidebar-collapse: 1030px;
         --app-size-breakpoint-sidebar-hidden: 600px;
 

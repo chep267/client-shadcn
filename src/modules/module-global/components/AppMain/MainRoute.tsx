@@ -13,6 +13,7 @@ import { AppRouterPath } from '@module-base/constants/AppRouterPath';
 
 /** components */
 import AppSidebarMini from '@module-global/components/AppSidebarMini';
+import { cn } from '@module-base/utils/shadcn';
 
 /** screens */
 const NotFoundScreen = React.lazy(() => import('@module-base/screens/NotFoundScreen'));
@@ -20,7 +21,14 @@ const ProjectPage = React.lazy(() => import('@module-global/screens/ProjectPage'
 
 export default function MainRoute() {
     return (
-        <div className="flex h-full w-full flex-col">
+        <div
+            data-slot="sidebar-content"
+            className={cn(
+                'flex shrink grow flex-col',
+                'peer-data-[state=collapsed]:max-w-[calc(100dvw-var(--app-size-width-sidebar-collapse))]',
+                'peer-data-[state=expanded]:max-w-[calc(100dvw-var(--app-size-width-sidebar-expand))]'
+            )}
+        >
             <AppSidebarMini />
             <React.Suspense>
                 <Routes>
