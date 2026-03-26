@@ -44,8 +44,8 @@ export type TypeIconList = Readonly<Record<TypeIconBase, LazyExoticComponent<(pr
 
 /** TableBase */
 export type TypeOrderType = 'asc' | 'desc';
-export type TypeTableData<Data extends Record<string | 'id', any>> = Data;
-export type TypeDataKey<Data extends TypeTableData> = Extract<keyof Data, string | number> | 'id';
+export type TypeTableData<Data extends Record<string | 'id' | 'action', any>> = Data;
+export type TypeDataKey<Data extends TypeTableData> = Extract<keyof Data, string | number> | 'id' | 'action';
 export interface TypeTableBaseProps<Data extends TypeTableData> {
     className?: string;
     loading?: boolean;

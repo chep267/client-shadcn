@@ -10,7 +10,7 @@ import { SidebarTrigger, SidebarHeader } from '@module-base/components/sidebar';
 export default function AppSidebarHeader() {
     return (
         <SidebarHeader>
-            <SidebarTrigger className="size-8" />
+            <SidebarTrigger className="size-8 cursor-pointer" />
         </SidebarHeader>
     );
 }

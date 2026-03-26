@@ -16,6 +16,7 @@ export const GlobalLanguage = {
             setting: 'module.global.component.label.setting',
             otherSetting: 'module.global.component.label.otherSetting',
             signout: 'module.global.component.label.signout',
+            dashboard: 'module.global.component.label.dashboard',
         },
     },
 } as const;

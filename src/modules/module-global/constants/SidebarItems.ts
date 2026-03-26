@@ -5,7 +5,7 @@
  */
 
 /** libs */
-import { CalendarIcon, HomeIcon, SendIcon } from 'lucide-react';
+import { HomeIcon } from 'lucide-react';
 
 /** constants */
 import { AppRouterPath } from '@module-base/constants/AppRouterPath';
@@ -13,19 +13,9 @@ import { GlobalLanguage } from '@module-global/constants/GlobalLanguage';
 
 const SidebarItems: App.ModuleGlobal.Component.SidebarItemProps['item'][] = [
     {
-        path: AppRouterPath.feed,
-        name: GlobalLanguage.component.label.feed,
+        path: AppRouterPath.dashboard,
+        name: GlobalLanguage.component.label.dashboard,
         icon: HomeIcon,
-    },
-    {
-        path: AppRouterPath.messenger,
-        name: GlobalLanguage.component.label.messenger,
-        icon: SendIcon,
-    },
-    {
-        path: AppRouterPath.calendar,
-        name: GlobalLanguage.component.label.calendar,
-        icon: CalendarIcon,
     },
 ];
 

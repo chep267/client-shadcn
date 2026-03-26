@@ -85,7 +85,11 @@ export function VirtualTable<Data extends App.ModuleBase.Component.TableData>(
 
     return (
         <TableVirtuoso
-            className={cn('relative rounded-md border', '[&_[data-slot=table-container]]:overflow-visible', className)}
+            className={cn(
+                'relative h-full w-full rounded-md border',
+                '[&_[data-slot=table-container]]:overflow-visible',
+                className
+            )}
             components={components}
             data={currentItems}
             fixedHeaderContent={fixedHeaderContent}

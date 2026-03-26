@@ -6,7 +6,8 @@
 
 export const AppRouterPath = {
     home: '/',
-    defaultPath: '/feed',
+    dashboard: '/dashboard',
+    defaultPath: '/dashboard',
     calendar: '/calendar',
     game: '/game',
     feed: '/feed',

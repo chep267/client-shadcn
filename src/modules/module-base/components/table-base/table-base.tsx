@@ -47,7 +47,7 @@ export function TableBase<Data extends App.ModuleBase.Component.TableData>(
     }, [orderBy, orderType]);
 
     return (
-        <div ref={elemContainer} className={cn('relative rounded-md border', className)}>
+        <div ref={elemContainer} className={cn('relative h-full w-full rounded-md border', className)}>
             <TableLoading loading={loading || sortLoading} />
             <Table className={className}>
                 <TableBaseHeader
