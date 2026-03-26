@@ -16,16 +16,14 @@ import { delay } from '@module-base/utils/delay';
 
 export function useTableBase<Data extends App.ModuleBase.Component.TableData>(payload: {
     items: Data[];
-    dataKeyForCheckbox?: App.ModuleBase.Component.DataKey<Data>;
+    dataKeyForCheckbox?: string;
 }) {
     const { items, dataKeyForCheckbox = 'id' } = payload;
 
     const [loading, setLoading] = React.useState(false);
     const [orderType, setOrderType] = React.useState<App.ModuleBase.Component.OrderType>(OrderType.asc);
-    const [orderBy, setOrderBy] = React.useState<App.ModuleBase.Component.DataKey<Data>>(dataKeyForCheckbox);
-    const [selectedIds, setSelectedIds] = React.useState<Set<Data[App.ModuleBase.Component.DataKey<Data>]>>(
-        () => new Set()
-    );
+    const [orderBy, setOrderBy] = React.useState(dataKeyForCheckbox);
+    const [selectedIds, setSelectedIds] = React.useState<Set<Data[string]>>(() => new Set());
 
     const hookValueRef = React.useRef({
         dataKeyForCheckbox,
@@ -65,11 +63,11 @@ export function useTableBase<Data extends App.ModuleBase.Component.TableData>(pa
         });
     }, []);
 
-    const isSelected = React.useCallback((id: Data[App.ModuleBase.Component.DataKey<Data>]) => {
+    const isSelected = React.useCallback((id: Data[string]) => {
         return hookValueRef.current.selectedIds.has(id);
     }, []);
 
-    const onSort = React.useCallback((nextOrderBy: App.ModuleBase.Component.DataKey<Data>) => {
+    const onSort = React.useCallback((nextOrderBy: string) => {
         setLoading(true);
         hookValueRef.current.timingStart = performance.now();
         delay(1).then(() => {

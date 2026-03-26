@@ -9,6 +9,7 @@ import * as React from 'react';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
+import { getValueByDataKey } from '@module-base/utils/virtual';
 
 /** components */
 import { TableCell, TableRow } from '@module-base/components/table';
@@ -31,7 +32,9 @@ function TableBodyRow<Data extends App.ModuleBase.Component.TableData>(props: Ta
         return columns?.map(({ dataKey, sortable: _sortable, render, ...cellProps }, indexCell) => {
             return (
                 <TableCell key={dataKey} {...cellProps}>
-                    {typeof render === 'function' ? render({ indexRow, indexCell, item }) : item[dataKey]}
+                    {typeof render === 'function'
+                        ? render({ indexRow, indexCell, item })
+                        : getValueByDataKey(item, dataKey)}
                 </TableCell>
             );
         });

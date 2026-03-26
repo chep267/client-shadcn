@@ -1,10 +1,10 @@
 export function StatusBadge({ status }: { status: string }) {
     const map = {
-        todo: 'bg-gray-200 text-gray-700',
-        in_progress: 'bg-blue-200 text-blue-700',
-        done: 'bg-green-200 text-green-700',
-        warning: 'bg-amber-200 text-amber-700',
-        error: 'bg-red-200 text-red-700',
+        todo: 'bg-gray-300 text-gray-700',
+        in_progress: 'bg-blue-300 text-blue-700',
+        done: 'bg-green-300 text-green-700',
+        warning: 'bg-amber-300 text-amber-700',
+        error: 'bg-red-300 text-red-700',
     };
 
     const title = status.replace('_', ' ');

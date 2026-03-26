@@ -7,44 +7,39 @@
 /** constants */
 import { OrderType } from '@module-base/constants/OrderType';
 
-const isNull = <T>(v: T | null | undefined): v is null | undefined => v === null || v === undefined;
+export const isNull = <T>(v: T | null | undefined): v is null | undefined => v === null || v === undefined;
+
+export const getValueByDataKey = <Data extends App.ModuleBase.Component.TableData>(item: Data, dataKey?: string) => {
+    if (!dataKey?.trim()) {
+        throw new Error(`Invalid dataKey: ${dataKey}`);
+    }
+    let value = { ...item };
+    const keys = dataKey.split('.');
+    for (const key of keys) {
+        try {
+            value = value[key];
+        } catch {
+            throw new Error(`Invalid dataKey: ${dataKey}`);
+        }
+    }
+    return String(value).trim();
+};
 
 export const sortTableData = <Data extends App.ModuleBase.Component.TableData>(payload: {
     items?: Data[];
     orderType?: App.ModuleBase.Component.OrderType;
-    orderBy?: App.ModuleBase.Component.DataKey<Data>;
+    orderBy?: string;
 }): Array<Data> => {
     const { items, orderType = OrderType.asc, orderBy = 'id' } = payload;
     if (!items?.length) return [];
 
-    const cache = new WeakMap<Data, ReturnType<typeof parseValue>>();
+    const cache = new WeakMap<Data, string>();
 
     const getCachedValue = (item: Data) => {
         if (!cache.has(item)) {
-            cache.set(item, parseValue(item));
+            cache.set(item, getValueByDataKey(item, orderBy));
         }
         return cache.get(item)!;
-    };
-
-    const parseValue = (item: Data) => {
-        const value = item?.[orderBy] as unknown;
-        if (isNull(value)) return null;
-
-        // ===== number =====
-        if (typeof value === 'number') return value;
-
-        // ===== string =====
-        if (typeof value === 'string') {
-            const trimmed = value.trim();
-
-            // numeric string
-            if (trimmed && !Number.isNaN(Number(trimmed))) {
-                return Number(trimmed);
-            }
-            return trimmed;
-        }
-
-        return String(value);
     };
 
     // ===== extract numbers (ignore '-') =====
@@ -60,21 +55,8 @@ export const sortTableData = <Data extends App.ModuleBase.Component.TableData>(p
     return items.toSorted((a, b) => {
         const valueA = getCachedValue(a);
         const valueB = getCachedValue(b);
-
-        // ===== null =====
-        if (isNull(valueA) && isNull(valueB)) return 0;
-        if (isNull(valueA)) return 1;
-        if (isNull(valueB)) return -1;
-
-        // ===== number =====
-        if (typeof valueA === 'number' && typeof valueB === 'number') {
-            return orderType === OrderType.asc ? valueA - valueB : valueB - valueA;
-        }
-
-        const strA = String(valueA);
-        const strB = String(valueB);
-        const numsA = extractNumbers(strA);
-        const numsB = extractNumbers(strB);
+        const numsA = extractNumbers(valueA);
+        const numsB = extractNumbers(valueB);
 
         // ===== compare by numbers inside string =====
         if (numsA.length && numsB.length) {
@@ -87,7 +69,7 @@ export const sortTableData = <Data extends App.ModuleBase.Component.TableData>(p
         }
 
         // ===== fallback string =====
-        const result = strA.localeCompare(strB, undefined, {
+        const result = valueA.localeCompare(valueB, undefined, {
             numeric: true,
             sensitivity: 'base',
         });

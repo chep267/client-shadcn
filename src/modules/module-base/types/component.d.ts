@@ -45,7 +45,7 @@ export type TypeIconList = Readonly<Record<TypeIconBase, LazyExoticComponent<(pr
 /** TableBase */
 export type TypeOrderType = 'asc' | 'desc';
 export type TypeTableData<Data extends Record<string | 'id' | 'action', any>> = Data;
-export type TypeDataKey<Data extends TypeTableData> = Extract<keyof Data, string | number> | 'id' | 'action';
+export type TypeDataKey<Data extends TypeTableData> = Extract<keyof Data, string> | 'id' | 'action';
 export interface TypeTableBaseProps<Data extends TypeTableData> {
     className?: string;
     loading?: boolean;
@@ -53,9 +53,9 @@ export interface TypeTableBaseProps<Data extends TypeTableData> {
     hasCheckbox?: boolean;
     selectedItems?: TypeItemIds;
     items?: Data[];
-    dataKeyForCheckbox?: TypeDataKey<Data>;
+    dataKeyForCheckbox?: string;
     columns?: {
-        dataKey: TypeDataKey<Data>;
+        dataKey?: string;
         className?: string;
         label?: ReactNode;
         sortable?: boolean;
@@ -65,7 +65,7 @@ export interface TypeTableBaseProps<Data extends TypeTableData> {
         ): void;
         render?(data: { indexRow: number; indexCell: number; item: Data }): ReactNode;
     }[];
-    onChangeSelected?(arr: Array<Data[TypeDataKey<Data>]>): void;
+    onChangeSelected?(arr: Array<Data[string]>): void;
 }
 export interface TypeTableBaseHeaderProps<Data extends TypeTableData> {
     asChild?: boolean;
@@ -74,8 +74,8 @@ export interface TypeTableBaseHeaderProps<Data extends TypeTableData> {
     hasCheckbox?: boolean;
     checked?: boolean | 'indeterminate';
     orderType?: TypeOrderType;
-    orderBy?: TypeDataKey<Data>;
-    onSort?(dataKey: TypeDataKey<Data>): void;
+    orderBy?: string;
+    onSort?(dataKey: string): void;
     onSelect?(checked: boolean | 'indeterminate'): void;
 }
 export interface TypeTableBaseBodyProps<Data extends TypeTableData> extends Pick<
@@ -83,7 +83,7 @@ export interface TypeTableBaseBodyProps<Data extends TypeTableData> extends Pick
     'className' | 'columns' | 'dataKeyForCheckbox' | 'hasCheckbox' | 'loading' | 'emptyContent'
 > {
     items: NonNullable<TypeTableBaseProps<Data>['items']>;
-    selectedIds: Set<Data[App.ModuleBase.Component.DataKey<Data>]>;
+    selectedIds: Set<Data[string]>;
     onSelect?(item: Data): void;
 }
 
@@ -95,7 +95,7 @@ export interface TypeVirtualTableProps<Data extends TypeTableData, Context = any
     loading?: boolean;
     emptyContent?: ReactNode;
     hasCheckbox?: boolean;
-    dataKeyForCheckbox?: TypeDataKey<Data>;
+    dataKeyForCheckbox?: string;
     columns?: ColumnDef<{ id: string | number; name: string; test: string }>[];
-    onChangeSelected?(arr: Array<Data[TypeDataKey<Data>]>): void;
+    onChangeSelected?(arr: Array<Data[string]>): void;
 }

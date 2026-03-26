@@ -13,7 +13,7 @@
         "preview": "vite preview",
         "lint": "eslint . --fix",
         "format": "prettier --write .",
-        "clean": "tsc --build --clean",
+        "clean": "tsc --build --clean && rimraf node_modules && rimraf pnpm-lock.yaml",
         "check-code": "node script/check-coding-rules.ts"
     },
     "dependencies": {

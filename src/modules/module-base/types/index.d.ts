@@ -48,7 +48,6 @@ declare global {
 
             type OrderType = TypeComponent.TypeOrderType;
             type TableData = TypeComponent.TypeTableData;
-            type DataKey<Data extends TableData = TableData> = TypeComponent.TypeDataKey<Data>;
             type TableBaseProps<Data extends TableData = TableData> = TypeComponent.TypeTableBaseProps<Data>;
             type TableBaseHeaderProps<Data extends TableData = TableData> =
                 TypeComponent.TypeTableBaseHeaderProps<Data>;

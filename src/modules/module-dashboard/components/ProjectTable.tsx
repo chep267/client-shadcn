@@ -21,8 +21,9 @@ export function ProjectTable(props: ProjectTableProps) {
                 { dataKey: 'id', label: 'ID', sortable: true },
                 { dataKey: 'title', label: 'Task', sortable: true },
                 {
-                    dataKey: 'assignee',
+                    dataKey: 'assignee.name',
                     label: 'Assignee',
+                    sortable: true,
                     render: ({ item }) => <User name={item.assignee.name} avatar={item.assignee.avatar} />,
                 },
                 {
