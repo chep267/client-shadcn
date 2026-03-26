@@ -35,7 +35,7 @@ export default function ProjectPage() {
     return (
         <div
             className={cn(
-                'flex shrink grow flex-col overflow-hidden',
+                'flex shrink grow flex-col',
                 'w-full max-w-dvw space-y-6 py-4',
                 'max-h-[calc(100dvh-var(--app-size-height-header)-var(--app-size-height-sidebar-mini))] px-2',
                 'tablet:px-4 tablet:max-h-[calc(100dvh-var(--app-size-height-header))]'
@@ -57,22 +57,22 @@ export default function ProjectPage() {
             <div className="grid grid-cols-3 gap-4">
                 <Card>
                     <CardContent className="p-4">
-                        <p className="text-muted-foreground text-sm">Total Tasks</p>
-                        <p className="text-xl font-bold">{data.length}</p>
+                        <p className="text-warning text-xl">Total Tasks</p>
+                        <p className="text-warning text-xl font-bold">{data.length}</p>
                     </CardContent>
                 </Card>
 
                 <Card>
                     <CardContent className="p-4">
-                        <p className="text-muted-foreground text-sm">In Progress</p>
-                        <p className="text-xl font-bold">{status['in_progress']}</p>
+                        <p className="text-info text-xl">In Progress</p>
+                        <p className="text-info text-xl font-bold">{status['in_progress']}</p>
                     </CardContent>
                 </Card>
 
                 <Card>
                     <CardContent className="p-4">
-                        <p className="text-muted-foreground text-sm">Done</p>
-                        <p className="text-xl font-bold">{status['done']}</p>
+                        <p className="text-success text-xl">Done</p>
+                        <p className="text-success text-xl font-bold">{status['done']}</p>
                     </CardContent>
                 </Card>
             </div>

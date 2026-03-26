@@ -4,7 +4,7 @@ import { VirtualTable } from '@module-base/components/vitual-table';
 
 export default function FeedScreen() {
     return (
-        <div className="flex h-full w-full flex-col gap-10 p-10">
+        <div className="tablet:p-10 flex h-[2000px] w-full flex-col gap-10 p-4">
             <TableBase
                 className="scrollbar-thin scrollbar-custom max-h-[40dvh]"
                 hasCheckbox

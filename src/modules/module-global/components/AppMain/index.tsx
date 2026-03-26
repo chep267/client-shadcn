@@ -22,7 +22,7 @@ const MainRoute = React.lazy(() => import('@module-global/components/AppMain/Mai
 
 export default function AppMain() {
     return (
-        <main className={cn('flex shrink grow', 'pt-(--app-size-height-header)')}>
+        <div className={cn('flex flex-1', 'pt-(--app-size-height-header)')}>
             <React.Suspense fallback={<StartLoading />}>
                 <Routes>
                     <Route
@@ -38,6 +38,6 @@ export default function AppMain() {
                     />
                 </Routes>
             </React.Suspense>
-        </main>
+        </div>
     );
 }

@@ -17,26 +17,21 @@ import { cn } from '@module-base/utils/shadcn';
 
 /** screens */
 const NotFoundScreen = React.lazy(() => import('@module-base/screens/NotFoundScreen'));
+const FeedScreen = React.lazy(() => import('@module-global/screens/FeedScreen'));
 const ProjectPage = React.lazy(() => import('@module-global/screens/ProjectPage'));
 
 export default function MainRoute() {
     return (
-        <div
-            data-slot="sidebar-content"
-            className={cn(
-                'flex shrink grow flex-col',
-                'peer-data-[state=collapsed]:max-w-[calc(100dvw-var(--app-size-width-sidebar-collapse))]',
-                'peer-data-[state=expanded]:max-w-[calc(100dvw-var(--app-size-width-sidebar-expand))]'
-            )}
-        >
+        <main data-slot="sidebar-content" className={cn('flex flex-1 flex-col', 'min-w-0')}>
             <AppSidebarMini />
             <React.Suspense>
                 <Routes>
                     <Route path={AppRouterPath.home} element={<Navigate to={AppRouterPath.defaultPath} />} />
+                    <Route path={AppRouterPath.feed} element={<FeedScreen />} />
                     <Route path={AppRouterPath.dashboard} element={<ProjectPage />} />
                     <Route path="*" element={<NotFoundScreen />} />
                 </Routes>
             </React.Suspense>
-        </div>
+        </main>
     );
 }
