@@ -13,4 +13,5 @@ export const AppTimer = {
     restart: 15 * 60 * 1000,
     debounce: 1000,
     delay: 1000,
+    delayTooltip: 300,
 } as const;

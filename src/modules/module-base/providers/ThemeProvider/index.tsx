@@ -18,7 +18,7 @@ export default function ThemeProvider(props: React.PropsWithChildren) {
 
     const theme = useSettingStore((store) => store.data.theme);
 
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
         const root = window.document.documentElement;
         root.classList.remove(ThemeObject.light, ThemeObject.dark);
         root.classList.add(theme);

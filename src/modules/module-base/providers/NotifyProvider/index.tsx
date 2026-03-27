@@ -7,6 +7,9 @@
 /** libs */
 import * as React from 'react';
 
+/** constants */
+import { AppTimer } from '@module-base/constants/AppTimer';
+
 /** components */
 import { TooltipProvider } from '@module-base/components/tooltip';
 import FallbackDefault from '@module-base/providers/NotifyProvider/FallbackDefault';
@@ -34,7 +37,7 @@ class NotifyProvider extends React.Component<
         const { hasError } = this.state;
 
         return (
-            <TooltipProvider>
+            <TooltipProvider delayDuration={AppTimer.delayTooltip}>
                 {hasError ? <FallBack isAutoReload={isAutoReload} /> : children}
                 <NotifyBoundary />
             </TooltipProvider>

@@ -21,7 +21,7 @@ import { ProjectTable } from '@module-dashboard/components/ProjectTable';
 import { ModalDelete } from '@module-dashboard/components/ModalDelete';
 
 export default function DashboardScreen() {
-    const [data, setData] = React.useState(() => generateTasks(50));
+    const [data, setData] = React.useState(() => generateTasks(100));
     const [deleteItem, setDeleteItem] = React.useState<TaskData>();
 
     const status = React.useMemo(() => {

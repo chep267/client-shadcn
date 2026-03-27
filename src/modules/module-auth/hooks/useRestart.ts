@@ -37,7 +37,7 @@ export function useRestart() {
         mutationFn: () => authService.restart({ uid }),
         onSuccess: (response) => {
             const { user, token } = response.data.data;
-            const exp = !isNaN(token.exp) ? token.exp : AppTimer.restart;
+            const exp = !Number.isNaN(token.exp) ? token.exp : AppTimer.restart;
             authAction.setData({ user });
             delay(exp).then(() => hookRestart.mutate());
         },
