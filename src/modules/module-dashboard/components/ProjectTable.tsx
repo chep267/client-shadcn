@@ -1,9 +1,20 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** libs */
 import dayjs from 'dayjs';
-import { TableBase } from '@module-base/components/table-base';
+
+/** components */
+import { VirtualTable } from '@module-base/components/vitual-table';
 import { StatusBadge } from '@module-dashboard/components/StatusBadge';
 import { ActionMenu } from '@module-dashboard/components/ActionMenu';
+import { Assignee } from '@module-dashboard/components/Assignee';
+
+/** types */
 import type { TaskData } from '@module-dashboard/services/project';
-import { User } from '@module-dashboard/components/User';
 
 interface ProjectTableProps {
     data: TaskData[];
@@ -14,17 +25,24 @@ export function ProjectTable(props: ProjectTableProps) {
     const { data, onDelete } = props;
 
     return (
-        <TableBase
-            className="scrollbar-thin scrollbar-custom flex flex-1 overflow-hidden"
+        <VirtualTable
+            className="scrollbar-thin scrollbar-custom flex flex-1"
+            hasCheckbox
+            dataKeyForCheckbox="id"
             items={data}
             columns={[
                 { dataKey: 'id', label: 'ID', sortable: true },
-                { dataKey: 'title', label: 'Task', sortable: true },
+                {
+                    dataKey: 'title',
+                    label: 'Task',
+                    sortable: true,
+                    className: 'width-[200px] max-w-[200px] min-w-[200px] whitespace-pre-line',
+                },
                 {
                     dataKey: 'assignee.name',
                     label: 'Assignee',
                     sortable: true,
-                    render: ({ item }) => <User name={item.assignee.name} avatar={item.assignee.avatar} />,
+                    render: ({ item }) => <Assignee name={item.assignee.name} avatar={item.assignee.avatar} />,
                 },
                 {
                     dataKey: 'status',

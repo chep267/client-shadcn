@@ -35,7 +35,7 @@ export const getValueByDataKey = <Data extends object>(item: Data, dataKey = '')
     }
     if (isNull(value)) return '';
     if (value instanceof Date) return value.getTime().toString();
-    return String(value).trim();
+    return String(value).trim().normalize('NFC');
 };
 
 interface SortMeta {
@@ -99,7 +99,6 @@ export const sortTableData = <Data extends object>(payload: {
         return (
             metaA.raw.localeCompare(metaB.raw, undefined, {
                 numeric: true,
-                sensitivity: 'base',
             }) * multiplier
         );
     });

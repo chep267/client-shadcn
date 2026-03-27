@@ -32,9 +32,11 @@ function TableBodyRow<Data extends App.ModuleBase.Component.TableData>(props: Ta
         return columns?.map(({ dataKey, sortable: _sortable, render, ...cellProps }, indexCell) => {
             return (
                 <TableCell key={dataKey} {...cellProps}>
-                    {typeof render === 'function'
-                        ? render({ indexRow, indexCell, item })
-                        : getValueByDataKey(item, dataKey)}
+                    {typeof render === 'function' ? (
+                        render({ indexRow, indexCell, item })
+                    ) : (
+                        <span>{getValueByDataKey(item, dataKey)}</span>
+                    )}
                 </TableCell>
             );
         });
