@@ -5,63 +5,77 @@
  */
 
 /** libs */
-import * as React from 'react';
 import { Slot } from 'radix-ui';
 import { type TableComponents, TableVirtuoso } from 'react-virtuoso';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
+/** hooks */
+import { useTable } from '@module-base/components/table-base/useTable';
+
 /** components */
 import { Table, TableBody, TableRow } from '@module-base/components/table';
-import { useTableBase } from '@module-base/components/table-base/useTableBase';
-import { TableBaseHeader } from '@module-base/components/table-base/table-header';
+import { TableHeader } from '@module-base/components/table-base/table-header';
 import { TableBodyRow } from '@module-base/components/table-base/table-body-row';
 import { TableLoading } from '@module-base/components/table-base/table-loading';
+import { TableEmpty } from '@module-base/components/table-base/table-empty';
 
 export function VirtualTable<Data extends App.ModuleBase.Component.TableData>(
     props: App.ModuleBase.Component.TableBaseProps<Data>
 ) {
-    const { className, loading, hasCheckbox, dataKeyForCheckbox = 'id', columns, items = [] } = props;
+    const { className, initialSetup, initialValue, columns, items = [], emptyContent } = props;
+    const { hasCheckbox = false, dataKeyForCheckbox = 'id', delayLoading } = initialSetup ?? {};
+    const { searchValue = '', orderBy: orderByProps, orderType: orderTypeProps, filters } = initialValue ?? {};
 
     const {
-        loading: sortLoading,
+        loading,
         orderType,
         orderBy,
         currentItems,
         checkedAll,
         indeterminate,
         selectedIds,
-        toggleRow,
-        toggleAll,
+        onToggleRow,
+        onToggleAll,
         onSort,
-    } = useTableBase({
+    } = useTable({
         items,
         dataKeyForCheckbox,
+        delayLoading,
+        searchValue,
+        orderBy: orderByProps,
+        orderType: orderTypeProps,
+        filters,
     });
 
     const components: TableComponents<Data> = {
-        Scroller: React.forwardRef<HTMLDivElement, any>(({ children, ...props }, ref) => (
-            <div ref={ref} {...props}>
-                <TableLoading loading={loading || sortLoading} />
+        Scroller: ({ children, ...props }) => (
+            <div {...props}>
+                <TableLoading loading={loading} />
                 {children}
             </div>
-        )),
+        ),
         Table: Table,
         TableHead: (props) => <Slot.Root {...props} />,
         TableRow: TableRow,
-        TableBody: TableBody,
+        TableBody: ({ children, className, ...props }) => (
+            <TableBody {...props} className={cn(className, 'relative', { 'h-24': !currentItems.length })}>
+                <TableEmpty hidden={loading || currentItems.length > 0} emptyContent={emptyContent} />
+                {children}
+            </TableBody>
+        ),
     };
 
     const fixedHeaderContent = () => {
         return (
-            <TableBaseHeader
+            <TableHeader
                 hasCheckbox={hasCheckbox}
                 orderType={orderType}
                 orderBy={orderBy}
                 columns={columns}
                 checked={indeterminate ? 'indeterminate' : checkedAll}
-                onSelect={toggleAll}
+                onSelect={onToggleAll}
                 onSort={onSort}
             />
         );
@@ -78,7 +92,7 @@ export function VirtualTable<Data extends App.ModuleBase.Component.TableData>(
                 checked={checked}
                 columns={columns}
                 item={item}
-                onSelect={toggleRow}
+                onSelect={onToggleRow}
             />
         );
     };
@@ -86,8 +100,9 @@ export function VirtualTable<Data extends App.ModuleBase.Component.TableData>(
     return (
         <TableVirtuoso
             className={cn(
-                'relative h-full w-full rounded-md border',
+                'relative w-full rounded-md border',
                 '[&_[data-slot=table-container]]:overflow-visible',
+                { 'max-h-[calc(var(--spacing)*40)]': !currentItems.length },
                 className
             )}
             components={components}

@@ -14,8 +14,6 @@ import type {
     ReactNode,
     MouseEvent,
 } from 'react';
-import type { TableVirtuosoProps } from 'react-virtuoso';
-import type { ColumnDef } from '@tanstack/react-table';
 import type { TypeItemIds } from '@module-base/types/data';
 
 export type TypeInputElem = HTMLInputElement | null;
@@ -45,57 +43,65 @@ export type TypeIconList = Readonly<Record<TypeIconBase, LazyExoticComponent<(pr
 /** TableBase */
 export type TypeOrderType = 'asc' | 'desc';
 export type TypeTableData<Data extends Record<string | 'id' | 'action', any>> = Data;
-export type TypeDataKey<Data extends TypeTableData> = Extract<keyof Data, string> | 'id' | 'action';
-export interface TypeTableBaseProps<Data extends TypeTableData> {
-    className?: string;
-    loading?: boolean;
-    emptyContent?: ReactNode;
+type TypeTableSetup = {
     hasCheckbox?: boolean;
-    selectedItems?: TypeItemIds;
-    items?: Data[];
     dataKeyForCheckbox?: string;
-    columns?: {
-        dataKey?: string;
-        className?: string;
-        label?: ReactNode;
-        sortable?: boolean;
-        onClickItem?(
-            event: MouseEvent<HTMLTableCellElement>,
-            data: { indexRow: number; indexCell: number; item: Data }
-        ): void;
-        render?(data: { indexRow: number; indexCell: number; item: Data }): ReactNode;
-    }[];
-    onChangeSelected?(arr: Array<Data[string]>): void;
-}
-export interface TypeTableBaseHeaderProps<Data extends TypeTableData> {
-    asChild?: boolean;
-    className?: string;
-    columns?: TypeTableBaseProps<Data>['columns'];
-    hasCheckbox?: boolean;
-    checked?: boolean | 'indeterminate';
+    delayLoading?: number;
+};
+type TypeTableState = {
+    searchValue?: string;
     orderType?: TypeOrderType;
     orderBy?: string;
+    selectedItems?: TypeItemIds;
+    filters?: { dataKey: string; value: string }[];
+};
+type TypeTableColumn = {
+    dataKey?: string;
+    className?: string;
+    label?: ReactNode;
+    sortable?: boolean;
+    onClickItem?(
+        event: MouseEvent<HTMLTableCellElement>,
+        data: { indexRow: number; indexCell: number; item: Data }
+    ): void;
+    render?(data: { indexRow: number; indexCell: number; item: Data }): ReactNode;
+};
+export interface TypeTableProps<Data extends TypeTableData> {
+    className?: string;
+    initialSetup?: TypeTableSetup;
+    initialValue?: TypeTableState;
+    items?: Data[];
+    emptyContent?: ReactNode | (() => ReactNode);
+    columns?: TypeTableColumn[];
+    onSelect?(ids: Set<string>): void;
+    onSearch?(value: string): void;
+}
+export interface TableEmptyProps<Data extends TypeTableData> {
+    hidden?: boolean;
+    emptyContent?: TypeTableProps<Data>['emptyContent'];
+}
+export interface TableLoadingProps {
+    loading?: TableSetup['loading'];
+}
+export interface TypeTableHeaderProps<Data extends TypeTableData> {
+    asChild?: boolean;
+    className?: string;
+    columns?: TypeTableProps<Data>['columns'];
+    hasCheckbox?: TypeTableSetup['hasCheckbox'];
+    checked?: boolean | 'indeterminate';
+    orderType?: TypeTableState['orderType'];
+    orderBy?: TypeTableState['orderBy'];
     onSort?(dataKey?: string): void;
     onSelect?(checked: boolean | 'indeterminate'): void;
 }
-export interface TypeTableBaseBodyProps<Data extends TypeTableData> extends Pick<
-    TypeTableBaseProps<Data>,
-    'className' | 'columns' | 'dataKeyForCheckbox' | 'hasCheckbox' | 'loading' | 'emptyContent'
+export interface TypeTableBodyProps<Data extends TypeTableData> extends Pick<
+    TypeTableProps<Data>,
+    'className' | 'columns' | 'emptyContent'
 > {
-    items: NonNullable<TypeTableBaseProps<Data>['items']>;
-    selectedIds: Set<Data[string]>;
+    items: NonNullable<TypeTableProps<Data>['items']>;
+    selectedIds: Set<string | number>;
+    loading?: TypeTableSetup['loading'];
+    hasCheckbox?: TypeTableSetup['hasCheckbox'];
+    dataKeyForCheckbox?: TypeTableSetup['dataKeyForCheckbox'];
     onSelect?(item: Data): void;
-}
-
-/** Virtual Table */
-export interface TypeVirtualTableProps<Data extends TypeTableData, Context = any> extends TableVirtuosoProps<
-    Data,
-    Context
-> {
-    loading?: boolean;
-    emptyContent?: ReactNode;
-    hasCheckbox?: boolean;
-    dataKeyForCheckbox?: string;
-    columns?: ColumnDef<{ id: string | number; name: string; test: string }>[];
-    onChangeSelected?(arr: Array<Data[string]>): void;
 }

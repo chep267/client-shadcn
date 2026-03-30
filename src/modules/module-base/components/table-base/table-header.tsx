@@ -15,16 +15,16 @@ import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { Button } from '@module-base/components/button';
-import { TableHead, TableHeader, TableRow } from '@module-base/components/table';
+import { TableHead, TableHeader as TableHeaderUI, TableRow } from '@module-base/components/table';
 import { CellCheckbox } from '@module-base/components/table-base/cell-checkbox';
 
-export function TableBaseHeader<Data extends App.ModuleBase.Component.TableData>(
-    props: App.ModuleBase.Component.TableBaseHeaderProps<Data>
+export function TableHeader<Data extends App.ModuleBase.Component.TableData>(
+    props: App.ModuleBase.Component.TableHeaderProps<Data>
 ) {
     const { className, hasCheckbox, orderType, orderBy, checked, columns, onSelect, onSort } = props;
 
     return (
-        <TableHeader className={cn('sticky top-0 z-10', 'bg-background shadow-xs', className)}>
+        <TableHeaderUI className={cn('sticky top-0 z-10', 'bg-background shadow-xs', className)}>
             <TableRow className={cn('h-12', '[&_th:first-child]:rounded-tl-md [&_th:last-child]:rounded-tr-md')}>
                 <CellCheckbox
                     component="th"
@@ -61,6 +61,6 @@ export function TableBaseHeader<Data extends App.ModuleBase.Component.TableData>
                     );
                 })}
             </TableRow>
-        </TableHeader>
+        </TableHeaderUI>
     );
 }

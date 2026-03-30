@@ -16,7 +16,7 @@ import { TableCell, TableRow } from '@module-base/components/table';
 import { CellCheckbox } from '@module-base/components/table-base/cell-checkbox';
 
 interface TableBodyRowProps<Data> extends Pick<
-    App.ModuleBase.Component.TableBaseBodyProps<Data>,
+    App.ModuleBase.Component.TableBodyProps<Data>,
     'hasCheckbox' | 'columns' | 'onSelect'
 > {
     asChild?: boolean;

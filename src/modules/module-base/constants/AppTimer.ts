@@ -7,7 +7,7 @@
 export const AppTimer = {
     timeoutApi: 0,
     pendingApi: 600,
-    searching: 1000,
+    searching: 600,
     notifyDuration: 2000,
     countdownError: 99,
     restart: 15 * 60 * 1000,

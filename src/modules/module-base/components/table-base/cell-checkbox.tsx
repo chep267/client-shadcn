@@ -16,7 +16,7 @@ import { TableCell, TableHead } from '@module-base/components/table';
 import { Checkbox as CheckboxPrimitive } from 'radix-ui';
 
 interface CheckboxCellProps<Data> extends Pick<
-    App.ModuleBase.Component.TableBaseBodyProps<Data>,
+    App.ModuleBase.Component.TableBodyProps<Data>,
     'className' | 'hasCheckbox'
 > {
     component?: 'th' | 'tr';

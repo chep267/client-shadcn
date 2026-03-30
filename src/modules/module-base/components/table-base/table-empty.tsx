@@ -8,22 +8,26 @@
 import { cn } from '@module-base/utils/shadcn';
 
 /** components */
-import { TableRow } from '@module-base/components/table';
+import { TableRow, TableHead } from '@module-base/components/table';
 
-export function TableEmpty(
-    props: Pick<App.ModuleBase.Component.TableBaseProps<App.ModuleBase.Component.TableData>, 'loading' | 'emptyContent'>
-) {
-    const { loading, emptyContent } = props;
+export function TableEmpty(props: App.ModuleBase.Component.TableEmptyProps) {
+    const { hidden, emptyContent } = props;
 
-    if (loading) return null;
+    if (hidden) return null;
 
     if (!emptyContent || typeof emptyContent === 'string' || typeof emptyContent === 'number') {
         return (
             <TableRow className={cn('absolute inset-0', 'flex items-center justify-center')}>
-                <span className="opacity-50">{emptyContent || 'No data!'}</span>
+                <TableHead className="flex items-center justify-center opacity-50">
+                    {emptyContent || 'No data!'}
+                </TableHead>
             </TableRow>
         );
     }
 
-    return <TableRow className={cn('absolute inset-0', 'flex items-center justify-center')}>{emptyContent}</TableRow>;
+    return (
+        <TableRow className={cn('absolute inset-0', 'flex items-center justify-center')}>
+            {typeof emptyContent === 'function' ? emptyContent() : emptyContent}
+        </TableRow>
+    );
 }

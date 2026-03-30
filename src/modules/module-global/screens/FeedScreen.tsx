@@ -7,8 +7,7 @@ export default function FeedScreen() {
         <div className="tablet:p-10 flex h-[2000px] w-full flex-col gap-10 px-2 py-4">
             <TableBase
                 className="scrollbar-thin scrollbar-custom max-h-[40dvh]"
-                hasCheckbox
-                dataKeyForCheckbox="id"
+                initialSetup={{ hasCheckbox: true, dataKeyForCheckbox: 'id' }}
                 items={Array.from({ length: 99 }, (_, i) => ({
                     id: i + 1,
                     name: `user${i + 1}`,
@@ -28,8 +27,7 @@ export default function FeedScreen() {
 
             <VirtualTable
                 className="scrollbar-thin scrollbar-custom max-h-[40dvh]"
-                hasCheckbox
-                dataKeyForCheckbox="id"
+                initialSetup={{ hasCheckbox: true, dataKeyForCheckbox: 'id' }}
                 items={Array.from({ length: 10000 }, (_, i) => ({
                     id: i + 1,
                     name: `user${i + 1}`,

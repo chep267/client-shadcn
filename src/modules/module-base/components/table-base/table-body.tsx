@@ -8,12 +8,12 @@
 import { cn } from '@module-base/utils/shadcn';
 
 /** components */
-import { TableBody } from '@module-base/components/table';
+import { TableBody as TableBodyUI } from '@module-base/components/table';
 import { TableEmpty } from '@module-base/components/table-base/table-empty';
 import { TableBodyRow } from '@module-base/components/table-base/table-body-row';
 
-export function TableBaseBody<Data extends App.ModuleBase.Component.TableData>(
-    props: App.ModuleBase.Component.TableBaseBodyProps<Data>
+export function TableBody<Data extends App.ModuleBase.Component.TableData>(
+    props: App.ModuleBase.Component.TableBodyProps<Data>
 ) {
     const {
         loading,
@@ -27,8 +27,8 @@ export function TableBaseBody<Data extends App.ModuleBase.Component.TableData>(
     } = props;
 
     return (
-        <TableBody className={cn('relative', { 'h-24': !items.length })}>
-            <TableEmpty loading={loading || !!items.length} emptyContent={emptyContent} />
+        <TableBodyUI className={cn('relative', { 'h-24': !items.length })}>
+            <TableEmpty hidden={loading || !!items.length} emptyContent={emptyContent} />
 
             {items.map((item, indexRow) => {
                 const checked = hasCheckbox && dataKeyForCheckbox ? selectedIds.has(item[dataKeyForCheckbox]) : false;
@@ -44,6 +44,6 @@ export function TableBaseBody<Data extends App.ModuleBase.Component.TableData>(
                     />
                 );
             })}
-        </TableBody>
+        </TableBodyUI>
     );
 }

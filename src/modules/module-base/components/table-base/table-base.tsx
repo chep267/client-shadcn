@@ -8,38 +8,44 @@
 import * as React from 'react';
 
 /** hooks */
-import { useTableBase } from '@module-base/components/table-base/useTableBase';
+import { useTable } from '@module-base/components/table-base/useTable';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { Table } from '@module-base/components/table';
-import { TableBaseHeader } from '@module-base/components/table-base/table-header';
-import { TableBaseBody } from '@module-base/components/table-base/table-body';
+import { TableHeader } from '@module-base/components/table-base/table-header';
+import { TableBody } from '@module-base/components/table-base/table-body';
 import { TableLoading } from '@module-base/components/table-base/table-loading';
 
 export function TableBase<Data extends App.ModuleBase.Component.TableData>(
     props: App.ModuleBase.Component.TableBaseProps<Data>
 ) {
-    const { className, loading, hasCheckbox, dataKeyForCheckbox, columns, items = [] } = props;
+    const { className, initialSetup, initialValue, columns, items = [], emptyContent } = props;
+    const { hasCheckbox = false, dataKeyForCheckbox = 'id', delayLoading } = initialSetup ?? {};
+    const { searchValue = '', orderBy: orderByProps, orderType: orderTypeProps } = initialValue ?? {};
 
     const elemContainer = React.useRef<HTMLDivElement | null>(null);
 
     const {
-        loading: sortLoading,
+        loading,
         orderType,
         orderBy,
         currentItems,
         checkedAll,
         indeterminate,
         selectedIds,
-        toggleRow,
-        toggleAll,
+        onToggleRow,
+        onToggleAll,
         onSort,
-    } = useTableBase({
+    } = useTable({
         items,
         dataKeyForCheckbox,
+        delayLoading,
+        searchValue,
+        orderBy: orderByProps,
+        orderType: orderTypeProps,
     });
 
     React.useEffect(() => {
@@ -48,25 +54,26 @@ export function TableBase<Data extends App.ModuleBase.Component.TableData>(
 
     return (
         <div ref={elemContainer} className={cn('relative h-full w-full rounded-md border', className)}>
-            <TableLoading loading={loading || sortLoading} />
+            <TableLoading loading={loading} />
             <Table className={className}>
-                <TableBaseHeader
+                <TableHeader
                     hasCheckbox={hasCheckbox}
                     orderType={orderType}
                     orderBy={orderBy}
                     columns={columns}
                     checked={indeterminate ? 'indeterminate' : checkedAll}
-                    onSelect={toggleAll}
+                    onSelect={onToggleAll}
                     onSort={onSort}
                 />
-                <TableBaseBody
-                    loading={loading || sortLoading}
+                <TableBody
+                    loading={loading}
                     hasCheckbox={hasCheckbox}
                     dataKeyForCheckbox={dataKeyForCheckbox}
                     columns={columns}
                     items={currentItems}
+                    emptyContent={emptyContent}
                     selectedIds={selectedIds}
-                    onSelect={toggleRow}
+                    onSelect={onToggleRow}
                 />
             </Table>
         </div>
