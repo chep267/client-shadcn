@@ -27,7 +27,7 @@ export function TableFilter(props: TableFilterProps) {
 
     return (
         <Select value={value} onValueChange={onChange}>
-            <SelectTrigger className={cn('w-full', className)}>
+            <SelectTrigger className={cn('w-full cursor-pointer', className)}>
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent position="popper">
