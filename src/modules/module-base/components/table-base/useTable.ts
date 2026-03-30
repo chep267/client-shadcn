@@ -78,9 +78,10 @@ export function useTable<Data extends App.ModuleBase.Component.TableData>(payloa
         // sort items
         return sortTableData({
             items: filteredItems,
-            ...sortConfig,
+            orderType: sortConfig.orderType,
+            orderBy: sortConfig.orderBy,
         });
-    }, [items, sortConfig, searchableKeys, filters]);
+    }, [items, sortConfig.orderBy, sortConfig.orderType, sortConfig.searchValue, searchableKeys, filters]);
 
     const onToggleRow = React.useCallback((item: Data) => {
         setSelectedIds((prevIds) => {
@@ -108,21 +109,25 @@ export function useTable<Data extends App.ModuleBase.Component.TableData>(payloa
         return hookValueRef.current.selectedIds.has(id);
     }, []);
 
-    const onSort = React.useCallback((dataKey?: string) => {
+    const onSort = React.useCallback((orderBy?: string, orderType?: App.ModuleBase.Component.OrderType) => {
         startLoading();
-        const orderBy = dataKey || hookValueRef.current.dataKeyForCheckbox;
         startTransition(() => {
             setSortConfig((prev) => {
-                const orderType =
-                    prev.orderBy === orderBy
-                        ? prev.orderType === OrderType.asc
-                            ? OrderType.desc
-                            : OrderType.asc
-                        : OrderType.asc;
+                if (!!orderBy && !!orderType) {
+                    return {
+                        ...prev,
+                        orderBy,
+                        orderType,
+                    };
+                }
+
+                const newOrderBy = orderBy || prev.orderBy;
+                const newOrderType =
+                    newOrderBy !== prev.orderBy || prev.orderType === OrderType.desc ? OrderType.asc : OrderType.desc;
                 return {
                     ...prev,
-                    orderBy,
-                    orderType,
+                    orderBy: newOrderBy,
+                    orderType: newOrderType,
                 };
             });
         });
@@ -155,7 +160,7 @@ export function useTable<Data extends App.ModuleBase.Component.TableData>(payloa
     }, [searchValueProps]);
 
     React.useEffect(() => {
-        onSort(orderByProps);
+        onSort(orderByProps, orderTypeProps);
     }, [orderByProps, orderTypeProps]);
 
     React.useEffect(() => {
