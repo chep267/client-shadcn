@@ -4,7 +4,7 @@
  *
  */
 
-export const LocaleObject: Readonly<{ [Key in App.ModuleBase.Store.Locale]: Key }> = {
+export const LocaleObject: Readonly<{ [Key in App.ModuleBase.Store.TypeLocale]: Key }> = {
     vi: 'vi',
     en: 'en',
 };

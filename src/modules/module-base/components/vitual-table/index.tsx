@@ -22,8 +22,8 @@ import { TableBodyRow } from '@module-base/components/table-base/table-body-row'
 import { TableLoading } from '@module-base/components/table-base/table-loading';
 import { TableEmpty } from '@module-base/components/table-base/table-empty';
 
-export function VirtualTable<Data extends App.ModuleBase.Component.TableData>(
-    props: App.ModuleBase.Component.TableBaseProps<Data>
+export function VirtualTable<Data extends App.ModuleBase.Component.TypeTableData>(
+    props: App.ModuleBase.Component.TableProps<Data>
 ) {
     const { className, initialSetup, initialValue, columns, items = [], emptyContent } = props;
     const { hasCheckbox = false, dataKeyForCheckbox = 'id', delayLoading } = initialSetup ?? {};

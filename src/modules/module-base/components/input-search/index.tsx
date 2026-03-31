@@ -6,7 +6,11 @@
 
 /** libs */
 import * as React from 'react';
+import { useIntl } from 'react-intl';
 import { SearchIcon, XIcon } from 'lucide-react';
+
+/** constants */
+import { BaseLanguage } from '@module-base/constants/BaseLanguage';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
@@ -15,28 +19,27 @@ import { cn } from '@module-base/utils/shadcn';
 import { Input } from '@module-base/components/input';
 import { Button } from '@module-base/components/button';
 
-interface InputSearchProps extends React.ComponentProps<'input'> {
-    onSearch?: (value: string) => void;
-    debounceTime?: number;
-    label?: string;
-}
-
-export function InputSearch(props: InputSearchProps) {
+export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
     const {
         ref,
         id,
         className,
         value: externalValue,
         label = 'Search',
-        placeholder = 'Search...',
+        placeholder: externalPlaceholder,
         onSearch,
         ...otherProps
     } = props;
 
+    const { formatMessage } = useIntl();
     const [localValue, setLocalValue] = React.useState<string>((externalValue as string) ?? '');
     const generatedId = React.useId();
     const inputId = id || generatedId;
     const internalRef = React.useRef<HTMLInputElement>(null);
+
+    const placeholder =
+        externalPlaceholder ||
+        formatMessage({ id: BaseLanguage.component.input.placeholder, defaultMessage: 'Search...' });
 
     React.useImperativeHandle(ref, () => internalRef.current!);
 

@@ -8,11 +8,7 @@
 import type * as TypeComponent from '@module-global/types/component.d';
 
 declare global {
-    namespace App {
-        namespace ModuleGlobal {
-            namespace Component {
-                type SidebarItemProps = TypeComponent.SidebarItemProps;
-            }
-        }
+    namespace App.ModuleGlobal {
+        export import Component = TypeComponent;
     }
 }

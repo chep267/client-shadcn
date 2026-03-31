@@ -15,17 +15,17 @@ export type TypeAuthBreadcrumbsItem = {
     hidden?: boolean;
 };
 
-export type TypeAuthBreadcrumbsProps = {
+export type AuthBreadcrumbsProps = {
     name?: 'signin' | 'register' | 'recover';
 };
 
-export type TypeAuthTitleProps = TypeAuthBreadcrumbsProps;
+export type AuthTitleProps = AuthBreadcrumbsProps;
 
-export interface TypeAuthButtonSubmitProps extends TypeAuthBreadcrumbsProps {
+export interface AuthButtonSubmitProps extends AuthBreadcrumbsProps {
     loading?: boolean;
 }
 
-export interface TypeFormTextFieldProps<T extends FieldValues> extends React.ComponentProps<'input'> {
+export interface FormTextFieldProps<T extends FieldValues = FieldValues> extends React.ComponentProps<'input'> {
     name: FieldPath<T>;
     control: Control<T>;
     label?: string;

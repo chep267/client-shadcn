@@ -16,18 +16,18 @@ import { AppKey } from '@module-base/constants/AppKey';
 import { getDeviceLanguage } from '@module-base/utils/getDeviceLanguage';
 import { getDeviceTheme } from '@module-base/utils/getDeviceTheme';
 
-const defaultSettingStore: Readonly<App.ModuleBase.Store.SettingStore['data']> = {
+const defaultSettingStore: Readonly<App.ModuleBase.Store.TypeSettingStore['data']> = {
     locale: getDeviceLanguage(),
     theme: getDeviceTheme(),
 };
 
-export const useSettingStore = create<App.ModuleBase.Store.SettingStore>((set) => ({
+export const useSettingStore = create<App.ModuleBase.Store.TypeSettingStore>((set) => ({
     data: structuredClone(defaultSettingStore),
     action: {
         changeLocale: (locale = defaultSettingStore.locale) => {
             Cookies.set(AppKey.locale, locale);
             set(
-                produce<App.ModuleBase.Store.SettingStore>((store) => {
+                produce<App.ModuleBase.Store.TypeSettingStore>((store) => {
                     store.data.locale = locale;
                 })
             );
@@ -35,7 +35,7 @@ export const useSettingStore = create<App.ModuleBase.Store.SettingStore>((set) =
         changeTheme: (theme = defaultSettingStore.theme) => {
             Cookies.set(AppKey.theme, theme);
             set(
-                produce<App.ModuleBase.Store.SettingStore>((store) => {
+                produce<App.ModuleBase.Store.TypeSettingStore>((store) => {
                     store.data.theme = theme;
                 })
             );

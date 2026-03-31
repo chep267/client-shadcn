@@ -5,57 +5,83 @@
  */
 
 /** types */
-import type {
-    FunctionComponent,
-    PropsWithChildren,
-    LazyExoticComponent,
-    RefObject,
-    SVGProps,
-    ReactNode,
-    MouseEvent,
+import {
+    type FunctionComponent,
+    type PropsWithChildren,
+    type LazyExoticComponent,
+    type RefObject,
+    type SVGProps,
+    type ReactNode,
+    type MouseEvent,
 } from 'react';
 import type { TypeItemIds } from '@module-base/types/data';
+import * as React from 'react';
 
-export type TypeInputElem = HTMLInputElement | null;
+export type TypeInputElement = HTMLInputElement | null;
 
 /** ErrorBoundary */
-export interface TypeNotifyProviderProps extends PropsWithChildren {
+export interface NotifyProviderProps extends PropsWithChildren {
     fallback?: FunctionComponent;
     isAutoReload?: boolean;
 }
-export interface TypeNotifyProviderStates {
+export interface NotifyProviderStates {
     hasError: boolean;
 }
-export interface TypeFallbackDefaultProps {
+export interface FallbackDefaultProps {
     isAutoReload?: boolean;
 }
 
-/** IconBase */
-type TypeIconBase = 'app-logo' | 'error' | 'not-found';
+/** Icon base */
+export type TypeIconBase = 'app-logo' | 'error' | 'not-found';
 export type TypeIconSVGProps = SVGProps<SVGSVGElement>;
 export interface TypeIconBaseProps extends SVGProps<SVGSVGElement> {
     name: TypeIconBase;
     size?: number;
     ref?: ((instance: SVGSVGElement | null) => void) | RefObject<SVGSVGElement> | null;
 }
-export type TypeIconList = Readonly<Record<TypeIconBase, LazyExoticComponent<(props: IconBaseProps) => JSX.Element>>>;
+export type TypeIconList = Readonly<
+    Record<TypeIconBase, LazyExoticComponent<(props: TypeIconBaseProps) => JSX.Element>>
+>;
 
-/** TableBase */
+/** input search */
+interface InputSearchProps extends React.ComponentProps<'input'> {
+    onSearch?: (value: string) => void;
+    debounceTime?: number;
+    label?: string;
+}
+
+/** Select base */
+export type TypeSelectItem<D extends Record<string, unknown>> = {
+    className?: string;
+    label: React.ReactNode | (() => React.ReactNode);
+    value: string;
+} & D;
+export interface SelectBaseProps {
+    className?: string;
+    value?: string;
+    placeholder?: string;
+    hasClear?: boolean;
+    clearText?: string;
+    items?: TypeSelectItem[];
+    onChange?: (value: string, item?: TypeSelectItem) => void;
+}
+
+/** Table base */
 export type TypeOrderType = 'asc' | 'desc';
-export type TypeTableData<Data extends Record<string | 'id' | 'action', any>> = Data;
-type TypeTableSetup = {
+export type TypeTableData = Record<string | 'id' | 'action', any>;
+export type TypeTableSetup = {
     hasCheckbox?: boolean;
     dataKeyForCheckbox?: string;
     delayLoading?: number;
 };
-type TypeTableState = {
+export type TypeTableState = {
     searchValue?: string;
     orderType?: TypeOrderType;
     orderBy?: string;
     selectedItems?: TypeItemIds;
-    filters?: { dataKey: string; value: string }[];
+    filters?: { dataKey: string; value: string; fnFilter?: (item: TypeTableData) => boolean }[];
 };
-type TypeTableColumn = {
+export type TypeTableColumn = {
     dataKey?: string;
     className?: string;
     label?: ReactNode;
@@ -66,7 +92,7 @@ type TypeTableColumn = {
     ): void;
     render?(data: { indexRow: number; indexCell: number; item: Data }): ReactNode;
 };
-export interface TypeTableProps<Data extends TypeTableData> {
+export interface TableProps<Data extends TypeTableData = TypeTableData> {
     className?: string;
     initialSetup?: TypeTableSetup;
     initialValue?: TypeTableState;
@@ -76,17 +102,17 @@ export interface TypeTableProps<Data extends TypeTableData> {
     onSelect?(ids: Set<string>): void;
     onSearch?(value: string): void;
 }
-export interface TableEmptyProps<Data extends TypeTableData> {
+export interface TableEmptyProps<Data extends TypeTableData = TypeTableData> {
     hidden?: boolean;
-    emptyContent?: TypeTableProps<Data>['emptyContent'];
+    emptyContent?: TableProps<Data>['emptyContent'];
 }
 export interface TableLoadingProps {
     loading?: TableSetup['loading'];
 }
-export interface TypeTableHeaderProps<Data extends TypeTableData> {
+export interface TableHeaderProps<Data extends TypeTableData = TypeTableData> {
     asChild?: boolean;
     className?: string;
-    columns?: TypeTableProps<Data>['columns'];
+    columns?: TableProps<Data>['columns'];
     hasCheckbox?: TypeTableSetup['hasCheckbox'];
     checked?: boolean | 'indeterminate';
     orderType?: TypeTableState['orderType'];
@@ -94,14 +120,23 @@ export interface TypeTableHeaderProps<Data extends TypeTableData> {
     onSort?(dataKey?: TypeTableState['orderBy']): void;
     onSelect?(checked: boolean | 'indeterminate'): void;
 }
-export interface TypeTableBodyProps<Data extends TypeTableData> extends Pick<
-    TypeTableProps<Data>,
+export interface TableBodyProps<Data extends TypeTableData = TypeTableData> extends Pick<
+    TableProps<Data>,
     'className' | 'columns' | 'emptyContent'
 > {
-    items: NonNullable<TypeTableProps<Data>['items']>;
+    items: NonNullable<TableProps<Data>['items']>;
     selectedIds: Set<string | number>;
     loading?: TypeTableSetup['loading'];
     hasCheckbox?: TypeTableSetup['hasCheckbox'];
     dataKeyForCheckbox?: TypeTableSetup['dataKeyForCheckbox'];
     onSelect?(item: Data): void;
+}
+export interface TableBodyRowProps<Data extends TypeTableData = TypeTableData> extends Pick<
+    App.ModuleBase.Component.TableBodyProps<Data>,
+    'hasCheckbox' | 'columns' | 'onSelect'
+> {
+    asChild?: boolean;
+    checked: boolean;
+    indexRow: number;
+    item: Data;
 }

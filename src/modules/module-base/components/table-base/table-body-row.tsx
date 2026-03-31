@@ -15,17 +15,7 @@ import { getValueByDataKey } from '@module-base/utils/virtual';
 import { TableCell, TableRow } from '@module-base/components/table';
 import { CellCheckbox } from '@module-base/components/table-base/cell-checkbox';
 
-interface TableBodyRowProps<Data> extends Pick<
-    App.ModuleBase.Component.TableBodyProps<Data>,
-    'hasCheckbox' | 'columns' | 'onSelect'
-> {
-    asChild?: boolean;
-    checked: boolean;
-    indexRow: number;
-    item: Data;
-}
-
-function TableBodyRow<Data extends App.ModuleBase.Component.TableData>(props: TableBodyRowProps<Data>) {
+function TableBodyRow(props: App.ModuleBase.Component.TableBodyRowProps) {
     const { asChild, hasCheckbox, indexRow, checked, columns, item, onSelect } = props;
 
     const renderRow = React.useMemo(() => {

@@ -15,17 +15,20 @@ class UserServices extends BaseService {
         super(url);
     }
 
-    public create = (data: App.ModuleUser.Api.Create['Payload']) => {
+    public create = (data: App.ModuleUser.Api.TypeUserApi['Create']['Payload']) => {
         return this.withDelay(
-            this.post<App.ModuleUser.Api.Create['Response'], App.ModuleUser.Api.Create['Payload']>(data, {
+            this.post<
+                App.ModuleUser.Api.TypeUserApi['Create']['Response'],
+                App.ModuleUser.Api.TypeUserApi['Create']['Payload']
+            >(data, {
                 url: UserApiPath.create,
             })
         );
     };
 
-    public getList = (params?: App.ModuleUser.Api.GetList['Payload']) => {
+    public getList = (params?: App.ModuleUser.Api.TypeUserApi['GetList']['Payload']) => {
         return this.withDelay(
-            this.get<App.ModuleUser.Api.GetList['Response']>({
+            this.get<App.ModuleUser.Api.TypeUserApi['GetList']['Response']>({
                 url: UserApiPath.getList,
                 params,
             })

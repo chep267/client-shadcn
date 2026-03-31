@@ -19,8 +19,8 @@ import { TableHeader } from '@module-base/components/table-base/table-header';
 import { TableBody } from '@module-base/components/table-base/table-body';
 import { TableLoading } from '@module-base/components/table-base/table-loading';
 
-export function TableBase<Data extends App.ModuleBase.Component.TableData>(
-    props: App.ModuleBase.Component.TableBaseProps<Data>
+export function TableBase<Data extends App.ModuleBase.Component.TypeTableData>(
+    props: App.ModuleBase.Component.TableProps<Data>
 ) {
     const { className, initialSetup, initialValue, columns, items = [], emptyContent } = props;
     const { hasCheckbox = false, dataKeyForCheckbox = 'id', delayLoading } = initialSetup ?? {};

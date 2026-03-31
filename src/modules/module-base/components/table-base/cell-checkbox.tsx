@@ -14,8 +14,9 @@ import { cn } from '@module-base/utils/shadcn';
 import { Checkbox } from '@module-base/components/checkbox';
 import { TableCell, TableHead } from '@module-base/components/table';
 import { Checkbox as CheckboxPrimitive } from 'radix-ui';
+import type { TypeTableData } from '@module-base/types/component';
 
-interface CheckboxCellProps<Data> extends Pick<
+interface CheckboxCellProps<Data extends TypeTableData> extends Pick<
     App.ModuleBase.Component.TableBodyProps<Data>,
     'className' | 'hasCheckbox'
 > {
@@ -25,7 +26,7 @@ interface CheckboxCellProps<Data> extends Pick<
     onSelect: React.ComponentProps<typeof CheckboxPrimitive.Root>['onCheckedChange'];
 }
 
-const CellCheckbox = React.memo(function CellCheckbox<Data extends App.ModuleBase.Component.TableData>(
+const CellCheckbox = React.memo(function CellCheckbox<Data extends App.ModuleBase.Component.TypeTableData>(
     props: CheckboxCellProps<Data>
 ) {
     const { className, component, hasCheckbox, checked, indeterminate, onSelect } = props;

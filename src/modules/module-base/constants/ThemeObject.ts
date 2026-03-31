@@ -4,7 +4,7 @@
  *
  */
 
-export const ThemeObject: Readonly<{ [Key in App.ModuleBase.Store.Theme]: Key }> = {
+export const ThemeObject: Readonly<{ [Key in App.ModuleBase.Store.TypeTheme]: Key }> = {
     dark: 'dark',
     light: 'light',
 };

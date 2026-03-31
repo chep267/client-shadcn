@@ -10,7 +10,7 @@ import * as React from 'react';
 /** components */
 import { Spinner } from '@module-base/components/spinner';
 
-const Icons: Readonly<App.ModuleBase.Component.IconList> = {
+const Icons: Readonly<App.ModuleBase.Component.TypeIconList> = {
     /** app icon */
     ['app-logo']: React.lazy(() => import('@module-base/components/icon-base/svg/app-logo')),
 
@@ -19,7 +19,7 @@ const Icons: Readonly<App.ModuleBase.Component.IconList> = {
     ['not-found']: React.lazy(() => import('@module-base/components/icon-base/svg/not-found')),
 };
 
-const IconBase = React.memo<App.ModuleBase.Component.IconBaseProps>(function IconBase(props) {
+const IconBase = React.memo<App.ModuleBase.Component.TypeIconBaseProps>(function IconBase(props) {
     const { name, size = 24, width = size, height = size, ...iconProps } = props;
     const Icon = Icons[name];
 

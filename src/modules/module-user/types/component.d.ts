@@ -7,11 +7,11 @@
 /** types */
 import type { TypeUser } from '@module-user/types/data.d';
 
-export interface TypeUserAvatarProps {
+export interface UserAvatarProps {
     uid?: TypeUser['uid'];
 }
 
-export interface TypeUserNameProps {
+export interface UserNameProps {
     uid?: TypeUser['uid'];
     name?: TypeUser['displayName'];
 }

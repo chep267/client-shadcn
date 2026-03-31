@@ -29,11 +29,19 @@ export const BaseLanguage = {
                 light: 'module.theme.component.label.light',
             },
         },
+        input: {
+            placeholder: 'module.base.component.input.placeholder',
+        },
         button: {
             retry: 'module.game.component.button.retry',
         },
         table: {
             empty: 'module.base.component.table.empty',
+        },
+        select: {
+            empty: 'module.base.component.select.empty',
+            placeholder: 'module.base.component.select.placeholder',
+            clear: 'module.base.component.select.clear',
         },
     },
 } as const;

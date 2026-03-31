@@ -4,7 +4,7 @@
  *
  */
 
-export const OrderType: Readonly<{ [Key in App.ModuleBase.Component.OrderType]: Key }> = {
+export const OrderType: Readonly<{ [Key in App.ModuleBase.Component.TypeOrderType]: Key }> = {
     asc: 'asc',
     desc: 'desc',
 };

@@ -10,7 +10,7 @@ import { ThemeObject } from '@module-base/constants/ThemeObject';
 /** types */
 import type { IParticlesProps } from '@tsparticles/react';
 
-export const ParticleOptions = (mode: App.ModuleBase.Store.Theme): IParticlesProps['options'] => ({
+export const ParticleOptions = (mode: App.ModuleBase.Store.TypeTheme): IParticlesProps['options'] => ({
     autoPlay: true,
     clear: true,
     delay: 0,

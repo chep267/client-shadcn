@@ -18,7 +18,7 @@ import { Button } from '@module-base/components/button';
 import { TableHead, TableHeader as TableHeaderUI, TableRow } from '@module-base/components/table';
 import { CellCheckbox } from '@module-base/components/table-base/cell-checkbox';
 
-export function TableHeader<Data extends App.ModuleBase.Component.TableData>(
+export function TableHeader<Data extends App.ModuleBase.Component.TypeTableData>(
     props: App.ModuleBase.Component.TableHeaderProps<Data>
 ) {
     const { className, hasCheckbox, orderType, orderBy, checked, columns, onSelect, onSort } = props;

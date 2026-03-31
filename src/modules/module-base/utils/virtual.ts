@@ -44,7 +44,7 @@ interface SortMeta {
 }
 export const sortTableData = <Data extends object>(payload: {
     items?: Data[];
-    orderType?: App.ModuleBase.Component.OrderType;
+    orderType?: App.ModuleBase.Component.TypeOrderType;
     orderBy?: string;
 }): Array<Data> => {
     const { items, orderType = OrderType.asc, orderBy = 'id' } = payload;

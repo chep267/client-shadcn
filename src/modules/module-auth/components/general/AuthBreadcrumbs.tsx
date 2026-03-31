@@ -25,7 +25,7 @@ import {
 export default function AuthBreadcrumbs(props: App.ModuleAuth.Component.AuthBreadcrumbsProps) {
     const { name = 'signin' } = props;
 
-    const items: App.ModuleAuth.Component.AuthBreadcrumbsItem[] = [
+    const items: App.ModuleAuth.Component.TypeAuthBreadcrumbsItem[] = [
         {
             title: AuthLanguage.component.title.signin,
             path: AuthRouterPath.signin,

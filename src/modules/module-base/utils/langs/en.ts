@@ -16,13 +16,20 @@ export const en = {
     [BaseLanguage.component.label.error.fallback.content]: 'Please try to run the application again',
     [BaseLanguage.component.label.error.fallback.autoReload]:
         '( Auto reload after {second, plural, =0 {# second} one {# second} other {# seconds}} )',
-    [BaseLanguage.component.button.retry]: 'Retry',
-    [BaseLanguage.component.table.empty]: 'No data!',
-
     [BaseLanguage.component.label.theme.router]: 'Theme',
     [BaseLanguage.component.label.theme.dark]: 'Dark',
     [BaseLanguage.component.label.theme.light]: 'Light',
     [BaseLanguage.component.label.language.router]: 'Language',
     [BaseLanguage.component.label.language.vi]: 'Vietnamese',
     [BaseLanguage.component.label.language.en]: 'English',
+
+    [BaseLanguage.component.input.placeholder]: 'Search...',
+
+    [BaseLanguage.component.button.retry]: 'Retry',
+
+    [BaseLanguage.component.table.empty]: 'No data!',
+
+    [BaseLanguage.component.select.empty]: 'No data!',
+    [BaseLanguage.component.select.placeholder]: 'Select...',
+    [BaseLanguage.component.select.clear]: '-- Clear --',
 } as const;

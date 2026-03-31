@@ -5,7 +5,7 @@
  */
 
 /** useCountdown */
-export type TypeUseCountdownProps = {
+export type UseCountdownProps = {
     numberCountdown?: number /** thời gian đếm ngược */;
     timer?: number /**  khoảng đếm ngược */;
     isContinue?: boolean /** có  tiếp tục đếm ngược khi về 0 */;
@@ -13,7 +13,7 @@ export type TypeUseCountdownProps = {
 };
 
 /** useListSearch */
-export type TypeUseListSearchProps = {
+export type UseListSearchProps = {
     disableEventKey: boolean; // có tắt phím mũi tên không, mặc định là không
     total: number; // số phần tử
     indexSelect: number; // vị trí đang select, mặc định là chưa chọn

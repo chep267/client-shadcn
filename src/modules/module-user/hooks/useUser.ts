@@ -13,7 +13,7 @@ import { useListUser } from '@module-user/hooks/useListUser';
 /** types */
 
 type UseUserProps = {
-    uid?: App.ModuleUser.Data.User['uid'];
+    uid?: App.ModuleUser.Data.TypeUser['uid'];
 };
 
 export function useUser(props: UseUserProps) {

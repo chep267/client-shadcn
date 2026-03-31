@@ -7,18 +7,20 @@
 /** constants */
 import { LocaleObject } from '@module-base/constants/LocaleObject';
 
-type TypeMessageModule = Record<App.ModuleBase.Store.Locale, App.ModuleBase.Store.LanguageMessages>;
+type TypeMessageModule = Record<App.ModuleBase.Store.TypeLocale, App.ModuleBase.Store.TypeLanguageMessages>;
 
 const localeLoaders = import.meta.glob<TypeMessageModule>('/src/langs/*.ts', { eager: false });
 
 const messagesCache = {} as TypeMessageModule;
 
 const pendingPromises = {} as Record<
-    App.ModuleBase.Store.Locale,
-    Promise<App.ModuleBase.Store.LanguageMessages> | undefined
+    App.ModuleBase.Store.TypeLocale,
+    Promise<App.ModuleBase.Store.TypeLanguageMessages> | undefined
 >;
 
-export async function getMessage(locale: App.ModuleBase.Store.Locale): Promise<App.ModuleBase.Store.LanguageMessages> {
+export async function getMessage(
+    locale: App.ModuleBase.Store.TypeLocale
+): Promise<App.ModuleBase.Store.TypeLanguageMessages> {
     if (messagesCache[locale]) {
         return messagesCache[locale];
     }

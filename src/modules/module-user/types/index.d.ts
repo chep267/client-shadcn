@@ -11,17 +11,8 @@ import type * as TypeComponent from '@module-user/types/component.d';
 
 declare global {
     namespace App.ModuleUser {
-        namespace Data {
-            type User = TypeData.TypeUser;
-        }
-        namespace Api {
-            type Get = TypeApi.TypeUserApi['Get'];
-            type GetList = TypeApi.TypeUserApi['GetList'];
-            type Create = TypeApi.TypeUserApi['Create'];
-        }
-        namespace Component {
-            type UserAvatarProps = TypeComponent.TypeUserAvatarProps;
-            type UserNameProps = TypeComponent.TypeUserNameProps;
-        }
+        export import Data = TypeData;
+        export import Api = TypeApi;
+        export import Component = TypeComponent;
     }
 }

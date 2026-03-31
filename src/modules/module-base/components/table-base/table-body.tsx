@@ -13,7 +13,7 @@ import { TableBody as TableBodyUI } from '@module-base/components/table';
 import { TableEmpty } from '@module-base/components/table-base/table-empty';
 import { TableBodyRow } from '@module-base/components/table-base/table-body-row';
 
-export function TableBody<Data extends App.ModuleBase.Component.TableData>(
+export function TableBody<Data extends App.ModuleBase.Component.TypeTableData>(
     props: App.ModuleBase.Component.TableBodyProps<Data>
 ) {
     const {

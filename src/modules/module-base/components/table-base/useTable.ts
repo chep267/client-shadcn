@@ -17,15 +17,15 @@ import { deepIncludes, normalizeString } from '@module-base/utils/string';
 import { debounce } from '@module-base/utils/debounce';
 import { deepGet } from '@module-base/utils/data';
 
-export function useTable<Data extends App.ModuleBase.Component.TableData>(payload: {
+export function useTable<Data extends App.ModuleBase.Component.TypeTableData>(payload: {
     items: Data[];
     dataKeyForCheckbox?: string;
     delayLoading?: number;
     searchableKeys?: string[];
     searchValue?: string;
     orderBy?: string;
-    orderType?: App.ModuleBase.Component.OrderType;
-    filters?: { dataKey: string; value: string }[];
+    orderType?: App.ModuleBase.Component.TypeOrderType;
+    filters?: App.ModuleBase.Component.TypeTableState['filters'];
 }) {
     const {
         items,
@@ -88,7 +88,7 @@ export function useTable<Data extends App.ModuleBase.Component.TableData>(payloa
         return hookValueRef.current.selectedIds.has(id);
     }, []);
 
-    const onSort = React.useCallback((dataKey?: string, type?: App.ModuleBase.Component.OrderType) => {
+    const onSort = React.useCallback((dataKey?: string, type?: App.ModuleBase.Component.TypeOrderType) => {
         startLoading();
         startTransition(() => {
             setSortConfig((prev) => {
@@ -129,6 +129,8 @@ export function useTable<Data extends App.ModuleBase.Component.TableData>(payloa
         [debounceSearch]
     );
 
+    console.log('filters: ', filters);
+
     const onFilter = React.useCallback((data?: { dataKey: string; value: string }[]) => {
         startLoading();
         startTransition(() => {
@@ -148,7 +150,10 @@ export function useTable<Data extends App.ModuleBase.Component.TableData>(payloa
         }
         if (sortConfig.filters?.length) {
             filteredItems = filteredItems.filter((item) =>
-                sortConfig.filters?.every(({ dataKey, value }) => deepGet(item, dataKey) === value)
+                sortConfig.filters?.every(({ dataKey, value, fnFilter }) => {
+                    if (typeof fnFilter === 'function') return fnFilter(item);
+                    return deepGet(item, dataKey) === value;
+                })
             );
         }
 
