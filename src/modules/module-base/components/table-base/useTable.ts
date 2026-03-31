@@ -15,6 +15,7 @@ import { AppTimer } from '@module-base/constants/AppTimer';
 import { sortTableData } from '@module-base/utils/virtual';
 import { deepIncludes, normalizeString } from '@module-base/utils/string';
 import { debounce } from '@module-base/utils/debounce';
+import { deepGet } from '@module-base/utils/data';
 
 export function useTable<Data extends App.ModuleBase.Component.TableData>(payload: {
     items: Data[];
@@ -30,28 +31,28 @@ export function useTable<Data extends App.ModuleBase.Component.TableData>(payloa
         items,
         dataKeyForCheckbox = 'id',
         delayLoading = AppTimer.delay,
-        searchableKeys,
-        searchValue: searchValueProps = '',
-        orderBy: orderByProps = dataKeyForCheckbox,
-        orderType: orderTypeProps = OrderType.asc,
+        searchValue = '',
+        orderBy = dataKeyForCheckbox,
+        orderType = OrderType.asc,
         filters,
+        searchableKeys,
     } = payload;
 
-    const [loading, setLoading] = React.useState(false);
+    const [isPending, startTransition] = React.useTransition();
+    const [loading, setLoading] = React.useState(true);
     const [selectedIds, setSelectedIds] = React.useState<Set<string | number>>(() => new Set());
     const [sortConfig, setSortConfig] = React.useState({
-        searchValue: '',
-        orderBy: orderByProps,
-        orderType: orderTypeProps,
+        searchValue,
+        orderBy,
+        orderType,
+        filters,
+        searchableKeys,
     });
-    const [isPending, startTransition] = React.useTransition();
 
     const hookValueRef = React.useRef({
         dataKeyForCheckbox,
         sortConfig,
         selectedIds,
-        delayLoading,
-        searchableKeys,
         currentItems: items,
         timingStart: 0,
     });
@@ -61,31 +62,9 @@ export function useTable<Data extends App.ModuleBase.Component.TableData>(payloa
         setLoading(true);
     }, []);
 
-    const currentItems = React.useMemo(() => {
-        // filter items
-        let filteredItems = items;
-        const searchValue = sortConfig.searchValue.trim();
-        if (searchValue) {
-            const normalizedSearchValue = normalizeString(searchValue);
-            filteredItems = items.filter((item) => deepIncludes(item, normalizedSearchValue, searchableKeys));
-        }
-        if (filters?.length) {
-            filteredItems = filteredItems.filter((item) =>
-                filters.every(({ dataKey, value }) => item[dataKey] === value)
-            );
-        }
-
-        // sort items
-        return sortTableData({
-            items: filteredItems,
-            orderType: sortConfig.orderType,
-            orderBy: sortConfig.orderBy,
-        });
-    }, [items, sortConfig.orderBy, sortConfig.orderType, sortConfig.searchValue, searchableKeys, filters]);
-
     const onToggleRow = React.useCallback((item: Data) => {
         setSelectedIds((prevIds) => {
-            const id = item[hookValueRef.current.dataKeyForCheckbox];
+            const id = deepGet(item, hookValueRef.current.dataKeyForCheckbox);
             const nextIds = new Set(prevIds);
 
             if (nextIds.has(id)) nextIds.delete(id);
@@ -100,7 +79,7 @@ export function useTable<Data extends App.ModuleBase.Component.TableData>(payloa
                 return new Set();
             }
             return new Set(
-                hookValueRef.current.currentItems.map((item) => item[hookValueRef.current.dataKeyForCheckbox])
+                hookValueRef.current.currentItems.map((item) => deepGet(item, hookValueRef.current.dataKeyForCheckbox))
             );
         });
     }, []);
@@ -109,25 +88,25 @@ export function useTable<Data extends App.ModuleBase.Component.TableData>(payloa
         return hookValueRef.current.selectedIds.has(id);
     }, []);
 
-    const onSort = React.useCallback((orderBy?: string, orderType?: App.ModuleBase.Component.OrderType) => {
+    const onSort = React.useCallback((dataKey?: string, type?: App.ModuleBase.Component.OrderType) => {
         startLoading();
         startTransition(() => {
             setSortConfig((prev) => {
-                if (!!orderBy && !!orderType) {
+                if (!!dataKey && !!type) {
                     return {
                         ...prev,
-                        orderBy,
-                        orderType,
+                        orderBy: dataKey,
+                        orderType: type,
                     };
                 }
 
-                const newOrderBy = orderBy || prev.orderBy;
-                const newOrderType =
-                    newOrderBy !== prev.orderBy || prev.orderType === OrderType.desc ? OrderType.asc : OrderType.desc;
+                const nextOrderBy = dataKey || prev.orderBy;
+                const nextOrderType =
+                    nextOrderBy !== prev.orderBy || prev.orderType === OrderType.desc ? OrderType.asc : OrderType.desc;
                 return {
                     ...prev,
-                    orderBy: newOrderBy,
-                    orderType: newOrderType,
+                    orderBy: nextOrderBy,
+                    orderType: nextOrderType,
                 };
             });
         });
@@ -138,34 +117,77 @@ export function useTable<Data extends App.ModuleBase.Component.TableData>(payloa
             startTransition(() => {
                 setSortConfig((prev) => ({ ...prev, searchValue }));
             });
-        }, AppTimer.delay);
+        }, delayLoading);
+    }, [delayLoading]);
+
+    const onSearch = React.useCallback(
+        (searchValue: string) => {
+            debounceSearch.cancel();
+            startLoading();
+            debounceSearch(searchValue);
+        },
+        [debounceSearch]
+    );
+
+    const onFilter = React.useCallback((data?: { dataKey: string; value: string }[]) => {
+        startLoading();
+        startTransition(() => {
+            setSortConfig((prev) => ({ ...prev, filters: data }));
+        });
     }, []);
 
-    const onSearch = React.useCallback((searchValue: string) => {
-        debounceSearch.cancel();
-        startLoading();
-        debounceSearch(searchValue);
-    }, []);
+    const currentItems = React.useMemo(() => {
+        // filter items
+        let filteredItems = items;
+        const searchValue = sortConfig.searchValue.trim();
+        if (searchValue) {
+            const normalizedSearchValue = normalizeString(searchValue);
+            filteredItems = items.filter((item) =>
+                deepIncludes(item, normalizedSearchValue, sortConfig.searchableKeys)
+            );
+        }
+        if (sortConfig.filters?.length) {
+            filteredItems = filteredItems.filter((item) =>
+                sortConfig.filters?.every(({ dataKey, value }) => deepGet(item, dataKey) === value)
+            );
+        }
+
+        // sort items
+        return sortTableData({
+            items: filteredItems,
+            orderType: sortConfig.orderType,
+            orderBy: sortConfig.orderBy,
+        });
+    }, [items, sortConfig]);
 
     React.useLayoutEffect(() => {
         hookValueRef.current.dataKeyForCheckbox = dataKeyForCheckbox;
-        hookValueRef.current.delayLoading = delayLoading;
         hookValueRef.current.sortConfig = sortConfig;
         hookValueRef.current.selectedIds = selectedIds;
         hookValueRef.current.currentItems = currentItems;
-    }, [dataKeyForCheckbox, sortConfig, selectedIds, currentItems, delayLoading]);
+    }, [dataKeyForCheckbox, sortConfig, selectedIds, currentItems]);
 
     React.useEffect(() => {
-        onSearch(searchValueProps);
-    }, [searchValueProps]);
+        if (searchValue !== sortConfig.searchValue) {
+            onSearch(searchValue);
+        }
+    }, [searchValue]);
 
     React.useEffect(() => {
-        onSort(orderByProps, orderTypeProps);
-    }, [orderByProps, orderTypeProps]);
+        if (orderBy !== sortConfig.orderBy || orderType !== sortConfig.orderType) {
+            onSort(orderBy, orderType);
+        }
+    }, [orderBy, orderType]);
+
+    React.useEffect(() => {
+        if (filters !== sortConfig.filters) {
+            onFilter(filters);
+        }
+    }, [filters]);
 
     React.useEffect(() => {
         const duration = performance.now() - hookValueRef.current.timingStart;
-        const remainingTime = Math.max(0, Math.abs(duration - hookValueRef.current.delayLoading));
+        const remainingTime = Math.max(0, delayLoading - duration);
 
         const timer = setTimeout(() => {
             setLoading(false);

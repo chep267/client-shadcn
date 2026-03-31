@@ -50,7 +50,7 @@ export function ProjectTable(props: ProjectTableProps) {
                         placeholder="Filter by status"
                         value={filters.find((filter) => filter.dataKey === 'status')?.value || ''}
                         items={[
-                            { label: '--select--', value: 'null' },
+                            { label: '-- select --', value: 'null' },
                             { label: 'All', value: 'all' },
                             { label: 'Todo', value: 'todo' },
                             { label: 'In progress', value: 'in_progress' },

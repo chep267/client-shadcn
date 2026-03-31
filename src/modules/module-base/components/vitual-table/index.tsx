@@ -10,6 +10,7 @@ import { type TableComponents, TableVirtuoso } from 'react-virtuoso';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
+import { deepGet } from '@module-base/utils/data';
 
 /** hooks */
 import { useTable } from '@module-base/components/table-base/useTable';
@@ -82,11 +83,12 @@ export function VirtualTable<Data extends App.ModuleBase.Component.TableData>(
     };
 
     const itemContent = (indexRow: number, item: Data) => {
-        const checked = hasCheckbox && dataKeyForCheckbox ? selectedIds.has(item[dataKeyForCheckbox]) : false;
+        const id = deepGet(item, dataKeyForCheckbox);
+        const checked = hasCheckbox && dataKeyForCheckbox ? selectedIds.has(id) : false;
         return (
             <TableBodyRow
                 asChild
-                key={item[dataKeyForCheckbox]}
+                key={id ?? indexRow}
                 indexRow={indexRow}
                 hasCheckbox={hasCheckbox}
                 checked={checked}

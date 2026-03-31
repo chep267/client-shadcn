@@ -6,6 +6,7 @@
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
+import { deepGet } from '@module-base/utils/data';
 
 /** components */
 import { TableBody as TableBodyUI } from '@module-base/components/table';
@@ -31,10 +32,11 @@ export function TableBody<Data extends App.ModuleBase.Component.TableData>(
             <TableEmpty hidden={loading || !!items.length} emptyContent={emptyContent} />
 
             {items.map((item, indexRow) => {
-                const checked = hasCheckbox && dataKeyForCheckbox ? selectedIds.has(item[dataKeyForCheckbox]) : false;
+                const id = deepGet(item, dataKeyForCheckbox);
+                const checked = hasCheckbox && dataKeyForCheckbox ? selectedIds.has(id) : false;
                 return (
                     <TableBodyRow
-                        key={item[dataKeyForCheckbox]}
+                        key={id ?? indexRow}
                         indexRow={indexRow}
                         hasCheckbox={hasCheckbox}
                         checked={checked}
