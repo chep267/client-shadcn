@@ -14,6 +14,6 @@ export function StatusBadge({ status }: BadgeProps) {
     const title = status.replace('_', ' ');
 
     return (
-        <span className={`rounded-md px-2 py-1 text-xs ${statusStyles[status]} font-semibold capitalize`}>{title}</span>
+        <span className={`rounded-md px-2 py-1 text-xs ${statusStyles[status]} font-medium capitalize`}>{title}</span>
     );
 }
