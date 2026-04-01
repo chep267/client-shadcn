@@ -20,13 +20,14 @@ const AppSidebarMiniItem = React.memo(function AppSidebarMiniItem(props: App.Mod
     return (
         <Button
             asChild
+            aria-label={item.name}
             variant="ghost"
             size="lg"
             className={cn('grow rounded-none', {
                 'text-main hover:text-main': active,
             })}
         >
-            <Link to={item.path}>
+            <Link to={item.path} aria-label={item.name}>
                 <item.icon />
             </Link>
         </Button>
