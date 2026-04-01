@@ -19,7 +19,7 @@ export function ActionMenu<Data extends App.ModuleBase.Component.TypeTableData>(
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button size="icon" variant="ghost" className="cursor-pointer">
+                <Button aria-label="table-row-action" size="icon" variant="ghost" className="cursor-pointer">
                     <MoreHorizontal className="h-4 w-4" />
                 </Button>
             </DropdownMenuTrigger>

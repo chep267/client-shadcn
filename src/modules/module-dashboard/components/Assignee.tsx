@@ -17,7 +17,7 @@ export function Assignee({ name = '', avatar }: { name?: string; avatar?: string
             <Avatar className="relative" size="default">
                 <AvatarImage
                     className={cn({ 'opacity-0': loading })}
-                    alt={name}
+                    alt={avatar ? `Avatar of ${name}` : `Fallback avatar of ${name}`}
                     src={avatar}
                     onLoadingStatusChange={handleLoadingAvatar}
                 />
