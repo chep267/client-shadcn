@@ -10,8 +10,12 @@ import { cn } from '@module-base/utils/shadcn';
 /** components */
 import { Spinner } from '@module-base/components/spinner';
 
-export function TableLoading(props: App.ModuleBase.Component.TableLoadingProps) {
-    const { loading } = props;
+export function TableLoading<
+    Data extends App.ModuleBase.Component.TypeTableData = App.ModuleBase.Component.TypeTableData,
+>(props: App.ModuleBase.Component.TableLoadingProps<Data>) {
+    const { store } = props;
+
+    const loading = store((state) => state.data.loading);
 
     if (!loading) return null;
 

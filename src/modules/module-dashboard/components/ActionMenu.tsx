@@ -6,15 +6,14 @@ import {
 } from '@module-base/components/dropdown-menu';
 import { Button } from '@module-base/components/button';
 import { MoreHorizontal } from 'lucide-react';
-import type { TaskData } from '@module-dashboard/services/project';
 
-interface ActionMenuProps {
-    item: TaskData;
-    onEdit?(item: TaskData): void;
-    onDelete?(item: TaskData): void;
+interface ActionMenuProps<Data> {
+    item: Data;
+    onEdit?(item: Data): void;
+    onDelete?(item: Data): void;
 }
 
-export function ActionMenu(props: ActionMenuProps) {
+export function ActionMenu<Data extends App.ModuleBase.Component.TypeTableData>(props: ActionMenuProps<Data>) {
     const { item, onEdit, onDelete } = props;
 
     return (

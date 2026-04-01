@@ -5,112 +5,129 @@
  */
 
 /** libs */
+import * as React from 'react';
 import { Slot } from 'radix-ui';
-import { type TableComponents, TableVirtuoso } from 'react-virtuoso';
+import { TableVirtuoso, type TableComponents, type TableVirtuosoHandle } from 'react-virtuoso';
+
+/** constants */
+import { OrderType } from '@module-base/constants/OrderType';
+import { AppTimer } from '@module-base/constants/AppTimer';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 import { deepGet } from '@module-base/utils/data';
+import { delay } from '@module-base/utils/delay';
 
-/** hooks */
-import { useTable } from '@module-base/components/table-base/useTable';
+/** stores */
+import { createTableStore } from '@module-base/components/table-base/utils/table-store';
 
 /** components */
-import { Table, TableBody, TableRow } from '@module-base/components/table';
+import { Table, TableRow } from '@module-base/components/table';
 import { TableHeader } from '@module-base/components/table-base/table-header';
 import { TableBodyRow } from '@module-base/components/table-base/table-body-row';
 import { TableLoading } from '@module-base/components/table-base/table-loading';
-import { TableEmpty } from '@module-base/components/table-base/table-empty';
+import { TableBody } from '@module-base/components/table-base/table-body';
 
 export function VirtualTable<Data extends App.ModuleBase.Component.TypeTableData>(
     props: App.ModuleBase.Component.TableProps<Data>
 ) {
-    const { className, initialSetup, initialValue, columns, items = [], emptyContent } = props;
-    const { hasCheckbox = false, dataKeyForCheckbox = 'id', delayLoading } = initialSetup ?? {};
-    const { searchValue = '', orderBy: orderByProps, orderType: orderTypeProps, filters } = initialValue ?? {};
-
+    const { className, initialSetup, columns, items = [], emptyContent } = props;
     const {
-        loading,
-        orderType,
-        orderBy,
-        currentItems,
-        checkedAll,
-        indeterminate,
-        selectedIds,
-        onToggleRow,
-        onToggleAll,
-        onSort,
-    } = useTable({
-        items,
-        dataKeyForCheckbox,
-        delayLoading,
-        searchValue,
-        orderBy: orderByProps,
-        orderType: orderTypeProps,
+        hasCheckbox = false,
+        delayLoading = AppTimer.searching,
+        dataKeyForCheckbox = 'id',
+        searchKey,
+        orderBy = dataKeyForCheckbox,
+        orderType = OrderType.asc,
         filters,
-    });
+        searchableKeys,
+    } = initialSetup ?? {};
 
-    const components: TableComponents<Data> = {
-        Scroller: ({ children, ...props }) => (
-            <div {...props}>
-                <TableLoading loading={loading} />
-                {children}
-            </div>
-        ),
-        Table: Table,
-        TableHead: (props) => <Slot.Root {...props} />,
-        TableRow: TableRow,
-        TableBody: ({ children, className, ...props }) => (
-            <TableBody {...props} className={cn(className, 'relative', { 'h-24': !currentItems.length })}>
-                <TableEmpty hidden={loading || currentItems.length > 0} emptyContent={emptyContent} />
-                {children}
-            </TableBody>
-        ),
-    };
+    const virtuoso = React.useRef<TableVirtuosoHandle>(null);
+    const tableStore = React.useMemo(() => createTableStore<Data>(), []);
 
-    const fixedHeaderContent = () => {
-        return (
-            <TableHeader
-                hasCheckbox={hasCheckbox}
-                orderType={orderType}
-                orderBy={orderBy}
-                columns={columns}
-                checked={indeterminate ? 'indeterminate' : checkedAll}
-                onSelect={onToggleAll}
-                onSort={onSort}
-            />
-        );
-    };
+    const currentItems = tableStore((state) => state.data.currentItems);
+    const storeOrderBy = tableStore((state) => state.data.orderBy);
+    const storeOrderType = tableStore((state) => state.data.orderType);
+    const isTableEmpty = currentItems.length === 0;
 
-    const itemContent = (indexRow: number, item: Data) => {
-        const id = deepGet(item, dataKeyForCheckbox);
-        const checked = hasCheckbox && dataKeyForCheckbox ? selectedIds.has(id) : false;
-        return (
-            <TableBodyRow
-                asChild
-                key={id ?? indexRow}
-                indexRow={indexRow}
-                hasCheckbox={hasCheckbox}
-                checked={checked}
-                columns={columns}
-                item={item}
-                onSelect={onToggleRow}
-            />
-        );
-    };
+    const components = React.useMemo<TableComponents<Data>>(() => {
+        return {
+            Table: Table,
+            TableHead: (props) => <Slot.Root {...props} />,
+            TableRow: TableRow,
+            TableBody: (props) => {
+                return <TableBody {...props} store={tableStore} />;
+            },
+        };
+    }, [tableStore]);
+
+    const fixedHeaderContent = React.useCallback(() => {
+        return <TableHeader store={tableStore} />;
+    }, [tableStore]);
+
+    const itemContent = React.useCallback(
+        (indexRow: number, item: Data) => {
+            const id = deepGet(item, dataKeyForCheckbox) ?? `row-${indexRow}`;
+            return <TableBodyRow asChild key={id} id={id} indexRow={indexRow} item={item} store={tableStore} />;
+        },
+        [tableStore, dataKeyForCheckbox]
+    );
+
+    React.useEffect(() => {
+        tableStore.getState().action.initState({
+            hasCheckbox,
+            dataKeyForCheckbox,
+            delayLoading,
+            searchKey,
+            orderBy,
+            orderType,
+            columns,
+            items,
+            filters,
+            searchableKeys,
+            emptyContent,
+        });
+    }, [tableStore, hasCheckbox, dataKeyForCheckbox, delayLoading, columns, items]);
+
+    React.useEffect(() => {
+        tableStore.getState().action.search(searchKey);
+    }, [searchKey]);
+
+    React.useEffect(() => {
+        tableStore.getState().action.sort(orderBy, orderType);
+    }, [orderBy, orderType]);
+
+    React.useEffect(() => {
+        tableStore.getState().action.filter(filters);
+    }, [filters]);
+
+    React.useEffect(() => {
+        delay(delayLoading).then(() => {
+            virtuoso.current?.scrollTo({ top: 0 });
+        });
+    }, [searchKey, storeOrderBy, storeOrderType, JSON.stringify(filters), JSON.stringify(searchableKeys)]);
 
     return (
-        <TableVirtuoso
-            className={cn(
-                'relative w-full rounded-md border',
-                '[&_[data-slot=table-container]]:overflow-visible',
-                { 'max-h-[calc(var(--spacing)*40)]': !currentItems.length },
-                className
-            )}
-            components={components}
-            data={currentItems}
-            fixedHeaderContent={fixedHeaderContent}
-            itemContent={itemContent}
-        />
+        <div className={cn('relative flex-1 overflow-hidden rounded-md border', className)}>
+            <TableLoading store={tableStore} />
+            {React.useMemo(() => {
+                return (
+                    <TableVirtuoso
+                        ref={virtuoso}
+                        className={cn(
+                            'relative w-full rounded-md',
+                            '[&_[data-slot=table-container]]:overflow-visible',
+                            { 'max-h-[calc(var(--spacing)*40)]': isTableEmpty },
+                            className
+                        )}
+                        components={components}
+                        data={currentItems}
+                        fixedHeaderContent={fixedHeaderContent}
+                        itemContent={itemContent}
+                    />
+                );
+            }, [className, currentItems, components, fixedHeaderContent, itemContent])}
+        </div>
     );
 }

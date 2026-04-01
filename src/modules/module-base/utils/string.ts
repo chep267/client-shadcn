@@ -16,7 +16,7 @@ export const normalizeString = (text: string = ''): string => {
 export const deepIncludes = (data: any, normalizedQuery: string, searchableKeys?: string[]): boolean => {
     if (!normalizedQuery) return true;
 
-    const keySet = searchableKeys ? new Set(searchableKeys) : undefined;
+    const keySet = searchableKeys?.length ? new Set(searchableKeys) : undefined;
     const visited = new WeakSet();
 
     const isMatch = (currentData: any, isRoot: boolean): boolean => {

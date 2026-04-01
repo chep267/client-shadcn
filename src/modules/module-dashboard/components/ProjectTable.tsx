@@ -27,7 +27,7 @@ interface ProjectTableProps {
     onDelete?: (item: TaskData) => void;
 }
 
-type TypeFilterItem = NonNullable<App.ModuleBase.Component.TypeTableState['filters']>[number];
+type TypeFilterItem = NonNullable<App.ModuleBase.Component.TypeTableSetup['filters']>[number];
 
 export function ProjectTable(props: ProjectTableProps) {
     const { data, onDelete } = props;
@@ -56,6 +56,53 @@ export function ProjectTable(props: ProjectTableProps) {
             fnFilter: (item: TaskData) => handleFilterByYear(value, item),
         }));
     }, []);
+
+    const columns = React.useMemo<App.ModuleBase.Component.TypeTableColumn<TaskData>[]>(
+        () => [
+            {
+                dataKey: 'id',
+                label: 'ID',
+                sortable: true,
+                render: ({ item }) => <span>Task {item.id}</span>,
+            },
+            {
+                dataKey: 'title',
+                label: 'Task',
+                sortable: true,
+                className: 'width-[200px] max-w-[200px] min-w-[200px] whitespace-pre-line',
+            },
+            {
+                dataKey: 'assignee.name',
+                label: 'Assignee',
+                sortable: true,
+                render: ({ item }) => <Assignee name={item.assignee.name} avatar={item.assignee.avatar} />,
+            },
+            {
+                dataKey: 'status',
+                label: 'Status',
+                sortable: true,
+                render: ({ item }) => <StatusBadge status={item.status} />,
+            },
+            {
+                dataKey: 'createdAt',
+                label: 'Start time',
+                sortable: true,
+                render: ({ item }) => dayjs(item.createdAt).format('DD/MM/YYYY'),
+            },
+            {
+                dataKey: 'deadline',
+                label: 'Deadline',
+                sortable: true,
+                render: ({ item }) => dayjs(item.deadline).format('DD/MM/YYYY'),
+            },
+            {
+                dataKey: 'action',
+                label: 'Action',
+                render: ({ item }) => <ActionMenu item={item} onDelete={onDelete} />,
+            },
+        ],
+        [onDelete]
+    );
 
     return (
         <div className={cn('flex flex-1 flex-col', 'tablet:pt-10 gap-4 p-4', 'rounded-md border')}>
@@ -90,55 +137,9 @@ export function ProjectTable(props: ProjectTableProps) {
 
             <VirtualTable
                 className="scrollbar-thin scrollbar-custom flex"
-                initialSetup={{ hasCheckbox: true, dataKeyForCheckbox: 'id' }}
-                initialValue={{
-                    searchValue,
-                    filters: filters.filter((filter) => filter.value !== 'all'),
-                }}
+                initialSetup={{ hasCheckbox: true, dataKeyForCheckbox: 'id', searchKey: searchValue, filters }}
                 items={data}
-                columns={[
-                    {
-                        dataKey: 'id',
-                        label: 'ID',
-                        sortable: true,
-                        render: ({ item }) => <span>Task {item.id}</span>,
-                    },
-                    {
-                        dataKey: 'title',
-                        label: 'Task',
-                        sortable: true,
-                        className: 'width-[200px] max-w-[200px] min-w-[200px] whitespace-pre-line',
-                    },
-                    {
-                        dataKey: 'assignee.name',
-                        label: 'Assignee',
-                        sortable: true,
-                        render: ({ item }) => <Assignee name={item.assignee.name} avatar={item.assignee.avatar} />,
-                    },
-                    {
-                        dataKey: 'status',
-                        label: 'Status',
-                        sortable: true,
-                        render: ({ item }) => <StatusBadge status={item.status} />,
-                    },
-                    {
-                        dataKey: 'createdAt',
-                        label: 'Start time',
-                        sortable: true,
-                        render: ({ item }) => dayjs(item.createdAt).format('DD/MM/YYYY'),
-                    },
-                    {
-                        dataKey: 'deadline',
-                        label: 'Deadline',
-                        sortable: true,
-                        render: ({ item }) => dayjs(item.deadline).format('DD/MM/YYYY'),
-                    },
-                    {
-                        dataKey: 'action',
-                        label: 'Action',
-                        render: ({ item }) => <ActionMenu item={item} onDelete={onDelete} />,
-                    },
-                ]}
+                columns={columns}
             />
         </div>
     );

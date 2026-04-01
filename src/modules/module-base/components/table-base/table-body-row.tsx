@@ -13,12 +13,16 @@ import { getValueByDataKey } from '@module-base/utils/virtual';
 
 /** components */
 import { TableCell, TableRow } from '@module-base/components/table';
-import { CellCheckbox } from '@module-base/components/table-base/cell-checkbox';
+import { TableCellCheckboxOne } from '@module-base/components/table-base/table-cell-checkbox-one';
 
-function TableBodyRow(props: App.ModuleBase.Component.TableBodyRowProps) {
-    const { asChild, hasCheckbox, indexRow, checked, columns, item, onSelect } = props;
+function TableBodyRow<Data extends App.ModuleBase.Component.TypeTableData = App.ModuleBase.Component.TypeTableData>(
+    props: App.ModuleBase.Component.TableBodyRowProps<Data>
+) {
+    const { asChild, indexRow, item, id, store } = props;
 
-    const renderRow = React.useMemo(() => {
+    const columns = store((state) => state.data.columns);
+
+    const renderRow = () => {
         return columns?.map(({ dataKey, sortable: _sortable, render, ...cellProps }, indexCell) => {
             return (
                 <TableCell key={dataKey} {...cellProps}>
@@ -30,21 +34,21 @@ function TableBodyRow(props: App.ModuleBase.Component.TableBodyRowProps) {
                 </TableCell>
             );
         });
-    }, [indexRow, columns, item]);
+    };
 
     if (asChild) {
         return (
             <React.Fragment>
-                <CellCheckbox hasCheckbox={hasCheckbox} checked={checked} onSelect={() => onSelect?.(item)} />
-                {renderRow}
+                <TableCellCheckboxOne id={id} store={store} />
+                {renderRow()}
             </React.Fragment>
         );
     }
 
     return (
         <TableRow className={cn('h-10')}>
-            <CellCheckbox hasCheckbox={hasCheckbox} checked={checked} onSelect={() => onSelect?.(item)} />
-            {renderRow}
+            <TableCellCheckboxOne id={id} store={store} />
+            {renderRow()}
         </TableRow>
     );
 }

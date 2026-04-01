@@ -25,7 +25,7 @@ export function useTable<Data extends App.ModuleBase.Component.TypeTableData>(pa
     searchValue?: string;
     orderBy?: string;
     orderType?: App.ModuleBase.Component.TypeOrderType;
-    filters?: App.ModuleBase.Component.TypeTableState['filters'];
+    filters?: App.ModuleBase.Component.TypeTableSetup['filters'];
 }) {
     const {
         items,
@@ -39,7 +39,7 @@ export function useTable<Data extends App.ModuleBase.Component.TypeTableData>(pa
     } = payload;
 
     const [isPending, startTransition] = React.useTransition();
-    const [loading, setLoading] = React.useState(true);
+    const [loading, setLoading] = React.useState(false);
     const [selectedIds, setSelectedIds] = React.useState<Set<string | number>>(() => new Set());
     const [sortConfig, setSortConfig] = React.useState({
         searchValue,
@@ -129,12 +129,17 @@ export function useTable<Data extends App.ModuleBase.Component.TypeTableData>(pa
         [debounceSearch]
     );
 
-    console.log('filters: ', filters);
-
     const onFilter = React.useCallback((data?: { dataKey: string; value: string }[]) => {
         startLoading();
         startTransition(() => {
             setSortConfig((prev) => ({ ...prev, filters: data }));
+        });
+    }, []);
+
+    const onSearchable = React.useCallback((data?: string[]) => {
+        startLoading();
+        startTransition(() => {
+            setSortConfig((prev) => ({ ...prev, searchableKeys: data }));
         });
     }, []);
 
@@ -185,10 +190,14 @@ export function useTable<Data extends App.ModuleBase.Component.TypeTableData>(pa
     }, [orderBy, orderType]);
 
     React.useEffect(() => {
-        if (filters !== sortConfig.filters) {
-            onFilter(filters);
-        }
+        const isEqual = JSON.stringify(filters) === JSON.stringify(sortConfig.filters);
+        if (!isEqual) onFilter(filters);
     }, [filters]);
+
+    React.useEffect(() => {
+        const isEqual = JSON.stringify(searchableKeys) === JSON.stringify(sortConfig.searchableKeys);
+        if (!isEqual) onSearchable(searchableKeys);
+    }, [searchableKeys]);
 
     React.useEffect(() => {
         const duration = performance.now() - hookValueRef.current.timingStart;

@@ -13,9 +13,9 @@ import {
     type SVGProps,
     type ReactNode,
     type MouseEvent,
+    type ComponentProps,
 } from 'react';
-import type { TypeItemIds } from '@module-base/types/data';
-import * as React from 'react';
+import type { UseBoundStore, StoreApi } from 'zustand';
 
 export type TypeInputElement = HTMLInputElement | null;
 
@@ -44,7 +44,7 @@ export type TypeIconList = Readonly<
 >;
 
 /** input search */
-interface InputSearchProps extends React.ComponentProps<'input'> {
+interface InputSearchProps extends ComponentProps<'input'> {
     onSearch?: (value: string) => void;
     debounceTime?: number;
     label?: string;
@@ -53,7 +53,7 @@ interface InputSearchProps extends React.ComponentProps<'input'> {
 /** Select base */
 export type TypeSelectItem<D extends Record<string, unknown>> = {
     className?: string;
-    label: React.ReactNode | (() => React.ReactNode);
+    label: ReactNode | (() => ReactNode);
     value: string;
 } & D;
 export interface SelectBaseProps {
@@ -69,19 +69,17 @@ export interface SelectBaseProps {
 /** Table base */
 export type TypeOrderType = 'asc' | 'desc';
 export type TypeTableData = Record<string | 'id' | 'action', any>;
-export type TypeTableSetup = {
+export type TypeTableSetup<Data extends TypeTableData = TypeTableData> = {
     hasCheckbox?: boolean;
     dataKeyForCheckbox?: string;
     delayLoading?: number;
-};
-export type TypeTableState = {
-    searchValue?: string;
+    searchKey?: string;
     orderType?: TypeOrderType;
     orderBy?: string;
-    selectedItems?: TypeItemIds;
-    filters?: { dataKey: string; value: string; fnFilter?: (item: TypeTableData) => boolean }[];
+    filters?: { dataKey: string; value: string; fnFilter?: (item: Data) => boolean }[];
+    searchableKeys?: string[];
 };
-export type TypeTableColumn = {
+export type TypeTableColumn<Data extends TypeTableData = TypeTableData> = {
     dataKey?: string;
     className?: string;
     label?: ReactNode;
@@ -92,10 +90,42 @@ export type TypeTableColumn = {
     ): void;
     render?(data: { indexRow: number; indexCell: number; item: Data }): ReactNode;
 };
+export type TypeTableStoreData<Data extends TypeTableData = TypeTableData> = {
+    loading: boolean;
+    hasCheckbox: boolean;
+    dataKeyForCheckbox: string;
+    delayLoading: number;
+    isCheckedAll: boolean;
+    isIndeterminate: boolean;
+    searchKey: string;
+    orderBy: string;
+    orderType: TypeOrderType;
+    selectedIds: Set<string | number>;
+    emptyContent: TableProps['emptyContent'];
+    filters: TypeTableSetup<Data>['filters'];
+    searchableKeys: TypeTableSetup<Data>['searchableKeys'];
+    columns: TypeTableColumn<Data>[];
+    items: Data[];
+    currentItems: Data[];
+};
+export type TypeTableStoreAction<Data extends TypeTableData = TypeTableData> = {
+    initState: (state: Partial<TypeTableStoreData<Data>>) => void;
+    setParam: (key: keyof TypeTableStoreData<Data>, value: any) => void;
+    toggleRow: (id: string | number) => void;
+    toggleAll: () => void;
+    sort: (dataKey?: string, type?: TypeOrderType) => void;
+    filter: (filters: TypeTableSetup<Data>['filters']) => void;
+    search: (value?: string) => void;
+    calculateData: (isImmediate?: boolean) => void;
+};
+export interface TableStoreProps<Data extends TypeTableData = TypeTableData> {
+    data: TypeTableStoreData<Data>;
+    action: TypeTableStoreAction<Data>;
+}
+export type TypeTableStore<Data extends TypeTableData = TypeTableData> = UseBoundStore<StoreApi<TableStoreProps<Data>>>;
 export interface TableProps<Data extends TypeTableData = TypeTableData> {
     className?: string;
     initialSetup?: TypeTableSetup;
-    initialValue?: TypeTableState;
     items?: Data[];
     emptyContent?: ReactNode | (() => ReactNode);
     columns?: TypeTableColumn[];
@@ -103,40 +133,41 @@ export interface TableProps<Data extends TypeTableData = TypeTableData> {
     onSearch?(value: string): void;
 }
 export interface TableEmptyProps<Data extends TypeTableData = TypeTableData> {
-    hidden?: boolean;
+    store: TypeTableStore<Data>;
     emptyContent?: TableProps<Data>['emptyContent'];
 }
-export interface TableLoadingProps {
-    loading?: TableSetup['loading'];
+export interface TableLoadingProps<Data extends TypeTableData = TypeTableData> {
+    store: TypeTableStore<Data>;
 }
 export interface TableHeaderProps<Data extends TypeTableData = TypeTableData> {
     asChild?: boolean;
     className?: string;
-    columns?: TableProps<Data>['columns'];
-    hasCheckbox?: TypeTableSetup['hasCheckbox'];
-    checked?: boolean | 'indeterminate';
-    orderType?: TypeTableState['orderType'];
-    orderBy?: TypeTableState['orderBy'];
-    onSort?(dataKey?: TypeTableState['orderBy']): void;
-    onSelect?(checked: boolean | 'indeterminate'): void;
+    store: TypeTableStore<Data>;
 }
-export interface TableBodyProps<Data extends TypeTableData = TypeTableData> extends Pick<
-    TableProps<Data>,
-    'className' | 'columns' | 'emptyContent'
-> {
-    items: NonNullable<TableProps<Data>['items']>;
-    selectedIds: Set<string | number>;
-    loading?: TypeTableSetup['loading'];
-    hasCheckbox?: TypeTableSetup['hasCheckbox'];
-    dataKeyForCheckbox?: TypeTableSetup['dataKeyForCheckbox'];
-    onSelect?(item: Data): void;
+export interface TableHeaderCellProps<Data extends TypeTableData = TypeTableData> {
+    column: TypeTableColumn<Data>;
+    isOrderBy?: boolean;
+    orderType?: TypeOrderType;
+    sort?: (dataKey?: string) => void;
 }
-export interface TableBodyRowProps<Data extends TypeTableData = TypeTableData> extends Pick<
-    App.ModuleBase.Component.TableBodyProps<Data>,
-    'hasCheckbox' | 'columns' | 'onSelect'
-> {
+export interface TableBodyProps<Data extends TypeTableData = TypeTableData> {
+    className?: string;
+    children?: ReactNode;
+    store: TypeTableStore<Data>;
+}
+export interface TableBodyRowProps<Data extends TypeTableData = TypeTableData> {
     asChild?: boolean;
-    checked: boolean;
+    id: string | number;
     indexRow: number;
     item: Data;
+    store: TypeTableStore<Data>;
+}
+interface TableCellCheckboxAllProps<Data extends TypeTableData = TypeTableData> {
+    className?: string;
+    store: TypeTableStore<Data>;
+}
+interface TableCellCheckboxOneProps<Data extends TypeTableData = TypeTableData> {
+    className?: string;
+    id: string | number;
+    store: TypeTableStore<Data>;
 }

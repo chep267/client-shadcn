@@ -10,10 +10,16 @@ import { cn } from '@module-base/utils/shadcn';
 /** components */
 import { TableRow, TableHead } from '@module-base/components/table';
 
-export function TableEmpty(props: App.ModuleBase.Component.TableEmptyProps) {
-    const { hidden, emptyContent } = props;
+export function TableEmpty<
+    Data extends App.ModuleBase.Component.TypeTableData = App.ModuleBase.Component.TypeTableData,
+>(props: App.ModuleBase.Component.TableEmptyProps<Data>) {
+    const { store } = props;
 
-    if (hidden) return null;
+    const isTableEmpty = store((state) => state.data.currentItems.length === 0);
+    const loading = store((state) => state.data.loading);
+    const emptyContent = store((state) => state.data.emptyContent);
+
+    if (loading || !isTableEmpty) return null;
 
     if (!emptyContent || typeof emptyContent === 'string' || typeof emptyContent === 'number') {
         return (
