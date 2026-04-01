@@ -53,7 +53,7 @@ export function SelectBase(props: App.ModuleBase.Component.SelectBaseProps) {
 
     return (
         <Select value={value} onValueChange={handleChange}>
-            <SelectTrigger className={cn('w-full cursor-pointer', className)}>
+            <SelectTrigger aria-label="select" className={cn('w-full cursor-pointer', className)}>
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent position="popper">

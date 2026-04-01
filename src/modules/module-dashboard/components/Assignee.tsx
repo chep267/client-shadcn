@@ -3,7 +3,7 @@ import React from 'react';
 import { Skeleton } from '@module-base/components/skeleton';
 import { cn } from '@module-base/utils/shadcn';
 
-export function Assignee({ name, avatar }: { name?: string; avatar?: string }) {
+export function Assignee({ name = '', avatar }: { name?: string; avatar?: string }) {
     const [loading, setLoading] = React.useState(true);
 
     const handleLoadingAvatar = (status: string) => {
@@ -17,6 +17,7 @@ export function Assignee({ name, avatar }: { name?: string; avatar?: string }) {
             <Avatar className="relative" size="default">
                 <AvatarImage
                     className={cn({ 'opacity-0': loading })}
+                    alt={name}
                     src={avatar}
                     onLoadingStatusChange={handleLoadingAvatar}
                 />

@@ -24,7 +24,12 @@ function TableCellCheckboxOne<
 
     return (
         <TableCell className={cn('w-10', className)}>
-            <Checkbox className="cursor-pointer" checked={isChecked} onClick={() => toggleRow(id)} />
+            <Checkbox
+                aria-label="Select one"
+                className="cursor-pointer"
+                checked={isChecked}
+                onClick={() => toggleRow(id)}
+            />
         </TableCell>
     );
 }

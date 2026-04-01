@@ -26,6 +26,7 @@ function TableCellCheckboxAll<
     return (
         <TableHead className={cn('w-10', className)}>
             <Checkbox
+                aria-label="Select all"
                 className="cursor-pointer"
                 checked={isIndeterminate ? 'indeterminate' : isCheckedAll}
                 onClick={toggleAll}

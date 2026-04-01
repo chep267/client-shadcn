@@ -59,7 +59,7 @@ export type TypeSelectItem<D extends Record<string, unknown>> = {
 export interface SelectBaseProps {
     className?: string;
     value?: string;
-    placeholder?: string;
+    placeholder?: ReactNode;
     hasClear?: boolean;
     clearText?: string;
     items?: TypeSelectItem[];
