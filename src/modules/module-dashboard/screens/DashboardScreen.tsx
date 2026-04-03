@@ -23,7 +23,7 @@ export default function DashboardScreen() {
     return (
         <div
             className={cn(
-                'flex shrink grow flex-col',
+                'flex flex-1 flex-col',
                 'w-full max-w-dvw space-y-6 py-4',
                 'max-h-[calc(100dvh-var(--app-size-height-header)-var(--app-size-height-sidebar-mini))] px-2',
                 'tablet:px-4 tablet:max-h-[calc(100dvh-var(--app-size-height-header))]'

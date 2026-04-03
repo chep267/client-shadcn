@@ -24,7 +24,7 @@ export default function StartScreen() {
     }, []);
 
     return (
-        <LayerScreen>
+        <LayerScreen component="main">
             <StartLoading />
         </LayerScreen>
     );

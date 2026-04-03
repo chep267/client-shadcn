@@ -23,18 +23,19 @@ const Particle = React.lazy(() =>
 
 type LayerScreenProps = React.PropsWithChildren<{
     className?: string;
+    component?: 'div' | 'main';
 }>;
 
 export default function LayerScreen(props: LayerScreenProps) {
-    const { children, className } = props;
+    const { children, className, component: Component = 'div' } = props;
     const theme = useSettingStore((store) => store.data.theme);
 
     return (
-        <div className={cn('flex shrink grow items-center justify-center', className)}>
+        <Component className={cn('flex flex-1 items-center justify-center', className)}>
             {children}
             <React.Suspense fallback={null}>
                 <Particle options={ParticleOptions(theme)} />
             </React.Suspense>
-        </div>
+        </Component>
     );
 }

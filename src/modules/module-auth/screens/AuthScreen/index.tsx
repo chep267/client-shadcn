@@ -27,7 +27,7 @@ const RecoverForm = React.lazy(() =>
 
 export default function AuthScreen() {
     return (
-        <LayerScreen className="p-2">
+        <LayerScreen className="p-2" component="main">
             <React.Suspense>
                 <Routes>
                     <Route path={AuthRouterPath.signin} element={<SigninForm />} />
