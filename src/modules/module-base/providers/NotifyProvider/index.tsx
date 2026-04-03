@@ -12,8 +12,8 @@ import { AppTimer } from '@module-base/constants/AppTimer';
 
 /** components */
 import { TooltipProvider } from '@module-base/components/tooltip';
-import FallbackDefault from '@module-base/providers/NotifyProvider/FallbackDefault';
-import NotifyBoundary from '@module-base/providers/NotifyProvider/NotifyBoundary';
+import { FallbackDefault } from '@module-base/providers/NotifyProvider/FallbackDefault';
+import { NotifyBoundary } from '@module-base/providers/NotifyProvider/NotifyBoundary';
 
 class NotifyProvider extends React.Component<
     App.ModuleBase.Component.NotifyProviderProps,
@@ -45,4 +45,4 @@ class NotifyProvider extends React.Component<
     }
 }
 
-export default NotifyProvider;
+export { NotifyProvider };

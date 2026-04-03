@@ -5,7 +5,6 @@
  */
 
 /** libs */
-import * as React from 'react';
 import * as z from 'zod';
 import Cookie from 'js-cookie';
 import { useForm } from 'react-hook-form';
@@ -25,34 +24,27 @@ import { isCallApiErrorByClient } from '@module-base/utils/isClientCallApiError'
 /** components */
 import { Card, CardContent, CardFooter } from '@module-base/components/card';
 import { FieldGroup } from '@module-base/components/field';
-import AuthTitle from '@module-auth/components/general/AuthTitle';
-import AuthBreadcrumbs from '@module-auth/components/general/AuthBreadcrumbs';
-import FieldEmail from '@module-auth/components/general/FieldEmail';
-import ButtonRecover from '@module-auth/components/general/ButtonRecover';
+import { AuthTitle } from '@module-auth/components/general/AuthTitle';
+import { AuthBreadcrumbs } from '@module-auth/components/general/AuthBreadcrumbs';
+import { ButtonRecover } from '@module-auth/components/general/ButtonRecover';
+import { FieldEmail } from '@module-auth/components/general/FieldEmail';
 
 /** types */
 import type { AxiosError } from 'axios';
 
-type TypeFormFieldsName = 'email';
-type TypeFormData = {
-    email: string;
+const FormFieldsName: { [Key in App.ModuleAuth.Component.TypeFormRecoverFieldsName]: Key } = {
+    email: 'email',
 };
 
-export default function RecoverForm() {
-    const [FormFieldsName] = React.useState<{ [Key in TypeFormFieldsName]: Key }>({
-        email: 'email',
-    });
+const schema = z.object({
+    [FormFieldsName.email]: z
+        .string()
+        .nonempty(AuthLanguage.status.email.empty)
+        .regex(AppRegex.email, AuthLanguage.status.email.invalid),
+});
 
-    const [schema] = React.useState<z.ZodType<TypeFormData, TypeFormData>>(() =>
-        z.object({
-            [FormFieldsName.email]: z
-                .string()
-                .nonempty(AuthLanguage.status.email.empty)
-                .regex(AppRegex.email, AuthLanguage.status.email.invalid),
-        })
-    );
-
-    const { handleSubmit, control, setError, clearErrors } = useForm<TypeFormData>({
+export function RecoverForm() {
+    const { handleSubmit, control, setError, clearErrors } = useForm<App.ModuleAuth.Component.TypeFormRecoverData>({
         defaultValues: {
             [FormFieldsName.email]: Cookie.get(AppKey.email) || '',
         },
@@ -77,7 +69,8 @@ export default function RecoverForm() {
 
     return (
         <Card className={cn('w-full max-w-xl min-w-0', 'z-1 rounded-md', 'overflow-hidden shadow-lg')}>
-            <AuthTitle name="recover" />
+            <AuthTitle mode="recover" />
+
             <CardContent>
                 <form>
                     <FieldGroup className="gap-4">
@@ -98,7 +91,7 @@ export default function RecoverForm() {
                     'mobile:flex-row flex-col'
                 )}
             >
-                <AuthBreadcrumbs name="recover" />
+                <AuthBreadcrumbs mode="recover" />
                 <ButtonRecover handleSubmit={handleSubmit} onSubmitError={onSubmitError} />
             </CardFooter>
         </Card>

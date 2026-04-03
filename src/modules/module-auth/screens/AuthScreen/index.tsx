@@ -15,9 +15,15 @@ import { AuthRouterPath } from '@module-auth/constants/AuthRouterPath';
 import LayerScreen from '@module-base/screens/LayerScreen';
 
 /** lazy components */
-const SigninForm = React.lazy(() => import('@module-auth/components/AuthForm/SigninForm'));
-const RegisterForm = React.lazy(() => import('@module-auth/components/AuthForm/RegisterForm'));
-const RecoverForm = React.lazy(() => import('@module-auth/components/AuthForm/RecoverForm'));
+const SigninForm = React.lazy(() =>
+    import('@module-auth/components/AuthForm/SigninForm').then((module) => ({ default: module.SigninForm }))
+);
+const RegisterForm = React.lazy(() =>
+    import('@module-auth/components/AuthForm/RegisterForm').then((module) => ({ default: module.RegisterForm }))
+);
+const RecoverForm = React.lazy(() =>
+    import('@module-auth/components/AuthForm/RecoverForm').then((module) => ({ default: module.RecoverForm }))
+);
 
 export default function AuthScreen() {
     return (

@@ -18,13 +18,12 @@ import { cn } from '@module-base/utils/shadcn';
 import { Button } from '@module-base/components/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@module-base/components/tooltip';
 
-export default function AppButtonDev(props: any) {
+export function AppButtonDev(props: any) {
     const { icon } = props;
 
     const onDev = () => {
         toast.warning('In developing!', {
             description: 'Sunday, December 03, 2023 at 9:00 AM',
-            richColors: true,
         });
     };
 

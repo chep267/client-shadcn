@@ -5,7 +5,6 @@
  */
 
 /** libs */
-import * as React from 'react';
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,52 +22,43 @@ import { isCallApiErrorByClient } from '@module-base/utils/isClientCallApiError'
 /** components */
 import { Card, CardContent, CardFooter } from '@module-base/components/card';
 import { FieldGroup } from '@module-base/components/field';
-import AuthTitle from '@module-auth/components/general/AuthTitle';
-import AuthBreadcrumbs from '@module-auth/components/general/AuthBreadcrumbs';
-import ButtonRegister from '@module-auth/components/general/ButtonRegister';
-import FieldEmail from '@module-auth/components/general/FieldEmail';
-import FieldPassword from '@module-auth/components/general/FieldPassword';
+import { AuthTitle } from '@module-auth/components/general/AuthTitle';
+import { AuthBreadcrumbs } from '@module-auth/components/general/AuthBreadcrumbs';
+import { ButtonRegister } from '@module-auth/components/general/ButtonRegister';
+import { FieldEmail } from '@module-auth/components/general/FieldEmail';
+import { FieldPassword } from '@module-auth/components/general/FieldPassword';
 
 /** types */
 import type { AxiosError } from 'axios';
 
-type TypeFormFieldsName = 'email' | 'password' | 'confirmPassword';
-type TypeFormData = {
-    email: string;
-    password: string;
-    confirmPassword: string;
+const FormFieldsName: { [Key in App.ModuleAuth.Component.TypeFormRegisterFieldsName]: Key } = {
+    email: 'email',
+    password: 'password',
+    confirmPassword: 'confirmPassword',
 };
 
-export default function RegisterForm() {
-    const [FormFieldsName] = React.useState<{ [Key in TypeFormFieldsName]: Key }>({
-        email: 'email',
-        password: 'password',
-        confirmPassword: 'confirmPassword',
+const schema = z
+    .object({
+        [FormFieldsName.email]: z
+            .string()
+            .nonempty(AuthLanguage.status.email.empty)
+            .regex(AppRegex.email, AuthLanguage.status.email.invalid),
+        [FormFieldsName.password]: z
+            .string()
+            .nonempty(AuthLanguage.status.password.empty)
+            .regex(AppRegex.password, AuthLanguage.status.password.invalid),
+        [FormFieldsName.confirmPassword]: z
+            .string()
+            .nonempty(AuthLanguage.status.password.empty)
+            .regex(AppRegex.password, AuthLanguage.status.password.invalid),
+    })
+    .refine((data) => data[FormFieldsName.password] === data[FormFieldsName.confirmPassword], {
+        path: [FormFieldsName.confirmPassword],
+        message: AuthLanguage.status.password.different,
     });
 
-    const [schema] = React.useState<z.ZodType<TypeFormData, TypeFormData>>(() =>
-        z
-            .object({
-                [FormFieldsName.email]: z
-                    .string()
-                    .nonempty(AuthLanguage.status.email.empty)
-                    .regex(AppRegex.email, AuthLanguage.status.email.invalid),
-                [FormFieldsName.password]: z
-                    .string()
-                    .nonempty(AuthLanguage.status.password.empty)
-                    .regex(AppRegex.password, AuthLanguage.status.password.invalid),
-                [FormFieldsName.confirmPassword]: z
-                    .string()
-                    .nonempty(AuthLanguage.status.password.empty)
-                    .regex(AppRegex.password, AuthLanguage.status.password.invalid),
-            })
-            .refine((data) => data[FormFieldsName.password] === data[FormFieldsName.confirmPassword], {
-                path: [FormFieldsName.confirmPassword],
-                message: AuthLanguage.status.password.different,
-            })
-    );
-
-    const { handleSubmit, control, setError, clearErrors } = useForm<TypeFormData>({
+export function RegisterForm() {
+    const { handleSubmit, control, setError, clearErrors } = useForm<App.ModuleAuth.Component.TypeFormRegisterData>({
         defaultValues: {
             [FormFieldsName.email]: '',
             [FormFieldsName.password]: '',
@@ -97,7 +87,8 @@ export default function RegisterForm() {
 
     return (
         <Card className={cn('w-full max-w-xl min-w-0', 'z-1 rounded-md', 'overflow-hidden shadow-lg')}>
-            <AuthTitle name="register" />
+            <AuthTitle mode="register" />
+
             <CardContent>
                 <form>
                     <FieldGroup className="gap-4">
@@ -123,6 +114,7 @@ export default function RegisterForm() {
                     </FieldGroup>
                 </form>
             </CardContent>
+
             <CardFooter
                 className={cn(
                     'w-full justify-between gap-2',
@@ -130,7 +122,7 @@ export default function RegisterForm() {
                     'mobile:flex-row flex-col'
                 )}
             >
-                <AuthBreadcrumbs name="register" />
+                <AuthBreadcrumbs mode="register" />
                 <ButtonRegister handleSubmit={handleSubmit} onSubmitError={onSubmitError} />
             </CardFooter>
         </Card>

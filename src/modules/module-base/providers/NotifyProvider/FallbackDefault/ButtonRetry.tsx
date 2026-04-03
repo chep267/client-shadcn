@@ -26,7 +26,7 @@ function Timer() {
     return <FormattedMessage id={BaseLanguage.component.label.error.fallback.autoReload} values={{ second }} />;
 }
 
-export default function ButtonRetry(props: Pick<App.ModuleBase.Component.FallbackDefaultProps, 'isAutoReload'>) {
+export function ButtonRetry(props: Pick<App.ModuleBase.Component.FallbackDefaultProps, 'isAutoReload'>) {
     const { isAutoReload = true } = props;
 
     return (

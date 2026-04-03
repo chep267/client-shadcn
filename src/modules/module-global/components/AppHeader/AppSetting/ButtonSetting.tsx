@@ -19,7 +19,7 @@ import { Button } from '@module-base/components/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@module-base/components/tooltip';
 import { DropdownMenuTrigger } from '@module-base/components/dropdown-menu';
 
-export default function ButtonSetting() {
+export function ButtonSetting() {
     return (
         <Tooltip>
             <TooltipTrigger asChild>

@@ -9,12 +9,16 @@ import * as React from 'react';
 
 /** components */
 import { DropdownMenu } from '@module-base/components/dropdown-menu';
-import ButtonSetting from '@module-global/components/AppHeader/AppSetting/ButtonSetting';
+import { ButtonSetting } from '@module-global/components/AppHeader/AppSetting/ButtonSetting';
 
 /** lazy components */
-const MenuSetting = React.lazy(() => import('@module-global/components/AppHeader/AppSetting/MenuSetting'));
+const MenuSetting = React.lazy(() =>
+    import('@module-global/components/AppHeader/AppSetting/MenuSetting').then((module) => ({
+        default: module.MenuSetting,
+    }))
+);
 
-export default function AppSetting() {
+export function AppSetting() {
     return (
         <DropdownMenu modal={false}>
             <ButtonSetting />

@@ -4,7 +4,7 @@
  *
  */
 
-export default class StorageBase {
+class StorageBase {
     constructor(storageName: App.ModuleBase.Data.TypeStorageName) {
         this.storageName = storageName;
         this.storageCache = new Map();
@@ -69,3 +69,5 @@ export default class StorageBase {
         this.setList(keys, Object.values(ignoreData));
     };
 }
+
+export { StorageBase };

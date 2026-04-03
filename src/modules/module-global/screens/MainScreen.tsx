@@ -5,8 +5,8 @@
  */
 
 /** components */
-import AppHeader from '@module-global/components/AppHeader';
-import AppMain from '@module-global/components/AppMain';
+import { AppHeader } from '@module-global/components/AppHeader';
+import { AppMain } from '@module-global/components/AppMain';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';

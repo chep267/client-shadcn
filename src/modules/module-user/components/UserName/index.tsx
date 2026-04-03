@@ -16,7 +16,7 @@
 //     return <Typography {...textProps}>{user?.data?.displayName || <Skeleton width={100} />}</Typography>;
 // }
 //
-// export default function UserName(props: App.ModuleUser.Component.UserNameProps) {
+// export function UserName(props: App.ModuleUser.Component.UserNameProps) {
 //     const { uid, name, ...textProps } = props;
 //
 //     if (name) {

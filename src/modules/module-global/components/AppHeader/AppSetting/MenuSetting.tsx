@@ -112,7 +112,7 @@ function MenuSettingItem(props: { item: MenuSettingItemProps; step?: number }) {
     );
 }
 
-export default function MenuSetting() {
+export function MenuSetting() {
     const theme = useSettingStore((store) => store.data.theme);
     const locale = useSettingStore((store) => store.data.locale);
     const settingAction = useSettingStore((store) => store.action);

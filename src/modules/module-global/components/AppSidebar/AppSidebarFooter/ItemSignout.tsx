@@ -18,7 +18,7 @@ import { useSignout } from '@module-auth/hooks/useSignout';
 import { Spinner } from '@module-base/components/spinner';
 import { DropdownMenuItem } from '@module-base/components/dropdown-menu';
 
-export default function ItemSignout() {
+export function ItemSignout() {
     const hookSignout = useSignout();
 
     const onSignout = (event: React.MouseEvent) => {

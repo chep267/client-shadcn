@@ -13,9 +13,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { AppTimer } from '@module-base/constants/AppTimer';
 
 /** providers */
-import LanguageProvider from '@module-base/providers/LanguageProvider';
-import ThemeProvider from '@module-base/providers/ThemeProvider';
-import NotifyProvider from '@module-base/providers/NotifyProvider';
+import { LanguageProvider } from '@module-base/providers/LanguageProvider';
+import { ThemeProvider } from '@module-base/providers/ThemeProvider';
+import { NotifyProvider } from '@module-base/providers/NotifyProvider';
 
 /** Create a client */
 const queryClient = new QueryClient({
@@ -31,7 +31,7 @@ const queryClient = new QueryClient({
     },
 });
 
-export default function AppProvider(props: React.PropsWithChildren) {
+export function AppProvider(props: React.PropsWithChildren) {
     const { children } = props;
 
     return (

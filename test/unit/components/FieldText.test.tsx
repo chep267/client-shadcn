@@ -10,7 +10,7 @@ import { render } from '@test/utils/test-utils';
 import { useForm } from 'react-hook-form';
 
 /** components */
-import FieldText from '@module-auth/components/general/FieldEmail';
+import { FieldEmail } from '@module-auth/components/general/FieldEmail';
 
 const ElementTest = (props: { name: string; label: string; value: string }) => {
     const { name, label, value } = props;
@@ -19,7 +19,7 @@ const ElementTest = (props: { name: string; label: string; value: string }) => {
             [name]: value,
         },
     });
-    return <FieldText name={name} label={label} control={control} />;
+    return <FieldEmail name={name} label={label} control={control} />;
 };
 
 describe('FieldText', () => {

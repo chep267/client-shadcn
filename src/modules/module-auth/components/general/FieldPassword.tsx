@@ -41,7 +41,7 @@ function InputPassword(props: React.ComponentProps<typeof InputGroupInput>) {
     );
 }
 
-export default function FieldPassword<T extends FieldValues>(props: App.ModuleAuth.Component.FormTextFieldProps<T>) {
+export function FieldPassword<T extends FieldValues>(props: App.ModuleAuth.Component.FormTextFieldProps<T>) {
     const { name, control, label, ...fieldProps } = props;
     const {
         field,

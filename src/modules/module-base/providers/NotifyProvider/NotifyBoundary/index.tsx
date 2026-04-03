@@ -13,7 +13,7 @@ import { useSettingStore } from '@module-base/stores/useSettingStore';
 /** components */
 import { Toaster } from '@module-base/components/sonner';
 
-export default function NotifyBoundary() {
+export function NotifyBoundary() {
     const theme = useSettingStore(({ data }) => data.theme);
 
     return (
@@ -23,6 +23,7 @@ export default function NotifyBoundary() {
             theme={theme}
             offset={{ top: `calc(var(--app-size-height-header) + var(--spacing) * 3)` }}
             mobileOffset={{ top: `calc(var(--app-size-height-header) + var(--spacing) * 3)` }}
+            richColors
         />
     );
 }

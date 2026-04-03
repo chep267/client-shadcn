@@ -30,5 +30,4 @@ function Particle(props: IParticlesProps) {
 
     return <Particles id={`client-particle-${id}`} options={options} />;
 }
-
-export default Particle;
+export { Particle };

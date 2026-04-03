@@ -20,7 +20,7 @@ import { useSettingStore } from '@module-base/stores/useSettingStore';
 /** utils */
 import { getMessage } from '@module-base/utils/getMessage';
 
-export default function LanguageProvider(props: React.PropsWithChildren) {
+export function LanguageProvider(props: React.PropsWithChildren) {
     const { children } = props;
 
     const locale = useSettingStore((store) => store.data.locale);

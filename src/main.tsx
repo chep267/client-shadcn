@@ -10,7 +10,7 @@ import { createRoot } from 'react-dom/client';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
 /** providers */
-import AppProvider from '@module-base/providers/AppProvider';
+import { AppProvider } from '@module-base/providers/AppProvider';
 
 /** screens */
 import MainScreen from '@module-global/screens/MainScreen';

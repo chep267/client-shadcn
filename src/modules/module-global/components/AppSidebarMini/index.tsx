@@ -15,9 +15,9 @@ import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { ButtonGroup } from '@module-base/components/button-group';
-import AppSidebarMiniItem from '@module-global/components/AppSidebarMini/AppSidebarMiniItem';
+import { AppSidebarMiniItem } from '@module-global/components/AppSidebarMini/AppSidebarMiniItem';
 
-export default function AppSidebarMini() {
+export function AppSidebarMini() {
     const { pathname } = useLocation();
 
     return (

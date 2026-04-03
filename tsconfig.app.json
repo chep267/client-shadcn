@@ -9,18 +9,17 @@
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
 
-        "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"],
-            "@test/*": ["test/*"],
-            "@src/*": ["src/*"],
-            "@langs/*": ["src/langs/*"],
-            "@modules/*": ["src/modules/*"],
-            "@module-base/*": ["src/modules/module-base/*"],
-            "@module-global/*": ["src/modules/module-global/*"],
-            "@module-user/*": ["src/modules/module-user/*"],
-            "@module-auth/*": ["src/modules/module-auth/*"],
-            "@module-dashboard/*": ["src/modules/module-dashboard/*"]
+            "@/*": ["./src/*"],
+            "@test/*": ["./test/*"],
+            "@src/*": ["./src/*"],
+            "@langs/*": ["./src/langs/*"],
+            "@modules/*": ["./src/modules/*"],
+            "@module-base/*": ["./src/modules/module-base/*"],
+            "@module-global/*": ["./src/modules/module-global/*"],
+            "@module-user/*": ["./src/modules/module-user/*"],
+            "@module-auth/*": ["./src/modules/module-auth/*"],
+            "@module-dashboard/*": ["./src/modules/module-dashboard/*"]
         }
     }
 }

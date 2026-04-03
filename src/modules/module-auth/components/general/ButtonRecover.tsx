@@ -4,55 +4,20 @@
  *
  */
 
-/** libs */
-import { FormattedMessage } from 'react-intl';
-
-/** constants */
-import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
-
 /** hooks */
 import { useRecover } from '@module-auth/hooks/useRecover';
 
 /** components */
-import { Button } from '@module-base/components/button';
-import { Spinner } from '@module-base/components/spinner';
+import { AuthButtonSubmit } from '@module-auth/components/general/AuthButtonSubmit';
 
-/** types */
-import type { AxiosError } from 'axios';
-import type { UseFormHandleSubmit } from 'react-hook-form';
+export function ButtonRecover(props: App.ModuleAuth.Component.ButtonRecoverProps) {
+    const { handleSubmit, onSubmitError: onError } = props;
 
-type TypeFormData = {
-    email: string;
-};
-interface TypeButtonRecover {
-    handleSubmit: UseFormHandleSubmit<TypeFormData>;
-    onSubmitError: (error: AxiosError) => void;
-}
-
-export default function ButtonRecover(props: TypeButtonRecover) {
-    const { handleSubmit, onSubmitError: onError, ...btnProps } = props;
-
-    const hookRecover = useRecover();
+    const { isPending, mutate } = useRecover();
 
     const onSubmit = handleSubmit((data) => {
-        hookRecover.mutate(data, { onError });
+        mutate(data, { onError });
     });
 
-    return (
-        <Button
-            type="button"
-            variant="outline"
-            className={cn('cursor-pointer', 'hover:text-main hover:border-main', 'mobile:w-1/3 w-full', {
-                'text-main !border-main': hookRecover.isPending,
-            })}
-            size="lg"
-            onClick={onSubmit}
-            {...btnProps}
-        >
-            {hookRecover.isPending ? <Spinner /> : <FormattedMessage id={AuthLanguage.component.button.recover} />}
-        </Button>
-    );
+    return <AuthButtonSubmit mode="recover" loading={isPending} onClick={onSubmit} />;
 }

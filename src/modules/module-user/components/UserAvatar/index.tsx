@@ -20,7 +20,7 @@
 //     return <Avatar alt={alt || user?.data?.displayName || ''} src={src} {...otherProps} />;
 // }
 //
-// export default function UserAvatar(props: App.ModuleUser.Component.UserAvatarProps) {
+// export function UserAvatar(props: App.ModuleUser.Component.UserAvatarProps) {
 //     const { uid, src, ...otherProps } = props;
 //
 //     if (src) {

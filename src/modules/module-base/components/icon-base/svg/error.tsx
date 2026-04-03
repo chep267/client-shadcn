@@ -4,7 +4,7 @@
  *
  */
 
-export default function Error(props: App.ModuleBase.Component.TypeIconSVGProps) {
+export function Error(props: App.ModuleBase.Component.TypeIconSVGProps) {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 237 213" {...props}>
             <g className="fill-inherit">

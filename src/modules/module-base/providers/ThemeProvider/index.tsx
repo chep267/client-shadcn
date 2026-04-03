@@ -13,7 +13,7 @@ import { ThemeObject } from '@module-base/constants/ThemeObject';
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';
 
-export default function ThemeProvider(props: React.PropsWithChildren) {
+export function ThemeProvider(props: React.PropsWithChildren) {
     const { children } = props;
 
     const theme = useSettingStore((store) => store.data.theme);

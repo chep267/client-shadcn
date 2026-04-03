@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@module-base/components/ava
 import { SidebarMenuButton } from '@module-base/components/sidebar';
 import { DropdownMenuTrigger } from '@module-base/components/dropdown-menu';
 
-export default function ItemTrigger() {
+export function ItemTrigger() {
     const user = useAuthStore((store) => store.data.user);
 
     return (

@@ -35,4 +35,4 @@ const AppSidebarItem = React.memo(function SidebarItem(props: App.ModuleGlobal.C
     );
 });
 
-export default AppSidebarItem;
+export { AppSidebarItem };

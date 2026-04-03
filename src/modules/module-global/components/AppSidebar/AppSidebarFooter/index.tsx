@@ -10,11 +10,11 @@ import { useAuthStore } from '@module-auth/stores/useAuthStore';
 /** components */
 import { SidebarFooter, SidebarMenu, SidebarMenuItem } from '@module-base/components/sidebar';
 import { DropdownMenu, DropdownMenuContent } from '@module-base/components/dropdown-menu';
-import ItemTrigger from '@module-global/components/AppSidebar/AppSidebarFooter/ItemTrigger';
-import ItemSignout from '@module-global/components/AppSidebar/AppSidebarFooter/ItemSignout';
-import ItemAccount from '@module-global/components/AppSidebar/AppSidebarFooter/ItemAccount';
+import { ItemTrigger } from '@module-global/components/AppSidebar/AppSidebarFooter/ItemTrigger';
+import { ItemSignout } from '@module-global/components/AppSidebar/AppSidebarFooter/ItemSignout';
+import { ItemAccount } from '@module-global/components/AppSidebar/AppSidebarFooter/ItemAccount';
 
-export default function AppSidebarFooter() {
+export function AppSidebarFooter() {
     const user = useAuthStore((store) => store.data.user);
     const isAuthentication = !!user;
 

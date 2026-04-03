@@ -34,4 +34,4 @@ const AppSidebarMiniItem = React.memo(function AppSidebarMiniItem(props: App.Mod
     );
 });
 
-export default AppSidebarMiniItem;
+export { AppSidebarMiniItem };

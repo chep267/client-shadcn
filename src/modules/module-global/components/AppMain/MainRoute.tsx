@@ -11,16 +11,18 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 /** constants */
 import { AppRouterPath } from '@module-base/constants/AppRouterPath';
 
-/** components */
-import AppSidebarMini from '@module-global/components/AppSidebarMini';
+/** utils */
 import { cn } from '@module-base/utils/shadcn';
+
+/** components */
+import { AppSidebarMini } from '@module-global/components/AppSidebarMini';
 
 /** screens */
 const NotFoundScreen = React.lazy(() => import('@module-base/screens/NotFoundScreen'));
 const FeedScreen = React.lazy(() => import('@module-global/screens/FeedScreen'));
 const DashboardScreen = React.lazy(() => import('@module-dashboard/screens/DashboardScreen'));
 
-export default function MainRoute() {
+export function MainRoute() {
     return (
         <main data-slot="sidebar-content" className={cn('flex flex-1 flex-col', 'min-w-0')}>
             <AppSidebarMini />

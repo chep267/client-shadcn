@@ -11,12 +11,12 @@ import { BellIcon } from 'lucide-react';
 import { cn } from '@module-base/utils/shadcn';
 
 /** components */
-import AppInfo from '@module-global/components/AppHeader/AppInfo';
-import AppTimer from '@module-global/components/AppHeader/AppTimer';
-import AppButtonDev from '@module-global/components/AppHeader/AppButtonDev';
-import AppSetting from '@module-global/components/AppHeader/AppSetting';
+import { AppInfo } from '@module-global/components/AppHeader/AppInfo';
+import { AppTimer } from '@module-global/components/AppHeader/AppTimer';
+import { AppButtonDev } from '@module-global/components/AppHeader/AppButtonDev';
+import { AppSetting } from '@module-global/components/AppHeader/AppSetting';
 
-export default function AppHeader() {
+export function AppHeader() {
     return (
         <header
             className={cn(

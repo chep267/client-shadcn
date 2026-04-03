@@ -22,24 +22,24 @@ import {
     BreadcrumbSeparator,
 } from '@module-base/components/breadcrumb';
 
-export default function AuthBreadcrumbs(props: App.ModuleAuth.Component.AuthBreadcrumbsProps) {
-    const { name = 'signin' } = props;
+export function AuthBreadcrumbs(props: App.ModuleAuth.Component.AuthBreadcrumbsProps) {
+    const { mode = 'signin' } = props;
 
     const items: App.ModuleAuth.Component.TypeAuthBreadcrumbsItem[] = [
         {
             title: AuthLanguage.component.title.signin,
             path: AuthRouterPath.signin,
-            hidden: name === 'signin',
+            hidden: mode === 'signin',
         },
         {
             title: AuthLanguage.component.title.register,
             path: AuthRouterPath.register,
-            hidden: name === 'register',
+            hidden: mode === 'register',
         },
         {
             title: AuthLanguage.component.title.recover,
             path: AuthRouterPath.recover,
-            hidden: name === 'recover',
+            hidden: mode === 'recover',
         },
     ];
 

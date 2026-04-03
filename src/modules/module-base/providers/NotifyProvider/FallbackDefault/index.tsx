@@ -16,12 +16,12 @@ import { cn } from '@module-base/utils/shadcn';
 /** components */
 import { IconBase } from '@module-base/components/icon-base';
 import { Typography } from '@module-base/components/typography';
-import ButtonRetry from '@module-base/providers/NotifyProvider/FallbackDefault/ButtonRetry';
+import { ButtonRetry } from '@module-base/providers/NotifyProvider/FallbackDefault/ButtonRetry';
 
 /** screens */
 import LayerScreen from '@module-base/screens/LayerScreen';
 
-export default function FallbackDefault(props: App.ModuleBase.Component.FallbackDefaultProps) {
+export function FallbackDefault(props: App.ModuleBase.Component.FallbackDefaultProps) {
     const { isAutoReload } = props;
 
     return (

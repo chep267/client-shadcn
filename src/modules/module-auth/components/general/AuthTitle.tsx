@@ -14,14 +14,14 @@ import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 import { CardHeader, CardTitle } from '@module-base/components/card';
 import { Typography } from '@module-base/components/typography';
 
-export default function AuthTitle(props: App.ModuleAuth.Component.AuthTitleProps) {
-    const { name = 'signin' } = props;
+export function AuthTitle(props: App.ModuleAuth.Component.AuthTitleProps) {
+    const { mode = 'signin' } = props;
 
     return (
         <CardHeader>
             <CardTitle>
                 <Typography component="h2">
-                    <FormattedMessage id={AuthLanguage.component.title[name]} defaultMessage={name} />
+                    <FormattedMessage id={AuthLanguage.component.title[mode]} defaultMessage={mode} />
                 </Typography>
             </CardTitle>
         </CardHeader>

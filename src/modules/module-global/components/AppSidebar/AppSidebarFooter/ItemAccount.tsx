@@ -14,7 +14,7 @@ import { AppRouterPath } from '@module-base/constants/AppRouterPath';
 /** components */
 import { DropdownMenuItem } from '@module-base/components/dropdown-menu';
 
-export default function ItemAccount() {
+export function ItemAccount() {
     return (
         <DropdownMenuItem asChild className="hover:*:!text-main cursor-pointer">
             <Link to={AppRouterPath.account}>

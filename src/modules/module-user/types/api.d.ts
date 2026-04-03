@@ -5,7 +5,6 @@
  */
 
 /** types */
-import type { TypeItemIds, TypeItems } from '@module-base/types/data.d';
 import type { TypeUser } from '@module-user/types/data.d';
 
 export interface TypeUserApi {
@@ -19,6 +18,6 @@ export interface TypeUserApi {
     };
     GetList: {
         Payload?: { limit?: number };
-        Response?: { itemIds: TypeItemIds; items: TypeItems<TypeUser> };
+        Response?: { itemIds: App.ModuleBase.Data.TypeItemIds; items: App.ModuleBase.Data.TypeItems<TypeUser> };
     };
 }

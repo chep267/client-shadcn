@@ -18,7 +18,7 @@ import { cn } from '@module-base/utils/shadcn';
 import { IconBase } from '@module-base/components/icon-base';
 import { Typography } from '@module-base/components/typography';
 
-export default function AppInfo() {
+export function AppInfo() {
     return (
         <Link className={cn('group', 'flex items-center gap-2')} to={AppRouterPath.home}>
             <IconBase

@@ -21,7 +21,7 @@ function Timer() {
     return dayjs().locale(locale).format('dddd, DD/MM/YYYY');
 }
 
-export default function AppTimer() {
+export function AppTimer() {
     return (
         <div className={cn('items-center gap-2', 'hidden', 'tablet:flex')}>
             <div className={cn('bg-main h-2 w-2 rounded-full', 'dark:bg-foreground')} />

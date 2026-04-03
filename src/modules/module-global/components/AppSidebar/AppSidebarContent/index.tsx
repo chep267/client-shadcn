@@ -12,9 +12,9 @@ import { SidebarItems } from '@module-global/constants/SidebarItems';
 
 /** components */
 import { SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu } from '@module-base/components/sidebar';
-import AppSidebarItem from '@module-global/components/AppSidebar/AppSidebarContent/AppSidebarItem';
+import { AppSidebarItem } from '@module-global/components/AppSidebar/AppSidebarContent/AppSidebarItem';
 
-export default function AppSidebarContent() {
+export function AppSidebarContent() {
     const { pathname } = useLocation();
 
     return (
