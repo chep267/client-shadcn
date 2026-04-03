@@ -52,7 +52,7 @@ const schema = z.object({
 export function SigninForm() {
     const { handleSubmit, control, setError, clearErrors } = useForm<App.ModuleAuth.Component.TypeFormSigninData>({
         defaultValues: {
-            [FormFieldsName.email]: Cookie.get(AppKey.email) || 'dong.nguyenthanh@powergatesoftware.coma',
+            [FormFieldsName.email]: Cookie.get(AppKey.email) || 'dong.nguyenthanh@powergatesoftware.com',
             [FormFieldsName.password]: 'Midom@2024',
         },
         mode: 'onSubmit',
