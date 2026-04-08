@@ -20,7 +20,7 @@ export function ThemeProvider(props: React.PropsWithChildren) {
 
     React.useLayoutEffect(() => {
         const root = window.document.documentElement;
-        root.classList.remove(ThemeObject.light, ThemeObject.dark);
+        root.classList.remove(...Object.values(ThemeObject));
         root.classList.add(theme);
     }, [theme]);
 
