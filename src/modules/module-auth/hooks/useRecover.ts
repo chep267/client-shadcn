@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 
 /** utils */
-import { isCallApiErrorByClient } from '@module-base/utils/isClientCallApiError';
+import { isCallApiErrorByClient } from '@module-base/utils/axios';
 
 /** services */
 import { authService } from '@module-auth/services';

@@ -19,7 +19,7 @@ import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 import { delay } from '@module-base/utils/delay';
-import { isCallApiErrorByClient } from '@module-base/utils/isClientCallApiError';
+import { isCallApiErrorByClient } from '@module-base/utils/axios';
 
 /** components */
 import { Card, CardContent, CardFooter } from '@module-base/components/card';

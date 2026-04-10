@@ -17,6 +17,7 @@ import { getDeviceLanguage } from '@module-base/utils/getDeviceLanguage';
 import { getDeviceTheme } from '@module-base/utils/getDeviceTheme';
 
 const defaultSettingStore: Readonly<App.ModuleBase.Store.TypeSettingStore['data']> = {
+    isTokenExpired: false,
     locale: getDeviceLanguage(),
     theme: getDeviceTheme(),
 };
@@ -24,6 +25,13 @@ const defaultSettingStore: Readonly<App.ModuleBase.Store.TypeSettingStore['data'
 export const useSettingStore = create<App.ModuleBase.Store.TypeSettingStore>((set) => ({
     data: structuredClone(defaultSettingStore),
     action: {
+        setTokenExpired: (isTokenExpired = false) => {
+            set(
+                produce<App.ModuleBase.Store.TypeSettingStore>((store) => {
+                    store.data.isTokenExpired = isTokenExpired;
+                })
+            );
+        },
         changeLocale: (locale = defaultSettingStore.locale) => {
             Cookies.set(AppKey.locale, locale);
             set(

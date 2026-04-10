@@ -57,6 +57,7 @@ export default ({ mode }: ConfigEnv) => {
         ],
         resolve: {
             alias: resolveAlias(),
+            extensions: ['.mjs', '.mts', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
         },
         build: {
             outDir: 'dist',

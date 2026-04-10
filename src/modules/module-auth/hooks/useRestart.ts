@@ -12,12 +12,10 @@ import { toast } from 'sonner';
 
 /** constants */
 import { AppKey } from '@module-base/constants/AppKey';
-import { AppTimer } from '@module-base/constants/AppTimer';
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 
 /** utils */
-import { delay } from '@module-base/utils/delay';
-import { isCallApiErrorByClient } from '@module-base/utils/isClientCallApiError';
+import { isCallApiErrorByClient } from '@module-base/utils/axios';
 
 /** services */
 import { authService } from '@module-auth/services';
@@ -31,18 +29,16 @@ import type { AxiosError } from 'axios';
 export function useRestart() {
     const { formatMessage } = useIntl();
     const authAction = useAuthStore(({ action }) => action);
-    const uid = Cookies.get(AppKey.uid) || '';
 
-    const hookRestart = useMutation({
-        mutationFn: () => authService.restart({ uid }),
+    return useMutation({
+        mutationFn: authService.restart,
         onSuccess: (response) => {
             const { user, token } = response.data.data;
-            const exp = !Number.isNaN(token.exp) ? token.exp : AppTimer.restart;
+            Cookies.set(AppKey.token, token.value);
             authAction.setData({ user });
-            delay(exp).then(() => hookRestart.mutate());
         },
         onError: async (error: AxiosError) => {
-            Cookies.remove(AppKey.uid);
+            Cookies.remove(AppKey.token);
             let messageIntl: string;
             switch (true) {
                 case isCallApiErrorByClient(error):
@@ -56,6 +52,4 @@ export function useRestart() {
             authAction.setData({ user: null, prePath: '/' });
         },
     });
-
-    return hookRestart;
 }

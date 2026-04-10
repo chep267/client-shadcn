@@ -26,6 +26,8 @@ export const en = {
     [BaseLanguage.component.input.placeholder]: 'Search...',
 
     [BaseLanguage.component.button.retry]: 'Retry',
+    [BaseLanguage.component.button.cancel]: 'Cancel',
+    [BaseLanguage.component.button.confirm]: 'Confirm',
 
     [BaseLanguage.component.table.empty]: 'No data!',
 

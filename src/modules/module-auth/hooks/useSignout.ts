@@ -19,13 +19,11 @@ import { useAuthStore } from '@module-auth/stores/useAuthStore';
 
 export function useSignout() {
     const authAction = useAuthStore(({ action }) => action);
-    const uid = Cookies.get(AppKey.uid) || '';
 
     return useMutation({
-        mutationFn: () => authService.signout({ uid }),
-        retry: 3,
+        mutationFn: authService.signout,
         onSettled: () => {
-            Cookies.remove(AppKey.uid);
+            Cookies.remove(AppKey.token);
             authAction.setData({ user: null, prePath: '/' });
         },
     });

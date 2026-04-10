@@ -71,7 +71,7 @@ export function TableBase<Data extends App.ModuleBase.Component.TypeTableData>(
 
     React.useEffect(() => {
         tableStore.getState().action.filter(filters);
-    }, [filters]);
+    }, [JSON.stringify(filters)]);
 
     React.useEffect(() => {
         delay(delayLoading).then(() => {

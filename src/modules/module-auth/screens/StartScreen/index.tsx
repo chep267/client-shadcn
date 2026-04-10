@@ -17,10 +17,14 @@ import { StartLoading } from '@module-base/components/start-loading';
 import LayerScreen from '@module-base/screens/LayerScreen';
 
 export default function StartScreen() {
+    const isCalled = React.useRef(false);
     const hookRestart = useRestart();
 
     React.useEffect(() => {
-        hookRestart.mutate();
+        if (!isCalled.current) {
+            isCalled.current = true;
+            hookRestart.mutate();
+        }
     }, []);
 
     return (

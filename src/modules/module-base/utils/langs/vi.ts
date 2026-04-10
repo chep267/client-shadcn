@@ -26,6 +26,8 @@ export const vi = {
     [BaseLanguage.component.input.placeholder]: 'Tìm kiếm...',
 
     [BaseLanguage.component.button.retry]: 'Thử lại',
+    [BaseLanguage.component.button.cancel]: 'Hủy',
+    [BaseLanguage.component.button.confirm]: 'Đồng ý',
 
     [BaseLanguage.component.table.empty]: 'Dữ liệu trống!',
 

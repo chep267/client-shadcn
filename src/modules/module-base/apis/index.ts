@@ -15,6 +15,10 @@ import { AppTimer } from '@module-base/constants/AppTimer';
 
 /** utils */
 import { delay } from '@module-base/utils/delay';
+import { isTokenExpired } from '@module-base/utils/axios';
+
+/** stores */
+import { useSettingStore } from '@module-base/stores/useSettingStore';
 
 /** types */
 import type { AxiosError } from 'axios';
@@ -33,7 +37,13 @@ export const axiosClient = axios.create({
 
 /** request interceptor */
 axiosClient.interceptors.request.use(
-    (config) => config,
+    (config) => {
+        const token = Cookies.get(AppKey.token);
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
     (error: AxiosError) => Promise.reject(error)
 );
 
@@ -43,8 +53,9 @@ axiosClient.interceptors.response.use(
         return response;
     },
     async (error: AxiosError) => {
-        if (error.response?.status === axios.HttpStatusCode.Unauthorized) {
-            Cookies.remove(AppKey.uid);
+        if (isTokenExpired(error)) {
+            useSettingStore.getState().action.setTokenExpired(true);
+            Cookies.remove(AppKey.token);
         }
         /** Waiting, pause for about 600 ms */
         await delay(AppTimer.pendingApi);
