@@ -39,9 +39,7 @@ export const axiosClient = axios.create({
 axiosClient.interceptors.request.use(
     (config) => {
         const token = Cookies.get(AppKey.token);
-        if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
+        config.headers.Authorization = token ? `Bearer ${token}` : undefined;
         return config;
     },
     (error: AxiosError) => Promise.reject(error)
@@ -53,9 +51,10 @@ axiosClient.interceptors.response.use(
         return response;
     },
     async (error: AxiosError) => {
-        if (isTokenExpired(error)) {
-            useSettingStore.getState().action.setTokenExpired(true);
-            Cookies.remove(AppKey.token);
+        if (isTokenExpired(error) && error.config) {
+            const action = useSettingStore.getState().action;
+            action.updateStatusCode(error.response?.status);
+            action.addApiQueue(error.config);
         }
         /** Waiting, pause for about 600 ms */
         await delay(AppTimer.pendingApi);

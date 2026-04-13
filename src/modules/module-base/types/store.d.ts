@@ -5,6 +5,7 @@
  */
 
 /** types */
+import type { InternalAxiosRequestConfig } from 'axios';
 export type TypeLocale = 'vi' | 'en';
 export type TypeLanguageMessages = Record<string, string>;
 export type TypeTheme = 'dark' | 'light';
@@ -12,14 +13,19 @@ export type TypeSiderState = 'collapse' | 'expand' | 'hidden' | 'force';
 
 /** Setting store */
 type TypeSettingData = {
-    isTokenExpired: boolean;
     locale: TypeLocale;
     theme: TypeTheme;
+    api: {
+        statusCode: number;
+        queue: InternalAxiosRequestConfig[];
+    };
 };
 type TypeSettingAction = {
     changeLocale: (locale?: TypeLocale) => void;
     changeTheme: (theme?: TypeTheme) => void;
-    setTokenExpired: (isTokenExpired: boolean) => void;
+    updateStatusCode: (code?: number) => void;
+    addApiQueue: (apiConfig: InternalAxiosRequestConfig) => void;
+    clearApiQueue: () => void;
 };
 export type TypeSettingStore = {
     data: TypeSettingData;
