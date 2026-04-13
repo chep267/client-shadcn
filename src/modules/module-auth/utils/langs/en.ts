@@ -41,4 +41,9 @@ export const en = {
     [AuthLanguage.notify.recover.success]: 'Account recovered successfully!',
     [AuthLanguage.notify.recover.error]: "Account doesn't exists!",
     [AuthLanguage.notify.server.error]: 'The server is not responding, please try again later.',
+
+    // modal
+    [AuthLanguage.component.modal.tokenExpired.title]: 'This session has expired',
+    [AuthLanguage.component.modal.tokenExpired.description]: 'Please log in again!',
+    [AuthLanguage.component.modal.tokenExpired.confirmText]: 'Sign in',
 } as const;

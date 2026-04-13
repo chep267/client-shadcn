@@ -10,6 +10,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { AlertTriangleIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 /** apis */
 import { axiosClient } from '@module-base/apis';
@@ -17,6 +18,7 @@ import { axiosClient } from '@module-base/apis';
 /** constants */
 import { AppKey } from '@module-base/constants/AppKey';
 import { AuthRouterPath } from '@module-auth/constants/AuthRouterPath';
+import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 
 /** hooks */
 import { useRestart } from '@module-auth/hooks/useRestart';
@@ -29,10 +31,9 @@ import { StartLoading } from '@module-base/components/start-loading';
 import { ModalConfirm } from '@module-base/components/modal-base/modal-confirm';
 
 export function ModalTokenExpired() {
+    const [isTokenExpired, setTokenExpired] = React.useState(false);
     const navigate = useNavigate();
     const hookRestart = useRestart();
-    const [isTokenExpired, setTokenExpired] = React.useState(false);
-
     const statusCode = useSettingStore((store) => store.data.api.statusCode);
 
     React.useEffect(() => {
@@ -55,7 +56,6 @@ export function ModalTokenExpired() {
 
     const onConfirm = () => {
         setTokenExpired(false);
-        Cookies.remove(AppKey.token);
         navigate(AuthRouterPath.signin, { replace: true });
     };
 
@@ -70,9 +70,24 @@ export function ModalTokenExpired() {
     return (
         <ModalConfirm
             open={isTokenExpired}
-            title="Phiên đăng nhập đã hết hạn"
-            description="Bạn vui lòng đăng nhập lại!"
-            confirmText="Đăng nhập"
+            title={
+                <FormattedMessage
+                    id={AuthLanguage.component.modal.tokenExpired.title}
+                    defaultMessage={AuthLanguage.component.modal.tokenExpired.title}
+                />
+            }
+            description={
+                <FormattedMessage
+                    id={AuthLanguage.component.modal.tokenExpired.description}
+                    defaultMessage={AuthLanguage.component.modal.tokenExpired.description}
+                />
+            }
+            confirmText={
+                <FormattedMessage
+                    id={AuthLanguage.component.modal.tokenExpired.confirmText}
+                    defaultMessage={AuthLanguage.component.modal.tokenExpired.confirmText}
+                />
+            }
             media={<AlertTriangleIcon className="text-amber-500" />}
             cancelClassName="!hidden"
             onConfirm={onConfirm}

@@ -21,6 +21,7 @@ import { useAuthStore } from '@module-auth/stores/useAuthStore';
 import { ModalTokenExpired } from '@module-auth/components/ModalTokenExpired';
 
 /** screens */
+import RestartScreen from '@module-auth/screens/RestartScreen';
 import AuthScreen from '@module-auth/screens/AuthScreen';
 
 export default function AuthRoute(props: React.PropsWithChildren) {
@@ -28,11 +29,12 @@ export default function AuthRoute(props: React.PropsWithChildren) {
     const { pathname } = useLocation();
     const navigate = useNavigate();
 
+    const isAuthentication = useAuthStore((store) => !!store.data.user);
     const prePath = useAuthStore((store) => store.data.prePath);
     const authAction = useAuthStore((store) => store.action);
 
     const token = Cookies.get(AppKey.token);
-    const accountState = token ? AccountState.signedIn : AccountState.signin;
+    const accountState = isAuthentication ? AccountState.signedIn : token ? AccountState.reSignin : AccountState.signin;
 
     React.useEffect(() => {
         const isAuthPath = Object.values(AuthRouterPath as Record<string, string>).includes(pathname);
@@ -40,6 +42,11 @@ export default function AuthRoute(props: React.PropsWithChildren) {
             /** not logged in, return to log in  */
             authAction.setData({ prePath: pathname });
             navigate(AuthRouterPath.signin, { replace: true });
+        }
+        if (accountState === AccountState.reSignin && pathname !== AuthRouterPath.start) {
+            /** already logged in, get session */
+            authAction.setData({ prePath: isAuthPath ? '/' : pathname });
+            navigate(AuthRouterPath.start, { replace: true });
         }
         if (accountState === AccountState.signedIn && isAuthPath) {
             /** logged in and go home */
@@ -50,7 +57,13 @@ export default function AuthRoute(props: React.PropsWithChildren) {
     return (
         <React.Fragment>
             <ModalTokenExpired />
-            {accountState === AccountState.signedIn ? children : <AuthScreen />}
+            {accountState === AccountState.signedIn ? (
+                children
+            ) : accountState === AccountState.reSignin ? (
+                <RestartScreen />
+            ) : (
+                <AuthScreen />
+            )}
         </React.Fragment>
     );
 }

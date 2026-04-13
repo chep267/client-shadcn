@@ -42,4 +42,9 @@ export const vi = {
     [AuthLanguage.notify.recover.success]: 'Tài khoản xác thực thành công!',
     [AuthLanguage.notify.recover.error]: 'Tài khoản không tồn tại!',
     [AuthLanguage.notify.server.error]: 'Máy chủ không phản hồi, vui lòng thử lại sau.',
+
+    // modal
+    [AuthLanguage.component.modal.tokenExpired.title]: 'Phiên đăng nhập đã hết hạn',
+    [AuthLanguage.component.modal.tokenExpired.description]: 'Bạn vui lòng đăng nhập lại!',
+    [AuthLanguage.component.modal.tokenExpired.confirmText]: 'Đăng nhập',
 } as const;

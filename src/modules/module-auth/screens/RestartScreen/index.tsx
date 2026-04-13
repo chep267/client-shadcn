@@ -14,9 +14,8 @@ import { useRestart } from '@module-auth/hooks/useRestart';
 import { StartLoading } from '@module-base/components/start-loading';
 
 /** screens */
-import LayerScreen from '@module-base/screens/LayerScreen';
 
-export default function StartScreen() {
+export default function RestartScreen() {
     const isCalled = React.useRef(false);
     const hookRestart = useRestart();
 
@@ -27,9 +26,5 @@ export default function StartScreen() {
         }
     }, []);
 
-    return (
-        <LayerScreen component="main">
-            <StartLoading />
-        </LayerScreen>
-    );
+    return <StartLoading />;
 }

@@ -24,6 +24,13 @@ export const AuthLanguage = {
             verifyOTP: 'module.auth.component.title.verifyOTP',
             signout: 'module.auth.component.title.signout',
         },
+        modal: {
+            tokenExpired: {
+                title: 'module.auth.component.modal.tokenExpired.title',
+                description: 'module.auth.component.modal.tokenExpired.description',
+                confirmText: 'module.auth.component.modal.tokenExpired.confirmText',
+            },
+        },
     },
     status: {
         email: {
