@@ -11,9 +11,11 @@ import type { TypeUser } from '@module-user/types/data.d';
 type TypeAuthData = {
     user: TypeUser | null;
     prePath: string;
+    token: string;
 };
 type TypeAuthAction = {
     setData: (options?: Partial<TypeAuthData>) => void;
+    refreshToken: () => void;
 };
 export type TypeAuthStore = {
     data: TypeAuthData;

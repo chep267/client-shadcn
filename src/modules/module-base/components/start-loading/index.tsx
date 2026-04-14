@@ -26,9 +26,10 @@ function StartLoading() {
                 className={cn(
                     'absolute z-1',
                     'flex items-center justify-center',
-                    'h-40 w-40',
+                    'h-24 w-24',
                     'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
-                    'rounded-full bg-transparent shadow-lg'
+                    'rounded-full bg-transparent shadow-lg',
+                    'tablet:w-32 tablet:h-32'
                 )}
             >
                 <div

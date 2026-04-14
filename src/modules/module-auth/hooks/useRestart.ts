@@ -35,10 +35,9 @@ export function useRestart() {
         onSuccess: (response) => {
             const { user, token } = response.data.data;
             Cookies.set(AppKey.token, token.value);
-            authAction.setData({ user });
+            authAction.setData({ user, token: token.value });
         },
         onError: async (error: AxiosError) => {
-            Cookies.remove(AppKey.token);
             let messageIntl: string;
             switch (true) {
                 case isCallApiErrorByClient(error):
@@ -49,6 +48,7 @@ export function useRestart() {
             }
 
             toast.error(formatMessage({ id: messageIntl, defaultMessage: messageIntl }));
+            Cookies.remove(AppKey.token);
             authAction.setData({ user: null, prePath: '/' });
         },
     });

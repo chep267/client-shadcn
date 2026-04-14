@@ -17,7 +17,6 @@ import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { AppSidebarMini } from '@module-global/components/AppSidebarMini';
-import { StartLoading } from '@module-base/components/start-loading';
 
 /** screens */
 const NotFoundScreen = React.lazy(() => import('@module-base/screens/NotFoundScreen'));
@@ -31,7 +30,7 @@ export function MainRoute() {
             <React.Suspense>
                 <Routes>
                     {Object.values(AuthRouterPath).map((path) => (
-                        <Route key={path} path={path} element={<StartLoading />} />
+                        <Route key={path} path={path} element={<Navigate to={AppRouterPath.defaultPath} />} />
                     ))}
                     <Route path={AppRouterPath.home} element={<Navigate to={AppRouterPath.defaultPath} />} />
                     <Route path={AppRouterPath.feed} element={<FeedScreen />} />

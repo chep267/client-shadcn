@@ -36,7 +36,7 @@ export function useSignin() {
             const { user, token } = response.data.data;
             Cookies.set(AppKey.email, `${user.email || ''}`);
             Cookies.set(AppKey.token, token.value);
-            authAction.setData({ user });
+            authAction.setData({ user, token: token.value });
         },
         onError: (error: AxiosError) => {
             let messageIntl: string;

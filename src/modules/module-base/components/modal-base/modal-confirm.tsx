@@ -11,9 +11,6 @@ import { FormattedMessage } from 'react-intl';
 /** constants */
 import { BaseLanguage } from '@module-base/constants/BaseLanguage';
 
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
-
 /** components */
 import {
     AlertDialog,
@@ -29,13 +26,12 @@ import {
 import { Button } from '@module-base/components/button';
 
 interface ModalConfirmProps {
+    className?: string;
     open?: boolean;
     title?: React.ReactNode;
     description?: React.ReactNode;
     cancelText?: React.ReactNode;
     confirmText?: React.ReactNode;
-    cancelClassName?: string;
-    confirmClassName?: string;
     media?: React.ReactNode;
     variant?: React.ComponentProps<typeof Button>['variant'];
     onConfirm?(): void;
@@ -43,25 +39,13 @@ interface ModalConfirmProps {
 }
 
 export function ModalConfirm(props: ModalConfirmProps) {
-    const {
-        open,
-        title,
-        description,
-        variant,
-        media,
-        cancelText,
-        confirmText,
-        cancelClassName,
-        confirmClassName,
-        onCancel,
-        onConfirm,
-    } = props;
+    const { className, open, title, description, variant, media, cancelText, confirmText, onCancel, onConfirm } = props;
 
     if (!open) return null;
 
     return (
         <AlertDialog open={open} onOpenChange={onCancel}>
-            <AlertDialogContent>
+            <AlertDialogContent className={className}>
                 <AlertDialogHeader>
                     {media ? <AlertDialogMedia>{media}</AlertDialogMedia> : null}
                     <AlertDialogTitle>{title}</AlertDialogTitle>
@@ -69,16 +53,12 @@ export function ModalConfirm(props: ModalConfirmProps) {
                 </AlertDialogHeader>
 
                 <AlertDialogFooter>
-                    <AlertDialogCancel className={cn('cursor-pointer', cancelClassName)}>
+                    <AlertDialogCancel className="cursor-pointer">
                         {cancelText || (
                             <FormattedMessage id={BaseLanguage.component.button.cancel} defaultMessage="Cancel" />
                         )}
                     </AlertDialogCancel>
-                    <AlertDialogAction
-                        className={cn('cursor-pointer', confirmClassName)}
-                        variant={variant}
-                        onClick={onConfirm}
-                    >
+                    <AlertDialogAction className="cursor-pointer" variant={variant} onClick={onConfirm}>
                         {confirmText || (
                             <FormattedMessage id={BaseLanguage.component.button.confirm} defaultMessage="Confirm" />
                         )}

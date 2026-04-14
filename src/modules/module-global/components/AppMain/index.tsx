@@ -15,6 +15,9 @@ import { cn } from '@module-base/utils/shadcn';
 import { StartLoading } from '@module-base/components/start-loading';
 import { SidebarProvider } from '@module-base/components/sidebar';
 
+/** providers */
+import AuthProvider from '@module-auth/providers/AuthProvider';
+
 /** lazy components */
 const AppSidebar = React.lazy(() =>
     import('@module-global/components/AppSidebar').then((module) => ({ default: module.AppSidebar }))
@@ -22,7 +25,6 @@ const AppSidebar = React.lazy(() =>
 const MainRoute = React.lazy(() =>
     import('@module-global/components/AppMain/MainRoute').then((module) => ({ default: module.MainRoute }))
 );
-const AuthRoute = React.lazy(() => import('@module-auth/screens/AuthRoute'));
 
 export function AppMain() {
     return (
@@ -32,12 +34,12 @@ export function AppMain() {
                     <Route
                         path="*"
                         element={
-                            <AuthRoute>
+                            <AuthProvider>
                                 <SidebarProvider className="min-h-(--app-size-height-sidebar)">
                                     <AppSidebar />
                                     <MainRoute />
                                 </SidebarProvider>
-                            </AuthRoute>
+                            </AuthProvider>
                         }
                     />
                 </Routes>

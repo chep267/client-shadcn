@@ -7,7 +7,6 @@
 /** libs */
 import * as React from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { AlertTriangleIcon } from 'lucide-react';
 import { FormattedMessage } from 'react-intl';
@@ -16,7 +15,6 @@ import { FormattedMessage } from 'react-intl';
 import { axiosClient } from '@module-base/apis';
 
 /** constants */
-import { AppKey } from '@module-base/constants/AppKey';
 import { AuthRouterPath } from '@module-auth/constants/AuthRouterPath';
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 
@@ -25,6 +23,7 @@ import { useRestart } from '@module-auth/hooks/useRestart';
 
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';
+import { useAuthStore } from '@module-auth/stores/useAuthStore';
 
 /** components */
 import { ModalConfirm } from '@module-base/components/modal-base/modal-confirm';
@@ -35,6 +34,7 @@ export function ModalTokenExpired() {
     const hookRestart = useRestart();
     const statusCode = useSettingStore((store) => store.data.api.statusCode);
     const settingAction = useSettingStore((store) => store.action);
+    const authAction = useAuthStore((store) => store.action);
 
     React.useEffect(() => {
         if (statusCode === axios.HttpStatusCode.Unauthorized) {
@@ -45,11 +45,12 @@ export function ModalTokenExpired() {
                         await Promise.all(queue.map((item) => axiosClient.request(item)));
                         settingAction.clearApiQueue();
                     }
-                    settingAction.updateStatusCode(axios.HttpStatusCode.Ok);
                 },
                 onError: () => {
-                    Cookies.remove(AppKey.token);
                     setTokenExpired(true);
+                },
+                onSettled: () => {
+                    settingAction.updateStatusCode(axios.HttpStatusCode.Ok);
                 },
             });
         }
@@ -57,12 +58,14 @@ export function ModalTokenExpired() {
 
     const onConfirm = () => {
         setTokenExpired(false);
+        authAction.setData({ token: '' });
         navigate(AuthRouterPath.signin, { replace: true });
     };
 
     return (
         <ModalConfirm
             open={isTokenExpired}
+            className="[&_button]:data-[slot='alert-dialog-cancel']:hidden"
             title={
                 <FormattedMessage
                     id={AuthLanguage.component.modal.tokenExpired.title}
@@ -81,8 +84,7 @@ export function ModalTokenExpired() {
                     defaultMessage={AuthLanguage.component.modal.tokenExpired.confirmText}
                 />
             }
-            media={<AlertTriangleIcon className="text-amber-500" />}
-            cancelClassName="!hidden"
+            media={<AlertTriangleIcon className="text-red-500" />}
             onConfirm={onConfirm}
         />
     );
