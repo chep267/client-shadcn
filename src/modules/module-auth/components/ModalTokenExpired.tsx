@@ -8,8 +8,8 @@
 import * as React from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { AlertTriangleIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { AlertTriangleIcon } from 'lucide-react';
 import { FormattedMessage } from 'react-intl';
 
 /** apis */
@@ -27,7 +27,6 @@ import { useRestart } from '@module-auth/hooks/useRestart';
 import { useSettingStore } from '@module-base/stores/useSettingStore';
 
 /** components */
-import { StartLoading } from '@module-base/components/start-loading';
 import { ModalConfirm } from '@module-base/components/modal-base/modal-confirm';
 
 export function ModalTokenExpired() {
@@ -35,16 +34,18 @@ export function ModalTokenExpired() {
     const navigate = useNavigate();
     const hookRestart = useRestart();
     const statusCode = useSettingStore((store) => store.data.api.statusCode);
+    const settingAction = useSettingStore((store) => store.action);
 
     React.useEffect(() => {
         if (statusCode === axios.HttpStatusCode.Unauthorized) {
             hookRestart.mutate(void 0, {
                 onSuccess: async () => {
-                    const { data, action } = useSettingStore.getState();
-                    const queue = data.api.queue;
-                    await Promise.all(queue.map((item) => axiosClient.request(item)));
-                    action.clearApiQueue();
-                    action.updateStatusCode(axios.HttpStatusCode.Ok);
+                    const { queue } = useSettingStore.getState().data.api;
+                    if (queue.length > 0) {
+                        await Promise.all(queue.map((item) => axiosClient.request(item)));
+                        settingAction.clearApiQueue();
+                    }
+                    settingAction.updateStatusCode(axios.HttpStatusCode.Ok);
                 },
                 onError: () => {
                     Cookies.remove(AppKey.token);
@@ -58,14 +59,6 @@ export function ModalTokenExpired() {
         setTokenExpired(false);
         navigate(AuthRouterPath.signin, { replace: true });
     };
-
-    if (hookRestart.isPending) {
-        return (
-            <div className="bg-background/70 fixed top-0 right-0 bottom-0 left-0 z-9999">
-                <StartLoading />
-            </div>
-        );
-    }
 
     return (
         <ModalConfirm

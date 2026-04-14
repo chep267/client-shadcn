@@ -6,6 +6,7 @@
 
 /** libs */
 import * as React from 'react';
+import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -15,13 +16,14 @@ import { AccountState } from '@module-auth/constants/AccountState';
 import { AuthRouterPath } from '@module-auth/constants/AuthRouterPath';
 
 /** stores */
+import { useSettingStore } from '@module-base/stores/useSettingStore';
 import { useAuthStore } from '@module-auth/stores/useAuthStore';
 
 /** components */
+import { StartLoading } from '@module-base/components/start-loading';
 import { ModalTokenExpired } from '@module-auth/components/ModalTokenExpired';
 
 /** screens */
-import RestartScreen from '@module-auth/screens/RestartScreen';
 import AuthScreen from '@module-auth/screens/AuthScreen';
 
 export default function AuthRoute(props: React.PropsWithChildren) {
@@ -32,25 +34,28 @@ export default function AuthRoute(props: React.PropsWithChildren) {
     const isAuthentication = useAuthStore((store) => !!store.data.user);
     const prePath = useAuthStore((store) => store.data.prePath);
     const authAction = useAuthStore((store) => store.action);
+    const settingAction = useSettingStore((store) => store.action);
 
     const token = Cookies.get(AppKey.token);
     const accountState = isAuthentication ? AccountState.signedIn : token ? AccountState.reSignin : AccountState.signin;
 
     React.useEffect(() => {
         const isAuthPath = Object.values(AuthRouterPath as Record<string, string>).includes(pathname);
-        if (accountState === AccountState.signin && !isAuthPath) {
-            /** not logged in, return to log in  */
-            authAction.setData({ prePath: pathname });
-            navigate(AuthRouterPath.signin, { replace: true });
-        }
-        if (accountState === AccountState.reSignin && pathname !== AuthRouterPath.start) {
-            /** already logged in, get session */
-            authAction.setData({ prePath: isAuthPath ? '/' : pathname });
-            navigate(AuthRouterPath.start, { replace: true });
-        }
-        if (accountState === AccountState.signedIn && isAuthPath) {
-            /** logged in and go home */
-            navigate(prePath, { replace: true });
+        switch (true) {
+            case accountState === AccountState.signin && !isAuthPath:
+                /** not logged in, return to log in  */
+                authAction.setData({ prePath: pathname });
+                navigate(AuthRouterPath.signin, { replace: true });
+                break;
+            case accountState === AccountState.reSignin:
+                settingAction.updateStatusCode(axios.HttpStatusCode.Unauthorized);
+                break;
+            case accountState === AccountState.signedIn && isAuthPath:
+                /** logged in and go home */
+                navigate(prePath, { replace: true });
+                break;
+            default:
+                break;
         }
     }, [accountState, pathname]);
 
@@ -60,7 +65,7 @@ export default function AuthRoute(props: React.PropsWithChildren) {
             {accountState === AccountState.signedIn ? (
                 children
             ) : accountState === AccountState.reSignin ? (
-                <RestartScreen />
+                <StartLoading />
             ) : (
                 <AuthScreen />
             )}
