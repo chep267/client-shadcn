@@ -29,9 +29,7 @@ export default function DashBoardHeader(props: { data: any[] }) {
         <>
             {/* Header */}
             <div className="flex items-center justify-between">
-                <div>
-                    <h1 className="text-2xl font-bold">Dashboard for Nhat Minh</h1>
-                </div>
+                <h1 className="text-2xl font-bold">Dashboard</h1>
 
                 <div className="flex gap-2">
                     <Button variant="outline">+ Member</Button>

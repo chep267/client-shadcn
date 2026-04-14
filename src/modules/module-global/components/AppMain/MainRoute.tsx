@@ -29,12 +29,12 @@ export function MainRoute() {
             <AppSidebarMini />
             <React.Suspense>
                 <Routes>
-                    {Object.values(AuthRouterPath).map((path) => (
+                    {[...Object.values(AuthRouterPath), AppRouterPath.home].map((path) => (
                         <Route key={path} path={path} element={<Navigate to={AppRouterPath.defaultPath} />} />
                     ))}
-                    <Route path={AppRouterPath.home} element={<Navigate to={AppRouterPath.defaultPath} />} />
-                    <Route path={AppRouterPath.feed} element={<FeedScreen />} />
                     <Route path={AppRouterPath.dashboard} element={<DashboardScreen />} />
+                    <Route path={AppRouterPath.feed} element={<FeedScreen />} />
+                    <Route path={AppRouterPath.calendar} element={<div />} />
                     <Route path="*" element={<NotFoundScreen />} />
                 </Routes>
             </React.Suspense>

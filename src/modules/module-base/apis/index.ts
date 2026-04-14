@@ -52,7 +52,7 @@ axiosClient.interceptors.response.use(
     },
     async (error: AxiosError) => {
         if (isTokenExpired(error) && error.config) {
-            const action = useSettingStore.getState().action;
+            const { action } = useSettingStore.getState();
             action.updateStatusCode(error.response?.status);
             action.addApiQueue(error.config);
         }

@@ -33,30 +33,35 @@ export function ModalTokenExpired() {
     const navigate = useNavigate();
     const hookRestart = useRestart();
     const statusCode = useSettingStore((store) => store.data.api.statusCode);
-    const settingAction = useSettingStore((store) => store.action);
-    const authAction = useAuthStore((store) => store.action);
 
     React.useEffect(() => {
         if (statusCode === axios.HttpStatusCode.Unauthorized) {
             hookRestart.mutate(void 0, {
                 onSuccess: async () => {
-                    const { queue } = useSettingStore.getState().data.api;
+                    const { data, action: settingAction } = useSettingStore.getState();
+                    const { queue } = data.api;
                     if (queue.length > 0) {
-                        await Promise.all(queue.map((item) => axiosClient.request(item)));
-                        settingAction.clearApiQueue();
+                        try {
+                            await Promise.all(queue.map((config) => axiosClient.request(config)));
+                        } catch {
+                            // nothing
+                        } finally {
+                            settingAction.clearApiQueue();
+                            settingAction.updateStatusCode(axios.HttpStatusCode.Ok);
+                        }
                     }
                 },
                 onError: () => {
-                    setTokenExpired(true);
-                },
-                onSettled: () => {
+                    const { action: settingAction } = useSettingStore.getState();
                     settingAction.updateStatusCode(axios.HttpStatusCode.Ok);
+                    setTokenExpired(true);
                 },
             });
         }
     }, [statusCode]);
 
     const onConfirm = () => {
+        const { action: authAction } = useAuthStore.getState();
         setTokenExpired(false);
         authAction.setData({ token: '' });
         navigate(AuthRouterPath.signin, { replace: true });

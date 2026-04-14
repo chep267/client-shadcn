@@ -5,7 +5,7 @@
  */
 
 /** libs */
-import { HomeIcon, LayoutDashboardIcon } from 'lucide-react';
+import { HomeIcon, LayoutDashboardIcon, CalendarIcon } from 'lucide-react';
 
 /** constants */
 import { AppRouterPath } from '@module-base/constants/AppRouterPath';
@@ -21,6 +21,11 @@ const SidebarItems: App.ModuleGlobal.Component.SidebarItemProps['item'][] = [
         path: AppRouterPath.feed,
         name: GlobalLanguage.component.label.feed,
         icon: HomeIcon,
+    },
+    {
+        path: AppRouterPath.calendar,
+        name: GlobalLanguage.component.label.calendar,
+        icon: CalendarIcon,
     },
 ];
 
