@@ -24,7 +24,7 @@ export function useSignout() {
         mutationFn: authService.signout,
         onSettled: () => {
             Cookies.remove(AppKey.token);
-            authAction.setData({ user: null, prePath: '/' });
+            authAction.setData({ user: null, prePath: '/', token: '' });
         },
     });
 }
