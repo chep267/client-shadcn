@@ -31,12 +31,12 @@ import { TableBody } from '@module-base/components/table-base/table-body';
 export function VirtualTable<Data extends App.ModuleBase.Component.TypeTableData>(
     props: App.ModuleBase.Component.TableProps<Data>
 ) {
-    const { className, initialSetup, columns, items = [], emptyContent } = props;
+    const { className, initialSetup, columns, items, emptyContent } = props;
     const {
         hasCheckbox = false,
         delayLoading = AppTimer.searching,
         dataKeyForCheckbox = 'id',
-        searchKey,
+        searchKey = '',
         orderBy = dataKeyForCheckbox,
         orderType = OrderType.asc,
         filters,
@@ -109,16 +109,22 @@ export function VirtualTable<Data extends App.ModuleBase.Component.TypeTableData
     }, [searchKey, storeOrderBy, storeOrderType, JSON.stringify(filters), JSON.stringify(searchableKeys)]);
 
     return (
-        <div className={cn('relative flex-1 overflow-hidden rounded-md border', className)}>
+        <div
+            className={cn(
+                'relative flex-1 overflow-hidden rounded-md border',
+                'min-h-[calc(var(--spacing)*40)]',
+                { 'max-h-[calc(var(--spacing)*40)]': isTableEmpty },
+                className
+            )}
+        >
             <TableLoading store={tableStore} />
             {React.useMemo(() => {
                 return (
                     <TableVirtuoso
                         ref={virtuoso}
                         className={cn(
-                            'relative w-full rounded-md',
+                            'relative h-full w-full rounded-md',
                             '[&_[data-slot=table-container]]:overflow-visible',
-                            { 'max-h-[calc(var(--spacing)*40)]': isTableEmpty },
                             className
                         )}
                         components={components}

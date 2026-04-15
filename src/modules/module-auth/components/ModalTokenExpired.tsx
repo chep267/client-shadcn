@@ -89,7 +89,7 @@ export function ModalTokenExpired() {
                     defaultMessage={AuthLanguage.component.modal.tokenExpired.confirmText}
                 />
             }
-            media={<AlertTriangleIcon className="text-red-500" />}
+            media={<AlertTriangleIcon className="text-danger" />}
             onConfirm={onConfirm}
         />
     );

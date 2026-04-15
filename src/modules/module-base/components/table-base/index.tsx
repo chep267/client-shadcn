@@ -27,12 +27,12 @@ import { TableLoading } from '@module-base/components/table-base/table-loading';
 export function TableBase<Data extends App.ModuleBase.Component.TypeTableData>(
     props: App.ModuleBase.Component.TableProps<Data>
 ) {
-    const { className, initialSetup, columns, items = [], emptyContent } = props;
+    const { className, initialSetup, columns, items, emptyContent } = props;
     const {
         hasCheckbox = false,
         delayLoading = AppTimer.searching,
         dataKeyForCheckbox = 'id',
-        searchKey,
+        searchKey = '',
         orderBy = dataKeyForCheckbox,
         orderType = OrderType.asc,
         filters,

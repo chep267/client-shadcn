@@ -28,7 +28,7 @@ export function ActionMenu<Data extends App.ModuleBase.Component.TypeTableData>(
                 <DropdownMenuItem className="cursor-pointer" onClick={() => onEdit?.(item)}>
                     Edit
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer text-red-500" onClick={() => onDelete?.(item)}>
+                <DropdownMenuItem className="danger cursor-pointer" onClick={() => onDelete?.(item)}>
                     Delete
                 </DropdownMenuItem>
             </DropdownMenuContent>

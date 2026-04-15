@@ -53,6 +53,7 @@ export const createTableStore = <Data extends App.ModuleBase.Component.TypeTable
                             if (key in data) {
                                 (data as Record<typeof key, unknown>)[key] = value;
                             }
+                            data.items = data.items || [];
                             data.currentItems = data.items;
                         });
                     })

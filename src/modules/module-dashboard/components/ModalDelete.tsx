@@ -18,7 +18,7 @@ export function ModalDelete(props: ModalDeleteProps) {
             description={`Are you sure you want to delete this task "${item?.title}"?`}
             confirmText="Delete"
             variant="destructive"
-            media={<Trash2Icon className="text-red-500" />}
+            media={<Trash2Icon className="text-danger" />}
             onCancel={onCancel}
             onConfirm={onConfirm}
         />

@@ -16,10 +16,11 @@
             "@langs/*": ["./src/langs/*"],
             "@modules/*": ["./src/modules/*"],
             "@module-base/*": ["./src/modules/module-base/*"],
-            "@module-global/*": ["./src/modules/module-global/*"],
             "@module-user/*": ["./src/modules/module-user/*"],
             "@module-auth/*": ["./src/modules/module-auth/*"],
-            "@module-dashboard/*": ["./src/modules/module-dashboard/*"]
+            "@module-global/*": ["./src/modules/module-global/*"],
+            "@module-dashboard/*": ["./src/modules/module-dashboard/*"],
+            "@module-calendar/*": ["./src/modules/module-calendar/*"]
         }
     }
 }

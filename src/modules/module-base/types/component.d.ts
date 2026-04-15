@@ -129,8 +129,6 @@ export interface TableProps<Data extends TypeTableData = TypeTableData> {
     items?: Data[];
     emptyContent?: ReactNode | (() => ReactNode);
     columns?: TypeTableColumn[];
-    onSelect?(ids: Set<string>): void;
-    onSearch?(value: string): void;
 }
 export interface TableEmptyProps<Data extends TypeTableData = TypeTableData> {
     store: TypeTableStore<Data>;

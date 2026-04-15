@@ -22,8 +22,8 @@ import AuthProvider from '@module-auth/providers/AuthProvider';
 const AppSidebar = React.lazy(() =>
     import('@module-global/components/AppSidebar').then((module) => ({ default: module.AppSidebar }))
 );
-const MainRoute = React.lazy(() =>
-    import('@module-global/components/AppMain/MainRoute').then((module) => ({ default: module.MainRoute }))
+const AppRouter = React.lazy(() =>
+    import('@module-global/components/AppRouter').then((module) => ({ default: module.AppRouter }))
 );
 
 export function AppMain() {
@@ -37,7 +37,7 @@ export function AppMain() {
                             <AuthProvider>
                                 <SidebarProvider className="min-h-(--app-size-height-sidebar)">
                                     <AppSidebar />
-                                    <MainRoute />
+                                    <AppRouter />
                                 </SidebarProvider>
                             </AuthProvider>
                         }

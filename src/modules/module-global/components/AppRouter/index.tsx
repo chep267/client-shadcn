@@ -22,8 +22,9 @@ import { AppSidebarMini } from '@module-global/components/AppSidebarMini';
 const NotFoundScreen = React.lazy(() => import('@module-base/screens/NotFoundScreen'));
 const FeedScreen = React.lazy(() => import('@module-global/screens/FeedScreen'));
 const DashboardScreen = React.lazy(() => import('@module-dashboard/screens/DashboardScreen'));
+const CalendarScreen = React.lazy(() => import('@module-calendar/screens/CalendarScreen'));
 
-export function MainRoute() {
+export function AppRouter() {
     return (
         <main data-slot="sidebar-content" className={cn('flex flex-1 flex-col', 'min-w-0')}>
             <AppSidebarMini />
@@ -34,7 +35,7 @@ export function MainRoute() {
                     ))}
                     <Route path={AppRouterPath.dashboard} element={<DashboardScreen />} />
                     <Route path={AppRouterPath.feed} element={<FeedScreen />} />
-                    <Route path={AppRouterPath.calendar} element={<div />} />
+                    <Route path={AppRouterPath.calendar} element={<CalendarScreen />} />
                     <Route path="*" element={<NotFoundScreen />} />
                 </Routes>
             </React.Suspense>
