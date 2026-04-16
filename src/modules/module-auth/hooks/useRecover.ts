@@ -27,7 +27,7 @@ export function useRecover() {
     return useMutation({
         mutationFn: authService.recover,
         onSuccess: () => {
-            toast.success(formatMessage({ id: AuthLanguage.notify.recover.success }));
+            toast.success(formatMessage({ id: AuthLanguage.notify.recover.success, defaultMessage: 'Success' }));
         },
         onError: (error: AxiosError) => {
             let messageIntl: string;

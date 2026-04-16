@@ -63,7 +63,7 @@ export function CalendarSelect() {
                     disabled={calendarAction.isToday(selectedDay)}
                     onClick={() => calendarAction.setDay(today)}
                 >
-                    <FormattedMessage id={CalendarLanguage.component.label.today} />
+                    <FormattedMessage id={CalendarLanguage.component.label.today} defaultMessage="Today" />
                 </Button>
 
                 <SelectBase
@@ -126,6 +126,7 @@ export function CalendarSelect() {
                         <FormattedMessage
                             id={CalendarLanguage.component.label.calendarInfo.title}
                             values={timeMonthYear}
+                            defaultMessage={CalendarLanguage.component.label.calendarInfo.title}
                         />
                     </Typography>
                 </div>

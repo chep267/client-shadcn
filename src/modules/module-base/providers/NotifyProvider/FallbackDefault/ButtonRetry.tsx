@@ -23,7 +23,13 @@ function Timer() {
         callback: () => window.location.reload(),
         numberCountdown: AppTimer.countdownError,
     });
-    return <FormattedMessage id={BaseLanguage.component.label.error.fallback.autoReload} values={{ second }} />;
+    return (
+        <FormattedMessage
+            id={BaseLanguage.component.label.error.fallback.autoReload}
+            values={{ second }}
+            defaultMessage={`${second}`}
+        />
+    );
 }
 
 export function ButtonRetry(props: Pick<App.ModuleBase.Component.FallbackDefaultProps, 'isAutoReload'>) {
@@ -31,8 +37,8 @@ export function ButtonRetry(props: Pick<App.ModuleBase.Component.FallbackDefault
 
     return (
         <div className="flex flex-col items-center justify-center pt-3">
-            <Button className="text-danger" variant="outline" onClick={() => window.location.reload()}>
-                <FormattedMessage id={BaseLanguage.component.button.retry} />
+            <Button className="text-danger capitalize" variant="outline" onClick={() => window.location.reload()}>
+                <FormattedMessage id={BaseLanguage.component.button.retry} defaultMessage="Retry" />
             </Button>
             {isAutoReload ? (
                 <Typography className="text-danger pt-3">

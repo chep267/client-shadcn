@@ -30,7 +30,14 @@ export function AuthButtonSubmit(props: App.ModuleAuth.Component.AuthButtonSubmi
             size="lg"
             {...btnProps}
         >
-            {loading ? <Spinner /> : <FormattedMessage id={AuthLanguage.component.button[mode]} />}
+            {loading ? (
+                <Spinner />
+            ) : (
+                <FormattedMessage
+                    id={AuthLanguage.component.button[mode]}
+                    defaultMessage={AuthLanguage.component.button[mode]}
+                />
+            )}
         </Button>
     );
 }

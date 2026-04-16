@@ -23,23 +23,13 @@ import {
     SelectValue,
 } from '@module-base/components/select';
 
-const placeholderDefault = (
-    <FormattedMessage
-        id={BaseLanguage.component.select.placeholder}
-        defaultMessage={BaseLanguage.component.select.placeholder}
-    />
-);
-const clearTextDefault = (
-    <FormattedMessage id={BaseLanguage.component.select.clear} defaultMessage={BaseLanguage.component.select.clear} />
-);
-
 export function SelectBase(props: App.ModuleBase.Component.SelectBaseProps) {
     const {
         className,
         value,
         hasClear,
-        placeholder = placeholderDefault,
-        clearText = clearTextDefault,
+        placeholder: placeholderProps,
+        clearText: clearTextProps,
         items,
         onChange,
     } = props;
@@ -50,6 +40,12 @@ export function SelectBase(props: App.ModuleBase.Component.SelectBaseProps) {
     };
 
     const showClear = hasClear && value && value !== 'null' && value !== 'undefined';
+    const placeholder = placeholderProps ?? (
+        <FormattedMessage id={BaseLanguage.component.select.placeholder} defaultMessage="Select..." />
+    );
+    const clearText = clearTextProps ?? (
+        <FormattedMessage id={BaseLanguage.component.select.clear} defaultMessage="-- Clear --" />
+    );
 
     return (
         <Select value={value} onValueChange={handleChange}>

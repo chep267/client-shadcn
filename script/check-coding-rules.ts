@@ -4,8 +4,9 @@
  *
  */
 
-import { readdir, readFile } from 'fs/promises';
-import { extname, join, resolve } from 'path';
+/** libs */
+import { readdir, readFile } from 'node:fs/promises';
+import { extname, join, resolve } from 'node:path';
 
 class FileSizeChecker {
     private readonly rootDir: string;
@@ -65,10 +66,11 @@ class FileSizeChecker {
             filePath.includes('/constants/') ||
             filePath.includes('/contexts/');
         const hasCamelCase = !hasPascalCase;
-        const fileName = filePath
-            .split('/')
-            .pop()
-            .replace(/\.[^.]+$/, ''); // 'MyComponent' từ 'MyComponent.tsx'
+        const fileName =
+            filePath
+                .split('/')
+                .pop()
+                ?.replace(/\.[^.]+$/, '') || ''; // 'MyComponent' từ 'MyComponent.tsx'
 
         if (hasPascalCase) {
             const specialFileNames = ['index', 'main'];

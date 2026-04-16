@@ -44,7 +44,7 @@ function StartLoading() {
                     component="h5"
                     className={cn('z-1 tracking-wide uppercase', 'text-main', 'dark:text-warning')}
                 >
-                    <FormattedMessage id={BaseLanguage.component.label.start} />
+                    <FormattedMessage id={BaseLanguage.component.label.start} defaultMessage="start" />
                 </Typography>
                 <div
                     className={cn(

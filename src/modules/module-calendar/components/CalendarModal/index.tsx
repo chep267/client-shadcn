@@ -78,7 +78,7 @@ export function CalendarModal() {
                 <div className="flex h-36 border-t">
                     <div className={cn('flex flex-1 flex-col items-center justify-between', 'py-2')}>
                         <Typography component="h5">
-                            <FormattedMessage id={CalendarLanguage.component.label.day} />
+                            <FormattedMessage id={CalendarLanguage.component.label.day} defaultMessage="Day" />
                         </Typography>
                         <Typography component="h2">{lunarDay.day}</Typography>
                         <Typography component="h5">
@@ -87,7 +87,7 @@ export function CalendarModal() {
                     </div>
                     <div className={cn('flex flex-1 flex-col items-center justify-between', 'border-r border-l py-2')}>
                         <Typography component="h5">
-                            <FormattedMessage id={CalendarLanguage.component.label.month} />
+                            <FormattedMessage id={CalendarLanguage.component.label.month} defaultMessage="Month" />
                         </Typography>
                         <Typography component="h2">{lunarDay.month}</Typography>
                         <Typography component="h5">
@@ -96,7 +96,7 @@ export function CalendarModal() {
                     </div>
                     <div className={cn('flex flex-1 flex-col items-center justify-between', 'py-2')}>
                         <Typography component="h5">
-                            <FormattedMessage id={CalendarLanguage.component.label.year} />
+                            <FormattedMessage id={CalendarLanguage.component.label.year} defaultMessage="Year" />
                         </Typography>
                         <Typography component="h2">{lunarDay.year}</Typography>
                         <Typography component="h5">

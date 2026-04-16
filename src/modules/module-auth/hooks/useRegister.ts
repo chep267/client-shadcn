@@ -27,7 +27,7 @@ export function useRegister() {
     return useMutation({
         mutationFn: authService.register,
         onSuccess: () => {
-            toast.success(formatMessage({ id: AuthLanguage.notify.register.success }));
+            toast.success(formatMessage({ id: AuthLanguage.notify.register.success, defaultMessage: 'Success' }));
         },
         onError: (error: AxiosError) => {
             let messageIntl: string;

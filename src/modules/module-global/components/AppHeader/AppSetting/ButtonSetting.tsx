@@ -39,7 +39,7 @@ export function ButtonSetting() {
                 </DropdownMenuTrigger>
             </TooltipTrigger>
             <TooltipContent>
-                <FormattedMessage id={GlobalLanguage.component.label.setting} />
+                <FormattedMessage id={GlobalLanguage.component.label.setting} defaultMessage="Setting" />
             </TooltipContent>
         </Tooltip>
     );

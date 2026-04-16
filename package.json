@@ -14,7 +14,8 @@
         "lint": "eslint . --fix",
         "format": "prettier --write .",
         "clean": "tsc --build --clean && rimraf node_modules && rimraf pnpm-lock.yaml",
-        "check-code": "node script/check-coding-rules.ts"
+        "check-code": "node script/check-coding-rules.ts",
+        "generate-module": "node script/generate-module.ts"
     },
     "dependencies": {
         "@base-ui/react": "^1.4.0",
