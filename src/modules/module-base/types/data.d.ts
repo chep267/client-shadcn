@@ -6,7 +6,7 @@
 
 export type TypeItemIds = string[];
 
-export type TypeItems<Data = any> = Record<string, Data>;
+export type TypeItems<Data = any> = Data[];
 
 export type TypeStorageName = 'localStorage' | 'sessionStorage';
 

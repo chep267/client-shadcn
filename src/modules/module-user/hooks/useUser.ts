@@ -18,11 +18,12 @@ type UseUserProps = {
 
 export function useUser(props: UseUserProps) {
     const { uid: uidProps } = props;
-    const uid = validateId(`${uidProps}`, 'uid');
     const hookListUser = useListUser();
+
+    const uid = validateId(`${uidProps}`, 'uid');
 
     return {
         isLoading: hookListUser.isLoading,
-        data: hookListUser.data?.data?.items?.[`${uid}`],
+        data: hookListUser.data?.data?.items?.find((user) => user.uid === uid),
     };
 }

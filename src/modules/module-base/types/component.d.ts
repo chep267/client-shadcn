@@ -70,6 +70,7 @@ export interface SelectBaseProps {
 export type TypeOrderType = 'asc' | 'desc';
 export type TypeTableData = Record<string | 'id' | 'action', any>;
 export type TypeTableSetup<Data extends TypeTableData = TypeTableData> = {
+    loading?: boolean;
     hasCheckbox?: boolean;
     dataKeyForCheckbox?: string;
     delayLoading?: number;

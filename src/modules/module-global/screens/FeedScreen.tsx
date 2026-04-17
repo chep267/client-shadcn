@@ -17,7 +17,7 @@ import { VirtualTable } from '@module-base/components/vitual-table';
 export default function FeedScreen() {
     const isCalled = React.useRef(false);
 
-    const callApi = () => new BaseService().get({ url: '/test/app/feed' });
+    const callApi = () => new BaseService().get({ url: '/app/feed' });
 
     React.useEffect(() => {
         if (!isCalled.current) {

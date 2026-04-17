@@ -11,6 +11,9 @@ import dayjs from 'dayjs';
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
+/** hooks */
+import { useGetAllTicket } from '@module-dashboard/hooks/useGetAllTicket';
+
 /** components */
 import { SelectBase } from '@module-base/components/select-base';
 import { InputSearch } from '@module-base/components/input-search';
@@ -19,20 +22,12 @@ import { StatusBadge } from '@module-dashboard/components/StatusBadge';
 import { ActionMenu } from '@module-dashboard/components/ActionMenu';
 import { Assignee } from '@module-dashboard/components/Assignee';
 
-/** types */
-import type { TaskData } from '@module-dashboard/services/project';
-
-interface ProjectTableProps {
-    data: TaskData[];
-    onDelete?: (item: TaskData) => void;
-}
-
 type TypeFilterItem = NonNullable<App.ModuleBase.Component.TypeTableSetup['filters']>[number];
 
-export function ProjectTable(props: ProjectTableProps) {
-    const { data, onDelete } = props;
+export function TableTicket() {
     const [searchValue, setSearchValue] = React.useState('');
     const [filters, setFilters] = React.useState<TypeFilterItem[]>([]);
+    const { isPending, data } = useGetAllTicket();
 
     const handleFilter = (dataKey: string, value: string, item?: TypeFilterItem) => {
         setFilters((prevFilters) => {
@@ -43,7 +38,7 @@ export function ProjectTable(props: ProjectTableProps) {
     };
 
     const filterYears = React.useMemo(() => {
-        const handleFilterByYear = (value: string, item: TaskData) => {
+        const handleFilterByYear = (value: string, item: App.ModuleDashboard.Data.TypeTicketData) => {
             return (
                 dayjs(item.createdAt).format('DD/MM/YYYY').includes(value) ||
                 dayjs(item.deadline).format('DD/MM/YYYY').includes(value)
@@ -53,11 +48,11 @@ export function ProjectTable(props: ProjectTableProps) {
         return ['2024', '2025', '2026', '2027'].map((value) => ({
             label: value,
             value,
-            fnFilter: (item: TaskData) => handleFilterByYear(value, item),
+            fnFilter: (item: App.ModuleDashboard.Data.TypeTicketData) => handleFilterByYear(value, item),
         }));
     }, []);
 
-    const columns = React.useMemo<App.ModuleBase.Component.TypeTableColumn<TaskData>[]>(
+    const columns = React.useMemo<App.ModuleBase.Component.TypeTableColumn<App.ModuleDashboard.Data.TypeTicketData>[]>(
         () => [
             {
                 dataKey: 'id',
@@ -98,10 +93,10 @@ export function ProjectTable(props: ProjectTableProps) {
             {
                 dataKey: 'action',
                 label: 'Action',
-                render: ({ item }) => <ActionMenu item={item} onDelete={onDelete} />,
+                render: ({ item }) => <ActionMenu item={item} />,
             },
         ],
-        [onDelete]
+        []
     );
 
     return (
@@ -137,8 +132,14 @@ export function ProjectTable(props: ProjectTableProps) {
 
             <VirtualTable
                 className="scrollbar-thin scrollbar-custom flex"
-                initialSetup={{ hasCheckbox: true, dataKeyForCheckbox: 'id', searchKey: searchValue, filters }}
-                items={data}
+                initialSetup={{
+                    loading: isPending,
+                    hasCheckbox: true,
+                    dataKeyForCheckbox: 'id',
+                    searchKey: searchValue,
+                    filters,
+                }}
+                items={data?.data.data.items}
                 columns={columns}
             />
         </div>

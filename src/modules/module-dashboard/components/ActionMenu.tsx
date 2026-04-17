@@ -1,3 +1,16 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** libs */
+import { MoreHorizontal } from 'lucide-react';
+
+/** stores */
+import { useTicketStore } from '@module-dashboard/stores/useTicketStore';
+
+/** components */
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -5,16 +18,14 @@ import {
     DropdownMenuTrigger,
 } from '@module-base/components/dropdown-menu';
 import { Button } from '@module-base/components/button';
-import { MoreHorizontal } from 'lucide-react';
 
-interface ActionMenuProps<Data> {
-    item: Data;
-    onEdit?(item: Data): void;
-    onDelete?(item: Data): void;
+interface ActionMenuProps {
+    item: App.ModuleDashboard.Data.TypeTicketData;
 }
 
-export function ActionMenu<Data extends App.ModuleBase.Component.TypeTableData>(props: ActionMenuProps<Data>) {
-    const { item, onEdit, onDelete } = props;
+export function ActionMenu(props: ActionMenuProps) {
+    const { item } = props;
+    const action = useTicketStore((store) => store.action);
 
     return (
         <DropdownMenu>
@@ -25,10 +36,13 @@ export function ActionMenu<Data extends App.ModuleBase.Component.TypeTableData>(
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="end">
-                <DropdownMenuItem className="cursor-pointer" onClick={() => onEdit?.(item)}>
+                <DropdownMenuItem className="cursor-pointer" onClick={() => action.setData({ itemEdit: item })}>
                     Edit
                 </DropdownMenuItem>
-                <DropdownMenuItem className="danger cursor-pointer" onClick={() => onDelete?.(item)}>
+                <DropdownMenuItem
+                    className="danger cursor-pointer"
+                    onClick={() => action.setData({ itemDelete: item })}
+                >
                     Delete
                 </DropdownMenuItem>
             </DropdownMenuContent>

@@ -7,15 +7,20 @@
 /** libs */
 import * as React from 'react';
 
+/** hooks */
+import { useGetAllTicket } from '@module-dashboard/hooks/useGetAllTicket';
+
 /** components */
+import { Skeleton } from '@module-base/components/skeleton';
 import { Button } from '@module-base/components/button';
 import { Card, CardContent } from '@module-base/components/card';
 
-export default function DashBoardHeader(props: { data: any[] }) {
-    const { data } = props;
+export default function DashBoardHeader() {
+    const { isPending, data } = useGetAllTicket();
+    const items = data?.data.data.items;
 
     const status = React.useMemo(() => {
-        return data.reduce(
+        return items?.reduce(
             (output, task) => {
                 output['in_progress'] += task.status === 'in_progress' ? 1 : 0;
                 output['done'] += task.status === 'done' ? 1 : 0;
@@ -23,7 +28,7 @@ export default function DashBoardHeader(props: { data: any[] }) {
             },
             { in_progress: 0, done: 0 }
         );
-    }, [data]);
+    }, [items]);
 
     return (
         <>
@@ -42,21 +47,33 @@ export default function DashBoardHeader(props: { data: any[] }) {
                 <Card>
                     <CardContent className="p-4">
                         <p className="text-warning text-xl">Total Tasks</p>
-                        <p className="text-warning text-xl font-bold">{data.length}</p>
+                        {isPending ? (
+                            <Skeleton className="h-6 w-12" />
+                        ) : (
+                            <p className="text-warning text-xl font-bold">{items?.length}</p>
+                        )}
                     </CardContent>
                 </Card>
 
                 <Card>
                     <CardContent className="p-4">
                         <p className="text-info text-xl">In Progress</p>
-                        <p className="text-info text-xl font-bold">{status['in_progress']}</p>
+                        {isPending ? (
+                            <Skeleton className="h-6 w-12" />
+                        ) : (
+                            <p className="text-info text-xl font-bold">{status?.['in_progress']}</p>
+                        )}
                     </CardContent>
                 </Card>
 
                 <Card>
                     <CardContent className="p-4">
                         <p className="text-success text-xl">Done</p>
-                        <p className="text-success text-xl font-bold">{status['done']}</p>
+                        {isPending ? (
+                            <Skeleton className="h-6 w-12" />
+                        ) : (
+                            <p className="text-success text-xl font-bold">{status?.['done']}</p>
+                        )}
                     </CardContent>
                 </Card>
             </div>

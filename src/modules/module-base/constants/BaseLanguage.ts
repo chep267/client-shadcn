@@ -36,6 +36,8 @@ export const BaseLanguage = {
             retry: 'module.game.component.button.retry',
             cancel: 'module.game.component.button.cancel',
             confirm: 'module.game.component.button.confirm',
+            remove: 'module.base.component.button.remove',
+            delete: 'module.base.component.button.delete',
         },
         table: {
             empty: 'module.base.component.table.empty',

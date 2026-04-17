@@ -12,6 +12,8 @@ import { FormattedMessage } from 'react-intl';
 import { BaseLanguage } from '@module-base/constants/BaseLanguage';
 
 /** components */
+import { Button } from '@module-base/components/button';
+import { Spinner } from '@module-base/components/spinner';
 import {
     AlertDialog,
     AlertDialogContent,
@@ -23,23 +25,35 @@ import {
     AlertDialogCancel,
     AlertDialogMedia,
 } from '@module-base/components/alert-dialog';
-import { Button } from '@module-base/components/button';
 
 interface ModalConfirmProps {
     className?: string;
     open?: boolean;
+    loading?: boolean;
     title?: React.ReactNode;
     description?: React.ReactNode;
     cancelText?: React.ReactNode;
     confirmText?: React.ReactNode;
     media?: React.ReactNode;
     variant?: React.ComponentProps<typeof Button>['variant'];
-    onConfirm?(): void;
+    onConfirm?(event: React.MouseEvent<HTMLButtonElement>): void;
     onCancel?(): void;
 }
 
 export function ModalConfirm(props: ModalConfirmProps) {
-    const { className, open, title, description, variant, media, cancelText, confirmText, onCancel, onConfirm } = props;
+    const {
+        className,
+        open,
+        loading,
+        title,
+        description,
+        variant,
+        media,
+        cancelText,
+        confirmText,
+        onCancel,
+        onConfirm,
+    } = props;
 
     if (!open) return null;
 
@@ -53,14 +67,23 @@ export function ModalConfirm(props: ModalConfirmProps) {
                 </AlertDialogHeader>
 
                 <AlertDialogFooter>
-                    <AlertDialogCancel className="cursor-pointer">
+                    <AlertDialogCancel className="cursor-pointer" disabled={loading}>
                         {cancelText || (
                             <FormattedMessage id={BaseLanguage.component.button.cancel} defaultMessage="Cancel" />
                         )}
                     </AlertDialogCancel>
-                    <AlertDialogAction className="cursor-pointer" variant={variant} onClick={onConfirm}>
-                        {confirmText || (
-                            <FormattedMessage id={BaseLanguage.component.button.confirm} defaultMessage="Confirm" />
+                    <AlertDialogAction
+                        className="cursor-pointer"
+                        disabled={loading}
+                        variant={variant}
+                        onClick={onConfirm}
+                    >
+                        {loading ? (
+                            <Spinner className="mx-2 size-4" />
+                        ) : (
+                            confirmText || (
+                                <FormattedMessage id={BaseLanguage.component.button.confirm} defaultMessage="Confirm" />
+                            )
                         )}
                     </AlertDialogAction>
                 </AlertDialogFooter>
