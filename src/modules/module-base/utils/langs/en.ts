@@ -30,6 +30,7 @@ export const en = {
     [BaseLanguage.component.button.confirm]: 'Confirm',
     [BaseLanguage.component.button.remove]: 'Remove',
     [BaseLanguage.component.button.delete]: 'Delete',
+    [BaseLanguage.component.button.edit]: 'Edit',
 
     [BaseLanguage.component.table.empty]: 'No data!',
 

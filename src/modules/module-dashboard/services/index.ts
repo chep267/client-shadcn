@@ -23,10 +23,30 @@ class DashboardService extends BaseService {
         );
     };
 
-    public remove = (id: string) => {
+    public update = (payload: App.ModuleDashboard.Api.TypeApiDashboard['Update']['Payload']) => {
+        const { id, data } = payload;
+
+        return this.withDelay(
+            this.patch<App.ModuleDashboard.Api.TypeApiDashboard['Update']['Response']>(data, {
+                url: `${DashboardApiPath.ticket}/${id}`,
+            })
+        );
+    };
+
+    public remove = (payload: App.ModuleDashboard.Api.TypeApiDashboard['Remove']['Payload']) => {
+        const { id } = payload;
+
         return this.withDelay(
             this.delete({
                 url: `${DashboardApiPath.ticket}/${id}`,
+            })
+        );
+    };
+
+    public getStatus = () => {
+        return this.withDelay(
+            this.get<App.ModuleDashboard.Api.TypeApiDashboard['GetStatus']['Response']>({
+                url: DashboardApiPath.ticketStatus,
             })
         );
     };

@@ -38,6 +38,7 @@ export const BaseLanguage = {
             confirm: 'module.game.component.button.confirm',
             remove: 'module.base.component.button.remove',
             delete: 'module.base.component.button.delete',
+            edit: 'module.base.component.button.edit',
         },
         table: {
             empty: 'module.base.component.table.empty',

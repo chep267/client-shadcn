@@ -34,17 +34,22 @@ export function ModalDeleteTicket() {
         if (!item) return;
         event.preventDefault();
         event.stopPropagation();
-        removeTicket(item.id, {
-            onSettled: onCancel,
-        });
+        removeTicket(
+            { id: item.id },
+            {
+                onSettled: onCancel,
+            }
+        );
     };
+
+    if (!item) return null;
 
     return (
         <ModalConfirm
-            open={!!item}
+            open
             loading={isPending}
-            title="Delete Task"
-            description={`Are you sure you want to delete this task "${item?.title}"?`}
+            title="Delete Ticket"
+            description={`Are you sure you want to delete this ticket "${item.description}"?`}
             confirmText={<FormattedMessage id={BaseLanguage.component.button.delete} defaultMessage="Delete" />}
             variant="destructive"
             media={<Trash2Icon className="text-danger" />}

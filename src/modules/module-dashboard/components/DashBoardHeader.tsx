@@ -21,9 +21,9 @@ export default function DashBoardHeader() {
 
     const status = React.useMemo(() => {
         return items?.reduce(
-            (output, task) => {
-                output['in_progress'] += task.status === 'in_progress' ? 1 : 0;
-                output['done'] += task.status === 'done' ? 1 : 0;
+            (output, ticket) => {
+                output['in_progress'] += ticket.status === 'in_progress' ? 1 : 0;
+                output['done'] += ticket.status === 'done' ? 1 : 0;
                 return output;
             },
             { in_progress: 0, done: 0 }
@@ -38,7 +38,7 @@ export default function DashBoardHeader() {
 
                 <div className="flex gap-2">
                     <Button variant="outline">+ Member</Button>
-                    <Button>+ Task</Button>
+                    <Button>+ Ticket</Button>
                 </div>
             </div>
 

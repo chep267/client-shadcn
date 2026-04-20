@@ -51,19 +51,23 @@ interface InputSearchProps extends ComponentProps<'input'> {
 }
 
 /** Select base */
-export type TypeSelectItem<D extends Record<string, unknown>> = {
+export type TypeSelectItem = {
     className?: string;
     label: ReactNode | (() => ReactNode);
     value: string;
-} & D;
+    item?: Record<string, unknown>;
+};
 export interface SelectBaseProps {
     className?: string;
     value?: string;
     placeholder?: ReactNode;
+    loading?: boolean;
+    disabled?: boolean;
     hasClear?: boolean;
-    clearText?: string;
+    clearContent?: ReactNode;
+    emptyContent?: ReactNode;
     items?: TypeSelectItem[];
-    onChange?: (value: string, item?: TypeSelectItem) => void;
+    onChange?: (value: string, item?: TypeSelectItem['item']) => void;
 }
 
 /** Table base */

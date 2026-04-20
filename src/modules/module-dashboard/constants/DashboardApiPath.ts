@@ -8,4 +8,5 @@ export const DashboardApiPath = {
     root: '/app',
     tickets: '/tickets',
     ticket: '/ticket',
+    ticketStatus: '/ticket-status',
 } as const;

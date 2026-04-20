@@ -22,20 +22,24 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@module-base/components/select';
+import { Spinner } from '@module-base/components/spinner';
 
 export function SelectBase(props: App.ModuleBase.Component.SelectBaseProps) {
     const {
         className,
         value,
         hasClear,
+        loading,
+        disabled,
         placeholder: placeholderProps,
-        clearText: clearTextProps,
+        clearContent: clearContentProps,
+        emptyContent: emptyContentProps,
         items,
         onChange,
     } = props;
 
     const handleChange = (value: string) => {
-        const item = items?.find((item) => item.value === value);
+        const item = items?.find((item) => item.value === value)?.item;
         onChange?.(value, item);
     };
 
@@ -43,12 +47,15 @@ export function SelectBase(props: App.ModuleBase.Component.SelectBaseProps) {
     const placeholder = placeholderProps ?? (
         <FormattedMessage id={BaseLanguage.component.select.placeholder} defaultMessage="Select..." />
     );
-    const clearText = clearTextProps ?? (
+    const clearContent = clearContentProps ?? (
         <FormattedMessage id={BaseLanguage.component.select.clear} defaultMessage="-- Clear --" />
+    );
+    const emptyContent = emptyContentProps ?? (
+        <FormattedMessage id={BaseLanguage.component.select.empty} defaultMessage="No data!" />
     );
 
     return (
-        <Select value={value} onValueChange={handleChange}>
+        <Select value={value} onValueChange={handleChange} disabled={disabled}>
             <SelectTrigger aria-label="select" className={cn('w-full cursor-pointer', className)}>
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
@@ -56,21 +63,36 @@ export function SelectBase(props: App.ModuleBase.Component.SelectBaseProps) {
                 <SelectGroup>
                     {showClear && (
                         <SelectItem value="null" className="cursor-pointer">
-                            {clearText}
+                            {clearContent}
                         </SelectItem>
                     )}
-                    {items?.map((item) => {
-                        return (
-                            <SelectItem
-                                key={item.value}
-                                value={item.value}
-                                disabled={value === item.value}
-                                className={cn('cursor-pointer', item.className)}
-                            >
-                                {item.label}
-                            </SelectItem>
-                        );
-                    })}
+
+                    {loading ? (
+                        <SelectItem value="null" className="cursor-pointer items-center justify-center px-0" disabled>
+                            <Spinner />
+                        </SelectItem>
+                    ) : null}
+
+                    {!loading && !items?.length ? (
+                        <SelectItem value="null" className="cursor-pointer" disabled>
+                            {emptyContent}
+                        </SelectItem>
+                    ) : null}
+
+                    {!loading
+                        ? items?.map((item) => {
+                              return (
+                                  <SelectItem
+                                      key={item.value}
+                                      value={item.value}
+                                      disabled={value === item.value}
+                                      className={cn('cursor-pointer', item.className)}
+                                  >
+                                      {typeof item.label === 'function' ? item.label() : item.label}
+                                  </SelectItem>
+                              );
+                          })
+                        : null}
                 </SelectGroup>
             </SelectContent>
         </Select>

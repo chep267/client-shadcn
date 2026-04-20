@@ -18,28 +18,29 @@ import { queryKey } from '@module-dashboard/hooks/useGetAllTicket';
 /** types */
 import type { AxiosResponse } from 'axios';
 
-export function useRemoveTicket() {
+export function useUpdateTicket() {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: dashboardService.remove,
-        onSuccess: (_, { id }) => {
+        mutationFn: dashboardService.update,
+        onSuccess: (response, { id }) => {
             /** update cache */
             queryClient.setQueryData(
                 [queryKey],
                 (cache: AxiosResponse<App.ModuleDashboard.Api.TypeApiDashboard['GetAll']['Response']>) => {
                     return produce(cache, (draft) => {
-                        draft.data.data.items = draft.data.data.items.filter((item) => item.id !== id);
+                        const pos = draft.data.data.items.findIndex((item) => item.id === id);
+                        draft.data.data.items[pos] = response.data.data;
                     });
                 }
             );
             toast.success('Success!', {
-                description: 'You have successfully deleted the ticket ID: ' + id,
+                description: 'You have successfully edited the ticket ID: ' + id,
             });
         },
         onError: (_, { id }) => {
             toast.error('Error!', {
-                description: 'Failed to delete the ticket ID: ' + id,
+                description: 'Failed to edit the ticket ID: ' + id,
             });
         },
     });

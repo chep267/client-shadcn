@@ -1,9 +1,9 @@
 type BadgeProps = {
-    status: 'todo' | 'in_progress' | 'done' | 'warning' | 'error';
+    status: string;
 };
 
 export function StatusBadge({ status }: BadgeProps) {
-    const statusStyles: Record<BadgeProps['status'], string> = {
+    const statusStyles: Record<string, string> = {
         todo: 'bg-gray-600 text-white',
         in_progress: 'bg-blue-600 text-white',
         done: 'bg-green-600 text-white',

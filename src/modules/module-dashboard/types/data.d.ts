@@ -6,16 +6,14 @@
 
 /** types */
 
-export type TypeTicketStatus = 'todo' | 'in_progress' | 'done' | 'warning' | 'error';
-
 export interface TypeTicketData {
     id: string;
-    title: string;
+    description: string;
     assignee: {
         name: string;
         avatar?: string;
     };
-    status: TypeTicketStatus;
+    status: string;
     createdAt: number;
     deadline: number;
 }

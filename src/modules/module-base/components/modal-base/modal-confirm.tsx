@@ -40,7 +40,7 @@ interface ModalConfirmProps {
     onCancel?(): void;
 }
 
-export function ModalConfirm(props: ModalConfirmProps) {
+export function ModalConfirm(props: React.PropsWithChildren<ModalConfirmProps>) {
     const {
         className,
         open,
@@ -53,6 +53,7 @@ export function ModalConfirm(props: ModalConfirmProps) {
         confirmText,
         onCancel,
         onConfirm,
+        children,
     } = props;
 
     if (!open) return null;
@@ -65,6 +66,8 @@ export function ModalConfirm(props: ModalConfirmProps) {
                     <AlertDialogTitle>{title}</AlertDialogTitle>
                     <AlertDialogDescription>{description}</AlertDialogDescription>
                 </AlertDialogHeader>
+
+                {children}
 
                 <AlertDialogFooter>
                     <AlertDialogCancel className="cursor-pointer" disabled={loading}>

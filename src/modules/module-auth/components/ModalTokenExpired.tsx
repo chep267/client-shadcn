@@ -18,6 +18,9 @@ import { axiosClient } from '@module-base/apis';
 import { AuthRouterPath } from '@module-auth/constants/AuthRouterPath';
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 
+/** utils */
+import { delay } from '@module-base/utils/delay';
+
 /** hooks */
 import { useRestart } from '@module-auth/hooks/useRestart';
 
@@ -29,13 +32,15 @@ import { useAuthStore } from '@module-auth/stores/useAuthStore';
 import { ModalConfirm } from '@module-base/components/modal-base/modal-confirm';
 
 export function ModalTokenExpired() {
+    const isRestarting = React.useRef(false);
     const [isTokenExpired, setTokenExpired] = React.useState(false);
     const navigate = useNavigate();
     const hookRestart = useRestart();
     const statusCode = useSettingStore((store) => store.data.api.statusCode);
 
     React.useEffect(() => {
-        if (statusCode === axios.HttpStatusCode.Unauthorized) {
+        if (statusCode === axios.HttpStatusCode.Unauthorized && !isRestarting.current) {
+            isRestarting.current = true;
             hookRestart.mutate(void 0, {
                 onSuccess: async () => {
                     const { data, action: settingAction } = useSettingStore.getState();
@@ -55,6 +60,11 @@ export function ModalTokenExpired() {
                     const { action: settingAction } = useSettingStore.getState();
                     settingAction.updateStatusCode(axios.HttpStatusCode.Ok);
                     setTokenExpired(true);
+                },
+                onSettled: () => {
+                    delay(1000 * 60).then(() => {
+                        isRestarting.current = false;
+                    });
                 },
             });
         }

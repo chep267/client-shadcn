@@ -30,6 +30,7 @@ export const vi = {
     [BaseLanguage.component.button.confirm]: 'Đồng ý',
     [BaseLanguage.component.button.remove]: 'Bỏ',
     [BaseLanguage.component.button.delete]: 'Xóa',
+    [BaseLanguage.component.button.edit]: 'Sửa',
 
     [BaseLanguage.component.table.empty]: 'Dữ liệu trống!',
 

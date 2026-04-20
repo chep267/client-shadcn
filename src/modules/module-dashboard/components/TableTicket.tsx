@@ -21,6 +21,7 @@ import { VirtualTable } from '@module-base/components/vitual-table';
 import { StatusBadge } from '@module-dashboard/components/StatusBadge';
 import { ActionMenu } from '@module-dashboard/components/ActionMenu';
 import { Assignee } from '@module-dashboard/components/Assignee';
+import { SelectTicketStatus } from '@module-dashboard/components/SelectTicketStatus';
 
 type TypeFilterItem = NonNullable<App.ModuleBase.Component.TypeTableSetup['filters']>[number];
 
@@ -29,7 +30,7 @@ export function TableTicket() {
     const [filters, setFilters] = React.useState<TypeFilterItem[]>([]);
     const { isPending, data } = useGetAllTicket();
 
-    const handleFilter = (dataKey: string, value: string, item?: TypeFilterItem) => {
+    const handleFilter = (dataKey: string, value: string, item?: App.ModuleBase.Component.TypeSelectItem['item']) => {
         setFilters((prevFilters) => {
             const next = prevFilters.filter((filter) => filter.dataKey !== dataKey);
             if (value === 'null') return next;
@@ -45,11 +46,13 @@ export function TableTicket() {
             );
         };
 
-        return ['2024', '2025', '2026', '2027'].map((value) => ({
-            label: value,
-            value,
-            fnFilter: (item: App.ModuleDashboard.Data.TypeTicketData) => handleFilterByYear(value, item),
-        }));
+        return ['2024', '2025', '2026', '2027'].map((value) => {
+            return {
+                label: value,
+                value,
+                fnFilter: (item: App.ModuleDashboard.Data.TypeTicketData) => handleFilterByYear(value, item),
+            } as App.ModuleBase.Component.TypeSelectItem;
+        });
     }, []);
 
     const columns = React.useMemo<App.ModuleBase.Component.TypeTableColumn<App.ModuleDashboard.Data.TypeTicketData>[]>(
@@ -58,11 +61,11 @@ export function TableTicket() {
                 dataKey: 'id',
                 label: 'ID',
                 sortable: true,
-                render: ({ item }) => <span>Task {item.id}</span>,
+                render: ({ item }) => <span>Ticket {item.id}</span>,
             },
             {
-                dataKey: 'title',
-                label: 'Task',
+                dataKey: 'description',
+                label: 'Ticket',
                 sortable: true,
                 className: 'width-[200px] max-w-[200px] min-w-[200px] whitespace-pre-line',
             },
@@ -104,19 +107,11 @@ export function TableTicket() {
             <div className={cn('flex w-full flex-col gap-2', 'tablet:flex-row tablet:items-center')}>
                 <InputSearch value={searchValue} className="tablet:max-w-sm col-span-4" onSearch={setSearchValue} />
                 <div className="flex w-full flex-row gap-2">
-                    <SelectBase
+                    <SelectTicketStatus
                         className="tablet:max-w-40 tablet:min-w-25 w-max"
                         placeholder="Filter by status"
                         hasClear
                         value={filters.find((filter) => filter.dataKey === 'status')?.value || ''}
-                        items={[
-                            { label: 'All', value: 'all' },
-                            { label: 'Todo', value: 'todo' },
-                            { label: 'In progress', value: 'in_progress' },
-                            { label: 'Done', value: 'done' },
-                            { label: 'Warning', value: 'warning' },
-                            { label: 'Error', value: 'error' },
-                        ]}
                         onChange={(value) => handleFilter('status', value)}
                     />
                     <SelectBase
