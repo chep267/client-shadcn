@@ -5,5 +5,6 @@
  */
 
 export const CalendarRouterPath = {
-    calendar: '/calendar',
+    home: '/calendar',
+    calendar: '/calendar/:id',
 } as const;

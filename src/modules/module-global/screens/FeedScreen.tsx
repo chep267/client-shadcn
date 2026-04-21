@@ -4,28 +4,11 @@
  *
  */
 
-/** libs */
-import * as React from 'react';
-
-/** services */
-import { BaseService } from '@module-base/services';
-
 /** components */
 import { TableBase } from '@module-base/components/table-base';
 import { VirtualTable } from '@module-base/components/vitual-table';
 
 export default function FeedScreen() {
-    const isCalled = React.useRef(false);
-
-    const callApi = () => new BaseService().get({ url: '/app/feed' });
-
-    React.useEffect(() => {
-        if (!isCalled.current) {
-            isCalled.current = true;
-            callApi().then();
-        }
-    }, []);
-
     return (
         <div className="tablet:p-10 flex h-full w-full flex-col gap-10 px-2 py-4">
             <TableBase

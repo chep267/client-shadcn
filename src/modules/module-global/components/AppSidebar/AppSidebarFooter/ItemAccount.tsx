@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import { User2Icon } from 'lucide-react';
 
 /** constants */
-import { AppRouterPath } from '@module-base/constants/AppRouterPath';
+import { GlobalRouterPath } from '@module-global/constants/GlobalRouterPath';
 
 /** components */
 import { DropdownMenuItem } from '@module-base/components/dropdown-menu';
@@ -17,7 +17,7 @@ import { DropdownMenuItem } from '@module-base/components/dropdown-menu';
 export function ItemAccount() {
     return (
         <DropdownMenuItem asChild className="hover:*:!text-main cursor-pointer">
-            <Link to={AppRouterPath.account}>
+            <Link to={GlobalRouterPath.account}>
                 <User2Icon />
                 <span>Account</span>
             </Link>

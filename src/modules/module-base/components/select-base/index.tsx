@@ -24,7 +24,7 @@ import {
 } from '@module-base/components/select';
 import { Spinner } from '@module-base/components/spinner';
 
-export function SelectBase(props: App.ModuleBase.Component.SelectBaseProps) {
+export function SelectBase<Value extends string = string>(props: App.ModuleBase.Component.SelectBaseProps<Value>) {
     const {
         className,
         value,
@@ -38,7 +38,7 @@ export function SelectBase(props: App.ModuleBase.Component.SelectBaseProps) {
         onChange,
     } = props;
 
-    const handleChange = (value: string) => {
+    const handleChange = (value: Value) => {
         const item = items?.find((item) => item.value === value)?.item;
         onChange?.(value, item);
     };

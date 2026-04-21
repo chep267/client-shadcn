@@ -4,12 +4,8 @@
  *
  */
 
-export const AppRouterPath = {
+export const GlobalRouterPath = {
     home: '/',
-    dashboard: '/dashboard',
-    defaultPath: '/dashboard',
-    calendar: '/calendar',
-    game: '/game',
     feed: '/feed',
     messenger: '/messenger',
     account: '/account',

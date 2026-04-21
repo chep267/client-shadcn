@@ -19,9 +19,9 @@ import { useAuthStore } from '@module-auth/stores/useAuthStore';
 import { StartLoading } from '@module-base/components/start-loading';
 
 /** screens */
-import AuthScreen from '@module-auth/screens/AuthScreen';
+const AuthScreen = React.lazy(() => import('@module-auth/screens/AuthScreen'));
 
-export function AuthRouter(props: React.PropsWithChildren) {
+export default function AuthRouter(props: React.PropsWithChildren) {
     const { children } = props;
 
     const isAuthentication = useAuthStore((store) => !!store.data.user);
@@ -45,5 +45,9 @@ export function AuthRouter(props: React.PropsWithChildren) {
         return <StartLoading />;
     }
     /** not token -> signin */
-    return <AuthScreen />;
+    return (
+        <React.Suspense fallback={<StartLoading />}>
+            <AuthScreen />
+        </React.Suspense>
+    );
 }

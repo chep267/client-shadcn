@@ -5,8 +5,8 @@
  */
 
 /** types */
-import type { TypeItemIds, TypeItems } from '@module-base/types/data';
-import type { TypeTicketData } from '@module-dashboard/types/data';
+import type { TypeItemIds, TypeItems } from '@module-base/types/data.d';
+import type { TypeTicketData } from '@module-dashboard/types/data.d';
 
 export interface TypeApiDashboard {
     Get: {

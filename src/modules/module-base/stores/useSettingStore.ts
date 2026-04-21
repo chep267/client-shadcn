@@ -8,6 +8,7 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 
 /** constants */
 import { AppKey } from '@module-base/constants/AppKey';
@@ -20,7 +21,7 @@ const defaultSettingStore: Readonly<App.ModuleBase.Store.TypeSettingStore['data'
     locale: getDeviceLanguage(),
     theme: getDeviceTheme(),
     api: {
-        statusCode: 200,
+        statusCode: axios.HttpStatusCode.Ok,
         queue: [],
     },
 };
@@ -44,7 +45,7 @@ export const useSettingStore = create<App.ModuleBase.Store.TypeSettingStore>((se
                 })
             );
         },
-        updateStatusCode: (code = 200) => {
+        updateStatusCode: (code = axios.HttpStatusCode.Ok) => {
             set(
                 produce<App.ModuleBase.Store.TypeSettingStore>((store) => {
                     store.data.api.statusCode = code;

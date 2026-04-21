@@ -19,7 +19,7 @@ const createModuleStructure = (moduleName = 'module-test') => {
     const basePath = path.join(process.cwd(), 'src', 'modules', moduleName);
 
     // Danh sách các thư mục sẽ được tạo
-    const folders = ['apis', 'components', 'constants', 'hooks', 'screens', 'services', 'stores', 'utils'];
+    const folders = ['apis', 'components', 'constants', 'hooks', 'screens', 'services', 'stores', 'utils', 'types'];
 
     // Kiểm tra nếu thư mục gốc đã tồn tại
     if (fs.existsSync(basePath)) {
@@ -39,9 +39,9 @@ const createModuleStructure = (moduleName = 'module-test') => {
     });
 
     // Tạo file README.md trong thư mục module
-    const readmePath = path.join(basePath, 'README.md');
-    fs.writeFileSync(readmePath, `# ${moduleName}\n\nMô tả module ${moduleName}`);
-    console.log(`✅ Đã tạo file: ${readmePath}`);
+    // const readmePath = path.join(basePath, 'README.md');
+    // fs.writeFileSync(readmePath, `# ${moduleName}\n\nMô tả module ${moduleName}`);
+    // console.log(`✅ Đã tạo file: ${readmePath}`);
 };
 
 // Xử lý tham số dòng lệnh để lấy tên module

@@ -29,37 +29,37 @@ export class BaseService {
         return this.url + url;
     };
 
-    public withDelay = async <Res = unknown>(promise: Promise<Res>, delay = this.delay): Promise<Res> => {
+    protected withDelay = async <Res = unknown>(promise: Promise<Res>, delay = this.delay): Promise<Res> => {
         const [res] = await Promise.all([promise, funcDelay(delay)]);
         return res;
     };
 
-    public get = async <Res = unknown>(configs?: AxiosRequestConfig) => {
+    protected get = async <Res = unknown>(configs?: AxiosRequestConfig) => {
         return axiosClient.get<Res, AxiosResponse<Res>>(this.concatUrl(configs?.url), configs);
     };
 
-    public post = <Res = unknown, Body = unknown>(
+    protected post = <Res = unknown, Body = unknown>(
         body: Body,
         configs?: AxiosRequestConfig
     ): Promise<AxiosResponse<Res>> => {
         return axiosClient.post<Res, AxiosResponse<Res>, Body>(this.concatUrl(configs?.url), body, configs);
     };
 
-    public put = <Res = unknown, Body = unknown>(
+    protected put = <Res = unknown, Body = unknown>(
         body: Body,
         configs?: AxiosRequestConfig
     ): Promise<AxiosResponse<Res>> => {
         return axiosClient.put<Res, AxiosResponse<Res>, Body>(this.concatUrl(configs?.url), body, configs);
     };
 
-    public patch = <Res = unknown, Body = unknown>(
+    protected patch = <Res = unknown, Body = unknown>(
         body: Body,
         configs?: AxiosRequestConfig
     ): Promise<AxiosResponse<Res>> => {
         return axiosClient.patch<Res, AxiosResponse<Res>, Body>(this.concatUrl(configs?.url), body, configs);
     };
 
-    public delete = (configs?: AxiosRequestConfig): Promise<AxiosResponse> => {
+    protected delete = (configs?: AxiosRequestConfig): Promise<AxiosResponse> => {
         return axiosClient.delete(this.concatUrl(configs?.url), configs);
     };
 }

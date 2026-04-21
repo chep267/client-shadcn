@@ -20,7 +20,8 @@
             "@module-auth/*": ["./src/modules/module-auth/*"],
             "@module-global/*": ["./src/modules/module-global/*"],
             "@module-dashboard/*": ["./src/modules/module-dashboard/*"],
-            "@module-calendar/*": ["./src/modules/module-calendar/*"]
+            "@module-calendar/*": ["./src/modules/module-calendar/*"],
+            "@module-poem/*": ["./src/modules/module-poem/*"]
         }
     }
 }

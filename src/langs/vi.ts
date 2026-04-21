@@ -9,5 +9,7 @@ import { vi as viBase } from '@module-base/utils/langs/vi';
 import { vi as viAuth } from '@module-auth/utils/langs/vi';
 import { vi as viGlobal } from '@module-global/utils/langs/vi';
 import { vi as viCalendar } from '@module-calendar/utils/langs/vi';
+import { vi as viPoem } from '@module-poem/utils/langs/vi';
+import { vi as viDashboard } from '@module-dashboard/utils/langs/vi';
 
-export const vi = Object.assign({}, viBase, viAuth, viGlobal, viCalendar);
+export const vi = Object.assign({}, viBase, viAuth, viGlobal, viCalendar, viPoem, viDashboard);

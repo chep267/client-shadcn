@@ -5,7 +5,7 @@
  */
 
 /** types */
-import type { TypeTicketData } from '@module-dashboard/types/data';
+import type { TypeTicketData } from '@module-dashboard/types/data.d';
 
 /** Dashboard store */
 type TypeDashboardData = {

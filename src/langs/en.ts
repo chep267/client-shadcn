@@ -9,5 +9,7 @@ import { en as enBase } from '@module-base/utils/langs/en';
 import { en as enAuth } from '@module-auth/utils/langs/en';
 import { en as enGlobal } from '@module-global/utils/langs/en';
 import { en as enCalendar } from '@module-calendar/utils/langs/en';
+import { en as enPoem } from '@module-poem/utils/langs/en';
+import { en as enDashboard } from '@module-dashboard/utils/langs/en';
 
-export const en = Object.assign({}, enBase, enAuth, enGlobal, enCalendar);
+export const en = Object.assign({}, enBase, enAuth, enGlobal, enCalendar, enPoem, enDashboard);
