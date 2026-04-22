@@ -17,7 +17,7 @@ import { Card, CardContent } from '@module-base/components/card';
 
 export default function DashBoardHeader() {
     const { isPending, data } = useGetAllTicket();
-    const items = data?.data.data.items;
+    const items = data?.items;
 
     const status = React.useMemo(() => {
         return items?.reduce(

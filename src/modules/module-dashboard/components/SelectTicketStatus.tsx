@@ -27,9 +27,7 @@ interface SelectTicketStatusProps {
 
 export function SelectTicketStatus(props: SelectTicketStatusProps) {
     const { className, placeholder, hasClear, disabled, value, onChange } = props;
-
-    const { isPending, data } = useGetTicketStatus();
-    const statuses = data?.data.data;
+    const { isPending, data: statuses } = useGetTicketStatus();
 
     const items = React.useMemo(() => {
         return statuses?.map((status) => {

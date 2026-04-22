@@ -10,11 +10,13 @@ import { useQuery } from '@tanstack/react-query';
 /** services */
 import { dashboardService } from '@module-dashboard/services';
 
-export const queryKey = 'use-get-ticket-status';
+export const queryKey = 'DASHBOARD_QUERY_KEY_GET_ALL_STATUS';
 
 export function useGetTicketStatus() {
-    return useQuery({
+    const { isPending, data } = useQuery({
         queryKey: [queryKey],
         queryFn: dashboardService.getStatus,
     });
+
+    return { isPending, data: data?.data.data };
 }

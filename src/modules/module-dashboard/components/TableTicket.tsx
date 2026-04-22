@@ -134,7 +134,7 @@ export function TableTicket() {
                     searchKey: searchValue,
                     filters,
                 }}
-                items={data?.data.data.items}
+                items={data?.items}
                 columns={columns}
             />
         </div>
