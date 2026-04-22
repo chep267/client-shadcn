@@ -10,7 +10,7 @@ import { LogOutIcon } from 'lucide-react';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { GlobalLanguage } from '@module-global/constants/GlobalLanguage';
+import { UserLanguage } from '@module-user/constants/UserLanguage';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
@@ -20,10 +20,10 @@ import { useSignout } from '@module-auth/hooks/useSignout';
 
 /** components */
 import { Spinner } from '@module-base/components/spinner';
-import { DropdownMenuItem } from '@module-base/components/dropdown-menu';
+import { Button } from '@module-base/components/button';
 import { Typography } from '@module-base/components/typography';
 
-export function ItemSignout() {
+export function ButtonSignout() {
     const hookSignout = useSignout();
 
     const onSignout = (event: React.MouseEvent) => {
@@ -33,14 +33,15 @@ export function ItemSignout() {
     };
 
     return (
-        <DropdownMenuItem
+        <Button
             className={cn('hover:*:!text-danger cursor-pointer', { '*:!text-danger': hookSignout.isPending })}
+            variant="outline"
             onClick={onSignout}
         >
             {hookSignout.isPending ? <Spinner /> : <LogOutIcon />}
             <Typography className="text-sm">
-                <FormattedMessage id={GlobalLanguage.component.label.signout} defaultMessage="Account" />
+                <FormattedMessage id={UserLanguage.component.label.signout} defaultMessage="Account" />
             </Typography>
-        </DropdownMenuItem>
+        </Button>
     );
 }

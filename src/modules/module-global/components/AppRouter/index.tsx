@@ -26,7 +26,8 @@ const NotFoundScreen = React.lazy(() => import('@module-base/screens/NotFoundScr
 const FeedScreen = React.lazy(() => import('@module-global/screens/FeedScreen'));
 const DashboardRouter = React.lazy(() => import('@module-dashboard/screens/DashboardRouter'));
 const CalendarRouter = React.lazy(() => import('@module-calendar/screens/CalendarRouter'));
-const PoemsScreen = React.lazy(() => import('@module-poem/screens/PoemScreen'));
+const PoemRouter = React.lazy(() => import('@module-poem/screens/PoemRouter'));
+const UserRouter = React.lazy(() => import('@module-user/screens/UserRouter'));
 
 export function AppRouter() {
     return (
@@ -40,7 +41,9 @@ export function AppRouter() {
                     <Route path={DashboardRouterPath.home} element={<DashboardRouter />} />
                     <Route path={GlobalRouterPath.feed} element={<FeedScreen />} />
                     <Route path={CalendarRouterPath.home} element={<CalendarRouter />} />
-                    <Route path={PoemRouterPath.home} element={<PoemsScreen />} />
+                    <Route path={PoemRouterPath.home} element={<PoemRouter />} />
+                    <Route path={PoemRouterPath.home} element={<PoemRouter />} />
+                    <Route path={GlobalRouterPath.account} element={<UserRouter />} />
                     <Route path="*" element={<NotFoundScreen />} />
                 </Routes>
             </React.Suspense>

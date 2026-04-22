@@ -10,34 +10,12 @@ import DOMPurify from 'dompurify';
 import dayjs from 'dayjs';
 
 /** utils */
-import { Skeleton } from '@module-base/components/skeleton';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@module-base/components/card';
 
 /** components */
 
 interface PoemProps {
     data: App.ModulePoem.Data.TypePoem;
-}
-
-export function PoemSkeleton() {
-    return (
-        <Card>
-            <CardHeader>
-                <CardTitle>
-                    <Skeleton className="h-6 w-1/5" />
-                </CardTitle>
-                <CardDescription>
-                    <Skeleton className="h-4 w-1/3" />
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                <Skeleton className="h-20" />
-            </CardContent>
-            <CardFooter>
-                <Skeleton className="h-6 w-1/5" />
-            </CardFooter>
-        </Card>
-    );
 }
 
 export function Poem(props: PoemProps) {
@@ -49,7 +27,7 @@ export function Poem(props: PoemProps) {
     }, [poem.content]);
 
     return (
-        <Card>
+        <Card className="w-full max-w-2xl">
             <CardHeader>
                 <CardTitle>{poem.title}</CardTitle>
                 <CardDescription>Ngày đăng: {dayjs(poem.createdAt).format('DD/MM/YYYY - HH:mm:ss')}</CardDescription>

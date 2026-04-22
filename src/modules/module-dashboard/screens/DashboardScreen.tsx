@@ -16,8 +16,8 @@ export default function DashboardScreen() {
         <div
             className={cn(
                 'flex flex-1 flex-col',
-                'w-full max-w-dvw space-y-6 py-4',
-                'max-h-[calc(100dvh-var(--app-size-height-header)-var(--app-size-height-sidebar-mini))] px-2',
+                'space-y-6 px-2 py-4',
+                'max-h-[calc(100dvh-var(--app-size-height-header)-var(--app-size-height-sidebar-mini))]',
                 'tablet:px-4 tablet:max-h-[calc(100dvh-var(--app-size-height-header))]'
             )}
         >

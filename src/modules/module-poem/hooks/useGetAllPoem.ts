@@ -40,7 +40,7 @@ export function useGetAllPoem() {
     const { isPending, data } = useQuery({
         queryKey: [queryKey],
         queryFn: poemService.getAll,
-        retry: 0,
+        retry: 1,
     });
 
     return { isPending, items: data?.data.data.items || items };

@@ -15,4 +15,5 @@ export const vi = {
     [GlobalLanguage.component.label.setting]: 'Cài đặt',
     [GlobalLanguage.component.label.otherSetting]: 'Cài đặt khác',
     [GlobalLanguage.component.label.signout]: 'Đăng xuất',
+    [GlobalLanguage.component.label.account]: 'Tài khoản',
 } as const;

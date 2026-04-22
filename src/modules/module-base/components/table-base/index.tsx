@@ -29,6 +29,7 @@ export function TableBase<Data extends App.ModuleBase.Component.TypeTableData>(
 ) {
     const { className, initialSetup, columns, items, emptyContent } = props;
     const {
+        loading,
         hasCheckbox = false,
         delayLoading = AppTimer.searching,
         dataKeyForCheckbox = 'id',
@@ -47,6 +48,7 @@ export function TableBase<Data extends App.ModuleBase.Component.TypeTableData>(
 
     React.useEffect(() => {
         tableStore.getState().action.initState({
+            loading,
             hasCheckbox,
             dataKeyForCheckbox,
             delayLoading,
@@ -59,7 +61,7 @@ export function TableBase<Data extends App.ModuleBase.Component.TypeTableData>(
             searchableKeys,
             emptyContent,
         });
-    }, [tableStore, hasCheckbox, dataKeyForCheckbox, delayLoading, columns, items]);
+    }, [tableStore, loading, hasCheckbox, dataKeyForCheckbox, delayLoading, columns, items]);
 
     React.useEffect(() => {
         tableStore.getState().action.search(searchKey);
