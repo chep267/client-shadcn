@@ -11,6 +11,7 @@
         "type-check": "tsc -b",
         "build": "rimraf dist && tsc -b && vite build",
         "preview": "vite preview",
+        "prepare": "husky",
         "lint": "eslint . --fix",
         "format": "prettier --write .",
         "clean": "tsc --build --clean && rimraf node_modules && rimraf pnpm-lock.yaml",
@@ -69,6 +70,8 @@
         "zustand": "^5.0.12"
     },
     "devDependencies": {
+        "@commitlint/cli": "^20.5.0",
+        "@commitlint/config-conventional": "^20.5.0",
         "@eslint/js": "^10.0.1",
         "@rollup/plugin-terser": "^1.0.0",
         "@tailwindcss/vite": "^4.2.4",
@@ -93,6 +96,7 @@
         "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^7.1.1",
         "eslint-plugin-react-refresh": "^0.5.2",
+        "husky": "^9.1.7",
         "jsdom": "^29.0.2",
         "prettier": "^3.8.3",
         "prettier-plugin-tailwindcss": "^0.7.2",
