@@ -15,7 +15,7 @@ import { AppKey } from '@module-base/constants/AppKey';
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 
 /** utils */
-import { isCallApiErrorByClient } from '@module-base/utils/axios';
+import { isClientError } from '@module-base/utils/axios';
 
 /** services */
 import { authService } from '@module-auth/services';
@@ -41,7 +41,7 @@ export function useSignin() {
         onError: (error: AxiosError) => {
             let messageIntl: string;
             switch (true) {
-                case isCallApiErrorByClient(error):
+                case isClientError(error):
                     messageIntl = AuthLanguage.notify.signin.error;
                     break;
                 default:

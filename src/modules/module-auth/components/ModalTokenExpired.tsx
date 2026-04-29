@@ -18,9 +18,6 @@ import { axiosClient } from '@module-base/apis';
 import { AuthRouterPath } from '@module-auth/constants/AuthRouterPath';
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 
-/** utils */
-import { delay } from '@module-base/utils/delay';
-
 /** hooks */
 import { useRestart } from '@module-auth/hooks/useRestart';
 
@@ -32,39 +29,32 @@ import { useAuthStore } from '@module-auth/stores/useAuthStore';
 import { ModalConfirm } from '@module-base/components/modal-base/modal-confirm';
 
 export function ModalTokenExpired() {
-    const isRestarting = React.useRef(false);
     const [isTokenExpired, setTokenExpired] = React.useState(false);
     const navigate = useNavigate();
     const hookRestart = useRestart();
     const statusCode = useSettingStore((store) => store.data.api.statusCode);
 
     React.useEffect(() => {
-        if (statusCode === axios.HttpStatusCode.Unauthorized && !isRestarting.current) {
-            isRestarting.current = true;
+        if (statusCode === axios.HttpStatusCode.Unauthorized) {
             hookRestart.mutate(void 0, {
                 onSuccess: async () => {
-                    const { data, action: settingAction } = useSettingStore.getState();
+                    const { data } = useSettingStore.getState();
                     const { queue } = data.api;
                     if (queue.length > 0) {
                         try {
                             await Promise.all(queue.map((config) => axiosClient.request(config)));
                         } catch {
                             // nothing
-                        } finally {
-                            settingAction.clearApiQueue();
-                            settingAction.updateStatusCode(axios.HttpStatusCode.Ok);
                         }
                     }
                 },
                 onError: () => {
-                    const { action: settingAction } = useSettingStore.getState();
-                    settingAction.updateStatusCode(axios.HttpStatusCode.Ok);
                     setTokenExpired(true);
                 },
                 onSettled: () => {
-                    delay(1000 * 60).then(() => {
-                        isRestarting.current = false;
-                    });
+                    const { action: settingAction } = useSettingStore.getState();
+                    settingAction.clearApiQueue();
+                    settingAction.updateStatusCode(axios.HttpStatusCode.Ok);
                 },
             });
         }
@@ -81,24 +71,9 @@ export function ModalTokenExpired() {
         <ModalConfirm
             open={isTokenExpired}
             className="[&_button]:data-[slot='alert-dialog-cancel']:hidden"
-            title={
-                <FormattedMessage
-                    id={AuthLanguage.component.modal.tokenExpired.title}
-                    defaultMessage={AuthLanguage.component.modal.tokenExpired.title}
-                />
-            }
-            description={
-                <FormattedMessage
-                    id={AuthLanguage.component.modal.tokenExpired.description}
-                    defaultMessage={AuthLanguage.component.modal.tokenExpired.description}
-                />
-            }
-            confirmText={
-                <FormattedMessage
-                    id={AuthLanguage.component.modal.tokenExpired.confirmText}
-                    defaultMessage={AuthLanguage.component.modal.tokenExpired.confirmText}
-                />
-            }
+            title={<FormattedMessage id={AuthLanguage.component.modal.tokenExpired.title} />}
+            description={<FormattedMessage id={AuthLanguage.component.modal.tokenExpired.description} />}
+            confirmText={<FormattedMessage id={AuthLanguage.component.modal.tokenExpired.confirmText} />}
             media={<AlertTriangleIcon className="text-danger" />}
             onConfirm={onConfirm}
         />

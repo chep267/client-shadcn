@@ -73,11 +73,7 @@ export function TimePicker() {
                 )}
             >
                 <Typography component="h5" className="text-main line-clamp-2 capitalize">
-                    <FormattedMessage
-                        id={CalendarLanguage.component.label.calendarInfo.title}
-                        values={timeMonthYear}
-                        defaultMessage={CalendarLanguage.component.label.calendarInfo.title}
-                    />
+                    <FormattedMessage id={CalendarLanguage.component.label.calendarInfo.title} values={timeMonthYear} />
                 </Typography>
             </div>
 

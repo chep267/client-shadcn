@@ -51,10 +51,12 @@ axiosClient.interceptors.response.use(
         return response;
     },
     async (error: AxiosError) => {
-        if (isTokenExpired(error) && error.config) {
+        if (isTokenExpired(error)) {
             const { action } = useSettingStore.getState();
-            action.updateStatusCode(error.response?.status);
-            action.addApiQueue(error.config);
+            if (error.config) {
+                action.addApiQueue(error.config);
+            }
+            action.updateStatusCode(axios.HttpStatusCode.Unauthorized);
         }
         /** Waiting, pause for about 600 ms */
         await delay(AppTimer.pendingApi);

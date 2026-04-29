@@ -11,7 +11,7 @@ export function debounce<T extends (...args: any[]) => void>(cb: T, ms: number =
     let timeout: ReturnType<typeof setTimeout> | undefined;
 
     const debounced = (...args: Parameters<T>) => {
-        if (timeout) clearTimeout(timeout);
+        clearTimeout(timeout);
         timeout = setTimeout(() => {
             timeout = undefined;
             cb(...args);
@@ -19,10 +19,8 @@ export function debounce<T extends (...args: any[]) => void>(cb: T, ms: number =
     };
 
     debounced.cancel = () => {
-        if (timeout) {
-            clearTimeout(timeout);
-            timeout = undefined;
-        }
+        clearTimeout(timeout);
+        timeout = undefined;
     };
 
     debounced.flush = (...args: Parameters<T>) => {

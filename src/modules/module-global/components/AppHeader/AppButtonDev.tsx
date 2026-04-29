@@ -31,15 +31,9 @@ export function AppButtonDev(props: any) {
         const formatString =
             locale === 'vi' ? 'dddd, [ngày] DD [tháng] M, YYYY [at] h:mm A' : 'dddd, MMMM DD, YYYY [at] h:mm A';
 
-        toast.warning(
-            <FormattedMessage
-                id={BaseLanguage.component.label.develop}
-                defaultMessage={BaseLanguage.component.label.develop}
-            />,
-            {
-                description: dayjs().format(formatString),
-            }
-        );
+        toast.warning(<FormattedMessage id={BaseLanguage.component.label.develop} />, {
+            description: dayjs().format(formatString),
+        });
     };
 
     return (
@@ -59,10 +53,7 @@ export function AppButtonDev(props: any) {
                 </Button>
             </TooltipTrigger>
             <TooltipContent>
-                <FormattedMessage
-                    id={BaseLanguage.component.label.develop}
-                    defaultMessage={BaseLanguage.component.label.develop}
-                />
+                <FormattedMessage id={BaseLanguage.component.label.develop} />
             </TooltipContent>
         </Tooltip>
     );

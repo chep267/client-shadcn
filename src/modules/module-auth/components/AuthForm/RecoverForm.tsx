@@ -19,7 +19,7 @@ import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 import { delay } from '@module-base/utils/delay';
-import { isCallApiErrorByClient } from '@module-base/utils/axios';
+import { isClientError } from '@module-base/utils/axios';
 
 /** components */
 import { Card, CardContent, CardFooter } from '@module-base/components/card';
@@ -56,7 +56,7 @@ export function RecoverForm() {
     const onSubmitError = (error: AxiosError) => {
         let messageIntl: string;
         switch (true) {
-            case isCallApiErrorByClient(error):
+            case isClientError(error):
                 messageIntl = AuthLanguage.notify.recover.error;
                 break;
             default:

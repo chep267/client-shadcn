@@ -16,7 +16,6 @@ export function useGetAllPoem() {
     const { isPending, data } = useQuery({
         queryKey: [queryKey],
         queryFn: poemService.getAll,
-        retry: 1,
     });
 
     return { isPending, data: data?.data.data.items };

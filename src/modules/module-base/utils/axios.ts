@@ -10,7 +10,7 @@ import axios from 'axios';
 /** types */
 import type { AxiosError } from 'axios';
 
-export const isCallApiErrorByClient = (error: AxiosError) => {
+export const isClientError = (error: AxiosError) => {
     const code = Number(error.response?.status);
     return code >= axios.HttpStatusCode.BadRequest && code < axios.HttpStatusCode.InternalServerError;
 };

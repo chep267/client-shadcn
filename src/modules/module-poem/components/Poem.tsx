@@ -9,10 +9,8 @@ import * as React from 'react';
 import DOMPurify from 'dompurify';
 import dayjs from 'dayjs';
 
-/** utils */
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@module-base/components/card';
-
 /** components */
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@module-base/components/card';
 
 interface PoemProps {
     data: App.ModulePoem.Data.TypePoem;

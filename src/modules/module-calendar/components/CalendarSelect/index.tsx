@@ -18,8 +18,8 @@ export function CalendarSelect() {
         <div
             className={cn(
                 'flex h-fit w-full items-start justify-between gap-2',
-                'flex-col-reverse p-2',
-                'tablet:flex-row md:p-3'
+                'flex-col-reverse py-2',
+                'tablet:flex-row md:py-3'
             )}
         >
             <div className="flex items-center gap-2">

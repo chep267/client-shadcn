@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
 
 /** utils */
-import { isCallApiErrorByClient } from '@module-base/utils/axios';
+import { isClientError } from '@module-base/utils/axios';
 
 /** services */
 import { authService } from '@module-auth/services';
@@ -32,7 +32,7 @@ export function useRecover() {
         onError: (error: AxiosError) => {
             let messageIntl: string;
             switch (true) {
-                case isCallApiErrorByClient(error):
+                case isClientError(error):
                     messageIntl = AuthLanguage.notify.recover.error;
                     break;
                 default:
