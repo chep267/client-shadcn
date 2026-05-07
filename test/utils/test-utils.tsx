@@ -5,9 +5,12 @@
  */
 
 /** libs */
-import { type ReactElement } from 'react';
-import { render, type RenderOptions } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
+
+/** types */
+import type { ReactElement } from 'react';
+import type { RenderOptions } from '@testing-library/react';
 
 const customRender = (ui: ReactElement, options?: Omit<RenderOptions, 'wrapper'>) =>
     render(ui, {
