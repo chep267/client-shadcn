@@ -7,7 +7,6 @@
 /** libs */
 import { mergeConfig } from 'vite';
 import { defineConfig } from 'vitest/config';
-import tsconfigPaths from 'vite-tsconfig-paths';
 
 /** config */
 import viteConfig from './vite.config';
@@ -15,7 +14,6 @@ import viteConfig from './vite.config';
 export default mergeConfig(
     viteConfig({ mode: 'test', command: 'build' }),
     defineConfig({
-        plugins: [tsconfigPaths()],
         test: {
             globals: true,
             environment: 'jsdom',
