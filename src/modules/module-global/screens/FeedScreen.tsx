@@ -10,9 +10,9 @@ import { VirtualTable } from '@module-base/components/vitual-table';
 
 export default function FeedScreen() {
     return (
-        <div className="tablet:p-10 flex h-full w-full flex-col gap-10 px-2 py-4">
+        <div className="tablet:p-5 flex h-full w-full flex-col gap-10 px-2 py-4">
             <TableBase
-                className="scrollbar-thin scrollbar-custom max-h-[40dvh]"
+                className="scrollbar-custom max-h-[40dvh] scrollbar-thin"
                 initialSetup={{ hasCheckbox: true, dataKeyForCheckbox: 'id' }}
                 items={Array.from({ length: 99 }, (_, i) => ({
                     id: i + 1,
@@ -32,7 +32,7 @@ export default function FeedScreen() {
             />
 
             <VirtualTable
-                className="scrollbar-thin scrollbar-custom max-h-[40dvh]"
+                className="scrollbar-custom max-h-[40dvh] scrollbar-thin"
                 initialSetup={{ hasCheckbox: true, dataKeyForCheckbox: 'id' }}
                 items={Array.from({ length: 10000 }, (_, i) => ({
                     id: i + 1,

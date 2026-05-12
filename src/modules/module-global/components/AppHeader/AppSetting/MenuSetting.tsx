@@ -180,7 +180,7 @@ export function MenuSetting() {
         <DropdownMenuContent
             className={cn(
                 'mt-3 w-fit',
-                'scrollbar-thin scrollbar-custom overflow-auto overscroll-none',
+                'scrollbar-custom scrollbar-thin overflow-auto overscroll-none',
                 'max-h-[calc(var(--app-size-height-sidebar)-var(--spacing)*2)]'
             )}
             side="bottom"

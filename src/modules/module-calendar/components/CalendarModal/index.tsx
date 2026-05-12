@@ -36,7 +36,7 @@ export function CalendarModal() {
     return (
         <Dialog open={openCalendarModal} onOpenChange={() => calendarAction.setOpenCalendarModal(false)}>
             <DialogContent
-                className={cn('scrollbar-thin scrollbar-custom', 'h-auto max-h-[80dvh] overflow-auto p-0')}
+                className={cn('scrollbar-custom scrollbar-thin', 'h-auto max-h-[80dvh] overflow-auto p-0')}
                 showCloseButton={false}
             >
                 <DialogHeader className="pt-5">

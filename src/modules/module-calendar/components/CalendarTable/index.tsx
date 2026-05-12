@@ -58,7 +58,7 @@ export function CalendarTable() {
 
     return (
         <TableBase
-            className={cn('scrollbar-thin scrollbar-custom', 'h-auto', '[&_tr]:hover:bg-inherit')}
+            className={cn('scrollbar-custom scrollbar-thin', 'h-auto', '[&_tr]:hover:bg-inherit')}
             items={items}
             columns={columns}
         />

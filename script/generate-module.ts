@@ -39,9 +39,9 @@ const createModuleStructure = (moduleName = 'module-test') => {
     });
 
     // Tạo file README.md trong thư mục module
-    // const readmePath = path.join(basePath, 'README.md');
-    // fs.writeFileSync(readmePath, `# ${moduleName}\n\nMô tả module ${moduleName}`);
-    // console.log(`✅ Đã tạo file: ${readmePath}`);
+    const readmePath = path.join(basePath, 'README.md');
+    fs.writeFileSync(readmePath, `# ${moduleName}\n\nMô tả module ${moduleName}`);
+    console.log(`✅ Đã tạo file: ${readmePath}`);
 };
 
 // Xử lý tham số dòng lệnh để lấy tên module

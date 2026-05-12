@@ -19,7 +19,7 @@ export default function CalendarScreen() {
                 'flex flex-1 flex-col',
                 'space-y-6 px-2 py-4',
                 'max-h-[calc(100dvh-var(--app-size-height-header)-var(--app-size-height-sidebar-mini))]',
-                'tablet:px-4 tablet:max-h-[calc(100dvh-var(--app-size-height-header))]'
+                'tablet:px-5 tablet:max-h-[calc(100dvh-var(--app-size-height-header))]'
             )}
         >
             <CalendarSelect />

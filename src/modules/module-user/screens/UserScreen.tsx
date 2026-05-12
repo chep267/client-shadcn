@@ -20,8 +20,10 @@ import { ButtonSignout } from '@module-user/components/ButtonSignout';
 export default function UserScreen() {
     const user = useAuthStore((store) => store.data.user);
 
+    if (!user) return null;
+
     return (
-        <div className={cn('flex flex-1 flex-col', 'px-2 py-4', 'tablet:px-4')}>
+        <div className={cn('flex flex-1 flex-col', 'px-2 py-4', 'tablet:px-5')}>
             <Card>
                 <CardHeader>
                     <CardTitle className="flex flex-1 items-center gap-4">
@@ -30,9 +32,9 @@ export default function UserScreen() {
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="flex flex-col gap-2">
-                    <Typography>Email: {user?.email}</Typography>
-                    <Typography>Phone: {user?.phone ?? '0123456789'}</Typography>
-                    <Typography>Role: {user?.role}</Typography>
+                    <Typography>Email: {user.email}</Typography>
+                    <Typography>Phone: {user.phone ?? '0123456789'}</Typography>
+                    <Typography>Role: {user.role}</Typography>
                 </CardContent>
                 <CardFooter>
                     <ButtonSignout />

@@ -126,7 +126,7 @@ export function TableTicket() {
             </div>
 
             <VirtualTable
-                className="scrollbar-thin scrollbar-custom flex"
+                className="scrollbar-custom flex scrollbar-thin"
                 initialSetup={{
                     loading: isPending,
                     hasCheckbox: true,

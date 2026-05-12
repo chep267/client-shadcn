@@ -168,7 +168,7 @@
         -moz-osx-font-smoothing: grayscale;
     }
     html {
-        @apply overflow-x-hidden overflow-y-auto overscroll-none scroll-smooth;
+        @apply overflow-x-hidden overflow-y-scroll overscroll-none scroll-smooth;
         font-size: 16px; /* 1rem */
         scrollbar-gutter: stable;
     }
