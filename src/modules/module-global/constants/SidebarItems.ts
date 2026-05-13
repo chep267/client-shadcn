@@ -5,7 +5,7 @@
  */
 
 /** libs */
-import { HomeIcon, LayoutDashboardIcon, CalendarIcon } from 'lucide-react';
+import { HomeIcon, LayoutDashboardIcon, CalendarIcon, CalculatorIcon } from 'lucide-react';
 
 /** constants */
 import { DashboardRouterPath } from '@module-dashboard/constants/DashboardRouterPath';
@@ -37,6 +37,11 @@ const SidebarItems: App.ModuleGlobal.Component.SidebarItemProps['item'][] = [
         path: PoemRouterPath.home,
         name: PoemLanguage.component.label.router,
         icon: CalendarIcon,
+    },
+    {
+        path: GlobalRouterPath.ageCalculator,
+        name: GlobalLanguage.component.label.ageCalculator,
+        icon: CalculatorIcon,
     },
 ];
 

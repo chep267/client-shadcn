@@ -16,4 +16,5 @@ export const en = {
     [GlobalLanguage.component.label.otherSetting]: 'Other setting',
     [GlobalLanguage.component.label.signout]: 'Sign out',
     [GlobalLanguage.component.label.account]: 'Account',
+    [GlobalLanguage.component.label.ageCalculator]: 'Age calculator',
 } as const;

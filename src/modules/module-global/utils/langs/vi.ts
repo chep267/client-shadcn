@@ -16,4 +16,5 @@ export const vi = {
     [GlobalLanguage.component.label.otherSetting]: 'Cài đặt khác',
     [GlobalLanguage.component.label.signout]: 'Đăng xuất',
     [GlobalLanguage.component.label.account]: 'Tài khoản',
+    [GlobalLanguage.component.label.ageCalculator]: 'Tính tuổi',
 } as const;

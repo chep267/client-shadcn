@@ -9,5 +9,6 @@ export const GlobalRouterPath = {
     feed: '/feed',
     messenger: '/messenger',
     account: '/account',
+    ageCalculator: '/age-calculator',
     notFound: '/not-found',
 } as const;

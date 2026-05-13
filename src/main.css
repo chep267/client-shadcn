@@ -17,6 +17,17 @@
     --breakpoint-tablet: 48rem; /* 768px */
     --breakpoint-laptop: 64rem; /* 1024px */
     --breakpoint-desktop: 80rem; /* 1280px */
+
+    @keyframes wave {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+    --animate-wavy: wave 1.2s infinite ease-in-out;
 }
 
 @theme inline {
@@ -195,6 +206,9 @@
     }
     .scrollbar-hidden {
         scrollbar-width: none; /* Firefox */
+    }
+    .scrollbar-hidden::-webkit-scrollbar {
+        display: none; /* Chrome, Edge, Safari */
     }
     .scrollbar-hidden::-webkit-scrollbar-track {
         display: none; /* Chrome, Edge, Safari */

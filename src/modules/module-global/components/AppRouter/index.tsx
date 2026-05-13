@@ -23,11 +23,12 @@ import { AppSidebarMini } from '@module-global/components/AppSidebarMini';
 
 /** screens */
 const NotFoundScreen = React.lazy(() => import('@module-base/screens/NotFoundScreen'));
-const FeedScreen = React.lazy(() => import('@module-global/screens/FeedScreen'));
 const DashboardRouter = React.lazy(() => import('@module-dashboard/screens/DashboardRouter'));
 const CalendarRouter = React.lazy(() => import('@module-calendar/screens/CalendarRouter'));
 const PoemRouter = React.lazy(() => import('@module-poem/screens/PoemRouter'));
 const UserRouter = React.lazy(() => import('@module-user/screens/UserRouter'));
+const FeedScreen = React.lazy(() => import('@module-global/screens/FeedScreen'));
+const AgeCalculatorScreen = React.lazy(() => import('@module-global/screens/AgeCalculatorScreen'));
 
 export function AppRouter() {
     return (
@@ -40,6 +41,7 @@ export function AppRouter() {
                     ))}
                     <Route path={DashboardRouterPath.home} element={<DashboardRouter />} />
                     <Route path={GlobalRouterPath.feed} element={<FeedScreen />} />
+                    <Route path={GlobalRouterPath.ageCalculator} element={<AgeCalculatorScreen />} />
                     <Route path={CalendarRouterPath.home} element={<CalendarRouter />} />
                     <Route path={PoemRouterPath.home} element={<PoemRouter />} />
                     <Route path={PoemRouterPath.home} element={<PoemRouter />} />

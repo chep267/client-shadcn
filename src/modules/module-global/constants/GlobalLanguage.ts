@@ -15,6 +15,7 @@ export const GlobalLanguage = {
             otherSetting: 'module.global.component.label.otherSetting',
             signout: 'module.global.component.label.signout',
             account: 'module.global.component.label.account',
+            ageCalculator: 'module.global.component.label.ageCalculator',
         },
     },
 } as const;

@@ -8,5 +8,5 @@
 import { PoemLanguage } from '@module-poem/constants/PoemLanguage';
 
 export const en = {
-    [PoemLanguage.component.label.router]: 'Poetry Institute',
+    [PoemLanguage.component.label.router]: 'Poetry institute',
 } as const;
