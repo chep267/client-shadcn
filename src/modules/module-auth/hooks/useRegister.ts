@@ -10,7 +10,7 @@ import { useIntl } from 'react-intl';
 import { toast } from 'sonner';
 
 /** constants */
-import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
+import { AuthLanguage } from '@module-auth/constants/language';
 
 /** utils */
 import { isClientError } from '@module-base/utils/axios';

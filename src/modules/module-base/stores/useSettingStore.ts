@@ -11,14 +11,14 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 
 /** constants */
-import { AppKey } from '@module-base/constants/AppKey';
+import { AppKey } from '@module-base/constants/env';
 
 /** utils */
-import { getDeviceLanguage } from '@module-base/utils/getDeviceLanguage';
+import { getDeviceLocale } from '@module-base/utils/getDeviceLocale';
 import { getDeviceTheme } from '@module-base/utils/getDeviceTheme';
 
 const defaultSettingStore: Readonly<App.ModuleBase.Store.TypeSettingStore['data']> = {
-    locale: getDeviceLanguage(),
+    locale: getDeviceLocale(),
     theme: getDeviceTheme(),
     api: {
         statusCode: axios.HttpStatusCode.Ok,

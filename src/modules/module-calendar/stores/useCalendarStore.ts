@@ -10,7 +10,7 @@ import { produce } from 'immer';
 import dayjs from 'dayjs';
 
 /** constants */
-import { CalendarDisplay } from '@module-calendar/constants/CalendarDisplay';
+import { CalendarDisplay } from '@module-calendar/constants/config';
 
 export const useCalendarStore = create<App.ModuleCalendar.Store.TypeCalendarStore>((set, getState) => ({
     data: {

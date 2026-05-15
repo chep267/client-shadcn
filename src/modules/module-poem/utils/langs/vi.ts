@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { PoemLanguage } from '@module-poem/constants/PoemLanguage';
+import { PoemLanguage } from '@module-poem/constants/language';
 
 export const vi = {
     [PoemLanguage.component.label.router]: 'Thi viện',

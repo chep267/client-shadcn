@@ -10,9 +10,9 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 /** constants */
-import { AppRegex } from '@module-base/constants/AppRegex';
-import { AppTimer } from '@module-base/constants/AppTimer';
-import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
+import { AppRegex } from '@module-base/constants/regex';
+import { AppTimer } from '@module-base/constants/config';
+import { AuthLanguage } from '@module-auth/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';

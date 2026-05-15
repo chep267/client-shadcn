@@ -8,7 +8,7 @@
 import * as React from 'react';
 
 /** constants */
-import { ThemeObject } from '@module-base/constants/ThemeObject';
+import { ThemeObject } from '@module-base/constants/config';
 
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';

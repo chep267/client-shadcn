@@ -11,8 +11,8 @@ import { useIntl } from 'react-intl';
 import { toast } from 'sonner';
 
 /** constants */
-import { AppKey } from '@module-base/constants/AppKey';
-import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
+import { AppKey } from '@module-base/constants/env';
+import { AuthLanguage } from '@module-auth/constants/language';
 
 /** utils */
 import { isClientError } from '@module-base/utils/axios';

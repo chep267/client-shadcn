@@ -10,7 +10,7 @@ import { LogOutIcon } from 'lucide-react';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { UserLanguage } from '@module-user/constants/UserLanguage';
+import { UserLanguage } from '@module-user/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';

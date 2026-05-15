@@ -10,7 +10,7 @@ import { create } from 'zustand';
 import { produce } from 'immer';
 
 /** constants */
-import { AppKey } from '@module-base/constants/AppKey';
+import { AppKey } from '@module-base/constants/env';
 
 export const useAuthStore = create<App.ModuleAuth.Store.TypeAuthStore>((set) => ({
     data: {

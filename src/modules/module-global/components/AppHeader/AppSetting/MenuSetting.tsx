@@ -10,10 +10,8 @@ import { FormattedMessage } from 'react-intl';
 import { PaletteIcon, LanguagesIcon, MoonStarIcon, SunIcon } from 'lucide-react';
 
 /** constants */
-import { LocaleObject } from '@module-base/constants/LocaleObject';
-import { ThemeObject } from '@module-base/constants/ThemeObject';
-import { LangLanguage } from '@module-base/constants/LangLanguage';
-import { ThemeLanguage } from '@module-base/constants/ThemeLanguage';
+import { LocaleObject, ThemeObject } from '@module-base/constants/config';
+import { BaseLanguage } from '@module-base/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
@@ -122,7 +120,7 @@ export function MenuSetting() {
             id: 'theme',
             type: 'sub',
             className: 'cursor-pointer data-[state=open]:text-main data-[state=open]:[&_svg]:!text-main',
-            title: ThemeLanguage.component.label.router,
+            title: BaseLanguage.component.label.theme.router,
             icon: <PaletteIcon className="size-5 text-inherit" />,
             divide: 'top',
             value: theme,
@@ -133,7 +131,7 @@ export function MenuSetting() {
                     className: 'cursor-pointer',
                     disabled: theme === ThemeObject.dark,
                     value: ThemeObject.dark,
-                    title: ThemeLanguage.component.label.dark,
+                    title: BaseLanguage.component.label.theme.dark,
                     icon: <MoonStarIcon className="size-5" />,
                     onClick: () => settingAction.changeTheme(ThemeObject.dark),
                 },
@@ -142,7 +140,7 @@ export function MenuSetting() {
                     className: 'cursor-pointer',
                     disabled: theme === ThemeObject.light,
                     value: ThemeObject.light,
-                    title: ThemeLanguage.component.label.light,
+                    title: BaseLanguage.component.label.theme.light,
                     icon: <SunIcon className="text-warning size-5" />,
                     onClick: () => settingAction.changeTheme(ThemeObject.light),
                 },
@@ -152,7 +150,7 @@ export function MenuSetting() {
             id: 'language',
             type: 'sub',
             className: 'cursor-pointer data-[state=open]:text-main data-[state=open]:[&_svg]:!text-main',
-            title: LangLanguage.component.label.router,
+            title: BaseLanguage.component.label.locale.router,
             icon: <LanguagesIcon className="size-5 text-inherit" />,
             divide: 'bottom',
             subMenu: [
@@ -160,7 +158,7 @@ export function MenuSetting() {
                     id: 'Language-Vi',
                     className: 'cursor-pointer',
                     disabled: locale === LocaleObject.vi,
-                    title: LangLanguage.component.label.vi,
+                    title: BaseLanguage.component.label.locale.vi,
                     icon: <span>🇻🇳</span>,
                     onClick: () => settingAction.changeLocale(LocaleObject.vi),
                 },
@@ -168,7 +166,7 @@ export function MenuSetting() {
                     id: 'Language-En',
                     className: 'cursor-pointer',
                     disabled: locale === LocaleObject.en,
-                    title: LangLanguage.component.label.en,
+                    title: BaseLanguage.component.label.locale.en,
                     icon: <span>🇬🇧</span>,
                     onClick: () => settingAction.changeLocale(LocaleObject.en),
                 },

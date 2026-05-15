@@ -9,7 +9,7 @@ import * as React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 /** constants */
-import { AuthRouterPath } from '@module-auth/constants/AuthRouterPath';
+import { AuthRouterPath } from '@module-auth/constants/path';
 
 /** screens */
 import LayerScreen from '@module-base/screens/LayerScreen';

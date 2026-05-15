@@ -8,9 +8,6 @@
 import * as React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-/** constants */
-// import { CalendarRouterPath } from '@module-calendar/constants/CalendarRouterPath';
-
 /** screens */
 const CalendarScreen = React.lazy(() => import('@module-calendar/screens/CalendarScreen'));
 

@@ -1,30 +1,29 @@
-// /**
-//  *
-//  * @author dongntd267@gmail.com
-//  *
-//  */
-//
-// /** libs */
-//
-// /** hooks */
-// import { useUser } from '@module-user/hooks/useUser';
-//
-// function UserAvatarGet(props: App.ModuleUser.Component.UserAvatarProps) {
-//     const { uid, alt, ...otherProps } = props;
-//     const user = useUser({ uid });
-//     const src = user?.data?.photoURL || undefined;
-//
-//     if (!user) {
-//         return <Skeleton variant="circular" className={otherProps.className} />;
-//     }
-//     return <Avatar alt={alt || user?.data?.displayName || ''} src={src} {...otherProps} />;
-// }
-//
-// export function UserAvatar(props: App.ModuleUser.Component.UserAvatarProps) {
-//     const { uid, src, ...otherProps } = props;
-//
-//     if (src) {
-//         return <Avatar src={src} {...otherProps} />;
-//     }
-//     return <UserAvatarGet uid={uid} {...otherProps} />;
-// }
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** libs */
+import * as React from 'react';
+
+/** components */
+import { Avatar } from '@module-base/components/avatar';
+import { UserAvatarNoGet } from '@module-user/components/UserAvatar/UserAvatarNoGet';
+import { UserAvatarGet } from '@module-user/components/UserAvatar/UserAvatarGet';
+
+interface UserAvatarProps extends React.ComponentProps<typeof Avatar> {
+    uid?: string;
+    src?: string;
+    name?: string;
+}
+
+export function UserAvatar(props: UserAvatarProps) {
+    const { className, uid, src, name } = props;
+
+    if (src) {
+        return <UserAvatarNoGet className={className} src={src} name={name} />;
+    }
+
+    return <UserAvatarGet className={className} uid={uid} />;
+}

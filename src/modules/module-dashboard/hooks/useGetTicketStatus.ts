@@ -7,14 +7,15 @@
 /** libs */
 import { useQuery } from '@tanstack/react-query';
 
+/** constants */
+import { DashboardQueryKey } from '@module-dashboard/constants/query';
+
 /** services */
 import { dashboardService } from '@module-dashboard/services';
 
-export const queryKey = 'DASHBOARD_QUERY_KEY_GET_ALL_STATUS';
-
 export function useGetTicketStatus() {
     const { isPending, data } = useQuery({
-        queryKey: [queryKey],
+        queryKey: [DashboardQueryKey.ticketStatuses],
         queryFn: dashboardService.getStatus,
     });
 

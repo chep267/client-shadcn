@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { DashboardLanguage } from '@module-dashboard/constants/DashboardLanguage';
+import { DashboardLanguage } from '@module-dashboard/constants/language';
 
 export const vi = {
     [DashboardLanguage.component.label.router]: 'Bảng điều khiển',

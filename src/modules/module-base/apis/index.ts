@@ -9,9 +9,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 /** constants */
-import { AppKey } from '@module-base/constants/AppKey';
-import { AppEnv } from '@module-base/constants/AppEnv';
-import { AppTimer } from '@module-base/constants/AppTimer';
+import { AppEnv, AppKey } from '@module-base/constants/env';
+import { AppTimer } from '@module-base/constants/config';
 
 /** utils */
 import { delay } from '@module-base/utils/delay';

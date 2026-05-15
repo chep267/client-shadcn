@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { OrderType } from '@module-base/constants/OrderType';
+import { OrderType } from '@module-base/constants/config';
 
 /** utils */
 import { isNull, isNumber, isEmptyString } from '@module-base/utils/data';

@@ -15,8 +15,8 @@ import { FormattedMessage } from 'react-intl';
 import { axiosClient } from '@module-base/apis';
 
 /** constants */
-import { AuthRouterPath } from '@module-auth/constants/AuthRouterPath';
-import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
+import { AuthRouterPath } from '@module-auth/constants/path';
+import { AuthLanguage } from '@module-auth/constants/language';
 
 /** hooks */
 import { useRestart } from '@module-auth/hooks/useRestart';

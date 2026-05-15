@@ -8,8 +8,8 @@
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { AppTimer } from '@module-base/constants/AppTimer';
-import { BaseLanguage } from '@module-base/constants/BaseLanguage';
+import { AppTimer } from '@module-base/constants/config';
+import { BaseLanguage } from '@module-base/constants/language';
 
 /** hooks */
 import { useCountdown } from '@module-base/hooks/useCountdown';

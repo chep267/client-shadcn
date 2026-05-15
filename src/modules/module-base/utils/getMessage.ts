@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { LocaleObject } from '@module-base/constants/LocaleObject';
+import { LocaleObject } from '@module-base/constants/config';
 
 type TypeMessageModule = Record<App.ModuleBase.Store.TypeLocale, App.ModuleBase.Store.TypeLanguageMessages>;
 

@@ -9,7 +9,7 @@ import * as React from 'react';
 import { ArrowUpDown } from 'lucide-react';
 
 /** constants */
-import { OrderType } from '@module-base/constants/OrderType';
+import { OrderType } from '@module-base/constants/config';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';

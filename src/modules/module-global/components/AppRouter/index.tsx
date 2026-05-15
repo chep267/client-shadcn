@@ -9,11 +9,12 @@ import * as React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 /** constants */
-import { AuthRouterPath } from '@module-auth/constants/AuthRouterPath';
-import { DashboardRouterPath } from '@module-dashboard/constants/DashboardRouterPath';
-import { CalendarRouterPath } from '@module-calendar/constants/CalendarRouterPath';
-import { GlobalRouterPath } from '@module-global/constants/GlobalRouterPath';
-import { PoemRouterPath } from '@modules/module-poem/constants/PoemRouterPath';
+import { AuthRouterPath } from '@module-auth/constants/path';
+import { DashboardRouterPath } from '@module-dashboard/constants/path';
+import { CalendarRouterPath } from '@module-calendar/constants/path';
+import { PoemRouterPath } from '@module-poem/constants/path';
+import { MessengerRouterPath } from '@module-messenger/constants/path';
+import { GlobalRouterPath } from '@module-global/constants/path';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
@@ -27,8 +28,7 @@ const DashboardRouter = React.lazy(() => import('@module-dashboard/screens/Dashb
 const CalendarRouter = React.lazy(() => import('@module-calendar/screens/CalendarRouter'));
 const PoemRouter = React.lazy(() => import('@module-poem/screens/PoemRouter'));
 const UserRouter = React.lazy(() => import('@module-user/screens/UserRouter'));
-const FeedScreen = React.lazy(() => import('@module-global/screens/FeedScreen'));
-const AgeCalculatorScreen = React.lazy(() => import('@module-global/screens/AgeCalculatorScreen'));
+const MessengerRouter = React.lazy(() => import('@module-messenger/screens/MessengerRouter'));
 
 export function AppRouter() {
     return (
@@ -39,12 +39,10 @@ export function AppRouter() {
                     {[...Object.values(AuthRouterPath), GlobalRouterPath.home].map((path) => (
                         <Route key={path} path={path} element={<Navigate to={DashboardRouterPath.home} />} />
                     ))}
-                    <Route path={DashboardRouterPath.home} element={<DashboardRouter />} />
-                    <Route path={GlobalRouterPath.feed} element={<FeedScreen />} />
-                    <Route path={GlobalRouterPath.ageCalculator} element={<AgeCalculatorScreen />} />
-                    <Route path={CalendarRouterPath.home} element={<CalendarRouter />} />
-                    <Route path={PoemRouterPath.home} element={<PoemRouter />} />
-                    <Route path={PoemRouterPath.home} element={<PoemRouter />} />
+                    <Route path={DashboardRouterPath.root} element={<DashboardRouter />} />
+                    <Route path={MessengerRouterPath.root} element={<MessengerRouter />} />
+                    <Route path={CalendarRouterPath.root} element={<CalendarRouter />} />
+                    <Route path={PoemRouterPath.root} element={<PoemRouter />} />
                     <Route path={GlobalRouterPath.account} element={<UserRouter />} />
                     <Route path="*" element={<NotFoundScreen />} />
                 </Routes>

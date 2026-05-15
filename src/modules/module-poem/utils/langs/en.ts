@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { PoemLanguage } from '@module-poem/constants/PoemLanguage';
+import { PoemLanguage } from '@module-poem/constants/language';
 
 export const en = {
     [PoemLanguage.component.label.router]: 'Poetry institute',

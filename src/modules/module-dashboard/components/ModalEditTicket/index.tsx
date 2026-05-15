@@ -9,7 +9,7 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { BaseLanguage } from '@module-base/constants/BaseLanguage';
+import { BaseLanguage } from '@module-base/constants/language';
 
 /** hooks */
 import { useUpdateTicket } from '@module-dashboard/hooks/useUpdateTicket';

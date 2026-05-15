@@ -23,7 +23,7 @@ export function TableEmpty<
 
     if (!emptyContent || typeof emptyContent === 'string' || typeof emptyContent === 'number') {
         return (
-            <TableRow className={cn('absolute inset-0', 'flex items-center justify-center')}>
+            <TableRow className={cn('absolute inset-0', 'flex items-center justify-center', 'hover:bg-transparent')}>
                 <TableHead className="flex items-center justify-center opacity-50">
                     {emptyContent || 'No data!'}
                 </TableHead>
@@ -32,7 +32,7 @@ export function TableEmpty<
     }
 
     return (
-        <TableRow className={cn('absolute inset-0', 'flex items-center justify-center')}>
+        <TableRow className={cn('absolute inset-0', 'flex items-center justify-center', 'hover:bg-transparent')}>
             {typeof emptyContent === 'function' ? emptyContent() : emptyContent}
         </TableRow>
     );

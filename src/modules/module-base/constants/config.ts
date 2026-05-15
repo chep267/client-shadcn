@@ -1,0 +1,32 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+export const AppTimer = {
+    timeoutApi: 0,
+    pendingApi: 600,
+    searching: 600,
+    notifyDuration: 2000,
+    countdownError: 99,
+    restart: 15 * 60 * 1000,
+    debounce: 1000,
+    delay: 1000,
+    delayTooltip: 300,
+} as const;
+
+export const LocaleObject: Readonly<{ [Key in App.ModuleBase.Store.TypeLocale]: Key }> = {
+    vi: 'vi',
+    en: 'en',
+};
+
+export const ThemeObject: Readonly<{ [Key in App.ModuleBase.Store.TypeTheme]: Key }> = {
+    dark: 'dark',
+    light: 'light',
+};
+
+export const OrderType: Readonly<{ [Key in App.ModuleBase.Component.TypeOrderType]: Key }> = {
+    asc: 'asc',
+    desc: 'desc',
+};

@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { BaseLanguage } from '@module-base/constants/BaseLanguage';
+import { BaseLanguage } from '@module-base/constants/language';
 
 export const en = {
     [BaseLanguage.component.label.default]: '',
@@ -19,9 +19,9 @@ export const en = {
     [BaseLanguage.component.label.theme.router]: 'Theme',
     [BaseLanguage.component.label.theme.dark]: 'Dark',
     [BaseLanguage.component.label.theme.light]: 'Light',
-    [BaseLanguage.component.label.language.router]: 'Language',
-    [BaseLanguage.component.label.language.vi]: 'Vietnamese',
-    [BaseLanguage.component.label.language.en]: 'English',
+    [BaseLanguage.component.label.locale.router]: 'Language',
+    [BaseLanguage.component.label.locale.vi]: 'Vietnamese',
+    [BaseLanguage.component.label.locale.en]: 'English',
 
     [BaseLanguage.component.input.placeholder]: 'Search...',
 

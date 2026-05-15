@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { PoemApiPath } from '@module-poem/constants/PoemApiPath';
+import { PoemApiPath } from '@module-poem/constants/path';
 
 /** services */
 import { BaseService } from '@module-base/services';
@@ -15,12 +15,13 @@ class PoemService extends BaseService {
         super(url);
     }
 
-    public getAll = () => {
-        return this.withDelay(
-            this.get<App.ModulePoem.Api.TypeApiPoem['GetAll']['Response']>({
+    public getPoems = async () => {
+        const response = await this.withDelay(
+            this.get<App.ModulePoem.Api.TypeApi['GetPoems']['Response']>({
                 url: PoemApiPath.poems,
             })
         );
+        return response.data.data;
     };
 }
 

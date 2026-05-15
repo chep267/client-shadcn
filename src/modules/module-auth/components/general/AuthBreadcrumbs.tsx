@@ -10,8 +10,8 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { AuthRouterPath } from '@module-auth/constants/AuthRouterPath';
-import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
+import { AuthRouterPath } from '@module-auth/constants/path';
+import { AuthLanguage } from '@module-auth/constants/language';
 
 /** components */
 import {

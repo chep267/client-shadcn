@@ -8,7 +8,7 @@
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { BaseLanguage } from '@module-base/constants/BaseLanguage';
+import { BaseLanguage } from '@module-base/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';

@@ -12,12 +12,12 @@ import dayjs from 'dayjs';
 import { cn } from '@module-base/utils/shadcn';
 
 /** hooks */
-import { useGetAllTicket } from '@module-dashboard/hooks/useGetAllTicket';
+import { useGetTickets } from '@module-dashboard/hooks/useGetTickets';
 
 /** components */
 import { SelectBase } from '@module-base/components/select-base';
 import { InputSearch } from '@module-base/components/input-search';
-import { VirtualTable } from '@module-base/components/vitual-table';
+import { VirtualTable } from '@module-base/components/virtual-table';
 import { StatusBadge } from '@module-dashboard/components/StatusBadge';
 import { ActionMenu } from '@module-dashboard/components/ActionMenu';
 import { Assignee } from '@module-dashboard/components/Assignee';
@@ -28,31 +28,31 @@ type TypeFilterItem = NonNullable<App.ModuleBase.Component.TypeTableSetup['filte
 export function TableTicket() {
     const [searchValue, setSearchValue] = React.useState('');
     const [filters, setFilters] = React.useState<TypeFilterItem[]>([]);
-    const { isPending, data } = useGetAllTicket();
+    const { isPending, data } = useGetTickets();
 
-    const handleFilter = (dataKey: string, value: string, item?: App.ModuleBase.Component.TypeSelectItem['item']) => {
+    const handleFilter = (dataKey: string, value: string, item?: App.ModuleBase.Component.TypeSelectItem) => {
         setFilters((prevFilters) => {
             const next = prevFilters.filter((filter) => filter.dataKey !== dataKey);
             if (value === 'null') return next;
-            return [...next, { dataKey, value, ...item }];
+            return [...next, { dataKey, value, fnFilter: item?.fnFilter as TypeFilterItem['fnFilter'] }];
         });
     };
 
     const filterYears = React.useMemo(() => {
-        const handleFilterByYear = (value: string, item: App.ModuleDashboard.Data.TypeTicketData) => {
-            return (
-                dayjs(item.createdAt).format('DD/MM/YYYY').includes(value) ||
-                dayjs(item.deadline).format('DD/MM/YYYY').includes(value)
-            );
-        };
-
-        return ['2024', '2025', '2026', '2027'].map((value) => {
-            return {
-                label: value,
-                value,
-                fnFilter: (item: App.ModuleDashboard.Data.TypeTicketData) => handleFilterByYear(value, item),
-            } as App.ModuleBase.Component.TypeSelectItem;
-        });
+        return Array.from({ length: 10 })
+            .map((_, index) => '202' + index)
+            .map((value) => {
+                return {
+                    label: value,
+                    value,
+                    fnFilter: (item: App.ModuleDashboard.Data.TypeTicketData) => {
+                        return (
+                            dayjs(item.createdAt).format('DD/MM/YYYY').includes(value) ||
+                            dayjs(item.deadline).format('DD/MM/YYYY').includes(value)
+                        );
+                    },
+                } as App.ModuleBase.Component.TypeSelectItem;
+            });
     }, []);
 
     const columns = React.useMemo<App.ModuleBase.Component.TypeTableColumn<App.ModuleDashboard.Data.TypeTicketData>[]>(
@@ -67,7 +67,7 @@ export function TableTicket() {
                 dataKey: 'description',
                 label: 'Ticket',
                 sortable: true,
-                className: 'width-[200px] max-w-[200px] min-w-[200px] whitespace-pre-line',
+                className: 'w-50 max-w-50 min-w-50 whitespace-pre-line',
             },
             {
                 dataKey: 'assignee.name',
@@ -108,14 +108,14 @@ export function TableTicket() {
                 <InputSearch value={searchValue} className="tablet:max-w-sm col-span-4" onSearch={setSearchValue} />
                 <div className="flex w-full flex-row gap-2">
                     <SelectTicketStatus
-                        className="tablet:max-w-40 tablet:min-w-25 w-max"
+                        className="tablet:max-w-40 tablet:min-w-25 w-full"
                         placeholder="Filter by status"
                         hasClear
                         value={filters.find((filter) => filter.dataKey === 'status')?.value || ''}
-                        onChange={(value) => handleFilter('status', value)}
+                        onChange={(value, item) => handleFilter('status', value, item)}
                     />
                     <SelectBase
-                        className="tablet:max-w-40 tablet:min-w-25 w-max"
+                        className="tablet:max-w-40 tablet:min-w-25 w-full"
                         placeholder="Filter by year"
                         hasClear
                         value={filters.find((filter) => filter.dataKey === 'year')?.value || ''}

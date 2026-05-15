@@ -8,8 +8,7 @@
 import * as React from 'react';
 
 /** constants */
-import { OrderType } from '@module-base/constants/OrderType';
-import { AppTimer } from '@module-base/constants/AppTimer';
+import { AppTimer, OrderType } from '@module-base/constants/config';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';

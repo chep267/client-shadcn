@@ -10,8 +10,8 @@ import { User2Icon } from 'lucide-react';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { GlobalRouterPath } from '@module-global/constants/GlobalRouterPath';
-import { GlobalLanguage } from '@module-global/constants/GlobalLanguage';
+import { GlobalRouterPath } from '@module-global/constants/path';
+import { GlobalLanguage } from '@module-global/constants/language';
 
 /** components */
 import { DropdownMenuItem } from '@module-base/components/dropdown-menu';

@@ -8,7 +8,7 @@
 import * as React from 'react';
 
 /** hooks */
-import { useGetAllTicket } from '@module-dashboard/hooks/useGetAllTicket';
+import { useGetTickets } from '@module-dashboard/hooks/useGetTickets';
 
 /** components */
 import { Skeleton } from '@module-base/components/skeleton';
@@ -16,7 +16,7 @@ import { Button } from '@module-base/components/button';
 import { Card, CardContent } from '@module-base/components/card';
 
 export default function DashBoardHeader() {
-    const { isPending, data } = useGetAllTicket();
+    const { isPending, data } = useGetTickets();
     const items = data?.items;
 
     const status = React.useMemo(() => {

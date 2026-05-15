@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 import { useMutation } from '@tanstack/react-query';
 
 /** constants */
-import { AppKey } from '@module-base/constants/AppKey';
+import { AppKey } from '@module-base/constants/env';
 
 /** services */
 import { authService } from '@module-auth/services';

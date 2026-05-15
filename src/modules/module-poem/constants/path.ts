@@ -4,8 +4,13 @@
  *
  */
 
-export const apiPath = {
+export const PoemApiPath = {
     root: '/app',
-    family: '/poems',
+    poems: '/poems',
+} as const;
+
+export const PoemRouterPath = {
+    root: '/poems/*',
+    home: '/poems',
     poem: '/poem/:id',
 } as const;

@@ -8,7 +8,7 @@
 import * as React from 'react';
 
 /** constants */
-import { AppTimer } from '@module-base/constants/AppTimer';
+import { AppTimer } from '@module-base/constants/config';
 
 /** components */
 import { TooltipProvider } from '@module-base/components/tooltip';

@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import { toast } from 'sonner';
 
 /** constants */
-import { BaseLanguage } from '@module-base/constants/BaseLanguage';
+import { BaseLanguage } from '@module-base/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';

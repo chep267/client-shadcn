@@ -7,7 +7,7 @@
 /** types */
 import type { TypeUser } from '@module-user/types';
 
-export interface TypeApiAuth {
+export interface TypeApi {
     Signin: {
         Payload: { email: string; password: string };
         Response: App.ModuleBase.Api.Response<{ user: TypeUser; token: { exp: number; value: string } }>;

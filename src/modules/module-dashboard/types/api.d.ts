@@ -8,7 +8,7 @@
 import type { TypeItemIds, TypeItems } from '@module-base/types/data.d';
 import type { TypeTicketData } from '@module-dashboard/types/data.d';
 
-export interface TypeApiDashboard {
+export interface TypeApi {
     Get: {
         Payload: {
             id: TypeTicketData['id'];

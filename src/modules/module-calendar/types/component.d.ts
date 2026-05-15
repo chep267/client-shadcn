@@ -7,7 +7,7 @@
 /** types */
 import type { Dayjs } from 'dayjs';
 import type { Dispatch, SetStateAction } from 'react';
-import type { TypeCalendarDisplay } from '@modules/module-calendar/types/data.d';
+import type { TypeCalendarDisplay } from '@module-calendar/types/data.d';
 
 export type CalendarItemProps = {
     day: Dayjs;

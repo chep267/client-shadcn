@@ -1,0 +1,10 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+export const MessengerQueryKey = {
+    threads: 'MODULE_MESSENGER_QUERY_KEY_GET_THREADS',
+    thread: 'MODULE_MESSENGER_QUERY_KEY_GET_THREAD',
+} as const;

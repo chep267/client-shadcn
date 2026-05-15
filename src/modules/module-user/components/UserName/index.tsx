@@ -1,26 +1,28 @@
-// /**
-//  *
-//  * @author dongntd267@gmail.com
-//  *
-//  */
-//
-// /** libs */
-//
-// /** hooks */
-// import { useUser } from '@module-user/hooks/useUser';
-//
-// function UserNameGet(props: Omit<App.ModuleUser.Component.UserNameProps, 'name'>) {
-//     const { uid, ...textProps } = props;
-//     const user = useUser({ uid });
-//
-//     return <Typography {...textProps}>{user?.data?.displayName || <Skeleton width={100} />}</Typography>;
-// }
-//
-// export function UserName(props: App.ModuleUser.Component.UserNameProps) {
-//     const { uid, name, ...textProps } = props;
-//
-//     if (name) {
-//         return <Typography {...textProps}>{name}</Typography>;
-//     }
-//     return <UserNameGet uid={uid} {...textProps} />;
-// }
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** libs */
+import * as React from 'react';
+
+/** components */
+import { Typography } from '@module-base/components/typography';
+import { UserNameGet } from '@module-user/components/UserName/UserNameGet';
+import { UserNameNoGet } from '@module-user/components/UserName/UserNameNoGet';
+
+interface UserNameProps extends React.ComponentProps<typeof Typography> {
+    uid?: string;
+    name?: string;
+}
+
+export function UserName(props: UserNameProps) {
+    const { className, uid, name } = props;
+
+    if (name) {
+        return <UserNameNoGet className={className} name={name} />;
+    }
+
+    return <UserNameGet className={className} uid={uid} />;
+}

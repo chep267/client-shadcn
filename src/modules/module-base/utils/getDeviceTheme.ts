@@ -8,9 +8,8 @@
 import Cookies from 'js-cookie';
 
 /** constants */
-import { AppEnv } from '@module-base/constants/AppEnv';
-import { AppKey } from '@module-base/constants/AppKey';
-import { ThemeObject } from '@module-base/constants/ThemeObject';
+import { AppEnv, AppKey } from '@module-base/constants/env';
+import { ThemeObject } from '@module-base/constants/config';
 
 export const getDeviceTheme = (): App.ModuleBase.Store.TypeTheme => {
     // get from cookie

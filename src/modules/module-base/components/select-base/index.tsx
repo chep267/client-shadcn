@@ -8,7 +8,7 @@
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { BaseLanguage } from '@module-base/constants/BaseLanguage';
+import { BaseLanguage } from '@module-base/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
@@ -39,7 +39,7 @@ export function SelectBase<Value extends string = string>(props: App.ModuleBase.
     } = props;
 
     const handleChange = (value: Value) => {
-        const item = items?.find((item) => item.value === value)?.item;
+        const item = items?.find((item) => item.value === value);
         onChange?.(value, item);
     };
 

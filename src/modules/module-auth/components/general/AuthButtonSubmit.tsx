@@ -8,7 +8,7 @@
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
+import { AuthLanguage } from '@module-auth/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';

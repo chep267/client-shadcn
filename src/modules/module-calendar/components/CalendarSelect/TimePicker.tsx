@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import { ChevronLeftIcon, ChevronsLeftIcon, ChevronRightIcon, ChevronsRightIcon } from 'lucide-react';
 
 /** constants */
-import { CalendarLanguage } from '@module-calendar/constants/CalendarLanguage';
+import { CalendarLanguage } from '@module-calendar/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';

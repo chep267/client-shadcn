@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { ThemeObject } from '@module-base/constants/ThemeObject';
+import { ThemeObject } from '@module-base/constants/config';
 
 /** types */
 import type { IParticlesProps } from '@tsparticles/react';

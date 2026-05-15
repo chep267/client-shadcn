@@ -55,8 +55,7 @@ export type TypeSelectItem = {
     className?: string;
     label: ReactNode | (() => ReactNode);
     value: string;
-    item?: Record<string, unknown>;
-};
+} & Record<string, unknown>;
 export interface SelectBaseProps<Value extends string = string> {
     className?: string;
     value?: Value;
@@ -67,7 +66,7 @@ export interface SelectBaseProps<Value extends string = string> {
     clearContent?: ReactNode;
     emptyContent?: ReactNode;
     items?: TypeSelectItem[];
-    onChange?: (value: Value, item?: TypeSelectItem['item']) => void;
+    onChange?: (value: Value, item?: TypeSelectItem) => void;
 }
 
 /** Table base */

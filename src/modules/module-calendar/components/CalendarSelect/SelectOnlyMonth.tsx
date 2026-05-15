@@ -9,7 +9,7 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { CalendarLanguage } from '@module-calendar/constants/CalendarLanguage';
+import { CalendarLanguage } from '@module-calendar/constants/language';
 
 /** stores */
 import { useCalendarStore } from '@module-calendar/stores/useCalendarStore';

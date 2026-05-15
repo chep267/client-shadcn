@@ -9,7 +9,7 @@ import * as React from 'react';
 import axios from 'axios';
 
 /** constants */
-import { AccountState } from '@module-auth/constants/AccountState';
+import { AccountState } from '@module-auth/constants/status';
 
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';

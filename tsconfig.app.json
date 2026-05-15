@@ -8,7 +8,6 @@
         "noImplicitAny": true,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
-
         "paths": {
             "@/*": ["./src/*"],
             "@test/*": ["./test/*"],
@@ -21,7 +20,8 @@
             "@module-global/*": ["./src/modules/module-global/*"],
             "@module-dashboard/*": ["./src/modules/module-dashboard/*"],
             "@module-calendar/*": ["./src/modules/module-calendar/*"],
-            "@module-poem/*": ["./src/modules/module-poem/*"]
+            "@module-poem/*": ["./src/modules/module-poem/*"],
+            "@module-messenger/*": ["./src/modules/module-messenger/*"]
         }
     }
 }

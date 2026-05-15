@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { GlobalLanguage } from '@module-global/constants/GlobalLanguage';
+import { GlobalLanguage } from '@module-global/constants/language';
 
 export const vi = {
     [GlobalLanguage.component.label.collapse]: 'Thu nhỏ',

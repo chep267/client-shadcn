@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { BaseLanguage } from '@module-base/constants/BaseLanguage';
+import { BaseLanguage } from '@module-base/constants/language';
 
 export const vi = {
     [BaseLanguage.component.label.default]: '',
@@ -19,9 +19,9 @@ export const vi = {
     [BaseLanguage.component.label.theme.router]: 'Giao diện',
     [BaseLanguage.component.label.theme.dark]: 'Tối',
     [BaseLanguage.component.label.theme.light]: 'Sáng',
-    [BaseLanguage.component.label.language.router]: 'Ngôn ngữ',
-    [BaseLanguage.component.label.language.vi]: 'Tiếng Việt',
-    [BaseLanguage.component.label.language.en]: 'Tiếng Anh',
+    [BaseLanguage.component.label.locale.router]: 'Ngôn ngữ',
+    [BaseLanguage.component.label.locale.vi]: 'Tiếng Việt',
+    [BaseLanguage.component.label.locale.en]: 'Tiếng Anh',
 
     [BaseLanguage.component.input.placeholder]: 'Tìm kiếm...',
 

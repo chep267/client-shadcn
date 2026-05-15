@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 /** constants */
-import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
+import { AuthLanguage } from '@module-auth/constants/language';
 
 /** components */
 import { FieldGroup, FieldLabel } from '@module-base/components/field';

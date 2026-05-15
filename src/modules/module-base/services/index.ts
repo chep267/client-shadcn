@@ -8,7 +8,7 @@
 import { axiosClient } from '@module-base/apis';
 
 /** constants */
-import { AppTimer } from '@module-base/constants/AppTimer';
+import { AppTimer } from '@module-base/constants/config';
 
 /** utils */
 import { delay as funcDelay } from '@module-base/utils/delay';

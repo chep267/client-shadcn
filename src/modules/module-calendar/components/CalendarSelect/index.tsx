@@ -22,10 +22,10 @@ export function CalendarSelect() {
                 'tablet:flex-row md:py-3'
             )}
         >
-            <div className="flex items-center gap-2">
-                <ButtonToday className="w-max cursor-pointer truncate capitalize" />
-                <SelectDisplay className="tablet:max-w-40 tablet:min-w-25 w-max" />
-                <SelectOnlyMonth className="tablet:max-w-40 tablet:min-w-25 w-max" />
+            <div className="tablet:w-auto flex w-full items-center gap-2">
+                <ButtonToday className="tablet:w-max w-1/3 cursor-pointer truncate capitalize" />
+                <SelectDisplay className="tablet:w-max w-1/3" />
+                <SelectOnlyMonth className="tablet:w-max w-1/3" />
             </div>
 
             <TimePicker />

@@ -22,7 +22,7 @@ interface SelectTicketStatusProps {
     hasClear?: boolean;
     disabled?: boolean;
     value?: string;
-    onChange?: (value: string) => void;
+    onChange?: (value: string, item?: App.ModuleBase.Component.TypeSelectItem) => void;
 }
 
 export function SelectTicketStatus(props: SelectTicketStatusProps) {

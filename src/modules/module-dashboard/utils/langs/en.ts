@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { DashboardLanguage } from '@module-dashboard/constants/DashboardLanguage';
+import { DashboardLanguage } from '@module-dashboard/constants/language';
 
 export const en = {
     [DashboardLanguage.component.label.router]: 'Dashboard',

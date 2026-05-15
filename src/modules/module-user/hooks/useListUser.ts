@@ -10,6 +10,8 @@ import { useQuery } from '@tanstack/react-query';
 /** services */
 import { userServices } from '@module-user/services';
 
+export const queryKey = 'MODULE_USER_QUERY_KEY_GET_ALL_USER';
+
 export function useListUser() {
     const uid = '';
 

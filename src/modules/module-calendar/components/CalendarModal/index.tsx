@@ -8,7 +8,7 @@
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { CalendarLanguage } from '@module-calendar/constants/CalendarLanguage';
+import { CalendarLanguage } from '@module-calendar/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';

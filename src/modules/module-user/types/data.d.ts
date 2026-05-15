@@ -8,11 +8,11 @@ export declare interface TypeUser {
     /**
      * The display name of the user.
      */
-    readonly name: string | null;
+    readonly name: string;
     /**
      * The email of the user.
      */
-    readonly email: string | null;
+    readonly email: string;
     /**
      * The phone number normalized based on the E.164 standard (e.g. +16505550101) for the
      * user.
@@ -20,11 +20,11 @@ export declare interface TypeUser {
      * @remarks
      * This is null if the user has no phone credential linked to the account.
      */
-    readonly phone: string | null;
+    readonly phone: string;
     /**
      * The profile photo URL of the user.
      */
-    readonly photo: string | null;
+    readonly photo: string;
     readonly uid: string;
     readonly role: string;
     readonly createdAt?: string;

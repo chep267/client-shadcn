@@ -10,7 +10,7 @@ import { useIntl } from 'react-intl';
 import { SearchIcon, XIcon } from 'lucide-react';
 
 /** constants */
-import { BaseLanguage } from '@module-base/constants/BaseLanguage';
+import { BaseLanguage } from '@module-base/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';

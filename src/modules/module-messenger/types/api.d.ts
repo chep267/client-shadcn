@@ -1,0 +1,20 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** types */
+import type { TypeItemIds, TypeItems } from '@module-base/types/data.d';
+import type { TypeThread } from '@module-messenger/types/data.d';
+
+export interface TypeApi {
+    GetThreads: {
+        Payload: void;
+        Response: App.ModuleBase.Api.Response<{ itemIds: TypeItemIds; items: TypeItems<TypeThread> }>;
+    };
+    GetThread: {
+        Payload: { tid: string };
+        Response: App.ModuleBase.Api.Response<TypeThread>;
+    };
+}

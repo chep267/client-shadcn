@@ -10,7 +10,7 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
 
 /** constants */
-import { AppTimer } from '@module-base/constants/AppTimer';
+import { AppTimer } from '@module-base/constants/config';
 
 /** providers */
 import { LanguageProvider } from '@module-base/providers/LanguageProvider';
@@ -27,6 +27,7 @@ const queryClient = new QueryClient({
             refetchInterval: false,
             refetchOnReconnect: false,
             retryDelay: AppTimer.delay,
+            retry: false,
         },
     },
 });

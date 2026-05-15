@@ -10,8 +10,7 @@ import { produce } from 'immer';
 import { enableMapSet } from 'immer';
 
 /** constants */
-import { OrderType } from '@module-base/constants/OrderType';
-import { AppTimer } from '@module-base/constants/AppTimer';
+import { AppTimer, OrderType } from '@module-base/constants/config';
 
 /** utils */
 import { deepGet } from '@module-base/utils/data';

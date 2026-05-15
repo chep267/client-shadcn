@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { DashboardApiPath } from '@module-dashboard/constants/DashboardApiPath';
+import { DashboardApiPath } from '@module-dashboard/constants/path';
 
 /** services */
 import { BaseService } from '@module-base/services';
@@ -17,23 +17,23 @@ class DashboardService extends BaseService {
 
     public getAll = () => {
         return this.withDelay(
-            this.get<App.ModuleDashboard.Api.TypeApiDashboard['GetAll']['Response']>({
+            this.get<App.ModuleDashboard.Api.TypeApi['GetAll']['Response']>({
                 url: DashboardApiPath.tickets,
             })
         );
     };
 
-    public update = (payload: App.ModuleDashboard.Api.TypeApiDashboard['Update']['Payload']) => {
+    public update = (payload: App.ModuleDashboard.Api.TypeApi['Update']['Payload']) => {
         const { id, data } = payload;
 
         return this.withDelay(
-            this.patch<App.ModuleDashboard.Api.TypeApiDashboard['Update']['Response']>(data, {
+            this.patch<App.ModuleDashboard.Api.TypeApi['Update']['Response']>(data, {
                 url: `${DashboardApiPath.ticket}/${id}`,
             })
         );
     };
 
-    public remove = (payload: App.ModuleDashboard.Api.TypeApiDashboard['Remove']['Payload']) => {
+    public remove = (payload: App.ModuleDashboard.Api.TypeApi['Remove']['Payload']) => {
         const { id } = payload;
 
         return this.withDelay(
@@ -45,7 +45,7 @@ class DashboardService extends BaseService {
 
     public getStatus = () => {
         return this.withDelay(
-            this.get<App.ModuleDashboard.Api.TypeApiDashboard['GetStatus']['Response']>({
+            this.get<App.ModuleDashboard.Api.TypeApi['GetStatus']['Response']>({
                 url: DashboardApiPath.ticketStatus,
             })
         );

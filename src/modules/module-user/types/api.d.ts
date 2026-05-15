@@ -7,7 +7,7 @@
 /** types */
 import type { TypeUser } from '@module-user/types/data.d';
 
-export interface TypeUserApi {
+export interface TypeApi {
     Create: {
         Payload: { user: TypeUser };
         Response?: void;

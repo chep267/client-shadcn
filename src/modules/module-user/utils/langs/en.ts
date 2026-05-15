@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { UserLanguage } from '@module-user/constants/UserLanguage';
+import { UserLanguage } from '@module-user/constants/language';
 
 export const en = {
     [UserLanguage.component.label.signout]: 'Sign out',

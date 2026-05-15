@@ -9,7 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import { MenuIcon } from 'lucide-react';
 
 /** constants */
-import { GlobalLanguage } from '@module-global/constants/GlobalLanguage';
+import { GlobalLanguage } from '@module-global/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';

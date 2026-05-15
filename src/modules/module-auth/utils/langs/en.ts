@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { AuthLanguage } from '@module-auth/constants/AuthLanguage';
+import { AuthLanguage } from '@module-auth/constants/language';
 
 export const en = {
     // title
@@ -27,6 +27,7 @@ export const en = {
     [AuthLanguage.status.password.invalid]:
         '8 characters minimum, 1 lower case, 1 upper case, 1 number, 1 special character!',
     [AuthLanguage.status.password.different]: 'Confirmation password does not match!',
+
     // button
     [AuthLanguage.component.button.signin]: 'Sign in',
     [AuthLanguage.component.button.register]: 'Register',
