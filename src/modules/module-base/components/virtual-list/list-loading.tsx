@@ -10,12 +10,11 @@ import { cn } from '@module-base/utils/shadcn';
 /** components */
 import { Spinner } from '@module-base/components/spinner';
 
-interface ListLoadingProps {
-    loading?: boolean;
-}
-
-export function ListLoading(props: ListLoadingProps) {
-    const { loading } = props;
+export function ListLoading<
+    Data extends App.ModuleBase.Component.TypeTableData = App.ModuleBase.Component.TypeTableData,
+>(props: App.ModuleBase.Component.TableLoadingProps<Data>) {
+    const { store } = props;
+    const loading = store((state) => state.data.loading);
 
     if (!loading) return null;
 

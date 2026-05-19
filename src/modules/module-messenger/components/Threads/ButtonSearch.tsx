@@ -5,7 +5,7 @@
  */
 
 /** libs */
-import { InfoIcon } from 'lucide-react';
+import { SearchIcon } from 'lucide-react';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
@@ -16,22 +16,21 @@ import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';
 /** components */
 import { Button } from '@module-base/components/button';
 
-export function ButtonInfo() {
+export function ButtonSearch() {
     const action = useMessengerStore((store) => store.action);
 
     return (
         <Button
             variant="outline"
             className={cn(
-                'h-6 w-6 border-none p-0',
+                'size-10 min-w-10 border-0',
                 'cursor-pointer rounded-full text-inherit shadow-none',
-                'hover:text-main hover:bg-transparent',
-                'max-tablet:hidden'
+                'hover:border hover:text-inherit'
             )}
-            aria-label="dev"
-            onClick={action.toggleInfo}
+            aria-label="thread-search"
+            onClick={action.toggleSearch}
         >
-            <InfoIcon className="size-6" />
+            <SearchIcon />
         </Button>
     );
 }

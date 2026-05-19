@@ -28,7 +28,7 @@ export function UserNameGet(props: UserNameGetProps) {
 
     if (isPending || !uid) {
         return (
-            <Typography className={cn('relative min-h-5 min-w-10', className)} {...otherProps}>
+            <Typography className={cn('relative size-full min-h-5 max-w-20 min-w-10', className)} {...otherProps}>
                 <Skeleton className="absolute inset-0 h-full w-full" />
             </Typography>
         );

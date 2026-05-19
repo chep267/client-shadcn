@@ -5,7 +5,7 @@
  */
 
 /** libs */
-import { SendHorizonalIcon } from 'lucide-react';
+import { StickerIcon } from 'lucide-react';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
@@ -16,21 +16,17 @@ import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';
 /** components */
 import { Button } from '@module-base/components/button';
 
-export function ButtonSend() {
+export function ButtonSticker() {
     const action = useMessengerStore((store) => store.action);
 
     return (
         <Button
             variant="ghost"
-            className={cn(
-                'h-10 w-10 border-0 p-0',
-                'cursor-pointer rounded-full text-inherit shadow-none',
-                'hover:text-main hover:border hover:bg-transparent'
-            )}
-            aria-label="dev"
+            className={cn('size-10', 'cursor-pointer rounded-full text-inherit shadow-none', 'hover:text-main')}
+            aria-label="choose-sticker"
             onClick={action.toggleInfo}
         >
-            <SendHorizonalIcon className="size-6" />
+            <StickerIcon className="size-6" />
         </Button>
     );
 }

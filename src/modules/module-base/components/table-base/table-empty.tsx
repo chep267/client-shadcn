@@ -15,11 +15,11 @@ export function TableEmpty<
 >(props: App.ModuleBase.Component.TableEmptyProps<Data>) {
     const { store } = props;
 
-    const isTableEmpty = store((state) => state.data.currentItems.length === 0);
+    const isEmpty = store((state) => state.data.currentItems.length === 0);
     const loading = store((state) => state.data.loading);
     const emptyContent = store((state) => state.data.emptyContent);
 
-    if (loading || !isTableEmpty) return null;
+    if (loading || !isEmpty) return null;
 
     if (!emptyContent || typeof emptyContent === 'string' || typeof emptyContent === 'number') {
         return (

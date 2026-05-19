@@ -6,7 +6,7 @@
 
 /** types */
 import type { TypeItemIds, TypeItems } from '@module-base/types/data.d';
-import type { TypeThread } from '@module-messenger/types/data.d';
+import type { TypeThread, TypeMessage } from '@module-messenger/types/data.d';
 
 export interface TypeApi {
     GetThreads: {
@@ -16,5 +16,9 @@ export interface TypeApi {
     GetThread: {
         Payload: { tid: string };
         Response: App.ModuleBase.Api.Response<TypeThread>;
+    };
+    GetMessages: {
+        Payload: { tid: string };
+        Response: App.ModuleBase.Api.Response<{ itemIds: TypeItemIds; items: TypeItems<TypeMessage> }>;
     };
 }

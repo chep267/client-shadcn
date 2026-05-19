@@ -4,20 +4,17 @@
  *
  */
 
-/** libs */
-import * as React from 'react';
-
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
-interface ListEmptyProps {
-    loading?: boolean;
-    isEmpty?: boolean;
-    emptyContent?: React.ReactNode | (() => React.ReactNode);
-}
+export function ListEmpty<Data extends App.ModuleBase.Component.TypeTableData = App.ModuleBase.Component.TypeTableData>(
+    props: App.ModuleBase.Component.TableEmptyProps<Data>
+) {
+    const { store } = props;
 
-export function ListEmpty(props: ListEmptyProps) {
-    const { loading, isEmpty, emptyContent } = props;
+    const isEmpty = store((state) => state.data.currentItems.length === 0);
+    const loading = store((state) => state.data.loading);
+    const emptyContent = store((state) => state.data.emptyContent);
 
     if (loading || !isEmpty) return null;
 

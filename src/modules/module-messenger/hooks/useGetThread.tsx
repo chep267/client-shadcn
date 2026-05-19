@@ -31,11 +31,11 @@ export function useGetThread(tid: string = '') {
         });
     };
 
-    const { isPending, data } = useQuery({
+    const { data } = useQuery({
         queryKey: [MessengerQueryKey.thread, { uid: user?.uid }],
         queryFn: () => messengerService.getThread({ tid }),
         enabled: !!user?.uid && !!tid,
     });
 
-    return { isPending, data: data || getCache() };
+    return { isPending: false, data: data || getCache() };
 }

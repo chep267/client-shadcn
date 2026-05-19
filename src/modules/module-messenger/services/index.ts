@@ -33,6 +33,16 @@ class MessengerService extends BaseService {
         );
         return response.data.data;
     };
+
+    public getMessages = async (payload: App.ModuleMessenger.Api.TypeApi['GetMessages']['Payload']) => {
+        const { tid } = payload;
+        const response = await this.withDelay(
+            this.get<App.ModuleMessenger.Api.TypeApi['GetMessages']['Response']>({
+                url: MessengerApiPath.messages.replace(':tid', tid),
+            })
+        );
+        return response.data.data;
+    };
 }
 
 export const messengerService = new MessengerService();

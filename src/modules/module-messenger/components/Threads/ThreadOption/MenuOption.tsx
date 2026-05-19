@@ -115,7 +115,7 @@ export function MenuOption() {
     const locale = useSettingStore((store) => store.data.locale);
     const settingAction = useSettingStore((store) => store.action);
 
-    const menuBase: MenuSettingItemProps[] = [
+    const items: MenuSettingItemProps[] = [
         {
             id: 'theme',
             type: 'sub',
@@ -176,16 +176,12 @@ export function MenuOption() {
 
     return (
         <DropdownMenuContent
-            className={cn(
-                'mt-3 w-fit',
-                'scrollbar-custom scrollbar-thin overflow-auto overscroll-none',
-                'max-h-[calc(var(--app-size-height-sidebar)-var(--spacing)*2)]'
-            )}
+            className={cn('w-fit', 'scrollbar-custom scrollbar-thin overflow-auto overscroll-none')}
             side="bottom"
             align="end"
         >
             <DropdownMenuGroup>
-                {menuBase.map((item) => (
+                {items.map((item) => (
                     <MenuSettingItem key={item.id} item={item} />
                 ))}
             </DropdownMenuGroup>

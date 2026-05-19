@@ -27,7 +27,7 @@ export function ButtonSetting() {
                     <Button
                         variant="outline"
                         className={cn(
-                            'h-10 w-10 min-w-10 border-0 p-0',
+                            'size-10 min-w-10 border-0',
                             'cursor-pointer rounded-full bg-inherit text-inherit shadow-none',
                             'focus-visible:ring-0',
                             'hover:border hover:text-inherit'

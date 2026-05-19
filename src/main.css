@@ -84,7 +84,7 @@
         --color-custom-success: theme(colors.green.500);
         --color-custom-info: theme(colors.blue.500);
         --color-scrollbar-thumb: var(--muted-foreground);
-        --color-scrollbar-track: transparent;
+        --color-scrollbar-track: var(--secondary);
 
         --app-size-height-header: calc(var(--spacing) * 16); /* 64px */
         --app-size-height-sidebar-mini: calc(var(--spacing) * 12); /* 48px */

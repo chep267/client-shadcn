@@ -34,7 +34,7 @@ export function CalendarItem(props: App.ModuleCalendar.Component.CalendarItemPro
         <div
             className={cn(
                 'group flex items-center justify-center',
-                'm-auto h-10 w-10',
+                'm-auto size-10',
                 'cursor-pointer rounded-full',
                 'hover:bg-muted hover:border',
                 {

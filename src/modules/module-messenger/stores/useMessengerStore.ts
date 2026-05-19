@@ -6,10 +6,17 @@
 
 /** libs */
 import { create } from 'zustand';
-import { produce } from 'immer';
+import { produce, enableMapSet } from 'immer';
+
+enableMapSet();
 
 const defaultSettingStore: Readonly<App.ModuleMessenger.Store.TypeMessengerStore['data']> = {
     openInfo: true,
+    openSearch: false,
+    searchKey: '',
+    drafts: new Map(),
+    typings: new Map(),
+    assets: new Map(),
 };
 
 export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerStore>((set) => ({
@@ -19,6 +26,57 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerS
             set(
                 produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
                     store.data.openInfo = !store.data.openInfo;
+                })
+            );
+        },
+        toggleSearch: () => {
+            set(
+                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                    store.data.openSearch = !store.data.openSearch;
+                    store.data.searchKey = '';
+                })
+            );
+        },
+        changeSearchKey: (value = '') => {
+            set(
+                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                    store.data.searchKey = value;
+                })
+            );
+        },
+        addDraft: (payload) => {
+            const { tid, draft = '' } = payload;
+            if (!tid) return;
+            set(
+                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                    store.data.drafts.set(tid, draft);
+                })
+            );
+        },
+        addTyping: (payload) => {
+            const { tid, typing = false } = payload;
+            if (!tid) return;
+            set(
+                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                    store.data.typings.set(tid, typing);
+                })
+            );
+        },
+        addAssets: (payload) => {
+            const { tid, assets = [] } = payload;
+            if (!tid) return;
+            set(
+                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                    store.data.assets.set(tid, assets);
+                })
+            );
+        },
+        removeAsset: (payload) => {
+            const { tid, pos } = payload;
+            if (!tid) return;
+            set(
+                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                    store.data.assets.get(tid)?.splice(pos, 1);
                 })
             );
         },

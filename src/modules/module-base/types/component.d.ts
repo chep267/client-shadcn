@@ -14,8 +14,10 @@ import {
     type ReactNode,
     type MouseEvent,
     type ComponentProps,
+    type Ref,
 } from 'react';
 import type { UseBoundStore, StoreApi } from 'zustand';
+import { type VirtuosoProps } from 'react-virtuoso';
 
 export type TypeInputElement = HTMLInputElement | null;
 
@@ -44,10 +46,14 @@ export type TypeIconList = Readonly<
 >;
 
 /** input search */
-interface InputSearchProps extends ComponentProps<'input'> {
+export interface InputSearchRef {
+    clear: () => void;
+}
+export interface InputSearchProps extends ComponentProps<'input'> {
     onSearch?: (value: string) => void;
     debounceTime?: number;
     label?: string;
+    ref?: Ref<InputSearchRef | null>;
 }
 
 /** Select base */
@@ -172,4 +178,12 @@ interface TableCellCheckboxOneProps<Data extends TypeTableData = TypeTableData> 
     className?: string;
     id: string | number;
     store: TypeTableStore<Data>;
+}
+
+/** List base */
+export interface ListProps<Data extends TypeTableData = TypeTableData> extends VirtuosoProps<Data, unknown> {
+    className?: string;
+    initialSetup?: TypeTableSetup;
+    items?: Data[];
+    emptyContent?: ReactNode | (() => ReactNode);
 }

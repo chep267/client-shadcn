@@ -41,7 +41,13 @@ export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
         externalPlaceholder ||
         formatMessage({ id: BaseLanguage.component.input.placeholder, defaultMessage: 'Search...' });
 
-    React.useImperativeHandle(ref, () => internalRef.current!);
+    React.useImperativeHandle(
+        ref,
+        () => ({
+            clear: handleClear,
+        }),
+        []
+    );
 
     const handleClear = () => {
         setLocalValue('');

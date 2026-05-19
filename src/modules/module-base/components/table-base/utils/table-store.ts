@@ -6,8 +6,7 @@
 
 /** libs */
 import { create } from 'zustand';
-import { produce } from 'immer';
-import { enableMapSet } from 'immer';
+import { produce, enableMapSet } from 'immer';
 
 /** constants */
 import { AppTimer, OrderType } from '@module-base/constants/config';
@@ -19,13 +18,10 @@ import { debounce } from '@module-base/utils/debounce';
 import { delay } from '@module-base/utils/delay';
 import { sortTableData } from '@module-base/utils/virtual';
 
-type TableStoreProps<Data extends App.ModuleBase.Component.TypeTableData> =
-    App.ModuleBase.Component.TableStoreProps<Data>;
-
 enableMapSet();
 
 export const createTableStore = <Data extends App.ModuleBase.Component.TypeTableData>() => {
-    return create<TableStoreProps<Data>>((set, get) => ({
+    return create<App.ModuleBase.Component.TableStoreProps<Data>>((set, get) => ({
         data: {
             loading: false,
             hasCheckbox: false,
@@ -45,9 +41,9 @@ export const createTableStore = <Data extends App.ModuleBase.Component.TypeTable
             currentItems: [],
         },
         action: {
-            initState: (initialData: Partial<TableStoreProps<Data>['data']>) => {
+            initState: (initialData: Partial<App.ModuleBase.Component.TableStoreProps<Data>['data']>) => {
                 set(
-                    produce<TableStoreProps<Data>>(({ data }) => {
+                    produce<App.ModuleBase.Component.TableStoreProps<Data>>(({ data }) => {
                         Object.entries(initialData).forEach(([key, value]) => {
                             if (key in data) {
                                 (data as Record<typeof key, unknown>)[key] = value;
@@ -60,7 +56,7 @@ export const createTableStore = <Data extends App.ModuleBase.Component.TypeTable
             },
             setParam: (key, value) => {
                 set(
-                    produce<TableStoreProps<Data>>(({ data }) => {
+                    produce<App.ModuleBase.Component.TableStoreProps<Data>>(({ data }) => {
                         if (key in data) {
                             (data as Record<typeof key, unknown>)[key] = value;
                         }
@@ -69,7 +65,7 @@ export const createTableStore = <Data extends App.ModuleBase.Component.TypeTable
             },
             toggleRow: (id) => {
                 set(
-                    produce<TableStoreProps<Data>>(({ data }) => {
+                    produce<App.ModuleBase.Component.TableStoreProps<Data>>(({ data }) => {
                         if (data.selectedIds.has(id)) {
                             data.selectedIds.delete(id);
                         } else {
@@ -84,7 +80,7 @@ export const createTableStore = <Data extends App.ModuleBase.Component.TypeTable
             },
             toggleAll: () => {
                 set(
-                    produce<TableStoreProps<Data>>(({ data }) => {
+                    produce<App.ModuleBase.Component.TableStoreProps<Data>>(({ data }) => {
                         data.isIndeterminate = false;
                         if (data.isCheckedAll) {
                             data.isCheckedAll = false;

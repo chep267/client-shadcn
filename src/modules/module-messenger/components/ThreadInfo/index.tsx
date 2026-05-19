@@ -33,14 +33,13 @@ export function ThreadInfo() {
     return (
         <Card
             className={cn(
-                'gap-0 rounded-sm p-0',
-                'overflow-hidden',
-                'w-0 min-w-0 border-0',
-                'max-w-(--app-size-width-messenger-threads)',
+                'w-0 gap-0 overflow-hidden rounded-sm p-0',
                 'transition-all duration-200 ease-linear',
+                'max-laptop:absolute max-laptop:top-[calc(var(--app-size-height-messenger-conversation-header)+var(--spacing))] max-laptop:right-1 max-laptop:bottom-1 max-laptop:z-1 max-laptop:rounded-t-none max-laptop:rounded-l-none',
                 {
-                    'tablet:ml-1 tablet:w-full tablet:min-w-(--app-size-width-messenger-threads) tablet:border':
+                    'laptop:ml-1 laptop:w-(--app-size-width-messenger-threads) w-(--app-size-width-messenger-threads-expanded)':
                         openInfo,
+                    'border-0': !openInfo,
                 }
             )}
         >
@@ -48,8 +47,7 @@ export function ThreadInfo() {
                 className={cn(
                     'items-center gap-0 border-b p-2!',
                     'grid-rows-[auto] items-center',
-                    'h-(--app-size-height-messenger-conversation-header)',
-                    'max-tablet:hidden'
+                    'h-(--app-size-height-messenger-conversation-header)'
                 )}
             >
                 <CardTitle>

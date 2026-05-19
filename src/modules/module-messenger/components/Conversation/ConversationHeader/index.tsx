@@ -4,20 +4,15 @@
  *
  */
 
-/** libs */
-import { useParams } from 'react-router-dom';
-
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { CardHeader, CardTitle } from '@module-base/components/card';
-import { ThreadItemGet } from '@module-messenger/components/Threads/ThreadItemGet';
-import { ButtonInfo } from '@module-messenger/components/Conversation/ButtonInfo';
+import { ButtonInfo } from '@module-messenger/components/Conversation/ConversationHeader/ButtonInfo';
+import { ThreadCurrent } from '@module-messenger/components/Conversation/ConversationHeader/ThreadCurrent';
 
 export function ConversationHeader() {
-    const params = useParams();
-
     return (
         <CardHeader
             className={cn(
@@ -27,7 +22,7 @@ export function ConversationHeader() {
             )}
         >
             <CardTitle className={cn('flex items-center justify-between', 'gap-2 overflow-hidden')}>
-                <ThreadItemGet className="p-0" tid={params.tid} />
+                <ThreadCurrent />
                 <ButtonInfo />
             </CardTitle>
         </CardHeader>

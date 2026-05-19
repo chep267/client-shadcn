@@ -42,7 +42,7 @@ export function AppButtonDev(props: any) {
                 <Button
                     variant="outline"
                     className={cn(
-                        'h-10 w-10 min-w-10 border-0 p-0',
+                        'size-10 min-w-10 border-0',
                         'cursor-pointer rounded-full text-inherit shadow-none',
                         'hover:border hover:text-inherit'
                     )}

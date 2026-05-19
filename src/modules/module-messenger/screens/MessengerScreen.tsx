@@ -14,7 +14,7 @@ import { ThreadInfo } from '@module-messenger/components/ThreadInfo';
 
 export default function MessengerScreen() {
     return (
-        <div className={cn('flex flex-1 p-1')}>
+        <div className={cn('relative flex flex-1 p-1')}>
             <Threads />
             <Conversation />
             <ThreadInfo />
