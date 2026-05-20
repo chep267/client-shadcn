@@ -11,7 +11,7 @@ import { CardFooter } from '@module-base/components/card';
 import { ButtonSend } from '@module-messenger/components/Conversation/ConversationFooter/ButtonSend';
 import { MessageAction } from '@module-messenger/components/Conversation/ConversationFooter/MessageAction';
 import { MessageEditor } from '@module-messenger/components/Conversation/ConversationFooter/MessageEditor';
-import { MediaPreview } from '@module-messenger/components/Conversation/ConversationFooter/MediaPreview';
+import { MediaPreview } from '@module-messenger/components/Conversation/ConversationFooter/MediaPreview/MediaPreview';
 
 export function ConversationFooter() {
     return (

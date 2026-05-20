@@ -15,7 +15,7 @@ import { Typography } from '@module-base/components/typography';
 import { Card, CardHeader, CardTitle, CardContent } from '@module-base/components/card';
 import { ThreadList } from '@module-messenger/components/Threads/ThreadList';
 import { ButtonSearch } from '@module-messenger/components/Threads/ButtonSearch';
-import { ThreadSearch } from '@module-messenger/components/Threads/ThreadSearch.tsx';
+import { ThreadSearch } from '@module-messenger/components/Threads/ThreadSearch';
 
 export function Threads() {
     return (

@@ -84,7 +84,6 @@ export const ParticleOptions = (mode: App.ModuleBase.Store.TypeTheme): IParticle
         },
         effect: {
             close: true,
-            fill: true,
         },
         groups: {
             z5000: {
@@ -137,14 +136,6 @@ export const ParticleOptions = (mode: App.ModuleBase.Store.TypeTheme): IParticle
                 offset: 0,
                 value: 10,
             },
-            attract: {
-                distance: 200,
-                enable: false,
-                rotate: {
-                    x: 3000,
-                    y: 3000,
-                },
-            },
             center: {
                 x: 50,
                 y: 50,
@@ -179,10 +170,6 @@ export const ParticleOptions = (mode: App.ModuleBase.Store.TypeTheme): IParticle
                 enable: false,
             },
             straight: false,
-            trail: {
-                enable: false,
-                length: 10,
-            },
             vibrate: false,
             warp: false,
         },
@@ -224,7 +211,6 @@ export const ParticleOptions = (mode: App.ModuleBase.Store.TypeTheme): IParticle
         },
         shape: {
             close: true,
-            fill: true,
             type: 'circle',
         },
         size: {
