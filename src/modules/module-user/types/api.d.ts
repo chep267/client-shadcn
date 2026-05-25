@@ -7,17 +7,13 @@
 /** types */
 import type { TypeUser } from '@module-user/types/data.d';
 
-export interface TypeApi {
-    Create: {
-        Payload: { user: TypeUser };
-        Response?: void;
-    };
-    Get: {
-        Payload: { uid: TypeUser['uid'] };
-        Response?: TypeUser;
-    };
-    GetList: {
-        Payload?: { limit?: number };
-        Response?: { itemIds: App.ModuleBase.Data.TypeItemIds; items: App.ModuleBase.Data.TypeItems<TypeUser> };
-    };
+/** api user */
+export interface GetUser {
+    Payload: { uid?: string };
+    Response: App.ModuleBase.Api.Response<TypeUser>;
+}
+
+export interface GetUsers {
+    Payload: { searchKey?: string; limit?: number; skip?: number; page?: number };
+    Response: App.ModuleBase.Api.Response<TypeUser[], { total: number }>;
 }

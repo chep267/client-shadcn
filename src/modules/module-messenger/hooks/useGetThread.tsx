@@ -32,7 +32,7 @@ export function useGetThread(tid: string = '') {
     };
 
     const { data } = useQuery({
-        queryKey: [MessengerQueryKey.thread, { uid: user?.uid }],
+        queryKey: [MessengerQueryKey.thread],
         queryFn: () => messengerService.getThread({ tid }),
         enabled: !!user?.uid && !!tid,
     });

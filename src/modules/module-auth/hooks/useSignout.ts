@@ -6,7 +6,7 @@
 
 /** libs */
 import Cookies from 'js-cookie';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 /** constants */
 import { AppKey } from '@module-base/constants/env';
@@ -18,11 +18,13 @@ import { authService } from '@module-auth/services';
 import { useAuthStore } from '@module-auth/stores/useAuthStore';
 
 export function useSignout() {
+    const queryClient = useQueryClient();
     const authAction = useAuthStore(({ action }) => action);
 
     return useMutation({
         mutationFn: authService.signout,
         onSettled: () => {
+            queryClient.clear();
             Cookies.remove(AppKey.token);
             authAction.setData({ user: null, prePath: '/', token: '' });
         },

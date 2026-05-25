@@ -7,11 +7,9 @@
 /** libs */
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { PaletteIcon, LanguagesIcon, MoonStarIcon, SunIcon } from 'lucide-react';
+import { TrashIcon, BellOffIcon } from 'lucide-react';
 
 /** constants */
-import { LocaleObject, ThemeObject } from '@module-base/constants/config';
-import { BaseLanguage } from '@module-base/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
@@ -30,9 +28,6 @@ import {
     DropdownMenuRadioGroup,
     DropdownMenuRadioItem,
 } from '@module-base/components/dropdown-menu';
-
-/** stores */
-import { useSettingStore } from '@module-base/stores/useSettingStore';
 
 interface MenuSettingItemProps {
     id: string;
@@ -111,66 +106,33 @@ function MenuSettingItem(props: { item: MenuSettingItemProps; step?: number }) {
 }
 
 export function MenuOption() {
-    const theme = useSettingStore((store) => store.data.theme);
-    const locale = useSettingStore((store) => store.data.locale);
-    const settingAction = useSettingStore((store) => store.action);
-
     const items: MenuSettingItemProps[] = [
         {
-            id: 'theme',
-            type: 'sub',
-            className: 'cursor-pointer data-[state=open]:text-main data-[state=open]:[&_svg]:!text-main',
-            title: BaseLanguage.component.label.theme.router,
-            icon: <PaletteIcon className="size-5 text-inherit" />,
+            id: 'Mute',
+            type: 'item',
+            className: 'cursor-pointer hover:text-main hover:[&_svg]:!text-main',
+            title: 'Mute',
+            icon: <BellOffIcon className="size-5 text-inherit" />,
             divide: 'top',
-            value: theme,
-            onChange: (value) => settingAction.changeTheme(value as typeof theme),
-            subMenu: [
-                {
-                    id: 'theme-dark',
-                    className: 'cursor-pointer',
-                    disabled: theme === ThemeObject.dark,
-                    value: ThemeObject.dark,
-                    title: BaseLanguage.component.label.theme.dark,
-                    icon: <MoonStarIcon className="size-5" />,
-                    onClick: () => settingAction.changeTheme(ThemeObject.dark),
-                },
-                {
-                    id: 'theme-light',
-                    className: 'cursor-pointer',
-                    disabled: theme === ThemeObject.light,
-                    value: ThemeObject.light,
-                    title: BaseLanguage.component.label.theme.light,
-                    icon: <SunIcon className="text-warning size-5" />,
-                    onClick: () => settingAction.changeTheme(ThemeObject.light),
-                },
-            ],
+            onClick: () => {},
         },
         {
-            id: 'language',
-            type: 'sub',
-            className: 'cursor-pointer data-[state=open]:text-main data-[state=open]:[&_svg]:!text-main',
-            title: BaseLanguage.component.label.locale.router,
-            icon: <LanguagesIcon className="size-5 text-inherit" />,
-            divide: 'bottom',
-            subMenu: [
-                {
-                    id: 'Language-Vi',
-                    className: 'cursor-pointer',
-                    disabled: locale === LocaleObject.vi,
-                    title: BaseLanguage.component.label.locale.vi,
-                    icon: <span>🇻🇳</span>,
-                    onClick: () => settingAction.changeLocale(LocaleObject.vi),
-                },
-                {
-                    id: 'Language-En',
-                    className: 'cursor-pointer',
-                    disabled: locale === LocaleObject.en,
-                    title: BaseLanguage.component.label.locale.en,
-                    icon: <span>🇬🇧</span>,
-                    onClick: () => settingAction.changeLocale(LocaleObject.en),
-                },
-            ],
+            id: 'block',
+            type: 'item',
+            className: 'cursor-pointer hover:text-main hover:[&_svg]:!text-main',
+            title: 'Block',
+            icon: <TrashIcon className="size-5 text-inherit" />,
+            divide: 'top',
+            onClick: () => {},
+        },
+        {
+            id: 'delete',
+            type: 'item',
+            className: 'cursor-pointer hover:text-danger hover:[&_svg]:!text-danger',
+            title: 'Delete',
+            icon: <TrashIcon className="size-5 text-inherit" />,
+            divide: 'top',
+            onClick: () => {},
         },
     ];
 

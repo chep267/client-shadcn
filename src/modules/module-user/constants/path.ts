@@ -5,7 +5,8 @@
  */
 
 export const UserApiPath = {
-    root: '/user',
+    root: '/app',
     create: '/create',
-    getList: '/users',
+    users: '/users',
+    user: '/user/:id',
 } as const;

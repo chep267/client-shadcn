@@ -38,7 +38,7 @@ const createModuleStructure = (moduleName = 'module-test') => {
     fs.writeFileSync(readmePath, `# ${moduleName}\n\nMô tả module ${moduleName}`);
     console.log(`✅ Đã tạo xong cấu trúc module: ${moduleName}`);
 
-    // 2. Tự động cập nhật tsconfig.json
+    // Tự động cập nhật tsconfig.json
     updateTsConfig(moduleName);
 };
 

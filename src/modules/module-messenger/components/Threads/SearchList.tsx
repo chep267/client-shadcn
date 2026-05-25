@@ -4,35 +4,23 @@
  *
  */
 
-/** libs */
-import * as React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-
-/** constants */
-import { MessengerRouterPath } from '@module-messenger/constants/path';
-
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
 /** hooks */
-import { useGetThreads } from '@module-messenger/hooks/useGetThreads';
+import { useSearchThreads } from '@module-messenger/hooks/useSearchThreads';
+
+/** stores */
+import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';
 
 /** components */
 import { VirtualList } from '@module-base/components/virtual-list';
 import { ThreadItem } from '@module-messenger/components/Threads/ThreadItem';
 
-export function ThreadList() {
-    const navigate = useNavigate();
-    const params = useParams();
-    const { isPending, data } = useGetThreads();
+export function SearchList() {
+    const searchKey = useMessengerStore((store) => store.data.searchKey);
+    const { isPending, data } = useSearchThreads({ searchKey });
     const items = data?.items;
-
-    React.useEffect(() => {
-        if (items && !params.tid) {
-            const firstConversation = items[0];
-            navigate(`${MessengerRouterPath.home}/${firstConversation.tid}`, { replace: true });
-        }
-    }, [items, params.tid]);
 
     return (
         <VirtualList
@@ -45,7 +33,6 @@ export function ThreadList() {
                 <ThreadItem
                     className={cn({
                         'border-t': index > 0,
-                        'bg-main/50!': params.tid === thread.tid,
                     })}
                     data={thread}
                 />

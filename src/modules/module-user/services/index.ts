@@ -15,33 +15,41 @@ class UserServices extends BaseService {
         super(url);
     }
 
-    public create = (data: App.ModuleUser.Api.TypeApi['Create']['Payload']) => {
-        return this.withDelay(
-            this.post<
-                App.ModuleUser.Api.TypeApi['Create']['Response'],
-                App.ModuleUser.Api.TypeApi['Create']['Payload']
-            >(data, {
-                url: UserApiPath.create,
+    public getUser = async (params?: App.ModuleUser.Api.GetUser['Payload']) => {
+        const { uid = '' } = params ?? {};
+        const {
+            data: { data },
+        } = await this.withDelay(
+            this.get<App.ModuleUser.Api.GetUser['Response']>({
+                url: UserApiPath.user.replace(':uid', uid),
             })
         );
+
+        return {
+            data,
+        };
     };
 
-    public getList = (params?: App.ModuleUser.Api.TypeApi['GetList']['Payload']) => {
-        return this.withDelay(
-            this.get<App.ModuleUser.Api.TypeApi['GetList']['Response']>({
-                url: UserApiPath.getList,
-                params,
+    public getUsers = async (params?: App.ModuleUser.Api.GetUsers['Payload']) => {
+        const { searchKey = '', page = 1, skip = 0, limit = 20 } = params ?? {};
+        const {
+            data: { data, metadata },
+        } = await this.withDelay(
+            this.get<App.ModuleUser.Api.GetUsers['Response']>({
+                url: UserApiPath.users,
+                params: {
+                    searchKey,
+                    page,
+                    skip,
+                    limit,
+                },
             })
         );
-    };
 
-    public getOne = (params?: App.ModuleUser.Api.TypeApi['Get']['Payload']) => {
-        return this.withDelay(
-            this.get<App.ModuleUser.Api.TypeApi['Get']['Response']>({
-                url: UserApiPath.getList,
-                params,
-            })
-        );
+        return {
+            data,
+            metadata,
+        };
     };
 }
 

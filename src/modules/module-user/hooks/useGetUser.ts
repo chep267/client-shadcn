@@ -31,8 +31,8 @@ export const createFakeUser = (): App.ModuleUser.Data.TypeUser => {
 
 export function useGetUser(uid: string = '') {
     const { isPending, data } = useQuery({
-        queryKey: [queryKey, { uid }],
-        queryFn: () => userServices.getOne({ uid }),
+        queryKey: [queryKey],
+        queryFn: () => userServices.getUser({ uid }),
         enabled: !!uid,
     });
 

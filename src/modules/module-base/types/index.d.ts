@@ -13,7 +13,7 @@ import * as TypeComponent from '@module-base/types/component.d';
 declare global {
     namespace App.ModuleBase {
         namespace Api {
-            type Response<Data, Metadata = Record<string, any>> = {
+            type Response<Data = unknown, Metadata = Record<string, unknown>> = {
                 message: string;
                 data: Data;
                 metadata: { timestamp: number } & Metadata;

@@ -41,7 +41,7 @@ export function Threads() {
                     <ButtonSearch />
                 </CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-1 flex-col p-0">
+            <CardContent className="relative flex flex-1 flex-col p-0">
                 <ThreadSearch />
                 <ThreadList />
             </CardContent>

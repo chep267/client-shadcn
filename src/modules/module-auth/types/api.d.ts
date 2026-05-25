@@ -7,25 +7,32 @@
 /** types */
 import type { TypeUser } from '@module-user/types';
 
-export interface TypeApi {
-    Signin: {
-        Payload: { email: string; password: string };
-        Response: App.ModuleBase.Api.Response<{ user: TypeUser; token: { exp: number; value: string } }>;
-    };
-    Signout: {
-        Payload: void;
-        Response: App.ModuleBase.Api.Response<null>;
-    };
-    Restart: {
-        Payload: void;
-        Response: App.ModuleBase.Api.Response<{ user: TypeUser; token: { exp: number; value: string } }>;
-    };
-    Register: {
-        Payload: { email: string; password: string };
-        Response: App.ModuleBase.Api.Response<null>;
-    };
-    Recover: {
-        Payload: { email: string };
-        Response: App.ModuleBase.Api.Response<null>;
-    };
+/** api signin */
+export interface Signin {
+    Payload: { email: string; password: string };
+    Response: App.ModuleBase.Api.Response<TypeUser, { token: { exp: number; value: string } }>;
+}
+
+/** api signout */
+export interface Signout {
+    Payload: void;
+    Response: App.ModuleBase.Api.Response<null>;
+}
+
+/** api restart */
+export interface Restart {
+    Payload: void;
+    Response: App.ModuleBase.Api.Response<TypeUser, { token: { exp: number; value: string } }>;
+}
+
+/** api register */
+export interface Register {
+    Payload: { email: string; password: string };
+    Response: App.ModuleBase.Api.Response<null>;
+}
+
+/** api recover */
+export interface Recover {
+    Payload: { email: string };
+    Response: App.ModuleBase.Api.Response<null>;
 }

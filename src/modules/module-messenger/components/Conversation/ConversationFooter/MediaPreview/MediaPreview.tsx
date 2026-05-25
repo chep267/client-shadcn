@@ -47,8 +47,7 @@ export function MediaPreview() {
                     className={cn(
                         'group',
                         'flex items-center justify-center',
-                        'size-full max-h-dvh! min-h-0! max-w-dvw! min-w-0! py-0',
-                        'rounded-none'
+                        'size-full max-h-dvh! min-h-0! max-w-dvw! min-w-0! rounded-none py-0'
                     )}
                     showCloseButton={false}
                 >
@@ -69,11 +68,11 @@ export function MediaPreview() {
                     </DialogClose>
                     <div
                         className={cn(
-                            'flex items-center justify-center',
-                            'size-full max-w-2xl overflow-hidden border-r border-l'
+                            'flex items-center justify-center overflow-hidden',
+                            'size-full max-h-dvh max-w-2xl border-r border-l'
                         )}
                     >
-                        <img src={src} alt="preview" className="size-auto object-cover" />
+                        <img src={src} alt="preview" className="size-auto max-h-dvh object-cover" />
                     </div>
                 </DialogContent>
             </Dialog>

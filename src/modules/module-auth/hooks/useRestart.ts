@@ -33,7 +33,8 @@ export function useRestart() {
     return useMutation({
         mutationFn: authService.restart,
         onSuccess: (response) => {
-            const { user, token } = response.data.data;
+            const user = response.data.data;
+            const { token } = response.data.metadata;
             Cookies.set(AppKey.token, token.value);
             authAction.setData({ user, token: token.value });
         },

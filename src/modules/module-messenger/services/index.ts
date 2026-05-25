@@ -15,10 +15,12 @@ class MessengerService extends BaseService {
         super(url);
     }
 
-    public getThreads = async () => {
+    public getThreads = async (payload: App.ModuleMessenger.Api.TypeApi['GetThreads']['Payload']) => {
         const response = await this.withDelay(
             this.get<App.ModuleMessenger.Api.TypeApi['GetThreads']['Response']>({
                 url: MessengerApiPath.threads,
+                params: payload,
+                data: payload,
             })
         );
         return response.data.data;
@@ -35,7 +37,7 @@ class MessengerService extends BaseService {
     };
 
     public getMessages = async (payload: App.ModuleMessenger.Api.TypeApi['GetMessages']['Payload']) => {
-        const { tid } = payload;
+        const { tid = '' } = payload;
         const response = await this.withDelay(
             this.get<App.ModuleMessenger.Api.TypeApi['GetMessages']['Response']>({
                 url: MessengerApiPath.messages.replace(':tid', tid),
