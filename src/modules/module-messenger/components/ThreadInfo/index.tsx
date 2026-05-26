@@ -24,11 +24,8 @@ import { WavyLoading } from '@module-base/components/animation/wavy-loading';
 
 export function ThreadInfo() {
     const params = useParams();
-    const { data } = useGetThread(params.tid);
-
+    const { data: _ } = useGetThread(params.tid);
     const openInfo = useMessengerStore((store) => store.data.openInfo);
-
-    console.log('data: ', data);
 
     return (
         <Card

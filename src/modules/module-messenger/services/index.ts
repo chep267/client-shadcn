@@ -15,35 +15,24 @@ class MessengerService extends BaseService {
         super(url);
     }
 
-    public getThreads = async (payload: App.ModuleMessenger.Api.TypeApi['GetThreads']['Payload']) => {
+    public getThreads = async (payload?: App.ModuleMessenger.Api.GetThreads['Payload']) => {
         const response = await this.withDelay(
-            this.get<App.ModuleMessenger.Api.TypeApi['GetThreads']['Response']>({
-                url: MessengerApiPath.threads,
-                params: payload,
-                data: payload,
-            })
-        );
-        return response.data.data;
-    };
-
-    public getThread = async (payload: App.ModuleMessenger.Api.TypeApi['GetThread']['Payload']) => {
-        const response = await this.withDelay(
-            this.get<App.ModuleMessenger.Api.TypeApi['GetThread']['Response']>({
+            this.get<App.ModuleMessenger.Api.GetThreads['Response']>({
                 url: MessengerApiPath.threads,
                 params: payload,
             })
         );
-        return response.data.data;
+        return response.data;
     };
 
-    public getMessages = async (payload: App.ModuleMessenger.Api.TypeApi['GetMessages']['Payload']) => {
+    public getMessages = async (payload: App.ModuleMessenger.Api.GetMessages['Payload']) => {
         const { tid = '' } = payload;
         const response = await this.withDelay(
-            this.get<App.ModuleMessenger.Api.TypeApi['GetMessages']['Response']>({
+            this.get<App.ModuleMessenger.Api.GetMessages['Response']>({
                 url: MessengerApiPath.messages.replace(':tid', tid),
             })
         );
-        return response.data.data;
+        return response.data;
     };
 }
 

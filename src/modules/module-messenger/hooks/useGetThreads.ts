@@ -13,18 +13,9 @@ import { MessengerQueryKey } from '@module-messenger/constants/query';
 /** services */
 import { messengerService } from '@module-messenger/services';
 
-/** stores */
-import { useAuthStore } from '@module-auth/stores/useAuthStore';
-
-export function useGetThreads() {
-    const user = useAuthStore((store) => store.data.user);
-    const uid = user?.uid ?? '';
-
-    const { isPending, data } = useQuery({
-        queryKey: [MessengerQueryKey.threads],
-        queryFn: () => messengerService.getThreads({ uid }),
-        enabled: !!uid,
+export function useGetThreads(payload?: App.ModuleMessenger.Api.GetThreads['Payload']) {
+    return useQuery({
+        queryKey: [MessengerQueryKey.threads, payload],
+        queryFn: () => messengerService.getThreads(payload),
     });
-
-    return { isPending, data };
 }

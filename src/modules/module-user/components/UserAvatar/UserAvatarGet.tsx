@@ -25,8 +25,9 @@ interface UserAvatarGetProps extends React.ComponentProps<typeof Avatar> {
 export function UserAvatarGet(props: UserAvatarGetProps) {
     const { uid, className, size, ...otherProps } = props;
     const { isPending, data } = useGetUser(uid);
+    const { data: user } = data ?? {};
 
-    if (isPending || !uid) {
+    if (isPending || !uid || !user) {
         return (
             <Avatar className={cn('relative', className)} size={size} {...otherProps}>
                 <Skeleton className="absolute inset-0 h-full w-full rounded-full" />
@@ -34,5 +35,5 @@ export function UserAvatarGet(props: UserAvatarGetProps) {
         );
     }
 
-    return <UserAvatarNoGet className={className} src={data.photo} size={size} {...otherProps} />;
+    return <UserAvatarNoGet className={className} src={user.photo} size={size} {...otherProps} />;
 }

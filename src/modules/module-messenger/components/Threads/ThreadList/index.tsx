@@ -19,20 +19,20 @@ import { useGetThreads } from '@module-messenger/hooks/useGetThreads';
 
 /** components */
 import { VirtualList } from '@module-base/components/virtual-list';
-import { ThreadItem } from '@module-messenger/components/Threads/ThreadItem';
+import { ThreadItem } from '@module-messenger/components/Threads/ThreadList/ThreadItem';
 
 export function ThreadList() {
     const navigate = useNavigate();
     const params = useParams();
     const { isPending, data } = useGetThreads();
-    const items = data?.items;
+    const { data: threads } = data ?? {};
 
     React.useEffect(() => {
-        if (items && !params.tid) {
-            const firstConversation = items[0];
-            navigate(`${MessengerRouterPath.home}/${firstConversation.tid}`, { replace: true });
+        const fistThread = threads?.[0];
+        if (fistThread && !params.tid) {
+            navigate(`${MessengerRouterPath.home}/${fistThread.tid}`, { replace: true });
         }
-    }, [items, params.tid]);
+    }, [threads, params.tid]);
 
     return (
         <VirtualList
@@ -40,11 +40,10 @@ export function ThreadList() {
             initialSetup={{
                 loading: isPending,
             }}
-            items={items}
-            itemContent={(index, thread) => (
+            items={threads}
+            itemContent={(_index, thread) => (
                 <ThreadItem
-                    className={cn({
-                        'border-t': index > 0,
+                    className={cn('border-b', {
                         'bg-main/50!': params.tid === thread.tid,
                     })}
                     data={thread}

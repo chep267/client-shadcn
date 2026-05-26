@@ -17,24 +17,18 @@ class UserServices extends BaseService {
 
     public getUser = async (params?: App.ModuleUser.Api.GetUser['Payload']) => {
         const { uid = '' } = params ?? {};
-        const {
-            data: { data },
-        } = await this.withDelay(
+        const response = await this.withDelay(
             this.get<App.ModuleUser.Api.GetUser['Response']>({
-                url: UserApiPath.user.replace(':uid', uid),
+                url: UserApiPath.user.replace(':id', uid),
             })
         );
 
-        return {
-            data,
-        };
+        return response.data;
     };
 
     public getUsers = async (params?: App.ModuleUser.Api.GetUsers['Payload']) => {
         const { searchKey = '', page = 1, skip = 0, limit = 20 } = params ?? {};
-        const {
-            data: { data, metadata },
-        } = await this.withDelay(
+        const response = await this.withDelay(
             this.get<App.ModuleUser.Api.GetUsers['Response']>({
                 url: UserApiPath.users,
                 params: {
@@ -46,10 +40,7 @@ class UserServices extends BaseService {
             })
         );
 
-        return {
-            data,
-            metadata,
-        };
+        return response.data;
     };
 }
 

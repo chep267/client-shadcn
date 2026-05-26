@@ -5,20 +5,21 @@
  */
 
 /** types */
-import type { TypeItemIds, TypeItems } from '@module-base/types/data.d';
+import type { TypeItems } from '@module-base/types/data.d';
 import type { TypeThread, TypeMessage } from '@module-messenger/types/data.d';
 
-export interface TypeApi {
-    GetThreads: {
-        Payload: { uid?: string; searchKey?: string; limit?: number };
-        Response: App.ModuleBase.Api.Response<{ itemIds: TypeItemIds; items: TypeItems<TypeThread> }>;
-    };
-    GetThread: {
-        Payload: { tid?: string };
-        Response: App.ModuleBase.Api.Response<TypeThread>;
-    };
-    GetMessages: {
-        Payload: { tid?: string };
-        Response: App.ModuleBase.Api.Response<{ itemIds: TypeItemIds; items: TypeItems<TypeMessage> }>;
-    };
+/** api thread */
+export interface GetThread {
+    Payload: { tid?: string };
+    Response: App.ModuleBase.Api.Response<TypeThread>;
+}
+
+export interface GetThreads {
+    Payload: { searchKey?: string; limit?: number; skip?: number; page?: number };
+    Response: App.ModuleBase.Api.Response<TypeItems<TypeThread>>;
+}
+
+export interface GetMessages {
+    Payload: { tid?: string };
+    Response: App.ModuleBase.Api.Response<TypeItems<TypeMessage>>;
 }

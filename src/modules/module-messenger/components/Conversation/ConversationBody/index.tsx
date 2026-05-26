@@ -21,18 +21,16 @@ import { WavyLoading } from '@module-base/components/animation/wavy-loading';
 import { Message } from '@module-messenger/components/Message';
 
 export function ConversationBody() {
-    const { tid } = useParams();
+    const { id } = useParams();
     const containerRef = React.useRef<HTMLDivElement>(null);
     const isFirstLoadRef = React.useRef(true);
 
-    const {
-        isPending,
-        data: { items },
-    } = useGetMessages(tid);
+    const { isPending, data } = useGetMessages(id);
+    const { data: messages } = data ?? {};
 
     React.useEffect(() => {
         isFirstLoadRef.current = true;
-    }, [tid]);
+    }, [id]);
 
     React.useEffect(() => {
         delay(100).then(() => {
@@ -42,7 +40,7 @@ export function ConversationBody() {
             });
         });
         isFirstLoadRef.current = false;
-    }, [items]);
+    }, [messages]);
 
     return (
         <CardContent className={cn('relative flex-1')}>
@@ -50,7 +48,7 @@ export function ConversationBody() {
                 ref={containerRef}
                 className={cn('absolute inset-0 flex-1 overflow-y-auto', 'scrollbar-custom scrollbar-thin')}
             >
-                {isPending ? <WavyLoading /> : items.map((message) => <Message message={message} />)}
+                {isPending ? <WavyLoading /> : messages?.map((message) => <Message message={message} />)}
             </div>
         </CardContent>
     );

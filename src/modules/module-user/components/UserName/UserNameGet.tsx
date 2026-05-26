@@ -25,8 +25,9 @@ interface UserNameGetProps extends React.ComponentProps<typeof Typography> {
 export function UserNameGet(props: UserNameGetProps) {
     const { uid, className, ...otherProps } = props;
     const { isPending, data } = useGetUser(uid);
+    const { data: user } = data ?? {};
 
-    if (isPending || !uid) {
+    if (isPending || !uid || !user) {
         return (
             <Typography className={cn('relative size-full min-h-5 max-w-20 min-w-10', className)} {...otherProps}>
                 <Skeleton className="absolute inset-0 h-full w-full" />
@@ -34,5 +35,5 @@ export function UserNameGet(props: UserNameGetProps) {
         );
     }
 
-    return <UserNameNoGet {...otherProps} name={data.name} />;
+    return <UserNameNoGet {...otherProps} name={user.name} />;
 }

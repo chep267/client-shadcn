@@ -13,8 +13,8 @@ export function Message({ message, currentUid, authorName = 'User', authorAvatar
     const isMe = message.uid === currentUid;
 
     // Hàm format thời gian nhanh dạng HH:MM
-    const formatTime = (timestamp: number) => {
-        return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const formatTime = (timestamp?: string) => {
+        return new Date(timestamp || '').toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     };
 
     // Hàm render Icon cho các trạng thái tin nhắn
@@ -94,9 +94,9 @@ export function Message({ message, currentUid, authorName = 'User', authorAvatar
                     )}
 
                     {/* 2.c Hiển thị Ảnh đính kèm (Attachments dạng image) */}
-                    {!message.isDeleted && message.type === 'image' && message.attachments.length > 0 && (
+                    {!message.isDeleted && message.type === 'image' && message.attachments?.length && (
                         <div className="my-1 grid grid-cols-1 gap-1 overflow-hidden rounded-lg">
-                            {message.attachments.map((img, i) => (
+                            {message.attachments?.map((img, i) => (
                                 <img
                                     key={i}
                                     src={img.url}
@@ -109,9 +109,9 @@ export function Message({ message, currentUid, authorName = 'User', authorAvatar
                     )}
 
                     {/* 2.d Hiển thị File đính kèm (Attachments dạng document/pdf) */}
-                    {!message.isDeleted && message.type === 'file' && message.attachments.length > 0 && (
+                    {!message.isDeleted && message.type === 'file' && message.attachments?.length && (
                         <div className="my-1 flex flex-col gap-1">
-                            {message.attachments.map((file, i) => (
+                            {message.attachments?.map((file, i) => (
                                 <a
                                     key={i}
                                     href={file.url}
@@ -152,10 +152,10 @@ export function Message({ message, currentUid, authorName = 'User', authorAvatar
                             )}
                         >
                             {Object.keys(message.metadata.reactions).map((emoji) => (
-                                <span key={emoji} title={message.metadata?.reactions[emoji].join(', ')}>
+                                <span key={emoji} title={(message.metadata?.reactions as any)[emoji].join(', ')}>
                                     {emoji}{' '}
                                     <span className="text-muted-foreground font-mono">
-                                        {message.metadata?.reactions[emoji].length}
+                                        {(message.metadata?.reactions as any)[emoji].length}
                                     </span>
                                 </span>
                             ))}

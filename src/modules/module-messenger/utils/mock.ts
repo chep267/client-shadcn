@@ -6,7 +6,7 @@ export function generateMockChat(): App.ModuleMessenger.Data.TypeMessage[] {
     const messages: App.ModuleMessenger.Data.TypeMessage[] = [];
 
     // Khởi tạo mốc thời gian bắt đầu (ví dụ: cách đây 1 tiếng)
-    let currentTimestamp = Date.now() - 60 * 60 * 1000;
+    let currentTimestamp = Date.toString();
 
     const chatScenarios = [
         { type: 'text', content: 'Alo ông ơi, có đó không?' },
@@ -51,7 +51,7 @@ export function generateMockChat(): App.ModuleMessenger.Data.TypeMessage[] {
         }
 
         // Giả lập tính năng Reply: Tin nhắn thứ 7 reply tin nhắn thứ 6 (index 5)
-        let replyTo = null;
+        let replyTo;
         if (index === 6 && messages[5]) {
             replyTo = {
                 mid: messages[5].mid,
@@ -76,6 +76,7 @@ export function generateMockChat(): App.ModuleMessenger.Data.TypeMessage[] {
             updatedAt: currentTimestamp,
             replyTo,
             isDeleted: false,
+            isRevoke: false,
             isPinned: index === 7, // Ghim thử cái file bản final (index 7)
             metadata: index === 8 ? { reactions: { '👍': ['user_02'] } } : undefined, // Thả nhẹ quả emoji ở tin nhắn số 9
         };

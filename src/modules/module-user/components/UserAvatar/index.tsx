@@ -21,9 +21,8 @@ interface UserAvatarProps extends React.ComponentProps<typeof Avatar> {
 export function UserAvatar(props: UserAvatarProps) {
     const { className, uid, src, name } = props;
 
-    if (src) {
-        return <UserAvatarNoGet className={className} src={src} name={name} />;
+    if (!src && !!uid) {
+        return <UserAvatarGet className={className} uid={uid} />;
     }
-
-    return <UserAvatarGet className={className} uid={uid} />;
+    return <UserAvatarNoGet className={className} src={src} name={name} />;
 }

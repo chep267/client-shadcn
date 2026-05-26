@@ -44,6 +44,7 @@ function SingleThread(props: ThreadItemProps) {
         >
             <UserAvatar size="lg" uid={peerId} />
             <UserName className="w-full" uid={peerId} />
+            <ThreadOption />
         </div>
     );
 }

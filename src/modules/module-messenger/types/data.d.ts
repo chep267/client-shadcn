@@ -6,14 +6,19 @@
 
 /** types */
 export type MessageType = 'text' | 'image' | 'video' | 'file' | 'audio' | 'sticker' | 'system';
+
 export type MessageStatus = 'sending' | 'sent' | 'received' | 'seen';
+
 export type TypeMessageAttachment = {
     /** URL của file/ảnh/video trên storage (S3, Cloudinary, etc.) */
     url: string;
+
     /** Tên file gốc (ví dụ: "tai_lieu_hop.pdf") */
     name: string;
+
     /** Kích thước file tính bằng byte */
     size: number;
+
     /** Định dạng file (ví dụ: "image/png", "application/pdf") */
     mimeType: string;
 };
@@ -35,16 +40,16 @@ export type TypeMessage = {
     type: MessageType;
 
     /** Danh sách file/ảnh đính kèm (Mảng rỗng nếu type là 'text') */
-    attachments: TypeMessageAttachment[];
+    attachments?: TypeMessageAttachment[];
 
     /** Trạng thái của tin nhắn (Đồng bộ với status trong lastMessage của Thread) */
     status: MessageStatus;
 
     /** Thời gian tạo tin nhắn (Timestamp) */
-    createdAt: number;
+    createdAt?: string;
 
     /** Thời gian cập nhật tin nhắn (Ví dụ: khi user sửa tin nhắn - Timestamp) */
-    updatedAt: number;
+    updatedAt?: string;
 
     /**
      * Tính năng nâng cao: Phản hồi (Reply) một tin nhắn khác.
@@ -55,13 +60,14 @@ export type TypeMessage = {
         uid: string;
         content: string;
         type: MessageType;
-    } | null;
+    };
 
     /** Trạng thái tin nhắn này đã bị thu hồi (delete for everyone) chưa */
-    isDeleted: boolean;
+    isRevoke?: boolean;
+    isDeleted?: boolean;
 
     /** Trạng thái tin nhắn được ghim trong hội thoại */
-    isPinned: boolean;
+    isPinned?: boolean;
 
     /**
      * Metadata bổ sung cho các trường hợp đặc biệt
@@ -84,18 +90,21 @@ export type TypeThread = {
     uids: string[];
 
     /** Tin nhắn cuối cùng để hiển thị ở danh sách bên ngoài */
-    lastMessage: {
+    lastMessage?: {
         mid: string; // ID tin nhắn
         uid: string; // ID người gửi
         content: string; // Nội dung text hoặc mô tả (ví dụ: "Đã gửi một ảnh")
-        createdAt: number; // Thời gian gửi (timestamp)
+        createdAt: string; // Thời gian gửi
         status: 'sending' | 'sent' | 'received' | 'seen';
     };
 
     /** Số tin nhắn chưa đọc của user hiện tại trong thread này */
-    unreadCount: number;
+    unreadCounts: {
+        uid: string;
+        count: number;
+    }[];
 
     /** Metadata bổ sung (ví dụ: thread có bị mute không, có phải là group không) */
     isGroup: boolean;
-    updatedAt: number;
+    updatedAt: string;
 };

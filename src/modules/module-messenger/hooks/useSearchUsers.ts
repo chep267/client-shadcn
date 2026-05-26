@@ -11,12 +11,12 @@ import { useQuery } from '@tanstack/react-query';
 import { MessengerQueryKey } from '@module-messenger/constants/query';
 
 /** services */
-import { messengerService } from '@module-messenger/services';
+import { userServices } from '@module-user/services';
 
-export function useSearchThreads(payload?: App.ModuleMessenger.Api.GetThreads['Payload']) {
+export function useSearchUsers(payload?: App.ModuleUser.Api.GetUsers['Payload']) {
     return useQuery({
-        queryKey: [MessengerQueryKey.searchThreads, payload],
-        queryFn: () => messengerService.getThreads(payload),
+        queryKey: [MessengerQueryKey.searchUsers, payload],
+        queryFn: () => userServices.getUsers(payload),
         enabled: !!payload?.searchKey,
     });
 }

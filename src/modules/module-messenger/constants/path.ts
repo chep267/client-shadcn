@@ -13,5 +13,5 @@ export const MessengerApiPath = {
 export const MessengerRouterPath = {
     root: '/messenger/*',
     home: '/messenger',
-    conversation: '/:tid',
+    conversation: '/:id',
 } as const;
