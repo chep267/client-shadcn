@@ -15,7 +15,7 @@ import { messengerService } from '@module-messenger/services';
 
 export function useGetMessages(tid: string = '') {
     return useQuery({
-        queryKey: [MessengerQueryKey.messages],
+        queryKey: [MessengerQueryKey.messages, { tid }],
         queryFn: () => messengerService.getMessages({ tid }),
         enabled: !!tid,
     });

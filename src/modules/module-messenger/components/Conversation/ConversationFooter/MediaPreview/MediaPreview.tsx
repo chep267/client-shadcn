@@ -24,15 +24,15 @@ export function MediaPreview() {
     const { tid = '' } = useParams();
     const [src, setSrc] = React.useState<string>();
 
-    const assets = useMessengerStore((store) => store.data.assets.get(tid));
+    const attachments = useMessengerStore((store) => store.data.attachments.get(tid));
     const action = useMessengerStore((store) => store.action);
 
-    if (!assets?.length) return null;
+    if (!attachments?.length) return null;
 
     return (
         <>
             <div className={cn('flex w-full gap-1 border-b p-1', 'scrollbar-custom scrollbar-thin overflow-auto')}>
-                {assets.map((file, index) => (
+                {attachments.map((file, index) => (
                     <Image
                         key={index}
                         file={file}

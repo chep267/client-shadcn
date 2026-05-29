@@ -15,6 +15,6 @@ export interface GetUser {
 }
 
 export interface GetUsers {
-    Payload: { searchKey?: string; limit?: number; skip?: number; page?: number };
+    Payload: { q?: string; limit?: number; skip?: number; page?: number };
     Response: App.ModuleBase.Api.Response<TypeItems<TypeUser>>;
 }

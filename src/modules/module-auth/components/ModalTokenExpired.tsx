@@ -70,7 +70,7 @@ export function ModalTokenExpired() {
     return (
         <ModalConfirm
             open={isTokenExpired}
-            className="[&_button]:data-[slot='alert-dialog-cancel']:hidden"
+            className="[&_button]:data-[slot=alert-dialog-cancel]:hidden"
             title={<FormattedMessage id={AuthLanguage.component.modal.tokenExpired.title} />}
             description={<FormattedMessage id={AuthLanguage.component.modal.tokenExpired.description} />}
             confirmText={<FormattedMessage id={AuthLanguage.component.modal.tokenExpired.confirmText} />}

@@ -15,11 +15,21 @@ export interface GetThread {
 }
 
 export interface GetThreads {
-    Payload: { searchKey?: string; limit?: number; skip?: number; page?: number };
+    Payload: { q?: string; limit?: number; skip?: number; page?: number };
     Response: App.ModuleBase.Api.Response<TypeItems<TypeThread>>;
+}
+
+export interface CreateThread {
+    Payload: { data: Partial<TypeThread> };
+    Response: App.ModuleBase.Api.Response<TypeThread>;
 }
 
 export interface GetMessages {
     Payload: { tid?: string };
     Response: App.ModuleBase.Api.Response<TypeItems<TypeMessage>>;
+}
+
+export interface PostMessage {
+    Payload: { data: TypeMessage };
+    Response: App.ModuleBase.Api.Response<void>;
 }

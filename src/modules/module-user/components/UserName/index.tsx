@@ -20,7 +20,7 @@ interface UserNameProps extends React.ComponentProps<typeof Typography> {
 export function UserName(props: UserNameProps) {
     const { className, uid, name } = props;
 
-    if (!name && !!uid) {
+    if (!name) {
         return <UserNameGet className={className} uid={uid} />;
     }
     return <UserNameNoGet className={className} name={name} />;

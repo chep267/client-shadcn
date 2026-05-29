@@ -13,10 +13,17 @@ import { MessengerQueryKey } from '@module-messenger/constants/query';
 /** services */
 import { userServices } from '@module-user/services';
 
+/** hooks */
+import { useCacheThreads } from '@module-messenger/hooks/useCacheThreads';
+
 export function useSearchUsers(payload?: App.ModuleUser.Api.GetUsers['Payload']) {
-    return useQuery({
+    const { multiAdd, getRecentThreads } = useCacheThreads();
+
+    const { isFetching, data } = useQuery({
         queryKey: [MessengerQueryKey.searchUsers, payload],
         queryFn: () => userServices.getUsers(payload),
-        enabled: !!payload?.searchKey,
+        enabled: !!payload?.q,
     });
+
+    return { isFetching, data: { data: payload?.q ? multiAdd(data?.data) : getRecentThreads() } };
 }

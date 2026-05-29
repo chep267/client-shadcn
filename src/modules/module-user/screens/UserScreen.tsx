@@ -27,7 +27,7 @@ export default function UserScreen() {
             <Card>
                 <CardHeader>
                     <CardTitle className="flex flex-1 items-center gap-4">
-                        <MyAvatar className="h-20 w-20 [&_span]:data-[slot='avatar-fallback']:text-4xl" />
+                        <MyAvatar className="h-20 w-20 [&_span]:data-[slot=avatar-fallback]:text-4xl" />
                         <MyName component="h1" />
                     </CardTitle>
                 </CardHeader>

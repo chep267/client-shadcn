@@ -8,6 +8,9 @@
 import { create } from 'zustand';
 import { produce, enableMapSet } from 'immer';
 
+/** utils */
+import { mapFileToAttachment } from '@module-messenger/utils/messages';
+
 enableMapSet();
 
 const defaultSettingStore: Readonly<App.ModuleMessenger.Store.TypeMessengerStore['data']> = {
@@ -16,10 +19,10 @@ const defaultSettingStore: Readonly<App.ModuleMessenger.Store.TypeMessengerStore
     searchKey: '',
     drafts: new Map(),
     typings: new Map(),
-    assets: new Map(),
+    attachments: new Map(),
 };
 
-export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerStore>((set) => ({
+export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerStore>((set, get) => ({
     data: structuredClone(defaultSettingStore),
     action: {
         toggleInfo: () => {
@@ -33,6 +36,14 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerS
             set(
                 produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
                     store.data.openSearch = !store.data.openSearch;
+                    store.data.searchKey = '';
+                })
+            );
+        },
+        closeSearch: () => {
+            set(
+                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                    store.data.openSearch = false;
                     store.data.searchKey = '';
                 })
             );
@@ -62,12 +73,12 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerS
                 })
             );
         },
-        addAssets: (payload) => {
-            const { tid, assets = [] } = payload;
+        addAttachments: (payload) => {
+            const { tid, attachments = [] } = payload;
             if (!tid) return;
             set(
                 produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
-                    store.data.assets.set(tid, assets);
+                    store.data.attachments.set(tid, attachments);
                 })
             );
         },
@@ -76,9 +87,38 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerS
             if (!tid) return;
             set(
                 produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
-                    store.data.assets.get(tid)?.splice(pos, 1);
+                    store.data.attachments.get(tid)?.splice(pos, 1);
                 })
             );
+        },
+        genMessage: (payload) => {
+            const { tid, uid } = payload;
+            const { drafts, attachments } = get().data;
+            const content = drafts.get(tid) ?? '';
+            const files = attachments.get(tid) ?? [];
+
+            return {
+                tid,
+                uid,
+                mid: '',
+                type: 'text',
+                attachments: files.map(mapFileToAttachment),
+                content: content.trim(),
+                status: 'sending',
+                createdAt: new Date().toISOString(),
+            };
+        },
+        genThread: (payload) => {
+            return {
+                tid: payload.tid ?? '',
+                name: payload.name ?? '',
+                avatar: payload.avatar ?? '',
+                isGroup: payload.isGroup ?? false,
+                uids: payload.uids ?? [],
+                updatedAt: new Date().toISOString(),
+                lastMessage: undefined,
+                unreadCounts: [],
+            };
         },
     },
 }));

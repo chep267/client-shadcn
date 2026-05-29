@@ -16,12 +16,15 @@ import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';
 /** components */
 import { InputSearch } from '@module-base/components/input-search';
 import { ThreadSearchList } from '@module-messenger/components/Threads/ThreadSearchList';
-import { UserSearchList } from '@module-messenger/components/Threads/UserSearchList';
 
 export function ThreadSearch() {
     const inputRef = React.useRef<App.ModuleBase.Component.InputSearchRef>(null);
     const openSearch = useMessengerStore((store) => store.data.openSearch);
     const action = useMessengerStore((store) => store.action);
+
+    React.useEffect(() => {
+        action.closeSearch();
+    }, []);
 
     React.useEffect(() => {
         inputRef.current?.clear?.();
@@ -47,7 +50,6 @@ export function ThreadSearch() {
                 onSearch={action.changeSearchKey}
             />
             <ThreadSearchList />
-            <UserSearchList />
         </div>
     );
 }

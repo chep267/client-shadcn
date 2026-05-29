@@ -15,7 +15,7 @@ class MessengerService extends BaseService {
         super(url);
     }
 
-    public getThreads = async (payload?: App.ModuleMessenger.Api.GetThreads['Payload']) => {
+    getThreads = async (payload?: App.ModuleMessenger.Api.GetThreads['Payload']) => {
         const response = await this.withDelay(
             this.get<App.ModuleMessenger.Api.GetThreads['Response']>({
                 url: MessengerApiPath.threads,
@@ -25,12 +25,37 @@ class MessengerService extends BaseService {
         return response.data;
     };
 
-    public getMessages = async (payload: App.ModuleMessenger.Api.GetMessages['Payload']) => {
+    createThread = async (payload?: App.ModuleMessenger.Api.CreateThread['Payload']) => {
+        const response = await this.withDelay(
+            this.post<App.ModuleMessenger.Api.CreateThread['Response']>(payload, {
+                url: MessengerApiPath.threads,
+            })
+        );
+        return response.data;
+    };
+
+    getMessages = async (payload: App.ModuleMessenger.Api.GetMessages['Payload']) => {
         const { tid = '' } = payload;
         const response = await this.withDelay(
             this.get<App.ModuleMessenger.Api.GetMessages['Response']>({
                 url: MessengerApiPath.messages.replace(':tid', tid),
             })
+        );
+        return response.data;
+    };
+
+    postMessage = async (payload: App.ModuleMessenger.Api.PostMessage['Payload']) => {
+        const { data } = payload;
+        const { tid = '' } = data;
+        const response = await this.withDelay(
+            this.post<App.ModuleMessenger.Api.PostMessage['Response']>(
+                {
+                    data,
+                },
+                {
+                    url: MessengerApiPath.messages.replace(':tid', tid),
+                }
+            )
         );
         return response.data;
     };

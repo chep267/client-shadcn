@@ -54,7 +54,7 @@ export function ModalEditTicket() {
         <ModalConfirm
             open
             loading={isPending}
-            className="[&>div]:data-[slot='alert-dialog-footer']:mt-5"
+            className="[&>div]:data-[slot=alert-dialog-footer]:mt-5"
             title="Edit Ticket"
             confirmText={<FormattedMessage id={BaseLanguage.component.button.confirm} defaultMessage="confirm" />}
             onCancel={onCancel}

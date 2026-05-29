@@ -5,7 +5,7 @@
  */
 
 /** libs */
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 /** utils */
@@ -15,17 +15,28 @@ import { cn } from '@module-base/utils/shadcn';
 import { useGetThread } from '@module-messenger/hooks/useGetThread';
 
 /** stores */
+import { useAuthStore } from '@module-auth/stores/useAuthStore';
 import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';
 
 /** components */
 import { Typography } from '@module-base/components/typography';
 import { Card, CardHeader, CardTitle, CardContent } from '@module-base/components/card';
-import { WavyLoading } from '@module-base/components/animation/wavy-loading';
+import { UserAvatar } from '@module-user/components/UserAvatar';
+import { UserName } from '@module-user/components/UserName';
 
 export function ThreadInfo() {
-    const params = useParams();
-    const { data: _ } = useGetThread(params.tid);
+    const { tid } = useParams();
+    const [searchParams] = useSearchParams();
+    const isDraft = searchParams.get('draft') === 'true';
+
+    const user = useAuthStore((store) => store.data.user);
     const openInfo = useMessengerStore((store) => store.data.openInfo);
+    const {
+        data: { data: thread },
+    } = useGetThread(tid, isDraft);
+
+    const { uids, isGroup } = thread ?? {};
+    const peerId = uids?.find((uid) => uid !== user?.uid);
 
     return (
         <Card
@@ -54,7 +65,15 @@ export function ThreadInfo() {
                 </CardTitle>
             </CardHeader>
             <CardContent className="flex-1 p-0">
-                <WavyLoading />
+                <div className="flex flex-1 flex-col items-center gap-2 p-4">
+                    <UserAvatar
+                        className="size-28 [&>span]:data-[slot=avatar-fallback]:text-4xl"
+                        name={thread?.name}
+                        src={thread?.avatar}
+                        uid={isGroup ? '' : peerId}
+                    />
+                    <UserName name={thread?.name} uid={isGroup ? '' : peerId} />
+                </div>
             </CardContent>
         </Card>
     );

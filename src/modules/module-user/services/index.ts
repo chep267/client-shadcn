@@ -27,12 +27,12 @@ class UserServices extends BaseService {
     };
 
     public getUsers = async (params?: App.ModuleUser.Api.GetUsers['Payload']) => {
-        const { searchKey = '', page = 1, skip = 0, limit = 20 } = params ?? {};
+        const { q = '', page = 1, skip = 0, limit = 20 } = params ?? {};
         const response = await this.withDelay(
             this.get<App.ModuleUser.Api.GetUsers['Response']>({
                 url: UserApiPath.users,
                 params: {
-                    searchKey,
+                    q,
                     page,
                     skip,
                     limit,

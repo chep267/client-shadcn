@@ -17,6 +17,6 @@ export function useSearchThreads(payload?: App.ModuleMessenger.Api.GetThreads['P
     return useQuery({
         queryKey: [MessengerQueryKey.searchThreads, payload],
         queryFn: () => messengerService.getThreads(payload),
-        enabled: !!payload?.searchKey,
+        enabled: !!payload?.q,
     });
 }

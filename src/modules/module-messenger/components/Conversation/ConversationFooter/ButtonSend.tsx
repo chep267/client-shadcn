@@ -5,27 +5,62 @@
  */
 
 /** libs */
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { SendHorizonalIcon, ThumbsUpIcon } from 'lucide-react';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
 /** stores */
+import { useAuthStore } from '@module-auth/stores/useAuthStore';
 import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';
+
+/** hooks */
+import { useCreateThread } from '@module-messenger/hooks/useCreateThread';
+import { usePostMessage } from '@module-messenger/hooks/usePostMessage';
 
 /** components */
 import { Button } from '@module-base/components/button';
+import { mapTidToUid } from '@module-messenger/utils/threads.ts';
 
 export function ButtonSend() {
     const { tid = '' } = useParams();
-
+    const [searchParams] = useSearchParams();
+    const isDraft = searchParams.get('draft') === 'true';
+    const { isPending: isPendingCreate, mutate: createThread } = useCreateThread();
+    const { isPending: isPendingSend, mutate: sendMessage } = usePostMessage();
+    const meId = useAuthStore((store) => store.data.user?.uid ?? '');
     const isTyping = useMessengerStore((store) => {
-        return store.data.typings.get(tid) || store.data.drafts.get(tid) || store.data.assets.get(tid);
+        return store.data.typings.get(tid) || store.data.drafts.get(tid) || store.data.attachments.get(tid);
     });
-    const action = useMessengerStore((store) => store.action);
+
+    const messengerAction = useMessengerStore((store) => store.action);
 
     const Icon = isTyping ? SendHorizonalIcon : ThumbsUpIcon;
+
+    const handSendMessage = () => {
+        if (isDraft) {
+            const partnerId = mapTidToUid(tid);
+            createThread(
+                {
+                    data: messengerAction.genThread({
+                        uids: [meId, partnerId],
+                    }),
+                },
+                {
+                    onSuccess: (response) => {
+                        const { data: thread } = response;
+                        const message = messengerAction.genMessage({ tid: thread.tid, uid: meId });
+                        sendMessage({ data: message });
+                    },
+                }
+            );
+            return;
+        }
+
+        const message = messengerAction.genMessage({ tid, uid: meId });
+        sendMessage({ data: message });
+    };
 
     return (
         <Button
@@ -36,7 +71,8 @@ export function ButtonSend() {
                 'hover:text-main hover:border hover:bg-transparent'
             )}
             aria-label="message-send"
-            onClick={action.toggleInfo}
+            disabled={isPendingCreate || isPendingSend}
+            onClick={handSendMessage}
         >
             <Icon className="size-6" />
         </Button>

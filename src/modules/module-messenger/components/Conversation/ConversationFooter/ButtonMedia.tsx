@@ -32,7 +32,7 @@ export function ButtonMedia() {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if (!files?.length) return;
-        action.addAssets({ tid, assets: Array.from(files) });
+        action.addAttachments({ tid, attachments: Array.from(files) });
     };
 
     return (

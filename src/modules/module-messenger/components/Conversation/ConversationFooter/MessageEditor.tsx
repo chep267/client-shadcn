@@ -21,22 +21,18 @@ export function MessageEditor() {
     const { tid = '' } = useParams();
     const action = useMessengerStore((store) => store.action);
     const editorRef = React.useRef<HTMLTextAreaElement>(null);
-    const threadRef = React.useRef<string>('');
     const [text, setText] = React.useState('');
 
     React.useEffect(() => {
-        // draft the previous conversation
-        action.addDraft({ tid: threadRef.current, draft: text });
-
         // set up the next conversation
         const nextDraft = useMessengerStore.getState().data.drafts.get(tid) ?? '';
         setText(nextDraft);
         editorRef.current?.focus();
-        threadRef.current = tid;
     }, [tid]);
 
     React.useEffect(() => {
         action.addTyping({ tid, typing: text.length > 0 });
+        action.addDraft({ tid, draft: text });
     }, [text]);
 
     return (

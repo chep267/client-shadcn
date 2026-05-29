@@ -7,28 +7,21 @@
 /** libs */
 import { ChevronUpIcon } from 'lucide-react';
 
-/** stores */
-import { useAuthStore } from '@module-auth/stores/useAuthStore';
-
 /** components */
-import { Avatar, AvatarFallback, AvatarImage } from '@module-base/components/avatar';
 import { SidebarMenuButton } from '@module-base/components/sidebar';
 import { DropdownMenuTrigger } from '@module-base/components/dropdown-menu';
+import { MyAvatar } from '@module-user/components/MyAvatar';
+import { MyName } from '@module-user/components/MyName';
 
 export function ItemTrigger() {
-    const user = useAuthStore((store) => store.data.user);
-
     return (
         <DropdownMenuTrigger asChild>
             <SidebarMenuButton
-                className="cursor-pointer group-data-[collapsible=icon]:rounded-full group-data-[collapsible=icon]:!p-0"
+                className="cursor-pointer group-data-[collapsible=icon]:rounded-full group-data-[collapsible=icon]:p-0!"
                 size="lg"
             >
-                <Avatar className="border">
-                    <AvatarImage src={user?.photo ?? undefined} />
-                    <AvatarFallback className="text-xs">{user?.name?.substring(0, 2)?.toUpperCase()}</AvatarFallback>
-                </Avatar>
-                &nbsp;{user?.name}
+                <MyAvatar className="border" />
+                <MyName className="text-sm" />
                 <ChevronUpIcon className="ml-auto" />
             </SidebarMenuButton>
         </DropdownMenuTrigger>

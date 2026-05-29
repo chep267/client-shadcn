@@ -15,7 +15,7 @@ import { userServices } from '@module-user/services';
 
 export function useGetUser(uid: string = '') {
     return useQuery({
-        queryKey: [UserQueryKey.user, uid],
+        queryKey: [UserQueryKey.user, { uid }],
         queryFn: () => userServices.getUser({ uid }),
         enabled: !!uid,
     });

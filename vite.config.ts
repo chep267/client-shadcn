@@ -16,7 +16,7 @@ import { visualizer as pluginVisualizer } from 'rollup-plugin-visualizer';
 /** module path */
 import tsPaths from './tsconfig.app.json' with { type: 'json' };
 
-/** Resolve tsconfig.json paths to alias key */
+/** Resolve tsconfig.json paths to the alias key */
 function resolveAlias() {
     const paths = Object.entries(tsPaths.compilerOptions.paths);
     const alias = {} as Record<string, string>;

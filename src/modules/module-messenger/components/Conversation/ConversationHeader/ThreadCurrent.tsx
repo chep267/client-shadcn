@@ -23,10 +23,11 @@ import { UserName } from '@module-user/components/UserName';
 export function ThreadCurrent() {
     const { tid } = useParams();
     const [searchParams] = useSearchParams();
-    const user = useAuthStore((store) => store.data.user);
-
     const isDraft = searchParams.get('draft') === 'true';
+
+    const user = useAuthStore((store) => store.data.user);
     const { data } = useGetThread(tid, isDraft);
+
     const { data: thread } = data ?? {};
     const { uids = [] } = thread ?? {};
     const peerId = uids.find((uid) => uid !== user?.uid)!;

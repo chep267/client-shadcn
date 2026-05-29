@@ -23,11 +23,13 @@ import { ThreadOption } from '@module-messenger/components/Threads/ThreadOption'
 
 interface ThreadItemProps {
     className?: string;
+    hasOption?: boolean;
+    isDraft?: boolean;
     data: App.ModuleMessenger.Data.TypeThread;
 }
 
 function SingleThread(props: ThreadItemProps) {
-    const { className, data } = props;
+    const { className, data, hasOption = true } = props;
     const user = useAuthStore((store) => store.data.user);
     const { uids } = data;
 
@@ -44,13 +46,13 @@ function SingleThread(props: ThreadItemProps) {
         >
             <UserAvatar size="lg" uid={peerId} />
             <UserName className="w-full" uid={peerId} />
-            <ThreadOption />
+            {hasOption ? <ThreadOption /> : null}
         </div>
     );
 }
 
 function GroupThread(props: ThreadItemProps) {
-    const { className, data } = props;
+    const { className, data, hasOption = true } = props;
 
     return (
         <div
@@ -63,18 +65,23 @@ function GroupThread(props: ThreadItemProps) {
         >
             <UserAvatar size="lg" name={data.name} src={data.avatar} />
             <UserName className="w-full" name={data.name} />
-            <ThreadOption />
+            {hasOption ? <ThreadOption /> : null}
         </div>
     );
 }
 
 export function ThreadItem(props: ThreadItemProps) {
-    const { data } = props;
+    const { data, isDraft } = props;
 
     const Comp = data.isGroup ? GroupThread : SingleThread;
 
     return (
-        <Link to={`${MessengerRouterPath.home}/${data.tid}`} className="overflow-hidden" key={data.tid} replace>
+        <Link
+            to={`${MessengerRouterPath.home}/${data.tid}${isDraft ? '?draft=true' : ''}`}
+            className="overflow-hidden"
+            key={data.tid}
+            replace
+        >
             <Comp {...props} />
         </Link>
     );
