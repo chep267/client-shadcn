@@ -41,17 +41,20 @@ export function ButtonSend() {
     const Icon = isTyping ? SendHorizonalIcon : ThumbsUpIcon;
 
     const handSendMessage = () => {
+        // gen message from cache
         const message = messengerAction.genMessage({ tid, uid: meId });
 
         const onSend = (threadId: string) => {
+            // replace threadId
             sendMessage(
-                { data: message },
+                { data: { ...message, tid: threadId } },
                 {
                     onSuccess: () => {
                         messengerAction.sentMessage({ tid: threadId });
                         if (isDraft) {
                             const path =
                                 MessengerRouterPath.home + MessengerRouterPath.conversation.replace(':tid', threadId);
+                            messengerAction.closeSearch();
                             navigate(path, { replace: true });
                         }
                     },
