@@ -10,12 +10,12 @@ import { useParams } from 'react-router-dom';
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
+/** stores */
+import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';
+
 /** hooks */
 import { useSearchThreads } from '@module-messenger/hooks/useSearchThreads';
 import { useSearchUsers } from '@module-messenger/hooks/useSearchUsers';
-
-/** stores */
-import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';
 
 /** components */
 import { VirtualList } from '@module-base/components/virtual-list';

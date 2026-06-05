@@ -120,5 +120,14 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerS
                 unreadCounts: [],
             };
         },
+        sentMessage: (payload) => {
+            const { tid } = payload;
+            if (!tid) return;
+            set(
+                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                    store.data.drafts.delete(tid);
+                })
+            );
+        },
     },
 }));

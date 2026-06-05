@@ -11,6 +11,7 @@ import * as React from 'react';
 import { CalendarDisplay } from '@module-calendar/constants/config';
 
 /** utils */
+import { cn } from '@module-base/utils/shadcn';
 import { genMatrixCalendarDayJS, reverseMatrix } from '@module-calendar/utils/calendar';
 
 /** stores */
@@ -20,7 +21,6 @@ import { useCalendarStore } from '@module-calendar/stores/useCalendarStore';
 import { TableBase } from '@module-base/components/table-base';
 import { CalendarLabel } from '@module-calendar/components/CalendarTable/CalendarLabel';
 import { CalendarItem } from '@module-calendar/components/CalendarTable/CalendarItem';
-import { cn } from '@module-base/utils/shadcn';
 
 export function CalendarTable() {
     const display = useCalendarStore(({ data }) => data.display);

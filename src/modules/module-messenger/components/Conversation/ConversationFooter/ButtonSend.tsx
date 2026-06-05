@@ -5,11 +5,12 @@
  */
 
 /** libs */
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { SendHorizonalIcon, ThumbsUpIcon } from 'lucide-react';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
+import { mapTidToUid } from '@module-messenger/utils/threads';
 
 /** stores */
 import { useAuthStore } from '@module-auth/stores/useAuthStore';
@@ -21,11 +22,12 @@ import { usePostMessage } from '@module-messenger/hooks/usePostMessage';
 
 /** components */
 import { Button } from '@module-base/components/button';
-import { mapTidToUid } from '@module-messenger/utils/threads.ts';
+import { MessengerRouterPath } from '@module-messenger/constants/path.ts';
 
 export function ButtonSend() {
     const { tid = '' } = useParams();
     const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
     const isDraft = searchParams.get('draft') === 'true';
     const { isPending: isPendingCreate, mutate: createThread } = useCreateThread();
     const { isPending: isPendingSend, mutate: sendMessage } = usePostMessage();
@@ -39,27 +41,44 @@ export function ButtonSend() {
     const Icon = isTyping ? SendHorizonalIcon : ThumbsUpIcon;
 
     const handSendMessage = () => {
-        if (isDraft) {
-            const partnerId = mapTidToUid(tid);
-            createThread(
+        const message = messengerAction.genMessage({ tid, uid: meId });
+
+        const onSend = (threadId: string) => {
+            sendMessage(
+                { data: message },
                 {
-                    data: messengerAction.genThread({
-                        uids: [meId, partnerId],
-                    }),
-                },
-                {
-                    onSuccess: (response) => {
-                        const { data: thread } = response;
-                        const message = messengerAction.genMessage({ tid: thread.tid, uid: meId });
-                        sendMessage({ data: message });
+                    onSuccess: () => {
+                        messengerAction.sentMessage({ tid: threadId });
+                        if (isDraft) {
+                            const path =
+                                MessengerRouterPath.home + MessengerRouterPath.conversation.replace(':tid', threadId);
+                            navigate(path, { replace: true });
+                        }
                     },
                 }
             );
-            return;
+        };
+
+        if (!isDraft) {
+            // send message
+            return onSend(tid);
         }
 
-        const message = messengerAction.genMessage({ tid, uid: meId });
-        sendMessage({ data: message });
+        // create thread & send message
+        const partnerId = mapTidToUid(tid);
+        createThread(
+            {
+                data: messengerAction.genThread({
+                    uids: [meId, partnerId],
+                }),
+            },
+            {
+                onSuccess: (response) => {
+                    const { data: thread } = response;
+                    onSend(thread.tid);
+                },
+            }
+        );
     };
 
     return (

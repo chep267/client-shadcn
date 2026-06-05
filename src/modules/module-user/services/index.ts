@@ -15,8 +15,8 @@ class UserServices extends BaseService {
         super(url);
     }
 
-    public getUser = async (params?: App.ModuleUser.Api.GetUser['Payload']) => {
-        const { uid = '' } = params ?? {};
+    public getUser = async (payload: App.ModuleUser.Api.GetUser['Payload'] = {}) => {
+        const { uid = '' } = payload;
         const response = await this.withDelay(
             this.get<App.ModuleUser.Api.GetUser['Response']>({
                 url: UserApiPath.user.replace(':id', uid),
@@ -26,8 +26,8 @@ class UserServices extends BaseService {
         return response.data;
     };
 
-    public getUsers = async (params?: App.ModuleUser.Api.GetUsers['Payload']) => {
-        const { q = '', page = 1, skip = 0, limit = 20 } = params ?? {};
+    public getUsers = async (payload: App.ModuleUser.Api.GetUsers['Payload'] = {}) => {
+        const { q = '', page = 1, skip = 0, limit = 20 } = payload;
         const response = await this.withDelay(
             this.get<App.ModuleUser.Api.GetUsers['Response']>({
                 url: UserApiPath.users,

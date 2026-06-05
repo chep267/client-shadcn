@@ -15,17 +15,23 @@ class MessengerService extends BaseService {
         super(url);
     }
 
-    getThreads = async (payload?: App.ModuleMessenger.Api.GetThreads['Payload']) => {
+    getThreads = async (payload: App.ModuleMessenger.Api.GetThreads['Payload'] = {}) => {
+        const { q = '', page = 1, skip = 0, limit = 20 } = payload;
         const response = await this.withDelay(
             this.get<App.ModuleMessenger.Api.GetThreads['Response']>({
                 url: MessengerApiPath.threads,
-                params: payload,
+                params: {
+                    q,
+                    page,
+                    skip,
+                    limit,
+                },
             })
         );
         return response.data;
     };
 
-    createThread = async (payload?: App.ModuleMessenger.Api.CreateThread['Payload']) => {
+    createThread = async (payload: App.ModuleMessenger.Api.CreateThread['Payload']) => {
         const response = await this.withDelay(
             this.post<App.ModuleMessenger.Api.CreateThread['Response']>(payload, {
                 url: MessengerApiPath.threads,

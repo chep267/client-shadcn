@@ -43,7 +43,6 @@ class ThreadsCacheManager {
         this.cache.delete(tid);
     };
 
-    // Lấy toàn bộ data dưới dạng mảng để React dễ loop render
     getAll = () => {
         return Array.from(this.cache.values());
     };

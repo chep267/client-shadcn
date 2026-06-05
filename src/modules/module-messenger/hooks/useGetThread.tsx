@@ -10,24 +10,21 @@ import { useQueryClient } from '@tanstack/react-query';
 /** constants */
 import { MessengerQueryKey } from '@module-messenger/constants/query';
 
-/** hooks */
-import { useCacheThreads } from '@module-messenger/hooks/useCacheThreads';
+/** services */
+import { threadsCache } from '@module-messenger/services/cache';
 
 export function useGetThread(tid: string = '', isDraft = false) {
     const queryClient = useQueryClient();
-    const { get } = useCacheThreads();
 
     if (isDraft) {
-        return { data: { data: get(tid) } };
+        return { data: threadsCache.get(tid) };
     }
 
-    const cache = queryClient.getQueryData([
-        MessengerQueryKey.threads,
-    ]) as App.ModuleMessenger.Api.GetThreads['Response'];
+    const cache = queryClient.getQueryData<App.ModuleMessenger.Api.GetThreads['Response']>([MessengerQueryKey.threads]);
 
     const thread = cache?.data.find((thread) => {
         return thread.tid === tid;
     });
 
-    return { data: { data: thread } };
+    return { data: thread };
 }

@@ -18,12 +18,12 @@ import { axiosClient } from '@module-base/apis';
 import { AuthRouterPath } from '@module-auth/constants/path';
 import { AuthLanguage } from '@module-auth/constants/language';
 
-/** hooks */
-import { useRestart } from '@module-auth/hooks/useRestart';
-
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';
 import { useAuthStore } from '@module-auth/stores/useAuthStore';
+
+/** hooks */
+import { useRestart } from '@module-auth/hooks/useRestart';
 
 /** components */
 import { ModalConfirm } from '@module-base/components/modal-base/modal-confirm';

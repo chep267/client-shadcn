@@ -10,11 +10,11 @@ import { useParams, useSearchParams } from 'react-router-dom';
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
-/** hooks */
-import { useGetThread } from '@module-messenger/hooks/useGetThread';
-
 /** stores */
 import { useAuthStore } from '@module-auth/stores/useAuthStore';
+
+/** hooks */
+import { useGetThread } from '@module-messenger/hooks/useGetThread';
 
 /** components */
 import { UserAvatar } from '@module-user/components/UserAvatar';
@@ -26,9 +26,7 @@ export function ThreadCurrent() {
     const isDraft = searchParams.get('draft') === 'true';
 
     const user = useAuthStore((store) => store.data.user);
-    const { data } = useGetThread(tid, isDraft);
-
-    const { data: thread } = data ?? {};
+    const { data: thread } = useGetThread(tid, isDraft);
     const { uids = [] } = thread ?? {};
     const peerId = uids.find((uid) => uid !== user?.uid)!;
 

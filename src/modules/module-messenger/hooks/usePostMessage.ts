@@ -5,40 +5,68 @@
  */
 
 /** libs */
-import { useMutation } from '@tanstack/react-query';
+import { produce } from 'immer';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useIntl } from 'react-intl';
 import { toast } from 'sonner';
 
 /** constants */
-import { AuthLanguage } from '@module-auth/constants/language';
+import { MessengerQueryKey } from '@module-messenger/constants/query';
 
 /** utils */
-import { isClientError } from '@module-base/utils/axios';
+import { genCacheData } from '@module-messenger/utils/messages';
 
 /** services */
 import { messengerService } from '@module-messenger/services';
 
 /** types */
-import type { AxiosError } from 'axios';
+import type { AxiosError, AxiosResponse } from 'axios';
 
 export function usePostMessage() {
+    const queryClient = useQueryClient();
     const { formatMessage } = useIntl();
 
     return useMutation({
         mutationFn: messengerService.postMessage,
-        onSuccess: () => {
-            // toast.success(formatMessage({ id: '', defaultMessage: 'Success' }));
+        onSuccess: (response) => {
+            const { data: message } = response;
+            // update cache messages
+            queryClient.setQueryData(
+                [MessengerQueryKey.messages, { tid: message.tid }],
+                (cache: AxiosResponse<App.ModuleMessenger.Api.GetMessages['Response']>['data']) => {
+                    if (!cache) {
+                        return genCacheData([message]);
+                    }
+                    return produce(cache, (draft) => {
+                        draft.data.push(message);
+                    });
+                }
+            );
+
+            // update cache threads
+            queryClient.setQueryData(
+                [MessengerQueryKey.threads],
+                (cache: AxiosResponse<App.ModuleMessenger.Api.GetThreads['Response']>['data']) => {
+                    if (!cache) {
+                        return genCacheData([]);
+                    }
+                    return produce(cache, (draft) => {
+                        const thread = draft.data.find((item) => item.tid === message.tid);
+                        if (thread) {
+                            thread.lastMessage = {
+                                uid: message.uid,
+                                mid: message.mid,
+                                status: message.status,
+                                createdAt: message.createdAt!,
+                                content: message.content,
+                            };
+                        }
+                    });
+                }
+            );
         },
-        onError: (error: AxiosError) => {
-            let messageIntl: string;
-            switch (true) {
-                case isClientError(error):
-                    messageIntl = AuthLanguage.notify.register.error;
-                    break;
-                default:
-                    messageIntl = AuthLanguage.notify.server.error;
-            }
-            toast.error(formatMessage({ id: messageIntl, defaultMessage: messageIntl }));
+        onError: (_error: AxiosError) => {
+            toast.error(formatMessage({ id: '', defaultMessage: 'Có lỗi xảy ra' }));
         },
     });
 }

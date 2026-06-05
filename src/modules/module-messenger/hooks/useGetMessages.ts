@@ -16,7 +16,13 @@ import { messengerService } from '@module-messenger/services';
 export function useGetMessages(tid: string = '') {
     return useQuery({
         queryKey: [MessengerQueryKey.messages, { tid }],
-        queryFn: () => messengerService.getMessages({ tid }),
+        queryFn: async () => {
+            const response = await messengerService.getMessages({ tid });
+            return {
+                ...response,
+                data: response.data.reverse(),
+            };
+        },
         enabled: !!tid,
     });
 }

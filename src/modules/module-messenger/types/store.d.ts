@@ -26,6 +26,7 @@ type TypeAction = {
     removeAsset: (payload: { tid?: string; pos: number }) => void;
     genMessage: (payload: Pick<TypeMessage, 'tid' | 'uid'>) => TypeMessage;
     genThread: (payload: Partial<TypeThread>) => TypeThread;
+    sentMessage: (payload: { tid: string }) => void;
 };
 export type TypeMessengerStore = {
     data: TypeData;

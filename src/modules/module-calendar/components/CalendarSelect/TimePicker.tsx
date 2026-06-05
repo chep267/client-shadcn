@@ -15,12 +15,12 @@ import { CalendarLanguage } from '@module-calendar/constants/language';
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
-/** hooks */
-import { useIsMobile } from '@module-base/hooks/useMobile';
-
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';
 import { useCalendarStore } from '@module-calendar/stores/useCalendarStore';
+
+/** hooks */
+import { useIsMobile } from '@module-base/hooks/useMobile';
 
 /** components */
 import { Button } from '@module-base/components/button';

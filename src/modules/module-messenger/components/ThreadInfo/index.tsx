@@ -11,12 +11,12 @@ import { FormattedMessage } from 'react-intl';
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
-/** hooks */
-import { useGetThread } from '@module-messenger/hooks/useGetThread';
-
 /** stores */
 import { useAuthStore } from '@module-auth/stores/useAuthStore';
 import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';
+
+/** hooks */
+import { useGetThread } from '@module-messenger/hooks/useGetThread';
 
 /** components */
 import { Typography } from '@module-base/components/typography';
@@ -29,14 +29,12 @@ export function ThreadInfo() {
     const [searchParams] = useSearchParams();
     const isDraft = searchParams.get('draft') === 'true';
 
-    const user = useAuthStore((store) => store.data.user);
+    const meId = useAuthStore((store) => store.data.user?.uid ?? '');
     const openInfo = useMessengerStore((store) => store.data.openInfo);
-    const {
-        data: { data: thread },
-    } = useGetThread(tid, isDraft);
+    const { data: thread } = useGetThread(tid, isDraft);
 
     const { uids, isGroup } = thread ?? {};
-    const peerId = uids?.find((uid) => uid !== user?.uid);
+    const peerId = uids?.find((uid) => uid !== meId);
 
     return (
         <Card

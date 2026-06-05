@@ -13,9 +13,9 @@ import { MessengerQueryKey } from '@module-messenger/constants/query';
 /** services */
 import { messengerService } from '@module-messenger/services';
 
-export function useGetThreads(payload?: App.ModuleMessenger.Api.GetThreads['Payload']) {
+export function useGetThreads() {
     return useQuery({
-        queryKey: [MessengerQueryKey.threads, payload],
-        queryFn: () => messengerService.getThreads(payload),
+        queryKey: [MessengerQueryKey.threads],
+        queryFn: () => messengerService.getThreads(),
     });
 }

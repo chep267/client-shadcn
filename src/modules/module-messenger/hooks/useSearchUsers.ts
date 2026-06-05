@@ -12,18 +12,23 @@ import { MessengerQueryKey } from '@module-messenger/constants/query';
 
 /** services */
 import { userServices } from '@module-user/services';
+import { threadsCache } from '@module-messenger/services/cache';
 
-/** hooks */
-import { useCacheThreads } from '@module-messenger/hooks/useCacheThreads';
+/** stores */
+import { useAuthStore } from '@module-auth/stores/useAuthStore';
 
 export function useSearchUsers(payload?: App.ModuleUser.Api.GetUsers['Payload']) {
-    const { multiAdd, getRecentThreads } = useCacheThreads();
+    const meId = useAuthStore((store) => store.data.user?.uid ?? '');
 
-    const { isFetching, data } = useQuery({
+    return useQuery({
         queryKey: [MessengerQueryKey.searchUsers, payload],
-        queryFn: () => userServices.getUsers(payload),
+        queryFn: async () => {
+            const response = await userServices.getUsers(payload);
+            return {
+                ...response,
+                data: response.data.map((user) => threadsCache.add(user, meId)),
+            };
+        },
         enabled: !!payload?.q,
     });
-
-    return { isFetching, data: { data: payload?.q ? multiAdd(data?.data) : getRecentThreads() } };
 }

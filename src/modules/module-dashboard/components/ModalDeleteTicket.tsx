@@ -12,11 +12,11 @@ import { Trash2Icon } from 'lucide-react';
 /** constants */
 import { BaseLanguage } from '@module-base/constants/language';
 
-/** hooks */
-import { useRemoveTicket } from '@module-dashboard/hooks/useRemoveTicket';
-
 /** stores */
 import { useTicketStore } from '@module-dashboard/stores/useTicketStore';
+
+/** hooks */
+import { useRemoveTicket } from '@module-dashboard/hooks/useRemoveTicket';
 
 /** components */
 import { ModalConfirm } from '@module-base/components/modal-base/modal-confirm';

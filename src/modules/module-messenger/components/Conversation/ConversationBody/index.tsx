@@ -12,6 +12,9 @@ import { useParams, useSearchParams } from 'react-router-dom';
 import { cn } from '@module-base/utils/shadcn';
 import { delay } from '@module-base/utils/delay';
 
+/** stores */
+import { useAuthStore } from '@module-auth/stores/useAuthStore';
+
 /** hooks */
 import { useGetMessages } from '@module-messenger/hooks/useGetMessages';
 
@@ -20,19 +23,20 @@ import { CardContent } from '@module-base/components/card';
 import { Message } from '@module-messenger/components/Message';
 
 export function ConversationBody() {
-    const { id } = useParams();
+    const { tid } = useParams();
     const [searchParams] = useSearchParams();
     const isDraft = searchParams.get('draft') === 'true';
 
     const containerRef = React.useRef<HTMLDivElement>(null);
     const isFirstLoadRef = React.useRef(true);
+    const meId = useAuthStore((store) => store.data.user?.uid ?? '');
 
-    const { data } = useGetMessages(id);
+    const { data } = useGetMessages(isDraft ? '' : tid);
     const { data: messages } = data ?? {};
 
     React.useEffect(() => {
         isFirstLoadRef.current = true;
-    }, [id]);
+    }, [tid]);
 
     React.useEffect(() => {
         delay(100).then(() => {
@@ -56,7 +60,7 @@ export function ConversationBody() {
                     </div>
                 ) : null}
                 {messages?.map((message) => (
-                    <Message message={message} />
+                    <Message key={message.mid} message={message} isMe={message.uid === meId} />
                 ))}
             </div>
         </CardContent>

@@ -32,7 +32,7 @@ export function ThreadOption() {
             }}
         >
             <DropdownMenu modal={false} open={open} onOpenChange={setOpen}>
-                <div className={cn('group-hover/thread:opacity-100', { 'opacity-0': !open })}>
+                <div className={cn('group-hover/thread-item:opacity-100', { 'opacity-0': !open })}>
                     <ButtonOption />
                 </div>
                 <React.Suspense fallback={null}>

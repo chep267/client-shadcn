@@ -18,5 +18,7 @@ export function useGetUser(uid: string = '') {
         queryKey: [UserQueryKey.user, { uid }],
         queryFn: () => userServices.getUser({ uid }),
         enabled: !!uid,
+        staleTime: 1000 * 60 * 5,
+        gcTime: 1000 * 60 * 15,
     });
 }

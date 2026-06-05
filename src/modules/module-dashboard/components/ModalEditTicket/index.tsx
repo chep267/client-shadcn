@@ -11,11 +11,11 @@ import { FormattedMessage } from 'react-intl';
 /** constants */
 import { BaseLanguage } from '@module-base/constants/language';
 
-/** hooks */
-import { useUpdateTicket } from '@module-dashboard/hooks/useUpdateTicket';
-
 /** stores */
 import { useTicketStore } from '@module-dashboard/stores/useTicketStore';
+
+/** hooks */
+import { useUpdateTicket } from '@module-dashboard/hooks/useUpdateTicket';
 
 /** components */
 import { ModalConfirm } from '@module-base/components/modal-base/modal-confirm';

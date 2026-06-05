@@ -16,6 +16,7 @@ import { MessengerQueryKey } from '@module-messenger/constants/query';
 
 /** utils */
 import { isClientError } from '@module-base/utils/axios';
+import { genCacheData } from '@module-messenger/utils/messages';
 
 /** services */
 import { messengerService } from '@module-messenger/services';
@@ -33,9 +34,12 @@ export function useCreateThread() {
             const { data: thread } = response;
             queryClient.setQueryData(
                 [MessengerQueryKey.threads],
-                (cache: AxiosResponse<App.ModuleMessenger.Api.GetThreads['Response']>) => {
+                (cache: AxiosResponse<App.ModuleMessenger.Api.GetThreads['Response']>['data']) => {
+                    if (!cache) {
+                        return genCacheData([thread]);
+                    }
                     return produce(cache, (draft) => {
-                        draft.data.data.push(thread);
+                        draft.data.push(thread);
                     });
                 }
             );

@@ -16,7 +16,10 @@ export interface GetThread {
 
 export interface GetThreads {
     Payload: { q?: string; limit?: number; skip?: number; page?: number };
-    Response: App.ModuleBase.Api.Response<TypeItems<TypeThread>>;
+    Response: App.ModuleBase.Api.Response<
+        TypeItems<TypeThread>,
+        { currentPage: number; currentItems: number; totalPages: number; totalItems: number }
+    >;
 }
 
 export interface CreateThread {
@@ -31,5 +34,5 @@ export interface GetMessages {
 
 export interface PostMessage {
     Payload: { data: TypeMessage };
-    Response: App.ModuleBase.Api.Response<void>;
+    Response: App.ModuleBase.Api.Response<TypeMessage>;
 }

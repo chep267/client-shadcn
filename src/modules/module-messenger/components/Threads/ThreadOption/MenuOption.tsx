@@ -110,7 +110,7 @@ export function MenuOption() {
         {
             id: 'Mute',
             type: 'item',
-            className: 'cursor-pointer hover:text-main hover:[&_svg]:!text-main',
+            className: 'cursor-pointer hover:!text-main hover:[&_svg]:!text-main',
             title: 'Mute',
             icon: <BellOffIcon className="size-5 text-inherit" />,
             divide: 'top',
@@ -119,7 +119,7 @@ export function MenuOption() {
         {
             id: 'block',
             type: 'item',
-            className: 'cursor-pointer hover:text-main hover:[&_svg]:!text-main',
+            className: 'cursor-pointer hover:!text-main hover:[&_svg]:!text-main',
             title: 'Block',
             icon: <TrashIcon className="size-5 text-inherit" />,
             divide: 'top',
@@ -128,7 +128,7 @@ export function MenuOption() {
         {
             id: 'delete',
             type: 'item',
-            className: 'cursor-pointer hover:text-danger hover:[&_svg]:!text-danger',
+            className: 'cursor-pointer hover:!text-danger hover:[&_svg]:!text-danger',
             title: 'Delete',
             icon: <TrashIcon className="size-5 text-inherit" />,
             divide: 'top',

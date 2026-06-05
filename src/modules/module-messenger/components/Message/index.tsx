@@ -3,15 +3,14 @@ import { Avatar, AvatarFallback, AvatarImage } from '@module-base/components/ava
 import { cn } from '@module-base/utils/shadcn';
 
 interface MessageItemProps {
+    isMe?: boolean;
     message: App.ModuleMessenger.Data.TypeMessage;
     currentUid?: string; // ID của user hiện tại đang đăng nhập để phân biệt Trái/Phải
     authorName?: string; // Tên người gửi (pass từ thread hoặc danh sách user)
     authorAvatar?: string; // Link avatar người gửi
 }
 
-export function Message({ message, currentUid, authorName = 'User', authorAvatar }: MessageItemProps) {
-    const isMe = message.uid === currentUid;
-
+export function Message({ isMe, message, currentUid, authorName = 'User', authorAvatar }: MessageItemProps) {
     // Hàm format thời gian nhanh dạng HH:MM
     const formatTime = (timestamp?: string) => {
         return new Date(timestamp || '').toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });

@@ -20,6 +20,7 @@ import { useAuthStore } from '@module-auth/stores/useAuthStore';
 import { UserAvatar } from '@module-user/components/UserAvatar';
 import { UserName } from '@module-user/components/UserName';
 import { ThreadOption } from '@module-messenger/components/Threads/ThreadOption';
+import { FormattedMessage } from 'react-intl';
 
 interface ThreadItemProps {
     className?: string;
@@ -31,21 +32,29 @@ interface ThreadItemProps {
 function SingleThread(props: ThreadItemProps) {
     const { className, data, hasOption = true } = props;
     const user = useAuthStore((store) => store.data.user);
-    const { uids } = data;
+    const { uids, lastMessage } = data;
+    const { uid, content = '' } = lastMessage ?? {};
 
     const peerId = uids.find((uid) => uid !== user?.uid)!;
+    const sender = uid === user?.uid ? <FormattedMessage id="You" defaultMessage="You" /> : '';
 
     return (
         <div
             className={cn(
+                'group/thread-item',
                 'flex w-full items-center',
                 'cursor-pointer gap-2 px-2 py-4',
                 'hover:bg-accent hover:text-accent-foreground',
                 className
             )}
         >
-            <UserAvatar size="lg" uid={peerId} />
-            <UserName className="w-full" uid={peerId} />
+            <UserAvatar className="border" size="lg" uid={peerId} />
+            <div className="flex flex-1 flex-col justify-center overflow-hidden">
+                <UserName className="w-full" uid={peerId} />
+                <span className={cn('text-muted-foreground truncate text-xs', { hidden: !content })}>
+                    {sender}: {content}
+                </span>
+            </div>
             {hasOption ? <ThreadOption /> : null}
         </div>
     );
@@ -57,13 +66,14 @@ function GroupThread(props: ThreadItemProps) {
     return (
         <div
             className={cn(
-                'group/thread flex w-full items-center',
+                'group/thread-item',
+                'flex w-full items-center',
                 'cursor-pointer gap-2 px-2 py-4',
                 'hover:bg-accent hover:text-accent-foreground',
                 className
             )}
         >
-            <UserAvatar size="lg" name={data.name} src={data.avatar} />
+            <UserAvatar className="border" size="lg" name={data.name} src={data.avatar} />
             <UserName className="w-full" name={data.name} />
             {hasOption ? <ThreadOption /> : null}
         </div>
