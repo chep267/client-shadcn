@@ -11,18 +11,20 @@ import { useQuery } from '@tanstack/react-query';
 import { MessengerQueryKey } from '@module-messenger/constants/query';
 
 /** services */
-import { messengerService } from '@module-messenger/services';
+import { messageService } from '@module-messenger/services/message';
 
 export function useGetMessages(tid: string = '') {
     return useQuery({
         queryKey: [MessengerQueryKey.messages, { tid }],
         queryFn: async () => {
-            const response = await messengerService.getMessages({ tid });
+            const response = await messageService.gets({ tid });
             return {
                 ...response,
-                data: response.data.reverse(),
+                data: response.data?.reverse(),
             };
         },
         enabled: !!tid,
+        staleTime: 1000 * 60 * 5,
+        gcTime: 1000 * 60 * 15,
     });
 }

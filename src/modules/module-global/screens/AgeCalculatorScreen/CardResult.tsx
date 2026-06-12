@@ -9,12 +9,12 @@ import * as React from 'react';
 import { intervalToDuration } from 'date-fns';
 
 /** components */
-import { CardFooter } from '@module-base/components/card';
-import { TimeBox } from '@module-dashboard/screens/AgeCalculatorScreen/TimeBox';
-import { WavyLoading } from '@module-base/components/animation/wavy-loading';
+import { CardFooter } from '@module-base/components/card.tsx';
+import { TimeBox } from '@module-global/screens/AgeCalculatorScreen/TimeBox.tsx';
+import { WavyLoading } from '@module-base/components/animation/wavy-loading.tsx';
 
 /** utils */
-import { delay } from '@module-base/utils/delay';
+import { delay } from '@module-base/utils/delay.ts';
 
 /** types */
 import type { Duration } from 'date-fns';

@@ -5,12 +5,15 @@
  */
 
 /** libs */
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import * as React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { SendHorizonalIcon, ThumbsUpIcon } from 'lucide-react';
+
+/** constants */
+import { MessengerRouterPath } from '@module-messenger/constants/path';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
-import { mapTidToUid } from '@module-messenger/utils/threads';
 
 /** stores */
 import { useAuthStore } from '@module-auth/stores/useAuthStore';
@@ -22,66 +25,65 @@ import { usePostMessage } from '@module-messenger/hooks/usePostMessage';
 
 /** components */
 import { Button } from '@module-base/components/button';
-import { MessengerRouterPath } from '@module-messenger/constants/path.ts';
 
 export function ButtonSend() {
     const { tid = '' } = useParams();
-    const [searchParams] = useSearchParams();
     const navigate = useNavigate();
-    const isDraft = searchParams.get('draft') === 'true';
+
     const { isPending: isPendingCreate, mutate: createThread } = useCreateThread();
     const { isPending: isPendingSend, mutate: sendMessage } = usePostMessage();
-    const meId = useAuthStore((store) => store.data.user?.uid ?? '');
-    const isTyping = useMessengerStore((store) => {
-        return store.data.typings.get(tid) || store.data.drafts.get(tid) || store.data.attachments.get(tid);
-    });
-
     const messengerAction = useMessengerStore((store) => store.action);
 
+    const meId = useAuthStore((store) => store.data.user?.id ?? '');
+    const isTyping = useMessengerStore((store) => store.data.drafts.has(tid) || store.data.attachments.has(tid));
+    const isDraft = tid.startsWith('uid.');
     const Icon = isTyping ? SendHorizonalIcon : ThumbsUpIcon;
 
-    const handSendMessage = () => {
-        // gen message from cache
-        const message = messengerAction.genMessage({ tid, uid: meId });
+    const onPostMessage = React.useCallback((message: App.ModuleMessenger.Data.TypeMessage) => {
+        sendMessage(
+            { data: message },
+            {
+                onSuccess: () => {
+                    messengerAction.sentMessage({ tid: message.tid });
+                    if (isDraft) {
+                        const path =
+                            MessengerRouterPath.home + MessengerRouterPath.conversation.replace(':tid', message.tid);
+                        messengerAction.closeSearch();
+                        navigate(path, { replace: true });
+                    }
+                },
+            }
+        );
+    }, []);
 
-        const onSend = (threadId: string) => {
-            // replace threadId
-            sendMessage(
-                { data: { ...message, tid: threadId } },
-                {
-                    onSuccess: () => {
-                        messengerAction.sentMessage({ tid: threadId });
-                        if (isDraft) {
-                            const path =
-                                MessengerRouterPath.home + MessengerRouterPath.conversation.replace(':tid', threadId);
-                            messengerAction.closeSearch();
-                            navigate(path, { replace: true });
-                        }
-                    },
-                }
-            );
-        };
-
-        if (!isDraft) {
-            // send message
-            return onSend(tid);
-        }
-
-        // create thread & send message
-        const partnerId = mapTidToUid(tid);
+    const onCreateThread = React.useCallback((message: App.ModuleMessenger.Data.TypeMessage) => {
         createThread(
             {
                 data: messengerAction.genThread({
-                    uids: [meId, partnerId],
+                    uids: [meId, tid], // tid <=> partner id
                 }),
             },
             {
                 onSuccess: (response) => {
                     const { data: thread } = response;
-                    onSend(thread.tid);
+                    // replace new thread id
+                    onPostMessage({ ...message, tid: thread.id });
                 },
             }
         );
+    }, []);
+
+    const handSendMessage = () => {
+        // gen message from cache
+        const message = messengerAction.genMessage({ tid, uid: meId });
+
+        if (isDraft) {
+            // create thread & send message
+            return onCreateThread(message);
+        }
+
+        // send message
+        return onPostMessage(message);
     };
 
     return (
@@ -93,7 +95,7 @@ export function ButtonSend() {
                 'hover:text-main hover:border hover:bg-transparent'
             )}
             aria-label="message-send"
-            disabled={isPendingCreate || isPendingSend}
+            disabled={!tid || isPendingCreate || isPendingSend}
             onClick={handSendMessage}
         >
             <Icon className="size-6" />

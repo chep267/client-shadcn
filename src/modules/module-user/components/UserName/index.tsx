@@ -13,15 +13,16 @@ import { UserNameGet } from '@module-user/components/UserName/UserNameGet';
 import { UserNameNoGet } from '@module-user/components/UserName/UserNameNoGet';
 
 interface UserNameProps extends React.ComponentProps<typeof Typography> {
+    loading?: boolean;
     uid?: string;
     name?: string;
 }
 
 export function UserName(props: UserNameProps) {
-    const { className, uid, name } = props;
+    const { className, loading, uid, name } = props;
 
     if (!name) {
-        return <UserNameGet className={className} uid={uid} />;
+        return <UserNameGet className={className} uid={uid} loading={loading} />;
     }
     return <UserNameNoGet className={className} name={name} />;
 }

@@ -11,21 +11,22 @@ import { useQuery } from '@tanstack/react-query';
 import { MessengerQueryKey } from '@module-messenger/constants/query';
 
 /** services */
-import { messengerService } from '@module-messenger/services';
-import { threadsCache } from '@module-messenger/services/cache.ts';
+import { threadService } from '@module-messenger/services/thread';
+// import { threadsCache } from '@module-messenger/services/cache';
 
-export function useSearchThreads(payload?: App.ModuleMessenger.Api.GetThreads['Payload']) {
+export function useSearchThreads(payload: App.ModuleMessenger.Api.ThreadControllerAction['Gets']['Payload'] = {}) {
     return useQuery({
         queryKey: [MessengerQueryKey.searchThreads, payload],
         queryFn: () => {
-            if (!payload?.q) {
-                return {
-                    message: '',
-                    data: threadsCache.getRecentThreads(),
-                    metadata: { timestamp: Date.now(), currentPage: 1, totalPages: 1, currentItems: 0, totalItems: 0 },
-                };
-            }
-            return messengerService.getThreads(payload);
+            // if (!payload?.q) {
+            //     return {
+            //         message: '',
+            //         data: threadsCache.getRecentThreads(),
+            //         metadata: { timestamp: Date.now(), currentPage: 1, totalPages: 1, currentItems: 0, totalItems: 0 },
+            //     };
+            // }
+            return threadService.gets(payload);
         },
+        enabled: !!payload?.q,
     });
 }

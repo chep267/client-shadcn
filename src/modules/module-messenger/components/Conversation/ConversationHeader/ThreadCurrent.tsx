@@ -5,7 +5,7 @@
  */
 
 /** libs */
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
@@ -21,28 +21,28 @@ import { UserAvatar } from '@module-user/components/UserAvatar';
 import { UserName } from '@module-user/components/UserName';
 
 export function ThreadCurrent() {
-    const { tid } = useParams();
-    const [searchParams] = useSearchParams();
-    const isDraft = searchParams.get('draft') === 'true';
-
+    const { tid = '' } = useParams();
+    // const isDraft = tid.startsWith('uid.');
     const user = useAuthStore((store) => store.data.user);
-    const { data: thread } = useGetThread(tid, isDraft);
-    const { uids = [] } = thread ?? {};
-    const peerId = uids.find((uid) => uid !== user?.uid)!;
+    const { data } = useGetThread(tid);
+    const { data: thread } = data ?? {};
 
-    if (thread?.isGroup) {
+    const { name, avatar, uids = [], metadata } = thread ?? {};
+    const peerId = uids.find((uid) => uid !== user?.id)!;
+
+    if (metadata?.isGroup) {
         return (
             <div className={cn('flex w-full items-center', 'gap-2 px-2 py-4')}>
-                <UserAvatar size="lg" name={thread?.name} src={thread?.avatar} />
-                <UserName className="w-full" name={thread?.name} />
+                <UserAvatar size="lg" name={name} src={avatar} />
+                <UserName className="w-full" name={name} />
             </div>
         );
     }
 
     return (
         <div className={cn('flex w-full items-center', 'gap-2 px-2 py-4')}>
-            <UserAvatar size="lg" uid={peerId} />
-            <UserName className="w-full" uid={peerId} />
+            <UserAvatar size="lg" uid={peerId} loading={!tid} />
+            <UserName className="w-full" uid={peerId} loading={!tid} />
         </div>
     );
 }

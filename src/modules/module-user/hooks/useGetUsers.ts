@@ -11,11 +11,27 @@ import { useQuery } from '@tanstack/react-query';
 import { UserQueryKey } from '@module-user/constants/query';
 
 /** services */
-import { userServices } from '@module-user/services';
+import { userServices } from '@module-user/services/api';
 
-export function useGetUsers(payload?: App.ModuleUser.Api.GetUsers['Payload']) {
+/** stores */
+import { useUserStore } from '@module-user/stores/useUserStore';
+
+export function useGetUsers(payload: App.ModuleUser.Api.UserControllerAction['Gets']['Payload'] = {}) {
+    const userAction = useUserStore((store) => store.action);
+
     return useQuery({
         queryKey: [UserQueryKey.users, payload],
-        queryFn: () => userServices.getUsers(payload),
+        queryFn: async () => {
+            const response = await userServices.gets(payload);
+            response.data.forEach((user) => userAction.add(user));
+            return response;
+        },
+        select: (response) => {
+            return {
+                list: response.data,
+                map: new Map(response.data.map((user) => [user.id, user])),
+                metadata: response.metadata,
+            };
+        },
     });
 }

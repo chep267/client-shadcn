@@ -5,7 +5,7 @@
  */
 
 /** libs */
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 /** utils */
@@ -25,15 +25,15 @@ import { UserAvatar } from '@module-user/components/UserAvatar';
 import { UserName } from '@module-user/components/UserName';
 
 export function ThreadInfo() {
-    const { tid } = useParams();
-    const [searchParams] = useSearchParams();
-    const isDraft = searchParams.get('draft') === 'true';
+    const { tid = '' } = useParams();
+    // const isDraft = tid.startsWith('uid.');
 
-    const meId = useAuthStore((store) => store.data.user?.uid ?? '');
+    const meId = useAuthStore((store) => store.data.user?.id ?? '');
     const openInfo = useMessengerStore((store) => store.data.openInfo);
-    const { data: thread } = useGetThread(tid, isDraft);
+    const { data } = useGetThread(tid);
+    const { data: thread } = data ?? {};
 
-    const { uids, isGroup } = thread ?? {};
+    const { name, avatar, uids, metadata } = thread ?? {};
     const peerId = uids?.find((uid) => uid !== meId);
 
     return (
@@ -66,11 +66,12 @@ export function ThreadInfo() {
                 <div className="flex flex-1 flex-col items-center gap-2 p-4">
                     <UserAvatar
                         className="size-28 [&>span]:data-[slot=avatar-fallback]:text-4xl"
-                        name={thread?.name}
-                        src={thread?.avatar}
-                        uid={isGroup ? '' : peerId}
+                        name={name}
+                        src={avatar}
+                        uid={metadata?.isGroup ? '' : peerId}
+                        loading={!tid}
                     />
-                    <UserName name={thread?.name} uid={isGroup ? '' : peerId} />
+                    <UserName name={name} uid={metadata?.isGroup ? '' : peerId} loading={!tid} />
                 </div>
             </CardContent>
         </Card>

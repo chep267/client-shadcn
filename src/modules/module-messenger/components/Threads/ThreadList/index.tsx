@@ -17,38 +17,46 @@ import { cn } from '@module-base/utils/shadcn';
 /** hooks */
 import { useGetThreads } from '@module-messenger/hooks/useGetThreads';
 
+/** stores */
+import { useThreadStore } from '@module-messenger/stores/useThreadStore';
+
 /** components */
 import { VirtualList } from '@module-base/components/virtual-list';
 import { ThreadItem } from '@module-messenger/components/Threads/ThreadList/ThreadItem';
 
 export function ThreadList() {
     const navigate = useNavigate();
-    const params = useParams();
-    const { isPending, data } = useGetThreads();
-    const { data: threads } = data ?? {};
+    const { tid = '' } = useParams();
+    const { isPending, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetThreads();
+    const threads = useThreadStore((store) => store.data.list);
 
     React.useEffect(() => {
         const fistThread = threads?.[0];
-        if (fistThread && !params.tid) {
-            navigate(`${MessengerRouterPath.home}/${fistThread.tid}`, { replace: true });
+        if (fistThread && !tid) {
+            navigate(`${MessengerRouterPath.home}/${fistThread.id}`, { replace: true });
         }
-    }, [threads, params.tid]);
+    }, [threads, tid]);
 
     return (
         <VirtualList
             className="max-tablet:[&>div]:scrollbar-hidden"
             initialSetup={{
-                loading: isPending,
+                loading: isPending || isFetchingNextPage,
             }}
             items={threads}
             itemContent={(_index, thread) => (
                 <ThreadItem
                     className={cn('border-b', {
-                        'bg-main/50!': params.tid === thread.tid,
+                        'bg-main/50!': tid === thread.id,
                     })}
                     data={thread}
                 />
             )}
+            endReached={() => {
+                if (hasNextPage && !isFetchingNextPage) {
+                    fetchNextPage().then();
+                }
+            }}
         />
     );
 }

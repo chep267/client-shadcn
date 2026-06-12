@@ -13,27 +13,27 @@ export interface TypeApi {
         Payload: {
             id: TypeTicketData['id'];
         };
-        Response: App.ModuleBase.Api.Response<void>;
+        Response: App.ModuleBase.Api.ApiResponse<void>;
     };
     GetAll: {
         Payload: void;
-        Response: App.ModuleBase.Api.Response<{ itemIds: TypeItemIds; items: TypeItems<TypeTicketData> }>;
+        Response: App.ModuleBase.Api.ApiResponse<{ itemIds: TypeItemIds; items: TypeItems<TypeTicketData> }>;
     };
     Update: {
         Payload: {
             id: TypeTicketData['id'];
             data: { description: TypeTicketData['description']; status: TypeTicketData['status'] };
         };
-        Response: App.ModuleBase.Api.Response<TypeTicketData>;
+        Response: App.ModuleBase.Api.ApiResponse<TypeTicketData>;
     };
     Remove: {
         Payload: {
             id: TypeTicketData['id'];
         };
-        Response: App.ModuleBase.Api.Response<void>;
+        Response: App.ModuleBase.Api.ApiResponse<void>;
     };
     GetStatus: {
         Payload: void;
-        Response: App.ModuleBase.Api.Response<TypeItemIds>;
+        Response: App.ModuleBase.Api.ApiResponse<TypeItemIds>;
     };
 }

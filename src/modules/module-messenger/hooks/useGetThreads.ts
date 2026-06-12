@@ -5,17 +5,34 @@
  */
 
 /** libs */
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 /** constants */
 import { MessengerQueryKey } from '@module-messenger/constants/query';
 
 /** services */
-import { messengerService } from '@module-messenger/services';
+import { threadService } from '@module-messenger/services/thread';
+
+/** stores */
+import { useThreadStore } from '@module-messenger/stores/useThreadStore';
 
 export function useGetThreads() {
-    return useQuery({
+    const threadStoreAction = useThreadStore((store) => store.action);
+
+    return useInfiniteQuery({
         queryKey: [MessengerQueryKey.threads],
-        queryFn: () => messengerService.getThreads(),
+        queryFn: async ({ pageParam = 1 }) => {
+            const response = await threadService.gets({ page: pageParam.toString() });
+            response.data?.forEach(threadStoreAction.add);
+            return response;
+        },
+        getNextPageParam: (lastPage) => {
+            const { currentPage = 1, totalPages = 1 } = lastPage.metadata;
+            return currentPage < totalPages ? currentPage + 1 : undefined;
+        },
+
+        initialPageParam: 1,
+        staleTime: 1000 * 60 * 5,
+        gcTime: 1000 * 60 * 15,
     });
 }

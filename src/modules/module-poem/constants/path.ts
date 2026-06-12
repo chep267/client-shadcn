@@ -7,6 +7,7 @@
 export const PoemApiPath = {
     root: '/app',
     poems: '/poems',
+    poem: '/poems/:pid',
 } as const;
 
 export const PoemRouterPath = {

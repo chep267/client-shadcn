@@ -6,8 +6,10 @@
 
 /** libs */
 import { describe, it, expect } from 'vitest';
-import { render } from '@test/utils/test-utils';
 import { useForm } from 'react-hook-form';
+
+/** utils */
+import { render } from '@tests/utils';
 
 /** components */
 import { FieldEmail } from '@module-auth/components/general/FieldEmail';

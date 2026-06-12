@@ -6,7 +6,7 @@
 
 /** libs */
 import * as React from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
@@ -19,19 +19,18 @@ import { useAuthStore } from '@module-auth/stores/useAuthStore';
 import { useGetMessages } from '@module-messenger/hooks/useGetMessages';
 
 /** components */
+import { WavyLoading } from '@module-base/components/animation/wavy-loading';
 import { CardContent } from '@module-base/components/card';
 import { Message } from '@module-messenger/components/Message';
 
 export function ConversationBody() {
-    const { tid } = useParams();
-    const [searchParams] = useSearchParams();
-    const isDraft = searchParams.get('draft') === 'true';
-
+    const { tid = '' } = useParams();
+    const isDraft = tid.startsWith('uid.');
     const containerRef = React.useRef<HTMLDivElement>(null);
     const isFirstLoadRef = React.useRef(true);
-    const meId = useAuthStore((store) => store.data.user?.uid ?? '');
+    const meId = useAuthStore((store) => store.data.user?.id ?? '');
 
-    const { data } = useGetMessages(isDraft ? '' : tid);
+    const { isFetching, data } = useGetMessages(isDraft ? '' : tid);
     const { data: messages } = data ?? {};
 
     React.useEffect(() => {
@@ -54,13 +53,14 @@ export function ConversationBody() {
                 ref={containerRef}
                 className={cn('absolute inset-0 flex-1 overflow-y-auto', 'scrollbar-custom scrollbar-thin')}
             >
-                {isDraft || !messages?.length ? (
+                {isFetching && <WavyLoading />}
+                {!isFetching && !messages?.length ? (
                     <div className="flex flex-1 items-center justify-center p-10">
                         <span className="text-primary text-sm italic">"Bắt đầu đoạn hội thoại của bạn"</span>
                     </div>
                 ) : null}
                 {messages?.map((message) => (
-                    <Message key={message.mid} message={message} isMe={message.uid === meId} />
+                    <Message key={message.id} message={message} isMe={message.uid === meId} />
                 ))}
             </div>
         </CardContent>

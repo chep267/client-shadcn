@@ -8,9 +8,9 @@
 import { DashboardApiPath } from '@module-dashboard/constants/path';
 
 /** services */
-import { BaseService } from '@module-base/services';
+import { ApiService } from '@module-base/services/api';
 
-class DashboardService extends BaseService {
+class DashboardService extends ApiService {
     constructor(url = DashboardApiPath.root) {
         super(url);
     }

@@ -29,7 +29,7 @@ export const createTableStore = <Data extends App.ModuleBase.Component.TypeTable
             isCheckedAll: false,
             isIndeterminate: false,
             searchKey: '',
-            orderBy: 'id',
+            orderBy: '',
             orderType: OrderType.asc,
             selectedIds: new Set(),
             emptyContent: null,
@@ -152,11 +152,13 @@ export const createTableStore = <Data extends App.ModuleBase.Component.TypeTable
                     }
 
                     // --- STEP 3: Sort ---
-                    result = sortTableData({
-                        items: result,
-                        orderBy,
-                        orderType,
-                    });
+                    if (orderBy) {
+                        result = sortTableData({
+                            items: result,
+                            orderBy,
+                            orderType,
+                        });
+                    }
 
                     // --- STEP 4: Update State with Delay UX ---
                     const duration = performance.now() - timingStart;

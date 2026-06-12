@@ -18,8 +18,8 @@ import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';
 import { Textarea } from '@module-base/components/textarea';
 
 export function MessageEditor() {
-    const editorRef = React.useRef<HTMLTextAreaElement>(null);
     const { tid = '' } = useParams();
+    const editorRef = React.useRef<HTMLTextAreaElement>(null);
     const action = useMessengerStore((store) => store.action);
     const hasDraft = useMessengerStore((store) => store.data.drafts.has(tid));
     const [text, setText] = React.useState('');
@@ -39,13 +39,13 @@ export function MessageEditor() {
     }, [hasDraft]);
 
     React.useEffect(() => {
-        action.addTyping({ tid, typing: text.length > 0 });
         action.addDraft({ tid, draft: text });
     }, [text]);
 
     return (
         <Textarea
             ref={editorRef}
+            disabled={!tid}
             autoFocus
             autoComplete="off"
             autoCorrect="off"

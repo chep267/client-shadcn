@@ -8,28 +8,28 @@
 import { UserApiPath } from '@module-user/constants/path';
 
 /** services */
-import { BaseService } from '@module-base/services';
+import { ApiService } from '@module-base/services/api';
 
-class UserServices extends BaseService {
+class UserServices extends ApiService {
     constructor(url = UserApiPath.root) {
         super(url);
     }
 
-    public getUser = async (payload: App.ModuleUser.Api.GetUser['Payload'] = {}) => {
+    getOne = async (payload: App.ModuleUser.Api.UserControllerAction['Get']['Payload']) => {
         const { uid = '' } = payload;
         const response = await this.withDelay(
-            this.get<App.ModuleUser.Api.GetUser['Response']>({
-                url: UserApiPath.user.replace(':id', uid),
+            this.get<App.ModuleUser.Api.UserControllerAction['Get']['Response']>({
+                url: UserApiPath.user.replace(':uid', uid),
             })
         );
 
         return response.data;
     };
 
-    public getUsers = async (payload: App.ModuleUser.Api.GetUsers['Payload'] = {}) => {
-        const { q = '', page = 1, skip = 0, limit = 20 } = payload;
+    gets = async (payload: App.ModuleUser.Api.UserControllerAction['Gets']['Payload']) => {
+        const { q = '', page = '1', skip = '0', limit = '20' } = payload;
         const response = await this.withDelay(
-            this.get<App.ModuleUser.Api.GetUsers['Response']>({
+            this.get<App.ModuleUser.Api.UserControllerAction['Gets']['Response']>({
                 url: UserApiPath.users,
                 params: {
                     q,

@@ -15,45 +15,46 @@ import { AuthLanguage } from '@module-auth/constants/language';
 import { MessengerQueryKey } from '@module-messenger/constants/query';
 
 /** utils */
-import { isClientError } from '@module-base/utils/axios';
 import { genCacheData } from '@module-messenger/utils/messages';
 
 /** services */
-import { messengerService } from '@module-messenger/services';
+import { threadService } from '@module-messenger/services/thread';
 
 /** types */
-import type { AxiosError, AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
 
 export function useCreateThread() {
     const queryClient = useQueryClient();
     const { formatMessage } = useIntl();
 
     return useMutation({
-        mutationFn: messengerService.createThread,
+        mutationFn: threadService.create,
         onSuccess: (response) => {
             const { data: thread } = response;
+            if (!thread) {
+                return;
+            }
             queryClient.setQueryData(
                 [MessengerQueryKey.threads],
-                (cache: AxiosResponse<App.ModuleMessenger.Api.GetThreads['Response']>['data']) => {
+                (cache: AxiosResponse<App.ModuleMessenger.Api.ThreadControllerAction['Gets']['Response']>['data']) => {
                     if (!cache) {
                         return genCacheData([thread]);
                     }
                     return produce(cache, (draft) => {
                         draft.data.push(thread);
+                        draft.metadata.currentItems++;
+                        draft.metadata.totalItems++;
                     });
                 }
             );
         },
-        onError: (error: AxiosError) => {
-            let messageIntl: string;
-            switch (true) {
-                case isClientError(error):
-                    messageIntl = AuthLanguage.notify.register.error;
-                    break;
-                default:
-                    messageIntl = AuthLanguage.notify.server.error;
-            }
-            toast.error(formatMessage({ id: messageIntl, defaultMessage: messageIntl }));
+        onError: () => {
+            toast.error(
+                formatMessage({
+                    id: AuthLanguage.notify.server.error,
+                    defaultMessage: AuthLanguage.notify.server.error,
+                })
+            );
         },
     });
 }

@@ -13,16 +13,17 @@ import { UserAvatarNoGet } from '@module-user/components/UserAvatar/UserAvatarNo
 import { UserAvatarGet } from '@module-user/components/UserAvatar/UserAvatarGet';
 
 interface UserAvatarProps extends React.ComponentProps<typeof Avatar> {
+    loading?: boolean;
     uid?: string;
     src?: string;
     name?: string;
 }
 
 export function UserAvatar(props: UserAvatarProps) {
-    const { className, uid, src, name } = props;
+    const { className, loading, uid, src, name } = props;
 
     if (!src) {
-        return <UserAvatarGet className={className} uid={uid} />;
+        return <UserAvatarGet className={className} uid={uid} loading={loading} />;
     }
     return <UserAvatarNoGet className={className} src={src} name={name} />;
 }

@@ -19,15 +19,16 @@ import { Avatar } from '@module-base/components/avatar';
 import { UserAvatarNoGet } from '@module-user/components/UserAvatar/UserAvatarNoGet';
 
 interface UserAvatarGetProps extends React.ComponentProps<typeof Avatar> {
+    loading?: boolean;
     uid?: string;
 }
 
 export function UserAvatarGet(props: UserAvatarGetProps) {
-    const { uid, className, size, ...otherProps } = props;
+    const { uid, className, loading, size, ...otherProps } = props;
     const { isFetching, data } = useGetUser(uid);
     const { data: user } = data ?? {};
 
-    if (isFetching) {
+    if (loading || isFetching) {
         return (
             <Avatar className={cn('relative', className)} size={size} {...otherProps}>
                 <Skeleton className="absolute inset-0 h-full w-full rounded-full" />

@@ -4,21 +4,21 @@
  *
  */
 
-export const mapFileToAttachment = (file: File): App.ModuleMessenger.Data.TypeMessageAttachment => ({
-    name: file.name,
-    mimeType: file.type,
-    size: file.size,
+export const mapFileToAttachment = (
+    file: File
+): Omit<App.ModuleMessenger.Data.TypeAttachment, 'id' | 'createdAt' | 'updatedAt'> => ({
+    uid: '',
+    fileName: file.name,
+    fileType: file.type,
+    fileSize: file.size,
     url: URL.createObjectURL(file),
 });
 
-export const genCacheData = <Data = unknown>(
-    data: App.ModuleBase.Data.TypeItems<Data>
-): App.ModuleBase.Api.Response<App.ModuleBase.Data.TypeItems<Data>> => {
+export const genCacheData = <Data = unknown>(data: Data): App.ModuleBase.Api.ApiResponse<Data> => {
     return {
         message: 'OK',
-        data: data,
+        data,
         metadata: {
-            timestamp: Date.now(),
             currentPage: 1,
             totalPages: 1,
             currentItems: 1,

@@ -14,7 +14,7 @@ import { DashboardRouterPath } from '@module-dashboard/constants/path';
 /** screens */
 const NotFoundScreen = React.lazy(() => import('@module-base/screens/NotFoundScreen'));
 const DashboardScreen = React.lazy(() => import('@module-dashboard/screens/DashboardScreen'));
-const AgeCalculatorScreen = React.lazy(() => import('@module-dashboard/screens/AgeCalculatorScreen'));
+const AgeCalculatorScreen = React.lazy(() => import('@module-global/screens/AgeCalculatorScreen'));
 
 export default function DashboardRouter() {
     return (

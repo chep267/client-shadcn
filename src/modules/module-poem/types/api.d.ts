@@ -5,12 +5,18 @@
  */
 
 /** types */
-import type { TypeItemIds, TypeItems } from '@module-base/types/data.d';
+import type { ApiResponse, SearchParam, ApiSearchResponse } from '@module-base/types/api.d';
 import type { TypePoem } from '@module-poem/types/data.d';
 
-export interface TypeApi {
-    GetPoems: {
-        Payload: void;
-        Response: App.ModuleBase.Api.Response<{ itemIds: TypeItemIds; items: TypeItems<TypePoem> }>;
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/** api poem */
+export interface PoemControllerAction {
+    Get: {
+        Payload: { pid: string };
+        Response: ApiResponse<TypePoem>;
+    };
+    Gets: {
+        Payload: SearchParam;
+        Response: ApiSearchResponse<TypePoem[]>;
     };
 }

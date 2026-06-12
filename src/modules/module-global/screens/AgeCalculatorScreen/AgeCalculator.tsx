@@ -10,11 +10,11 @@ import { Clock } from 'lucide-react';
 import { format } from 'date-fns';
 
 /** components */
-import { Input } from '@module-base/components/input';
-import { Field, FieldLabel, FieldGroup } from '@module-base/components/field';
-import { DatePicker } from '@module-base/components/date-picker';
-import { Card, CardContent, CardHeader, CardTitle } from '@module-base/components/card';
-import { CardResult } from '@module-dashboard/screens/AgeCalculatorScreen/CardResult';
+import { Input } from '@module-base/components/input.tsx';
+import { Field, FieldLabel, FieldGroup } from '@module-base/components/field.tsx';
+import { DatePicker } from '@module-base/components/date-picker.tsx';
+import { Card, CardContent, CardHeader, CardTitle } from '@module-base/components/card.tsx';
+import { CardResult } from '@module-global/screens/AgeCalculatorScreen/CardResult.tsx';
 
 export function AgeCalculator() {
     const [birthDate, setBirthDate] = React.useState<Date | undefined>();

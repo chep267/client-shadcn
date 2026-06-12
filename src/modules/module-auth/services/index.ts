@@ -8,9 +8,9 @@
 import { AuthApiPath } from '@module-auth/constants/path';
 
 /** services */
-import { BaseService } from '@module-base/services';
+import { ApiService } from '@module-base/services/api';
 
-class AuthService extends BaseService {
+class AuthService extends ApiService {
     constructor(url = AuthApiPath.root) {
         super(url);
     }

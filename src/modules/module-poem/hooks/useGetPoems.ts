@@ -13,10 +13,10 @@ import { PoemQueryKey } from '@module-poem/constants/query';
 /** services */
 import { poemService } from '@module-poem/services';
 
-export function useGetPoems() {
+export function useGetPoems(payload: App.ModulePoem.Api.PoemControllerAction['Gets']['Payload'] = {}) {
     const { isPending, data } = useQuery({
-        queryKey: [PoemQueryKey.poems],
-        queryFn: poemService.getPoems,
+        queryKey: [PoemQueryKey.poems, payload],
+        queryFn: () => poemService.gets(payload),
     });
 
     return { isPending, data };

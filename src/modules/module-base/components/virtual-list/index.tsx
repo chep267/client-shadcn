@@ -30,7 +30,7 @@ export function VirtualList<Data extends App.ModuleBase.Component.TypeTableData>
         delayLoading = AppTimer.searching,
         dataKeyForCheckbox = 'id',
         searchKey = '',
-        orderBy = dataKeyForCheckbox,
+        orderBy = '',
         orderType = OrderType.asc,
         filters,
         searchableKeys,

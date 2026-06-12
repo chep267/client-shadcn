@@ -17,7 +17,7 @@ import { MessengerQueryKey } from '@module-messenger/constants/query';
 import { genCacheData } from '@module-messenger/utils/messages';
 
 /** services */
-import { messengerService } from '@module-messenger/services';
+import { messageService } from '@module-messenger/services/message';
 
 /** types */
 import type { AxiosError, AxiosResponse } from 'axios';
@@ -27,18 +27,20 @@ export function usePostMessage() {
     const { formatMessage } = useIntl();
 
     return useMutation({
-        mutationFn: messengerService.postMessage,
+        mutationFn: messageService.create,
         onSuccess: (response) => {
             const { data: message } = response;
             // update cache messages
             queryClient.setQueryData(
-                [MessengerQueryKey.messages, { tid: message.tid }],
-                (cache: AxiosResponse<App.ModuleMessenger.Api.GetMessages['Response']>['data']) => {
+                [MessengerQueryKey.messages, { id: message.id }],
+                (cache: AxiosResponse<App.ModuleMessenger.Api.MessageControllerAction['Gets']['Response']>['data']) => {
                     if (!cache) {
                         return genCacheData([message]);
                     }
                     return produce(cache, (draft) => {
                         draft.data.push(message);
+                        draft.metadata.currentItems++;
+                        draft.metadata.totalItems++;
                     });
                 }
             );
@@ -46,20 +48,14 @@ export function usePostMessage() {
             // update cache threads
             queryClient.setQueryData(
                 [MessengerQueryKey.threads],
-                (cache: AxiosResponse<App.ModuleMessenger.Api.GetThreads['Response']>['data']) => {
+                (cache: AxiosResponse<App.ModuleMessenger.Api.ThreadControllerAction['Gets']['Response']>['data']) => {
                     if (!cache) {
                         return genCacheData([]);
                     }
                     return produce(cache, (draft) => {
-                        const thread = draft.data.find((item) => item.tid === message.tid);
+                        const thread = draft.data.find((item) => item.id === message.id);
                         if (thread) {
-                            thread.lastMessage = {
-                                uid: message.uid,
-                                mid: message.mid,
-                                status: message.status,
-                                createdAt: message.createdAt!,
-                                content: message.content,
-                            };
+                            thread.metadata.lastMessageId = message.id;
                         }
                     });
                 }

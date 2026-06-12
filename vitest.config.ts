@@ -17,7 +17,7 @@ export default mergeConfig(
         test: {
             globals: true,
             environment: 'jsdom',
-            setupFiles: ['./test/vitest.setup.ts'],
+            setupFiles: ['./tests/vitest.setup.ts'],
             alias: { '@/': new URL('./src', import.meta.url).pathname },
         },
     })

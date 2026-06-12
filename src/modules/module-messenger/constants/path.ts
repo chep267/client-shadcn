@@ -7,6 +7,7 @@
 export const MessengerApiPath = {
     root: '/app',
     threads: '/threads',
+    thread: '/threads/:tid',
     messages: '/threads/:tid/messages',
     message: 'messages/:mid',
 } as const;

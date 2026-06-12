@@ -5,16 +5,30 @@
  */
 
 /** types */
-import type { TypeItems } from '@module-base/types/data.d';
+import type { ApiResponse, SearchParam, ApiSearchResponse } from '@module-base/types/api.d';
 import type { TypeUser } from '@module-user/types/data.d';
 
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** api user */
-export interface GetUser {
-    Payload: { uid?: string };
-    Response: App.ModuleBase.Api.Response<TypeUser>;
-}
-
-export interface GetUsers {
-    Payload: { q?: string; limit?: number; skip?: number; page?: number };
-    Response: App.ModuleBase.Api.Response<TypeItems<TypeUser>>;
+export interface UserControllerAction {
+    Get: {
+        Payload: { uid: string };
+        Response: ApiResponse<TypeUser>;
+    };
+    Gets: {
+        Payload: SearchParam;
+        Response: ApiSearchResponse<TypeUser[]>;
+    };
+    Create: {
+        Payload: { data: TypeUser };
+        Response: ApiResponse<TypeUser>;
+    };
+    Update: {
+        Request: Omit<Request, 'params' | 'body'> & { params: { uid: string }; body: { data: Partial<TypeUser> } };
+        Response: ApiResponse<TypeUser | null>;
+    };
+    Remove: {
+        Request: Omit<Request, 'params'> & { params: { uid: string } };
+        Response: ApiResponse<boolean>;
+    };
 }

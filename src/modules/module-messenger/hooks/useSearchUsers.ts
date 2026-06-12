@@ -11,23 +11,20 @@ import { useQuery } from '@tanstack/react-query';
 import { MessengerQueryKey } from '@module-messenger/constants/query';
 
 /** services */
-import { userServices } from '@module-user/services';
-import { threadsCache } from '@module-messenger/services/cache';
+import { userServices } from '@module-user/services/api';
 
 /** stores */
-import { useAuthStore } from '@module-auth/stores/useAuthStore';
+import { useUserStore } from '@module-user/stores/useUserStore';
 
-export function useSearchUsers(payload?: App.ModuleUser.Api.GetUsers['Payload']) {
-    const meId = useAuthStore((store) => store.data.user?.uid ?? '');
+export function useSearchUsers(payload: App.ModuleUser.Api.UserControllerAction['Gets']['Payload'] = {}) {
+    const userStoreAction = useUserStore((store) => store.action);
 
     return useQuery({
         queryKey: [MessengerQueryKey.searchUsers, payload],
         queryFn: async () => {
-            const response = await userServices.getUsers(payload);
-            return {
-                ...response,
-                data: response.data.map((user) => threadsCache.add(user, meId)),
-            };
+            const response = await userServices.gets(payload);
+            response.data?.forEach(userStoreAction.add);
+            return response;
         },
         enabled: !!payload?.q,
     });

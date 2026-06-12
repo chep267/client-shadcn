@@ -8,17 +8,34 @@
 import { PoemApiPath } from '@module-poem/constants/path';
 
 /** services */
-import { BaseService } from '@module-base/services';
+import { ApiService } from '@module-base/services/api';
 
-class PoemService extends BaseService {
+class PoemService extends ApiService {
     constructor(url = PoemApiPath.root) {
         super(url);
     }
 
-    public getPoems = async () => {
+    getOne = async (payload: App.ModulePoem.Api.PoemControllerAction['Get']['Payload']) => {
+        const { pid } = payload;
         const response = await this.withDelay(
-            this.get<App.ModulePoem.Api.TypeApi['GetPoems']['Response']>({
+            this.get<App.ModulePoem.Api.PoemControllerAction['Get']['Response']>({
+                url: `${PoemApiPath.poem}/${pid}`,
+            })
+        );
+        return response.data;
+    };
+
+    gets = async (payload: App.ModulePoem.Api.PoemControllerAction['Gets']['Payload']) => {
+        const { q = '', page = '1', skip = '0', limit = '20' } = payload;
+        const response = await this.withDelay(
+            this.get<App.ModulePoem.Api.PoemControllerAction['Gets']['Response']>({
                 url: PoemApiPath.poems,
+                params: {
+                    q,
+                    page,
+                    skip,
+                    limit,
+                },
             })
         );
         return response.data.data;

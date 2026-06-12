@@ -11,6 +11,8 @@ interface MessageItemProps {
 }
 
 export function Message({ isMe, message, currentUid, authorName = 'User', authorAvatar }: MessageItemProps) {
+    const { metadata } = message;
+
     // Hàm format thời gian nhanh dạng HH:MM
     const formatTime = (timestamp?: string) => {
         return new Date(timestamp || '').toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -51,7 +53,7 @@ export function Message({ isMe, message, currentUid, authorName = 'User', author
                 {!isMe && <span className="text-muted-foreground px-1 text-xs">{authorName}</span>}
 
                 {/* Trạng thái được ghim (Pinned) */}
-                {message.isPinned && (
+                {metadata.isPinned && (
                     <div className="text-muted-foreground flex items-center gap-1 px-1 text-[10px]">
                         <PinIcon className="text-primary fill-primary/20 h-3 w-3 rotate-45" />
                         <span>Đã ghim</span>
@@ -68,7 +70,7 @@ export function Message({ isMe, message, currentUid, authorName = 'User', author
                     )}
                 >
                     {/* 2.a Khung Reply (Nếu có) */}
-                    {message.replyTo && (
+                    {metadata.replyTo && (
                         <div
                             className={cn(
                                 'flex flex-col gap-0.5 rounded-lg border-l-4 bg-black/5 p-2 text-xs dark:bg-white/5',
@@ -77,14 +79,14 @@ export function Message({ isMe, message, currentUid, authorName = 'User', author
                         >
                             <span className="flex items-center gap-1 text-[11px] font-semibold">
                                 <ReplyIcon className="h-3 w-3" />
-                                {message.replyTo.uid === currentUid ? 'Chính mình' : 'Đối phương'}
+                                {metadata.replyTo === currentUid ? 'Chính mình' : 'Đối phương'}
                             </span>
-                            <span className="max-w-xs truncate opacity-80">{message.replyTo.content}</span>
+                            <span className="max-w-xs truncate opacity-80">{metadata.replyTo}</span>
                         </div>
                     )}
 
                     {/* 2.b Nội dung Text / Thu hồi */}
-                    {message.isDeleted ? (
+                    {metadata.isDeleted ? (
                         <span className="text-xs italic opacity-60">Tin nhắn đã bị thu hồi</span>
                     ) : (
                         message.type === 'text' && (
@@ -93,13 +95,13 @@ export function Message({ isMe, message, currentUid, authorName = 'User', author
                     )}
 
                     {/* 2.c Hiển thị Ảnh đính kèm (Attachments dạng image) */}
-                    {!message.isDeleted && message.type === 'image' && message.attachments?.length && (
+                    {!metadata.isDeleted && message.type === 'image' && message.attachments?.length && (
                         <div className="my-1 grid grid-cols-1 gap-1 overflow-hidden rounded-lg">
                             {message.attachments?.map((img, i) => (
                                 <img
                                     key={i}
                                     src={img.url}
-                                    alt={img.name}
+                                    alt={img.fileName}
                                     className="max-h-60 w-full cursor-pointer rounded-md object-cover transition-opacity hover:opacity-95"
                                 />
                             ))}
@@ -108,7 +110,7 @@ export function Message({ isMe, message, currentUid, authorName = 'User', author
                     )}
 
                     {/* 2.d Hiển thị File đính kèm (Attachments dạng document/pdf) */}
-                    {!message.isDeleted && message.type === 'file' && message.attachments?.length && (
+                    {!metadata.isDeleted && message.type === 'file' && message.attachments?.length && (
                         <div className="my-1 flex flex-col gap-1">
                             {message.attachments?.map((file, i) => (
                                 <a
@@ -132,9 +134,9 @@ export function Message({ isMe, message, currentUid, authorName = 'User', author
                                         <FileIcon className="h-4 w-4" />
                                     </div>
                                     <div className="min-w-0 flex-1">
-                                        <p className="truncate font-semibold">{file.name}</p>
+                                        <p className="truncate font-semibold">{file.fileName}</p>
                                         <p className="text-[10px] opacity-60">
-                                            {(file.size / 1024 / 1024).toFixed(2)} MB
+                                            {(file.fileSize / 1024 / 1024).toFixed(2)} MB
                                         </p>
                                     </div>
                                 </a>

@@ -18,7 +18,6 @@ const defaultSettingStore: Readonly<App.ModuleMessenger.Store.TypeMessengerStore
     openSearch: false,
     searchKey: '',
     drafts: new Map(),
-    typings: new Map(),
     attachments: new Map(),
 };
 
@@ -64,15 +63,6 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerS
                 })
             );
         },
-        addTyping: (payload) => {
-            const { tid, typing = false } = payload;
-            if (!tid) return;
-            set(
-                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
-                    store.data.typings.set(tid, typing);
-                })
-            );
-        },
         addAttachments: (payload) => {
             const { tid, attachments = [] } = payload;
             if (!tid) return;
@@ -98,26 +88,38 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerS
             const files = attachments.get(tid) ?? [];
 
             return {
-                tid,
+                id: '',
                 uid,
-                mid: '',
+                tid,
                 type: 'text',
-                attachments: files.map(mapFileToAttachment),
+                attachments: files.map(mapFileToAttachment) as App.ModuleMessenger.Data.TypeAttachment[],
                 content: content.trim(),
                 status: 'sending',
-                createdAt: new Date().toISOString(),
+                metadata: {
+                    replyTo: '',
+                    isPinned: false,
+                    isDeleted: false,
+                    isRevoked: false,
+                },
+                createdAt: '',
+                updatedAt: '',
             };
         },
         genThread: (payload) => {
             return {
-                tid: payload.tid ?? '',
+                id: '',
                 name: payload.name ?? '',
                 avatar: payload.avatar ?? '',
-                isGroup: payload.isGroup ?? false,
                 uids: payload.uids ?? [],
-                updatedAt: new Date().toISOString(),
-                lastMessage: undefined,
-                unreadCounts: [],
+                unreads: payload.uids?.map((uid) => ({ uid, count: 0 })) || [],
+                metadata: {
+                    lastMessageId: payload.metadata?.lastMessageId ?? '',
+                    isGroup: payload.metadata?.isGroup ?? false,
+                    isMuted: payload.metadata?.isMuted ?? false,
+                    isPinned: payload.metadata?.isPinned ?? false,
+                },
+                createdAt: '',
+                updatedAt: '',
             };
         },
         sentMessage: (payload) => {

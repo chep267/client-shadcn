@@ -6,6 +6,7 @@
 
 /** libs */
 import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 /** constants */
 import { MessengerRouterPath } from '@module-messenger/constants/path';
@@ -20,7 +21,7 @@ import { useAuthStore } from '@module-auth/stores/useAuthStore';
 import { UserAvatar } from '@module-user/components/UserAvatar';
 import { UserName } from '@module-user/components/UserName';
 import { ThreadOption } from '@module-messenger/components/Threads/ThreadOption';
-import { FormattedMessage } from 'react-intl';
+import dayjs from 'dayjs';
 
 interface ThreadItemProps {
     className?: string;
@@ -32,11 +33,11 @@ interface ThreadItemProps {
 function SingleThread(props: ThreadItemProps) {
     const { className, data, hasOption = true } = props;
     const user = useAuthStore((store) => store.data.user);
-    const { uids, lastMessage } = data;
-    const { uid, content = '' } = lastMessage ?? {};
+    const { uids, metadata } = data;
+    const { lastMessageId } = metadata ?? {};
 
-    const peerId = uids.find((uid) => uid !== user?.uid)!;
-    const sender = uid === user?.uid ? <FormattedMessage id="You" defaultMessage="You" /> : '';
+    const peerId = uids.find((uid) => uid !== user?.id)!;
+    const sender = lastMessageId === user?.id ? <FormattedMessage id="You" defaultMessage="You: &nbsp;" /> : '';
 
     return (
         <div
@@ -51,8 +52,9 @@ function SingleThread(props: ThreadItemProps) {
             <UserAvatar className="border" size="lg" uid={peerId} />
             <div className="flex flex-1 flex-col justify-center overflow-hidden">
                 <UserName className="w-full" uid={peerId} />
-                <span className={cn('text-muted-foreground truncate text-xs', { hidden: !content })}>
-                    {sender}: {content}
+                <span className={cn('text-muted-foreground truncate text-xs', { hidden: !lastMessageId })}>
+                    {sender}
+                    {lastMessageId}
                 </span>
             </div>
             {hasOption ? <ThreadOption /> : null}
@@ -62,6 +64,7 @@ function SingleThread(props: ThreadItemProps) {
 
 function GroupThread(props: ThreadItemProps) {
     const { className, data, hasOption = true } = props;
+    const { lastMessageId } = data.metadata;
 
     return (
         <div
@@ -74,7 +77,12 @@ function GroupThread(props: ThreadItemProps) {
             )}
         >
             <UserAvatar className="border" size="lg" name={data.name} src={data.avatar} />
-            <UserName className="w-full" name={data.name} />
+            <div className="flex flex-1 flex-col justify-center overflow-hidden">
+                <UserName className="w-full" name={data.name} />
+                <span className={cn('text-muted-foreground truncate text-xs', { hidden: !lastMessageId })}>
+                    {dayjs(data.createdAt).format('DD/MM/YYYY HH:mm')}
+                </span>
+            </div>
             {hasOption ? <ThreadOption /> : null}
         </div>
     );
@@ -82,14 +90,15 @@ function GroupThread(props: ThreadItemProps) {
 
 export function ThreadItem(props: ThreadItemProps) {
     const { data, isDraft } = props;
+    const { isGroup } = data.metadata;
 
-    const Comp = data.isGroup ? GroupThread : SingleThread;
+    const Comp = isGroup ? GroupThread : SingleThread;
 
     return (
         <Link
-            to={`${MessengerRouterPath.home}/${data.tid}${isDraft ? '?draft=true' : ''}`}
+            to={`${MessengerRouterPath.home}/${data.id}${isDraft ? '?draft=true' : ''}`}
             className="overflow-hidden"
-            key={data.tid}
+            key={data.id}
             replace
         >
             <Comp {...props} />
