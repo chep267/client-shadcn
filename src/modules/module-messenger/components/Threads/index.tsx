@@ -7,6 +7,9 @@
 /** libs */
 import { FormattedMessage } from 'react-intl';
 
+/** constants */
+import { MessengerLanguage } from '@module-messenger/constants/language';
+
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
@@ -36,7 +39,10 @@ export function Threads() {
             >
                 <CardTitle className={cn('flex items-center justify-between', 'gap-2 overflow-hidden')}>
                     <Typography component="h4">
-                        <FormattedMessage id="1" defaultMessage="Threads" />
+                        <FormattedMessage
+                            id={MessengerLanguage.component.label.threads.title}
+                            defaultMessage={MessengerLanguage.component.label.threads.title}
+                        />
                     </Typography>
                     <ButtonSearch />
                 </CardTitle>

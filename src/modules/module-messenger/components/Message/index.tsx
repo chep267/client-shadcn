@@ -4,7 +4,7 @@ import { cn } from '@module-base/utils/shadcn';
 
 interface MessageItemProps {
     isMe?: boolean;
-    message: App.ModuleMessenger.Data.TypeMessage;
+    message: App.ModuleMessenger.Data.Message;
     currentUid?: string; // ID của user hiện tại đang đăng nhập để phân biệt Trái/Phải
     authorName?: string; // Tên người gửi (pass từ thread hoặc danh sách user)
     authorAvatar?: string; // Link avatar người gửi

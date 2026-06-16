@@ -5,19 +5,19 @@
  */
 
 /** types */
-import {
-    type FunctionComponent,
-    type PropsWithChildren,
-    type LazyExoticComponent,
-    type RefObject,
-    type SVGProps,
-    type ReactNode,
-    type MouseEvent,
-    type ComponentProps,
-    type Ref,
+import type {
+    FunctionComponent,
+    PropsWithChildren,
+    LazyExoticComponent,
+    RefObject,
+    SVGProps,
+    ReactNode,
+    MouseEvent,
+    ComponentProps,
+    Ref,
 } from 'react';
 import type { UseBoundStore, StoreApi } from 'zustand';
-import { type VirtuosoProps } from 'react-virtuoso';
+import type { VirtuosoProps } from 'react-virtuoso';
 
 export type TypeInputElement = HTMLInputElement | null;
 

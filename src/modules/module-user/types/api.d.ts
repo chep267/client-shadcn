@@ -6,26 +6,26 @@
 
 /** types */
 import type { ApiResponse, SearchParam, ApiSearchResponse } from '@module-base/types/api.d';
-import type { TypeUser } from '@module-user/types/data.d';
+import type { User } from '@module-user/types/data.d';
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** api user */
 export interface UserControllerAction {
     Get: {
         Payload: { uid: string };
-        Response: ApiResponse<TypeUser>;
+        Response: ApiResponse<User>;
     };
     Gets: {
         Payload: SearchParam;
-        Response: ApiSearchResponse<TypeUser[]>;
+        Response: ApiSearchResponse<User[]>;
     };
     Create: {
-        Payload: { data: TypeUser };
-        Response: ApiResponse<TypeUser>;
+        Payload: { data: User };
+        Response: ApiResponse<User>;
     };
     Update: {
-        Request: Omit<Request, 'params' | 'body'> & { params: { uid: string }; body: { data: Partial<TypeUser> } };
-        Response: ApiResponse<TypeUser | null>;
+        Request: Omit<Request, 'params' | 'body'> & { params: { uid: string }; body: { data: Partial<User> } };
+        Response: ApiResponse<User | null>;
     };
     Remove: {
         Request: Omit<Request, 'params'> & { params: { uid: string } };

@@ -5,14 +5,14 @@
  */
 
 /** types */
-import type { TypeUser } from '@module-user/types/data';
+import type { User } from '@module-user/types/data';
 
 export type TypePoem = {
     id: string;
     title: string;
     description: string;
     content: string;
-    author: TypeUser;
+    author: User;
     createdAt: string;
     updatedAt: string;
 };

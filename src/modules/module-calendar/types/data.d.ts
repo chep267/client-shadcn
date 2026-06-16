@@ -7,4 +7,4 @@
 /** types */
 import type { Dayjs } from 'dayjs';
 
-export type TypeCalendarData = Dayjs;
+export type CalendarData = Dayjs;

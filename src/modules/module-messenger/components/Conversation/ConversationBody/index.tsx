@@ -7,6 +7,10 @@
 /** libs */
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
+
+/** constants */
+import { MessengerLanguage } from '@module-messenger/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
@@ -14,6 +18,7 @@ import { delay } from '@module-base/utils/delay';
 
 /** stores */
 import { useAuthStore } from '@module-auth/stores/useAuthStore';
+import { useMessageStore } from '@module-messenger/stores/useMessageStore';
 
 /** hooks */
 import { useGetMessages } from '@module-messenger/hooks/useGetMessages';
@@ -22,16 +27,18 @@ import { useGetMessages } from '@module-messenger/hooks/useGetMessages';
 import { WavyLoading } from '@module-base/components/animation/wavy-loading';
 import { CardContent } from '@module-base/components/card';
 import { Message } from '@module-messenger/components/Message';
+import { Typography } from '@module-base/components/typography.tsx';
 
 export function ConversationBody() {
     const { tid = '' } = useParams();
     const isDraft = tid.startsWith('uid.');
     const containerRef = React.useRef<HTMLDivElement>(null);
     const isFirstLoadRef = React.useRef(true);
-    const meId = useAuthStore((store) => store.data.user?.id ?? '');
+    const meId = useAuthStore((store) => store.data.user!.id);
 
-    const { isFetching, data } = useGetMessages(isDraft ? '' : tid);
-    const { data: messages } = data ?? {};
+    const { isPending } = useGetMessages(isDraft ? '' : tid);
+    const messageIds = useMessageStore((store) => store.data.messageIds.get(tid));
+    const messages = useMessageStore((store) => store.data.messages);
 
     React.useEffect(() => {
         isFirstLoadRef.current = true;
@@ -45,7 +52,7 @@ export function ConversationBody() {
             });
         });
         isFirstLoadRef.current = false;
-    }, [messages]);
+    }, [messageIds]);
 
     return (
         <CardContent className={cn('relative flex-1')}>
@@ -53,15 +60,26 @@ export function ConversationBody() {
                 ref={containerRef}
                 className={cn('absolute inset-0 flex-1 overflow-y-auto', 'scrollbar-custom scrollbar-thin')}
             >
-                {isFetching && <WavyLoading />}
-                {!isFetching && !messages?.length ? (
+                {isDraft || (!isPending && !messageIds?.length) ? (
                     <div className="flex flex-1 items-center justify-center p-10">
-                        <span className="text-primary text-sm italic">"Bắt đầu đoạn hội thoại của bạn"</span>
+                        <Typography className="text-primary text-sm italic">
+                            &quot;
+                            <FormattedMessage
+                                id={MessengerLanguage.component.label.conversation.body.empty}
+                                defaultMessage={MessengerLanguage.component.label.conversation.body.empty}
+                            />
+                            &quot;
+                        </Typography>
                     </div>
                 ) : null}
-                {messages?.map((message) => (
-                    <Message key={message.id} message={message} isMe={message.uid === meId} />
-                ))}
+
+                {!isDraft && isPending ? <WavyLoading /> : null}
+
+                {messageIds?.toReversed().map((mid) => {
+                    const message = messages.get(mid);
+                    if (!message) return null;
+                    return <Message key={mid} message={message} isMe={message.uid === meId} />;
+                })}
             </div>
         </CardContent>
     );

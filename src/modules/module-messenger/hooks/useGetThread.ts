@@ -17,7 +17,7 @@ import { threadService } from '@module-messenger/services/thread';
 import { useThreadStore } from '@module-messenger/stores/useThreadStore';
 
 export function useGetThread(tid: string = '') {
-    const thread = useThreadStore((store) => store.data.map.get(tid));
+    const thread = useThreadStore((store) => store.data.threads.get(tid) || store.data.searches.get(tid));
 
     return useQuery({
         queryKey: [MessengerQueryKey.thread, { tid }],
@@ -31,7 +31,7 @@ export function useGetThread(tid: string = '') {
             };
         },
         enabled: !!tid && !thread,
-        staleTime: 1000 * 60 * 5,
+        staleTime: Infinity,
         gcTime: 1000 * 60 * 15,
     });
 }

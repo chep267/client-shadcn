@@ -16,12 +16,12 @@ export const AppTimer = {
     delayTooltip: 300,
 } as const;
 
-export const LocaleObject: Readonly<{ [Key in App.ModuleBase.Store.TypeLocale]: Key }> = {
+export const LocaleObject: Readonly<{ [Key in App.ModuleBase.Store.Locale]: Key }> = {
     vi: 'vi',
     en: 'en',
 };
 
-export const ThemeObject: Readonly<{ [Key in App.ModuleBase.Store.TypeTheme]: Key }> = {
+export const ThemeObject: Readonly<{ [Key in App.ModuleBase.Store.Theme]: Key }> = {
     dark: 'dark',
     light: 'light',
 };

@@ -16,8 +16,9 @@ import { AppKey } from '@module-base/constants/env';
 /** utils */
 import { getDeviceLocale } from '@module-base/utils/getDeviceLocale';
 import { getDeviceTheme } from '@module-base/utils/getDeviceTheme';
+import { registerStore } from '@module-base/utils/store';
 
-const defaultSettingStore: Readonly<App.ModuleBase.Store.TypeSettingStore['data']> = {
+const defaultData: Readonly<App.ModuleBase.Store.SettingStore['data']> = {
     locale: getDeviceLocale(),
     theme: getDeviceTheme(),
     api: {
@@ -26,45 +27,51 @@ const defaultSettingStore: Readonly<App.ModuleBase.Store.TypeSettingStore['data'
     },
 };
 
-export const useSettingStore = create<App.ModuleBase.Store.TypeSettingStore>((set) => ({
-    data: structuredClone(defaultSettingStore),
-    action: {
-        changeLocale: (locale = defaultSettingStore.locale) => {
-            Cookies.set(AppKey.locale, locale);
-            set(
-                produce<App.ModuleBase.Store.TypeSettingStore>((store) => {
-                    store.data.locale = locale;
-                })
-            );
+export const useSettingStore = create<App.ModuleBase.Store.SettingStore>((set) => {
+    registerStore(() => {
+        set({ data: structuredClone(defaultData) });
+    });
+
+    return {
+        data: structuredClone(defaultData),
+        action: {
+            changeLocale: (locale = defaultData.locale) => {
+                Cookies.set(AppKey.locale, locale);
+                set(
+                    produce<App.ModuleBase.Store.SettingStore>((store) => {
+                        store.data.locale = locale;
+                    })
+                );
+            },
+            changeTheme: (theme = defaultData.theme) => {
+                Cookies.set(AppKey.theme, theme);
+                set(
+                    produce<App.ModuleBase.Store.SettingStore>((store) => {
+                        store.data.theme = theme;
+                    })
+                );
+            },
+            updateStatusCode: (code = axios.HttpStatusCode.Ok) => {
+                set(
+                    produce<App.ModuleBase.Store.SettingStore>((store) => {
+                        store.data.api.statusCode = code;
+                    })
+                );
+            },
+            addApiQueue: (apiConfig: App.ModuleBase.Store.SettingStore['data']['api']['queue'][number]) => {
+                set(
+                    produce<App.ModuleBase.Store.SettingStore>((store) => {
+                        store.data.api.queue.push(apiConfig);
+                    })
+                );
+            },
+            clearApiQueue: () => {
+                set(
+                    produce<App.ModuleBase.Store.SettingStore>((store) => {
+                        store.data.api.queue = [];
+                    })
+                );
+            },
         },
-        changeTheme: (theme = defaultSettingStore.theme) => {
-            Cookies.set(AppKey.theme, theme);
-            set(
-                produce<App.ModuleBase.Store.TypeSettingStore>((store) => {
-                    store.data.theme = theme;
-                })
-            );
-        },
-        updateStatusCode: (code = axios.HttpStatusCode.Ok) => {
-            set(
-                produce<App.ModuleBase.Store.TypeSettingStore>((store) => {
-                    store.data.api.statusCode = code;
-                })
-            );
-        },
-        addApiQueue: (apiConfig: App.ModuleBase.Store.TypeSettingStore['data']['api']['queue'][number]) => {
-            set(
-                produce<App.ModuleBase.Store.TypeSettingStore>((store) => {
-                    store.data.api.queue.push(apiConfig);
-                })
-            );
-        },
-        clearApiQueue: () => {
-            set(
-                produce<App.ModuleBase.Store.TypeSettingStore>((store) => {
-                    store.data.api.queue = [];
-                })
-            );
-        },
-    },
-}));
+    };
+});

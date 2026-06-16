@@ -4,10 +4,10 @@
  *
  */
 
-export type TypeItemIds = string[];
+export type ItemIds = string[];
 
-export type TypeItems<Data = any> = Data[];
+export type Items<Data = any> = Data[];
 
-export type TypeStorageName = 'localStorage' | 'sessionStorage';
+export type StorageName = 'localStorage' | 'sessionStorage';
 
-export type TypeStorageValue = string | null | undefined;
+export type StorageValue = string | null | undefined;

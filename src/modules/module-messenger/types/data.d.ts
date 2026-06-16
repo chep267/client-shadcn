@@ -10,7 +10,7 @@ export type MessageType = 'text' | 'image' | 'video' | 'file' | 'audio' | 'stick
 
 export type MessageStatus = 'sending' | 'sent' | 'received' | 'seen' | 'failed';
 
-export type TypeAttachment = {
+export type Attachment = {
     id: string;
     uid: string;
     url: string;
@@ -21,13 +21,13 @@ export type TypeAttachment = {
     updatedAt: string;
 };
 
-export type TypeMessage = {
+export type Message = {
     id: string;
     tid: string;
     uid: string;
     type: MessageType;
     content: string;
-    attachments: TypeAttachment[];
+    attachments: Attachment[];
     status: MessageStatus;
     createdAt: string;
     updatedAt: string;
@@ -39,7 +39,7 @@ export type TypeMessage = {
     } & Record<string, unknown>;
 };
 
-export type TypeThread = {
+export type Thread = {
     id: string;
     name: string;
     avatar: string;
@@ -51,9 +51,9 @@ export type TypeThread = {
     createdAt: string;
     updatedAt: string;
     metadata: {
-        isGroup: boolean;
-        isMuted: boolean;
-        isPinned: boolean;
-        lastMessageId: string;
+        isGroup?: boolean;
+        isMuted?: boolean;
+        isPinned?: boolean;
+        lastMessageId?: string;
     } & Record<string, unknown>;
 };

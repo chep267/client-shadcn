@@ -15,7 +15,7 @@ import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';
 
 /** hooks */
 import { useSearchThreads } from '@module-messenger/hooks/useSearchThreads';
-// import { useSearchUsers } from '@module-messenger/hooks/useSearchUsers';
+import { useSearchUsers } from '@module-messenger/hooks/useSearchUsers';
 
 /** components */
 import { VirtualList } from '@module-base/components/virtual-list';
@@ -24,25 +24,25 @@ import { ThreadItem } from '@module-messenger/components/Threads/ThreadList/Thre
 export function ThreadSearchList() {
     const { tid = '' } = useParams();
     const searchKey = useMessengerStore((store) => store.data.searchKey.trim());
-    const { isFetching: loadingThreads, data: dataThreads } = useSearchThreads({ q: searchKey });
-    // const { isFetching: loadingUsers, data: dataUsers } = useSearchUsers({ q: searchKey });
-    // const threads = [...(dataThreads?.data ?? []), ...(dataUsers?.data ?? [])];
+    const searchThreads = useSearchThreads({ q: searchKey });
+    const searchUsers = useSearchUsers({ q: searchKey });
+    const threads = [...(searchThreads.data?.data ?? []), ...(searchUsers.data?.data ?? [])];
 
     return (
         <VirtualList
             className="max-tablet:[&>div]:scrollbar-hidden"
             initialSetup={{
-                loading: loadingThreads,
+                loading: searchThreads.isFetching || searchUsers.isFetching,
             }}
-            items={dataThreads?.data}
+            items={threads}
             itemContent={(index, thread) => (
                 <ThreadItem
+                    key={index}
                     className={cn('border-b', {
                         'bg-main/50!': tid === thread.id,
                     })}
                     data={thread}
                     hasOption={false}
-                    isDraft={index >= (dataThreads?.data?.length ?? 0)}
                 />
             )}
         />

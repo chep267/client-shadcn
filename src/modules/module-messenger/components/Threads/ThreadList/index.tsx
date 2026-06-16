@@ -28,7 +28,12 @@ export function ThreadList() {
     const navigate = useNavigate();
     const { tid = '' } = useParams();
     const { isPending, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetThreads();
-    const threads = useThreadStore((store) => store.data.list);
+
+    const items = useThreadStore((store) => store.data.threads);
+
+    const threads = React.useMemo(() => {
+        return Array.from(items.values());
+    }, [items]);
 
     React.useEffect(() => {
         const fistThread = threads?.[0];

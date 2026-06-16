@@ -6,30 +6,30 @@
 
 /** types */
 import type { ApiResponse, SearchParam, ApiSearchResponse } from '@module-base/types/api.d';
-import type { TypeThread, TypeMessage } from '@module-messenger/types/data.d';
+import type { Thread, Message } from '@module-messenger/types/data.d';
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** api thread */
 export interface ThreadControllerAction {
     Get: {
         Payload: { tid: string };
-        Response: ApiResponse<TypeThread>;
+        Response: ApiResponse<Thread>;
     };
     Gets: {
         Payload: SearchParam;
-        Response: ApiSearchResponse<TypeThread[]>;
+        Response: ApiSearchResponse<Thread[]>;
     };
     Create: {
-        Payload: { data: Partial<TypeThread> };
-        Response: ApiResponse<TypeThread>;
+        Payload: { data: Partial<Thread> };
+        Response: ApiResponse<Thread>;
     };
     Update: {
-        Request: Omit<Request, 'params' | 'body'> & { params: { tid: string }; body: { data: Partial<TypeThread> } };
-        Response: ApiResponse<TypeThread | null>;
+        Request: Omit<Request, 'params' | 'body'> & { params: { tid: string }; body: { data: Partial<Thread> } };
+        Response: ApiResponse<Thread | null>;
     };
     Read: {
         Request: Omit<Request, 'params'> & { params: { tid: string } };
-        Response: ApiResponse<TypeThread | null>;
+        Response: ApiResponse<Thread | null>;
     };
     Remove: {
         Request: Omit<Request, 'params'> & { params: { tid: string } };
@@ -42,19 +42,19 @@ export interface ThreadControllerAction {
 export interface MessageControllerAction {
     Get: {
         Payload: { mid: string };
-        Response: ApiResponse<TypeMessage>;
+        Response: ApiResponse<Message>;
     };
     Gets: {
         Payload: SearchParam<{ tid: string }>;
-        Response: ApiSearchResponse<TypeMessage[]>;
+        Response: ApiSearchResponse<Message[]>;
     };
     Create: {
-        Payload: { data: TypeMessage };
-        Response: ApiResponse<TypeMessage>;
+        Payload: { data: Message };
+        Response: ApiResponse<Message>;
     };
     Update: {
-        Request: Omit<Request, 'params' | 'body'> & { params: { tid: string }; body: { data: Partial<TypeThread> } };
-        Response: ApiResponse<TypeMessage | null>;
+        Request: Omit<Request, 'params' | 'body'> & { params: { tid: string }; body: { data: Partial<Thread> } };
+        Response: ApiResponse<Message | null>;
     };
     Remove: {
         Request: Omit<Request, 'params'> & { params: { tid: string } };

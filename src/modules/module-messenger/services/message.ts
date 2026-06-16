@@ -19,17 +19,17 @@ class MessageService extends ApiService {
         const { mid } = payload;
         const response = await this.withDelay(
             this.get<App.ModuleMessenger.Api.MessageControllerAction['Get']['Response']>({
-                url: `${MessengerApiPath.message}/${mid}`,
+                url: MessengerApiPath.message.replace(':mid', mid),
             })
         );
         return response.data;
     };
 
     gets = async (payload: App.ModuleMessenger.Api.MessageControllerAction['Gets']['Payload']) => {
-        const { q = '', page = '1', skip = '0', limit = '20' } = payload;
+        const { tid, q = '', page = '1', skip = '0', limit = '20' } = payload;
         const response = await this.withDelay(
             this.get<App.ModuleMessenger.Api.MessageControllerAction['Gets']['Response']>({
-                url: MessengerApiPath.messages,
+                url: MessengerApiPath.messages.replace(':tid', tid),
                 params: {
                     q,
                     page,

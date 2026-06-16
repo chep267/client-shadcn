@@ -14,12 +14,12 @@ import { connectSocket, disconnectSocket } from '@module-base/utils/socket';
 import { useAuthStore } from '@module-auth/stores/useAuthStore';
 
 export function AppSocket() {
-    const uid = useAuthStore((store) => store.data.user?.id ?? '');
+    const meId = useAuthStore((store) => store.data.user?.id);
 
     useEffect(() => {
-        if (!uid) return;
+        if (!meId) return;
 
-        const socket = connectSocket(uid);
+        const socket = connectSocket(meId);
 
         socket.on('notification', (data) => {
             console.log('New notification:', data);
@@ -29,7 +29,7 @@ export function AppSocket() {
             socket.off('notification');
             disconnectSocket();
         };
-    }, [uid]);
+    }, [meId]);
 
     return null;
 }

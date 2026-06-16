@@ -11,9 +11,9 @@ import Cookies from 'js-cookie';
 import { AppEnv, AppKey } from '@module-base/constants/env';
 import { LocaleObject } from '@module-base/constants/config';
 
-export const getDeviceLocale = (): App.ModuleBase.Store.TypeLocale => {
+export const getDeviceLocale = (): App.ModuleBase.Store.Locale => {
     // get from cookie
-    let locale = Cookies.get(AppKey.locale) as App.ModuleBase.Store.TypeLocale;
+    let locale = Cookies.get(AppKey.locale) as App.ModuleBase.Store.Locale;
     if (locale in LocaleObject) {
         return locale;
     }
@@ -26,7 +26,7 @@ export const getDeviceLocale = (): App.ModuleBase.Store.TypeLocale => {
     const deviceLocale =
         navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language;
     // vi_VN | en_UK | en_US | ...
-    locale = `${deviceLocale}`.slice(0, 2) as App.ModuleBase.Store.TypeLocale;
+    locale = `${deviceLocale}`.slice(0, 2) as App.ModuleBase.Store.Locale;
     if (locale in LocaleObject) {
         return locale;
     }

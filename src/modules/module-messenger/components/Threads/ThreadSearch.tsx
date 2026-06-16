@@ -27,7 +27,7 @@ export function ThreadSearch() {
     }, []);
 
     React.useEffect(() => {
-        inputRef.current?.clear?.();
+        inputRef.current?.clear();
     }, [openSearch]);
 
     return (

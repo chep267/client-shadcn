@@ -17,12 +17,15 @@ import { userServices } from '@module-user/services/api';
 import { useUserStore } from '@module-user/stores/useUserStore';
 
 export function useGetUser(uid: string = '') {
-    const users = useUserStore((store) => store.data.map);
-    const user = users.get(uid);
+    const user = useUserStore((store) => store.data.users.get(uid));
 
     return useQuery({
         queryKey: [UserQueryKey.user, { uid }],
-        queryFn: () => userServices.getOne({ uid }),
+        queryFn: async () => {
+            const response = await userServices.getOne({ uid });
+            useUserStore.getState().action.add(response.data);
+            return response;
+        },
         enabled: !!uid && !user,
         initialData: () => {
             if (!user) return;
@@ -32,7 +35,7 @@ export function useGetUser(uid: string = '') {
                 metadata: {},
             };
         },
-        staleTime: 1000 * 60 * 5,
+        staleTime: Infinity,
         gcTime: 1000 * 60 * 15,
     });
 }

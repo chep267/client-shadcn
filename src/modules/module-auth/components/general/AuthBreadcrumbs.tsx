@@ -25,7 +25,7 @@ import {
 export function AuthBreadcrumbs(props: App.ModuleAuth.Component.AuthBreadcrumbsProps) {
     const { mode = 'signin' } = props;
 
-    const items: App.ModuleAuth.Component.TypeAuthBreadcrumbsItem[] = [
+    const items: App.ModuleAuth.Component.AuthBreadcrumbsItem[] = [
         {
             title: AuthLanguage.component.title.signin,
             path: AuthRouterPath.signin,

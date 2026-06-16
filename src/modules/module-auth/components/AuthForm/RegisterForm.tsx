@@ -31,7 +31,7 @@ import { FieldPassword } from '@module-auth/components/general/FieldPassword';
 /** types */
 import type { AxiosError } from 'axios';
 
-const FormFieldsName: { [Key in App.ModuleAuth.Component.TypeFormRegisterFieldsName]: Key } = {
+const FormFieldsName: { [Key in App.ModuleAuth.Component.FormRegisterFieldsName]: Key } = {
     email: 'email',
     password: 'password',
     confirmPassword: 'confirmPassword',
@@ -58,7 +58,7 @@ const schema = z
     });
 
 export function RegisterForm() {
-    const { handleSubmit, control, setError, clearErrors } = useForm<App.ModuleAuth.Component.TypeFormRegisterData>({
+    const { handleSubmit, control, setError, clearErrors } = useForm<App.ModuleAuth.Component.FormRegisterData>({
         defaultValues: {
             [FormFieldsName.email]: '',
             [FormFieldsName.password]: '',

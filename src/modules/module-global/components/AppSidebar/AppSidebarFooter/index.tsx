@@ -15,8 +15,7 @@ import { ItemSignout } from '@module-global/components/AppSidebar/AppSidebarFoot
 import { ItemAccount } from '@module-global/components/AppSidebar/AppSidebarFooter/ItemAccount';
 
 export function AppSidebarFooter() {
-    const user = useAuthStore((store) => store.data.user);
-    const isAuthentication = !!user;
+    const isAuthentication = useAuthStore((store) => !!store.data.user);
 
     if (!isAuthentication) return null;
 

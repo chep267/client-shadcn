@@ -5,11 +5,11 @@
  */
 
 /** types */
-import type { Control, FieldPath, FieldValues, UseFormHandleSubmit } from 'react-hook-form';
 import type { ComponentProps } from 'react';
+import type { Control, FieldPath, FieldValues, UseFormHandleSubmit } from 'react-hook-form';
 import type { AxiosError } from 'axios';
 
-export type TypeAuthBreadcrumbsItem = {
+export type AuthBreadcrumbsItem = {
     title: string;
     path: string;
     append?: string;
@@ -34,31 +34,31 @@ interface AuthButtonSubmitProps extends ComponentProps<'button'> {
 }
 
 /** signin */
-type TypeFormSigninFieldsName = 'email' | 'password';
-type TypeFormSigninData = {
-    [Key in TypeFormSigninFieldsName]: string;
+type FormSigninFieldsName = 'email' | 'password';
+type FormSigninData = {
+    [Key in FormSigninFieldsName]: string;
 };
 interface ButtonSigninProps extends ComponentProps<'button'> {
-    handleSubmit: UseFormHandleSubmit<TypeFormSigninData>;
+    handleSubmit: UseFormHandleSubmit<FormSigninData>;
     onSubmitError: (error: AxiosError) => void;
 }
 
 /** register */
-type TypeFormRegisterFieldsName = 'email' | 'password' | 'confirmPassword';
-type TypeFormRegisterData = {
-    [Key in TypeFormRegisterFieldsName]: string;
+type FormRegisterFieldsName = 'email' | 'password' | 'confirmPassword';
+type FormRegisterData = {
+    [Key in FormRegisterFieldsName]: string;
 };
 interface ButtonRegisterProps extends ComponentProps<'button'> {
-    handleSubmit: UseFormHandleSubmit<TypeFormRegisterData>;
+    handleSubmit: UseFormHandleSubmit<FormRegisterData>;
     onSubmitError: (error: AxiosError) => void;
 }
 
 /** recover */
-type TypeFormRecoverFieldsName = 'email';
-type TypeFormRecoverData = {
-    [Key in TypeFormRecoverFieldsName]: string;
+type FormRecoverFieldsName = 'email';
+type FormRecoverData = {
+    [Key in FormRecoverFieldsName]: string;
 };
 interface ButtonRecoverProps extends ComponentProps<'button'> {
-    handleSubmit: UseFormHandleSubmit<TypeFormRecoverData>;
+    handleSubmit: UseFormHandleSubmit<FormRecoverData>;
     onSubmitError: (error: AxiosError) => void;
 }

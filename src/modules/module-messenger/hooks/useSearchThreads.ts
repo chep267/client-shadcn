@@ -12,21 +12,30 @@ import { MessengerQueryKey } from '@module-messenger/constants/query';
 
 /** services */
 import { threadService } from '@module-messenger/services/thread';
-// import { threadsCache } from '@module-messenger/services/cache';
+
+/** stores */
+import { useThreadStore } from '@module-messenger/stores/useThreadStore';
 
 export function useSearchThreads(payload: App.ModuleMessenger.Api.ThreadControllerAction['Gets']['Payload'] = {}) {
     return useQuery({
         queryKey: [MessengerQueryKey.searchThreads, payload],
-        queryFn: () => {
-            // if (!payload?.q) {
-            //     return {
-            //         message: '',
-            //         data: threadsCache.getRecentThreads(),
-            //         metadata: { timestamp: Date.now(), currentPage: 1, totalPages: 1, currentItems: 0, totalItems: 0 },
-            //     };
-            // }
-            return threadService.gets(payload);
+        queryFn: async () => {
+            const {
+                data: { searches },
+                action: threadStoreAction,
+            } = useThreadStore.getState();
+
+            if (!payload?.q) {
+                return {
+                    message: '',
+                    data: searches.values().toArray().reverse().slice(0, 5),
+                    metadata: {},
+                };
+            }
+
+            const response = await threadService.gets(payload);
+            threadStoreAction.multiSearch(response.data);
+            return response;
         },
-        enabled: !!payload?.q,
     });
 }

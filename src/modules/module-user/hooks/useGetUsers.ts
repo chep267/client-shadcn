@@ -17,13 +17,11 @@ import { userServices } from '@module-user/services/api';
 import { useUserStore } from '@module-user/stores/useUserStore';
 
 export function useGetUsers(payload: App.ModuleUser.Api.UserControllerAction['Gets']['Payload'] = {}) {
-    const userAction = useUserStore((store) => store.action);
-
     return useQuery({
         queryKey: [UserQueryKey.users, payload],
         queryFn: async () => {
             const response = await userServices.gets(payload);
-            response.data.forEach((user) => userAction.add(user));
+            useUserStore.getState().action.multiAdd(response.data);
             return response;
         },
         select: (response) => {

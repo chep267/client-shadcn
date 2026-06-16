@@ -5,7 +5,7 @@
  */
 
 /** types */
-import type { TypeItemIds, TypeItems } from '@module-base/types/data.d';
+import type { ItemIds, Items } from '@module-base/types/data.d';
 import type { TypeTicketData } from '@module-dashboard/types/data.d';
 
 export interface TypeApi {
@@ -17,7 +17,7 @@ export interface TypeApi {
     };
     GetAll: {
         Payload: void;
-        Response: App.ModuleBase.Api.ApiResponse<{ itemIds: TypeItemIds; items: TypeItems<TypeTicketData> }>;
+        Response: App.ModuleBase.Api.ApiResponse<{ itemIds: ItemIds; items: Items<TypeTicketData> }>;
     };
     Update: {
         Payload: {
@@ -34,6 +34,6 @@ export interface TypeApi {
     };
     GetStatus: {
         Payload: void;
-        Response: App.ModuleBase.Api.ApiResponse<TypeItemIds>;
+        Response: App.ModuleBase.Api.ApiResponse<ItemIds>;
     };
 }

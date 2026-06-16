@@ -5,34 +5,30 @@
  */
 
 /** types */
-import type { TypeUser } from '@module-user/types';
+import type { ApiResponse } from '@module-base/types/api.d';
+import type { User } from '@module-user/types/data.d';
 
-/** api signin */
-export interface Signin {
-    Payload: { email: string; password: string };
-    Response: App.ModuleBase.Api.ApiResponse<TypeUser, { token: { exp: number; value: string } }>;
-}
-
-/** api signout */
-export interface Signout {
-    Payload: void;
-    Response: App.ModuleBase.Api.ApiResponse<null>;
-}
-
-/** api restart */
-export interface Restart {
-    Payload: void;
-    Response: App.ModuleBase.Api.ApiResponse<TypeUser, { token: { exp: number; value: string } }>;
-}
-
-/** api register */
-export interface Register {
-    Payload: { email: string; password: string };
-    Response: App.ModuleBase.Api.ApiResponse<null>;
-}
-
-/** api recover */
-export interface Recover {
-    Payload: { email: string };
-    Response: App.ModuleBase.Api.ApiResponse<null>;
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/** api auth */
+export interface AuthControllerAction {
+    Signin: {
+        Payload: { email: string; password: string };
+        Response: ApiResponse<User, { token: { exp: number; value: string } }>;
+    };
+    Signout: {
+        Payload: void;
+        Response: ApiResponse<null>;
+    };
+    Restart: {
+        Payload: void;
+        Response: ApiResponse<User, { token: { exp: number; value: string } }>;
+    };
+    Register: {
+        Payload: { email: string; password: string };
+        Response: ApiResponse<null>;
+    };
+    Recover: {
+        Payload: { email: string };
+        Response: ApiResponse<null>;
+    };
 }

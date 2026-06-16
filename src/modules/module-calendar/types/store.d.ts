@@ -7,18 +7,18 @@
 /** types */
 import type { Dayjs } from 'dayjs';
 
-export type TypeCalendarDisplay = 'sunday' | 'monday' | 'weekend';
+export type CalendarDisplay = 'sunday' | 'monday' | 'weekend';
 
-/** Auth store */
-type TypeCalendarData = {
+/** calendar store */
+type CalendarStoreData = {
     today: Dayjs;
-    display: TypeCalendarDisplay;
+    display: CalendarDisplay;
     day: Dayjs;
     isOnlyMonth: boolean;
     openCalendarModal: boolean;
 };
-type TypeCalendarAction = {
-    setDisplay: (display?: TypeCalendarDisplay) => void;
+type CalendarStoreAction = {
+    setDisplay: (display?: CalendarDisplay) => void;
     setDay: (day: Dayjs) => void;
     setIsOnlyMonth: (isOnlyMonth?: boolean) => void;
     setOpenCalendarModal: (open?: boolean) => void;
@@ -27,7 +27,7 @@ type TypeCalendarAction = {
     isInMonth: (day: Dayjs) => boolean;
     isSelectedDay: (day: Dayjs) => boolean;
 };
-export type TypeCalendarStore = {
-    data: TypeCalendarData;
-    action: TypeCalendarAction;
+export type CalendarStore = {
+    data: CalendarStoreData;
+    action: CalendarStoreAction;
 };

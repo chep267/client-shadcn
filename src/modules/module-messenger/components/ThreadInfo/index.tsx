@@ -28,12 +28,13 @@ export function ThreadInfo() {
     const { tid = '' } = useParams();
     // const isDraft = tid.startsWith('uid.');
 
-    const meId = useAuthStore((store) => store.data.user?.id ?? '');
+    const meId = useAuthStore((store) => store.data.user!.id);
     const openInfo = useMessengerStore((store) => store.data.openInfo);
     const { data } = useGetThread(tid);
     const { data: thread } = data ?? {};
 
     const { name, avatar, uids, metadata } = thread ?? {};
+    const { isGroup } = metadata ?? {};
     const peerId = uids?.find((uid) => uid !== meId);
 
     return (
@@ -68,10 +69,10 @@ export function ThreadInfo() {
                         className="size-28 [&>span]:data-[slot=avatar-fallback]:text-4xl"
                         name={name}
                         src={avatar}
-                        uid={metadata?.isGroup ? '' : peerId}
+                        uid={isGroup ? '' : peerId}
                         loading={!tid}
                     />
-                    <UserName name={name} uid={metadata?.isGroup ? '' : peerId} loading={!tid} />
+                    <UserName name={name} uid={isGroup ? '' : peerId} loading={!tid} />
                 </div>
             </CardContent>
         </Card>

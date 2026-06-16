@@ -6,23 +6,24 @@
 
 export type Data = unknown;
 export type Metadata = Record<string, unknown>;
-export type Param = Record<string, string>;
+export type SearchMetadata<M = Metadata> = M & {
+    currentItems: number;
+    totalItems: number;
+    totalPages: number;
+    currentPage: number;
+};
+export type Param = Record<string, string | number>;
 
-export type SearchParam<P = Param> = {
+export type SearchParam<P = Param> = P & {
     q?: string;
-    page?: string;
-    skip?: string;
-    limit?: string;
-} & P;
+    page?: string | number;
+    skip?: string | number;
+    limit?: string | number;
+};
 
 export type SearchResponse<D = Data, M = Metadata> = {
     data: D;
-    metadata: {
-        currentItems: number;
-        totalItems: number;
-        totalPages: number;
-        currentPage: number;
-    } & M;
+    metadata: SearchMetadata<M>;
 };
 
 export type ApiResponse<D = Data, M = Metadata> = {

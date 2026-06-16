@@ -6,7 +6,7 @@
 
 export const mapFileToAttachment = (
     file: File
-): Omit<App.ModuleMessenger.Data.TypeAttachment, 'id' | 'createdAt' | 'updatedAt'> => ({
+): Omit<App.ModuleMessenger.Data.Attachment, 'id' | 'createdAt' | 'updatedAt'> => ({
     uid: '',
     fileName: file.name,
     fileType: file.type,

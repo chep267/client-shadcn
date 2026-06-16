@@ -5,7 +5,7 @@
  */
 
 /** components */
-import { AgeCalculator } from '@module-global/screens/AgeCalculatorScreen/AgeCalculator.tsx';
+import { AgeCalculator } from '@module-global/screens/AgeCalculatorScreen/AgeCalculator';
 
 export default function AgeCalculatorScreen() {
     return (

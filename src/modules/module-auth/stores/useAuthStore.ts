@@ -12,26 +12,37 @@ import { produce } from 'immer';
 /** constants */
 import { AppKey } from '@module-base/constants/env';
 
-export const useAuthStore = create<App.ModuleAuth.Store.TypeAuthStore>((set) => ({
-    data: {
-        user: null,
-        prePath: '/',
-        token: Cookie.get(AppKey.token) || '',
-    },
-    action: {
-        setData: (updateData = {}) => {
-            set(
-                produce<App.ModuleAuth.Store.TypeAuthStore>(({ data }) => {
-                    Object.assign(data, updateData);
-                })
-            );
+/** utils */
+import { registerStore } from '@module-base/utils/store';
+
+const defaultData: Readonly<App.ModuleAuth.Store.AuthStore['data']> = {
+    user: null,
+    prePath: '/',
+    token: Cookie.get(AppKey.token) || '',
+};
+
+export const useAuthStore = create<App.ModuleAuth.Store.AuthStore>((set) => {
+    registerStore(() => {
+        set({ data: structuredClone(defaultData) });
+    });
+
+    return {
+        data: structuredClone(defaultData),
+        action: {
+            setData: (updateData = {}) => {
+                set(
+                    produce<App.ModuleAuth.Store.AuthStore>(({ data }) => {
+                        Object.assign(data, updateData);
+                    })
+                );
+            },
+            refreshToken: () => {
+                set(
+                    produce<App.ModuleAuth.Store.AuthStore>(({ data }) => {
+                        data.token = Cookie.get(AppKey.token) || '';
+                    })
+                );
+            },
         },
-        refreshToken: () => {
-            set(
-                produce<App.ModuleAuth.Store.TypeAuthStore>(({ data }) => {
-                    data.token = Cookie.get(AppKey.token) || '';
-                })
-            );
-        },
-    },
-}));
+    };
+});

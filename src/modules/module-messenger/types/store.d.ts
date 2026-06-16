@@ -5,44 +5,65 @@
  */
 
 /** types */
-import type { TypeMessage, TypeThread } from '@module-messenger/types/data.d';
+import type { Message, Thread } from '@module-messenger/types/data.d';
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** messenger store */
-type TypeData = {
+type MessengerStoreData = {
     openInfo: boolean;
     openSearch: boolean;
     searchKey: string;
     drafts: Map<string, string>;
     attachments: Map<string, File[]>;
 };
-type TypeAction = {
+type MessengerStoreAction = {
     toggleInfo: () => void;
     toggleSearch: () => void;
     closeSearch: () => void;
     changeSearchKey: (value: string) => void;
-    addDraft: (payload: { tid?: string; draft?: string }) => void;
-    addAttachments: (payload: { tid?: string; attachments?: File[] }) => void;
-    removeAsset: (payload: { tid?: string; pos: number }) => void;
-    genMessage: (payload: Pick<TypeMessage, 'tid' | 'uid'>) => TypeMessage;
-    genThread: (payload: Partial<TypeThread>) => TypeThread;
-    sentMessage: (payload: { tid: string }) => void;
+    addDraft: (payload: { tid?: Thread['id']; draft?: string }) => void;
+    addAttachments: (payload: { tid?: Thread['id']; attachments?: File[] }) => void;
+    removeAsset: (payload: { tid?: Thread['id']; pos: number }) => void;
+    genMessage: (payload: Pick<Message, 'tid' | 'uid'>) => Message;
+    genThread: (payload: Partial<Thread>) => Thread;
+    sentMessage: (payload: { tid: Thread['id'] }) => void;
 };
-export type TypeMessengerStore = {
-    data: TypeData;
-    action: TypeAction;
+export type MessengerStore = {
+    data: MessengerStoreData;
+    action: MessengerStoreAction;
 };
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** thread store */
+type ThreadStoreData = {
+    threads: Map<Thread['id'], Thread>;
+    searches: Map<Thread['id'], Thread>;
+};
+type ThreadStoreAction = {
+    unshift: (thread: Thread) => void;
+    add: (thread: Thread) => void;
+    multiAdd: (threads: Thread[]) => void;
+    remove: (tid: Thread['id']) => void;
+    multiSearch: (threads: Thread[]) => void;
+};
 export interface ThreadStore {
-    data: {
-        list: TypeThread[];
-        map: Map<string, TypeThread>;
-        metadata: Record<string, unknown>;
-    };
-    action: {
-        add: (item: TypeThread) => void;
-        remove: (tid: string) => void;
-    };
+    data: ThreadStoreData;
+    action: ThreadStoreAction;
+}
+
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/** message store */
+type MessageStoreData = {
+    messageIds: Map<Thread['tid'], Message['id'][]>;
+    messages: Map<Message['id'], Message>;
+};
+type MessageStoreAction = {
+    unshift: (tid: Thread['id'], message: Message) => void;
+    add: (tid: Thread['id'], message: Message) => void;
+    multiAdd: (tid: Thread['id'], messages: Message[]) => void;
+    remove: (tid: Thread['id'], mid: Message['id']) => void;
+};
+export interface MessageStore {
+    data: MessageStoreData;
+    action: MessageStoreAction;
 }

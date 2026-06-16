@@ -6,28 +6,28 @@
 
 /** types */
 import type { InternalAxiosRequestConfig } from 'axios';
-export type TypeLocale = 'vi' | 'en';
-export type TypeLanguageMessages = Record<string, string>;
-export type TypeTheme = 'dark' | 'light';
-export type TypeSiderState = 'collapse' | 'expand' | 'hidden' | 'force';
+export type Locale = 'vi' | 'en';
+export type LanguageMessages = Record<string, string>;
+export type Theme = 'dark' | 'light';
+export type SiderState = 'collapse' | 'expand' | 'hidden' | 'force';
 
 /** Setting store */
-type TypeSettingData = {
-    locale: TypeLocale;
-    theme: TypeTheme;
+type SettingStoreData = {
+    locale: Locale;
+    theme: Theme;
     api: {
         statusCode: number;
         queue: InternalAxiosRequestConfig[];
     };
 };
-type TypeSettingAction = {
-    changeLocale: (locale?: TypeLocale) => void;
-    changeTheme: (theme?: TypeTheme) => void;
+type SettingStoreAction = {
+    changeLocale: (locale?: Locale) => void;
+    changeTheme: (theme?: Theme) => void;
     updateStatusCode: (code?: number) => void;
     addApiQueue: (apiConfig: InternalAxiosRequestConfig) => void;
     clearApiQueue: () => void;
 };
-export type TypeSettingStore = {
-    data: TypeSettingData;
-    action: TypeSettingAction;
+export type SettingStore = {
+    data: SettingStoreData;
+    action: SettingStoreAction;
 };

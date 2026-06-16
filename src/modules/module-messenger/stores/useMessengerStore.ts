@@ -13,7 +13,7 @@ import { mapFileToAttachment } from '@module-messenger/utils/messages';
 
 enableMapSet();
 
-const defaultSettingStore: Readonly<App.ModuleMessenger.Store.TypeMessengerStore['data']> = {
+const defaultSettingStore: Readonly<App.ModuleMessenger.Store.MessengerStore['data']> = {
     openInfo: true,
     openSearch: false,
     searchKey: '',
@@ -21,19 +21,19 @@ const defaultSettingStore: Readonly<App.ModuleMessenger.Store.TypeMessengerStore
     attachments: new Map(),
 };
 
-export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerStore>((set, get) => ({
+export const useMessengerStore = create<App.ModuleMessenger.Store.MessengerStore>((set, get) => ({
     data: structuredClone(defaultSettingStore),
     action: {
         toggleInfo: () => {
             set(
-                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                produce<App.ModuleMessenger.Store.MessengerStore>((store) => {
                     store.data.openInfo = !store.data.openInfo;
                 })
             );
         },
         toggleSearch: () => {
             set(
-                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                produce<App.ModuleMessenger.Store.MessengerStore>((store) => {
                     store.data.openSearch = !store.data.openSearch;
                     store.data.searchKey = '';
                 })
@@ -41,7 +41,7 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerS
         },
         closeSearch: () => {
             set(
-                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                produce<App.ModuleMessenger.Store.MessengerStore>((store) => {
                     store.data.openSearch = false;
                     store.data.searchKey = '';
                 })
@@ -49,7 +49,7 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerS
         },
         changeSearchKey: (value = '') => {
             set(
-                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                produce<App.ModuleMessenger.Store.MessengerStore>((store) => {
                     store.data.searchKey = value;
                 })
             );
@@ -58,7 +58,7 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerS
             const { tid, draft = '' } = payload;
             if (!tid) return;
             set(
-                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                produce<App.ModuleMessenger.Store.MessengerStore>((store) => {
                     store.data.drafts.set(tid, draft);
                 })
             );
@@ -67,7 +67,7 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerS
             const { tid, attachments = [] } = payload;
             if (!tid) return;
             set(
-                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                produce<App.ModuleMessenger.Store.MessengerStore>((store) => {
                     store.data.attachments.set(tid, attachments);
                 })
             );
@@ -76,7 +76,7 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerS
             const { tid, pos } = payload;
             if (!tid) return;
             set(
-                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                produce<App.ModuleMessenger.Store.MessengerStore>((store) => {
                     store.data.attachments.get(tid)?.splice(pos, 1);
                 })
             );
@@ -92,7 +92,7 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerS
                 uid,
                 tid,
                 type: 'text',
-                attachments: files.map(mapFileToAttachment) as App.ModuleMessenger.Data.TypeAttachment[],
+                attachments: files.map(mapFileToAttachment) as App.ModuleMessenger.Data.Attachment[],
                 content: content.trim(),
                 status: 'sending',
                 metadata: {
@@ -126,7 +126,7 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.TypeMessengerS
             const { tid } = payload;
             if (!tid) return;
             set(
-                produce<App.ModuleMessenger.Store.TypeMessengerStore>((store) => {
+                produce<App.ModuleMessenger.Store.MessengerStore>((store) => {
                     store.data.drafts.delete(tid);
                 })
             );

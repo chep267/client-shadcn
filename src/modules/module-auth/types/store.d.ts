@@ -5,19 +5,19 @@
  */
 
 /** types */
-import type { TypeUser } from '@module-user/types/data.d';
+import type { User } from '@module-user/types/data.d';
 
 /** Auth store */
-type TypeAuthData = {
-    user: TypeUser | null;
+type AuthStoreData = {
+    user: User | null;
     prePath: string;
     token: string;
 };
-type TypeAuthAction = {
-    setData: (options?: Partial<TypeAuthData>) => void;
+type AuthStoreAction = {
+    setData: (options?: Partial<AuthStoreData>) => void;
     refreshToken: () => void;
 };
-export type TypeAuthStore = {
-    data: TypeAuthData;
-    action: TypeAuthAction;
+export type AuthStore = {
+    data: AuthStoreData;
+    action: AuthStoreAction;
 };

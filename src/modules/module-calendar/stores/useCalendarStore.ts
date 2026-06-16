@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 /** constants */
 import { CalendarDisplay } from '@module-calendar/constants/config';
 
-export const useCalendarStore = create<App.ModuleCalendar.Store.TypeCalendarStore>((set, getState) => ({
+export const useCalendarStore = create<App.ModuleCalendar.Store.CalendarStore>((set, getState) => ({
     data: {
         display: CalendarDisplay.sunday,
         today: dayjs(),
@@ -38,28 +38,28 @@ export const useCalendarStore = create<App.ModuleCalendar.Store.TypeCalendarStor
         },
         setDisplay: (display = CalendarDisplay.sunday) => {
             set(
-                produce<App.ModuleCalendar.Store.TypeCalendarStore>(({ data }) => {
+                produce<App.ModuleCalendar.Store.CalendarStore>(({ data }) => {
                     data.display = display;
                 })
             );
         },
         setDay: (day) => {
             set(
-                produce<App.ModuleCalendar.Store.TypeCalendarStore>(({ data }) => {
+                produce<App.ModuleCalendar.Store.CalendarStore>(({ data }) => {
                     data.day = day;
                 })
             );
         },
         setIsOnlyMonth: (isOnlyMonth = false) => {
             set(
-                produce<App.ModuleCalendar.Store.TypeCalendarStore>(({ data }) => {
+                produce<App.ModuleCalendar.Store.CalendarStore>(({ data }) => {
                     data.isOnlyMonth = isOnlyMonth;
                 })
             );
         },
         setOpenCalendarModal: (openCalendarModal = false) => {
             set(
-                produce<App.ModuleCalendar.Store.TypeCalendarStore>(({ data }) => {
+                produce<App.ModuleCalendar.Store.CalendarStore>(({ data }) => {
                     data.openCalendarModal = openCalendarModal;
                 })
             );

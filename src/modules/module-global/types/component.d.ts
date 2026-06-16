@@ -7,13 +7,13 @@
 /** types */
 import * as React from 'react';
 
-export interface TypeAppItem {
+export interface AppItem {
     path: string;
     icon: React.ElementType;
     name: string;
 }
 
 export interface SidebarItemProps {
-    item: TypeAppItem;
+    item: AppItem;
     active?: boolean;
 }

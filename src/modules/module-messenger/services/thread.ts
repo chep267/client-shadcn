@@ -19,7 +19,7 @@ class ThreadService extends ApiService {
         const { tid } = payload;
         const response = await this.withDelay(
             this.get<App.ModuleMessenger.Api.ThreadControllerAction['Get']['Response']>({
-                url: `${MessengerApiPath.threads}/${tid}`,
+                url: MessengerApiPath.threads.replace(':tid', tid),
             })
         );
         return response.data;

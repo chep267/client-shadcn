@@ -5,13 +5,13 @@
  */
 
 /** types */
-import type { TypeUser } from '@module-user/types/data.d';
+import type { User } from '@module-user/types/data.d';
 
 export interface UserAvatarProps {
-    uid?: TypeUser['uid'];
+    uid?: User['uid'];
 }
 
 export interface UserNameProps {
-    uid?: TypeUser['uid'];
-    name?: TypeUser['displayName'];
+    uid?: User['uid'];
+    name?: User['displayName'];
 }
