@@ -29,6 +29,10 @@ export const connectSocket = (uid: string) => {
         console.log('Socket connected:', socket?.id);
     });
 
+    socket.on('MESSAGE_CREATED', () => {
+        console.log('MESSAGE_CREATED', socket?.id);
+    });
+
     socket.on('disconnect', (reason) => {
         console.log('Socket disconnected:', reason);
     });

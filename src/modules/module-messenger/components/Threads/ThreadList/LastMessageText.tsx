@@ -8,6 +8,9 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 
+/** constants */
+import { MessengerLanguage } from '@module-messenger/constants/language';
+
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
@@ -38,7 +41,12 @@ export function LastMessageText(props: LastMessageTextProps) {
             case !message?.uid:
                 return null;
             case message?.uid === meId:
-                return <FormattedMessage id="You" defaultMessage="You: &nbsp;" />;
+                return (
+                    <FormattedMessage
+                        id={MessengerLanguage.component.label.threads.sender}
+                        defaultMessage={MessengerLanguage.component.label.threads.sender}
+                    />
+                );
             default:
                 return useUserStore.getState().data.users.get(message.uid)?.name;
         }
@@ -50,7 +58,7 @@ export function LastMessageText(props: LastMessageTextProps) {
 
     return (
         <Typography className={cn('text-muted-foreground truncate text-xs', className)} {...otherProps}>
-            {senderName}
+            {senderName}:&nbsp;
             {message.content}
         </Typography>
     );

@@ -9,6 +9,7 @@ export const MessengerLanguage = {
         label: {
             threads: {
                 title: 'module.messenger.component.label.threads.title',
+                sender: 'module.messenger.component.label.threads.sender',
             },
             conversation: {
                 body: {

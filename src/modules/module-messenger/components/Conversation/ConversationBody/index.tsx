@@ -24,10 +24,10 @@ import { useMessageStore } from '@module-messenger/stores/useMessageStore';
 import { useGetMessages } from '@module-messenger/hooks/useGetMessages';
 
 /** components */
+import { Typography } from '@module-base/components/typography';
 import { WavyLoading } from '@module-base/components/animation/wavy-loading';
 import { CardContent } from '@module-base/components/card';
 import { Message } from '@module-messenger/components/Message';
-import { Typography } from '@module-base/components/typography.tsx';
 
 export function ConversationBody() {
     const { tid = '' } = useParams();
@@ -60,7 +60,7 @@ export function ConversationBody() {
                 ref={containerRef}
                 className={cn('absolute inset-0 flex-1 overflow-y-auto', 'scrollbar-custom scrollbar-thin')}
             >
-                {isDraft || (!isPending && !messageIds?.length) ? (
+                {!tid || isDraft || (!isPending && !messageIds?.length) ? (
                     <div className="flex flex-1 items-center justify-center p-10">
                         <Typography className="text-primary text-sm italic">
                             &quot;
@@ -73,7 +73,7 @@ export function ConversationBody() {
                     </div>
                 ) : null}
 
-                {!isDraft && isPending ? <WavyLoading /> : null}
+                {!!tid && !isDraft && isPending ? <WavyLoading /> : null}
 
                 {messageIds?.toReversed().map((mid) => {
                     const message = messages.get(mid);

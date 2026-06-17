@@ -52,7 +52,7 @@ function SingleThread(props: ThreadItemProps) {
                 <UserName className="w-full" uid={peerId} />
                 <LastMessageText mid={lastMessageId} />
             </div>
-            {hasOption ? <ThreadOption /> : null}
+            {hasOption ? <ThreadOption thread={data} /> : null}
         </div>
     );
 }
@@ -76,7 +76,7 @@ function GroupThread(props: ThreadItemProps) {
                 <UserName className="w-full" name={data.name} />
                 <LastMessageText mid={lastMessageId} />
             </div>
-            {hasOption ? <ThreadOption /> : null}
+            {hasOption ? <ThreadOption thread={data} /> : null}
         </div>
     );
 }

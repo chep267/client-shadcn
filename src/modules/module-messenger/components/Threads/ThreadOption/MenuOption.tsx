@@ -9,10 +9,11 @@ import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { TrashIcon, BellOffIcon } from 'lucide-react';
 
-/** constants */
-
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
+
+/** hooks */
+import { useRemoveThread } from '@module-messenger/hooks/useRemoveThread';
 
 /** components */
 import {
@@ -105,7 +106,14 @@ function MenuSettingItem(props: { item: MenuSettingItemProps; step?: number }) {
     );
 }
 
-export function MenuOption() {
+interface MenuOptionProps {
+    thread: App.ModuleMessenger.Data.Thread;
+}
+
+export function MenuOption(props: MenuOptionProps) {
+    const { thread } = props;
+    const { mutate: removeThread } = useRemoveThread();
+
     const items: MenuSettingItemProps[] = [
         {
             id: 'Mute',
@@ -132,7 +140,7 @@ export function MenuOption() {
             title: 'Delete',
             icon: <TrashIcon className="size-5 text-inherit" />,
             divide: 'top',
-            onClick: () => {},
+            onClick: () => removeThread({ tid: thread.id }),
         },
     ];
 

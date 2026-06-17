@@ -21,16 +21,17 @@ export function useGetThread(tid: string = '') {
 
     return useQuery({
         queryKey: [MessengerQueryKey.thread, { tid }],
-        queryFn: () => threadService.getOne({ tid }),
-        initialData: () => {
-            if (!thread) return;
-            return {
-                message: '',
-                data: thread,
-                metadata: {},
-            };
+        queryFn: () => {
+            if (thread) {
+                return {
+                    message: '',
+                    data: thread,
+                    metadata: {},
+                };
+            }
+            return threadService.getOne({ tid });
         },
-        enabled: !!tid && !thread,
+        enabled: !!tid,
         staleTime: Infinity,
         gcTime: 1000 * 60 * 15,
     });

@@ -35,31 +35,31 @@ export class ApiService {
     };
 
     protected get = async <Res = unknown>(configs?: AxiosRequestConfig) => {
-        return axiosClient.get<Res, AxiosResponse<Res>>(this.concatUrl(configs?.url), configs);
+        return axiosClient.get<Res>(this.concatUrl(configs?.url), configs);
     };
 
     protected post = <Res = unknown, Body = unknown>(
         body: Body,
         configs?: AxiosRequestConfig
     ): Promise<AxiosResponse<Res>> => {
-        return axiosClient.post<Res, AxiosResponse<Res>, Body>(this.concatUrl(configs?.url), body, configs);
+        return axiosClient.post<Res>(this.concatUrl(configs?.url), body, configs);
     };
 
     protected put = <Res = unknown, Body = unknown>(
         body: Body,
         configs?: AxiosRequestConfig
     ): Promise<AxiosResponse<Res>> => {
-        return axiosClient.put<Res, AxiosResponse<Res>, Body>(this.concatUrl(configs?.url), body, configs);
+        return axiosClient.put<Res>(this.concatUrl(configs?.url), body, configs);
     };
 
     protected patch = <Res = unknown, Body = unknown>(
         body: Body,
         configs?: AxiosRequestConfig
     ): Promise<AxiosResponse<Res>> => {
-        return axiosClient.patch<Res, AxiosResponse<Res>, Body>(this.concatUrl(configs?.url), body, configs);
+        return axiosClient.patch<Res>(this.concatUrl(configs?.url), body, configs);
     };
 
-    protected delete = (configs?: AxiosRequestConfig): Promise<AxiosResponse> => {
-        return axiosClient.delete(this.concatUrl(configs?.url), configs);
+    protected delete = <Res = unknown>(configs?: AxiosRequestConfig): Promise<AxiosResponse> => {
+        return axiosClient.delete<Res>(this.concatUrl(configs?.url), configs);
     };
 }

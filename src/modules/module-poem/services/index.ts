@@ -15,20 +15,20 @@ class PoemService extends ApiService {
         super(url);
     }
 
-    getOne = async (payload: App.ModulePoem.Api.PoemControllerAction['Get']['Payload']) => {
+    getOne = async (payload: App.ModulePoem.Api.PoemService['Get']['Payload']) => {
         const { pid } = payload;
         const response = await this.withDelay(
-            this.get<App.ModulePoem.Api.PoemControllerAction['Get']['Response']>({
+            this.get<App.ModulePoem.Api.PoemService['Get']['Response']>({
                 url: `${PoemApiPath.poem}/${pid}`,
             })
         );
         return response.data;
     };
 
-    gets = async (payload: App.ModulePoem.Api.PoemControllerAction['Gets']['Payload']) => {
+    gets = async (payload: App.ModulePoem.Api.PoemService['Gets']['Payload']) => {
         const { q = '', page = '1', skip = '0', limit = '20' } = payload;
         const response = await this.withDelay(
-            this.get<App.ModulePoem.Api.PoemControllerAction['Gets']['Response']>({
+            this.get<App.ModulePoem.Api.PoemService['Gets']['Response']>({
                 url: PoemApiPath.poems,
                 params: {
                     q,

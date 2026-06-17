@@ -7,9 +7,6 @@
 /** libs */
 import { useParams } from 'react-router-dom';
 
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
-
 /** stores */
 import { useAuthStore } from '@module-auth/stores/useAuthStore';
 
@@ -33,9 +30,15 @@ export function ThreadCurrent() {
     if (!tid) return <div />;
 
     return (
-        <div className={cn('flex w-full items-center', 'gap-2 px-2 py-4')}>
-            <UserAvatar size="lg" name={name} src={avatar} uid={isGroup ? '' : peerId} loading={!tid} />
-            <UserName className="w-full" name={name} uid={isGroup ? '' : peerId} loading={!tid} />
+        <div className="flex flex-1 flex-col items-center gap-2 p-4">
+            <UserAvatar
+                className="size-28 [&>span]:data-[slot=avatar-fallback]:text-4xl"
+                name={name}
+                src={avatar}
+                uid={isGroup ? '' : peerId}
+                loading={!tid}
+            />
+            <UserName name={name} uid={isGroup ? '' : peerId} loading={!tid} />
         </div>
     );
 }

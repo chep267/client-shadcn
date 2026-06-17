@@ -6,25 +6,29 @@
 
 /** libs */
 import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { toast } from 'sonner';
 
 /** constants */
 import { BaseLanguage } from '@module-base/constants/language';
+import { MessengerRouterPath } from '@module-messenger/constants/path';
 
 /** services */
-import { messageService } from '@module-messenger/services/message';
+import { threadService } from '@module-messenger/services/thread';
 
 /** types */
-import { useMessageStore } from '@module-messenger/stores/useMessageStore';
+import { useThreadStore } from '@module-messenger/stores/useThreadStore';
 
-export function useRevokeMessage() {
+export function useRemoveThread() {
+    const navigate = useNavigate();
     const { formatMessage } = useIntl();
 
     return useMutation({
-        mutationFn: messageService.revoke,
-        onSuccess: (_response, { tid, mid }) => {
-            useMessageStore.getState().action.remove(tid, mid);
+        mutationFn: threadService.remove,
+        onSuccess: (_response, { tid }) => {
+            useThreadStore.getState().action.remove(tid);
+            navigate(MessengerRouterPath.home, { replace: true });
         },
         onError: () => {
             toast.error(

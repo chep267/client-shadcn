@@ -10,7 +10,7 @@ import type { User } from '@module-user/types/data.d';
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** api user */
-export interface UserControllerAction {
+export interface UserService {
     Get: {
         Payload: { uid: string };
         Response: ApiResponse<User>;

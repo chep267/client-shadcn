@@ -15,7 +15,7 @@ import { AuthLanguage } from '@module-auth/constants/language';
 /** services */
 import { threadService } from '@module-messenger/services/thread';
 
-/** types */
+/** stores */
 import { useThreadStore } from '@module-messenger/stores/useThreadStore';
 
 export function useCreateThread() {

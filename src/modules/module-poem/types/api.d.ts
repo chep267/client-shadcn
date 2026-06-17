@@ -10,7 +10,7 @@ import type { TypePoem } from '@module-poem/types/data.d';
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** api poem */
-export interface PoemControllerAction {
+export interface PoemService {
     Get: {
         Payload: { pid: string };
         Response: ApiResponse<TypePoem>;

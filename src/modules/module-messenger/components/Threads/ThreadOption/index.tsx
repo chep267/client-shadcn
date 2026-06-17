@@ -21,7 +21,12 @@ const MenuOption = React.lazy(() =>
     }))
 );
 
-export function ThreadOption() {
+interface ThreadOptionProps {
+    thread: App.ModuleMessenger.Data.Thread;
+}
+
+export function ThreadOption(props: ThreadOptionProps) {
+    const { thread } = props;
     const [open, setOpen] = React.useState(false);
 
     return (
@@ -36,7 +41,7 @@ export function ThreadOption() {
                     <ButtonOption />
                 </div>
                 <React.Suspense fallback={null}>
-                    <MenuOption />
+                    <MenuOption thread={thread} />
                 </React.Suspense>
             </DropdownMenu>
         </div>

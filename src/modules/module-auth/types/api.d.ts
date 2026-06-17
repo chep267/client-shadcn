@@ -10,7 +10,7 @@ import type { User } from '@module-user/types/data.d';
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** api auth */
-export interface AuthControllerAction {
+export interface AuthService {
     Signin: {
         Payload: { email: string; password: string };
         Response: ApiResponse<User, { token: { exp: number; value: string } }>;

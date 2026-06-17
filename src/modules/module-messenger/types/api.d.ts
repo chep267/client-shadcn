@@ -10,9 +10,9 @@ import type { Thread, Message } from '@module-messenger/types/data.d';
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** api thread */
-export interface ThreadControllerAction {
+export interface ThreadService {
     Get: {
-        Payload: { tid: string };
+        Payload: { tid: Thread['id'] };
         Response: ApiResponse<Thread>;
     };
     Gets: {
@@ -24,28 +24,28 @@ export interface ThreadControllerAction {
         Response: ApiResponse<Thread>;
     };
     Update: {
-        Request: Omit<Request, 'params' | 'body'> & { params: { tid: string }; body: { data: Partial<Thread> } };
+        Payload: { tid: Thread['id']; data: Partial<Thread> };
         Response: ApiResponse<Thread | null>;
     };
     Read: {
-        Request: Omit<Request, 'params'> & { params: { tid: string } };
+        Payload: { tid: Thread['id'] };
         Response: ApiResponse<Thread | null>;
     };
     Remove: {
-        Request: Omit<Request, 'params'> & { params: { tid: string } };
+        Payload: { tid: Thread['id'] };
         Response: ApiResponse<boolean>;
     };
 }
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** api message */
-export interface MessageControllerAction {
+export interface MessageService {
     Get: {
-        Payload: { mid: string };
+        Payload: { mid: Message['id'] };
         Response: ApiResponse<Message>;
     };
     Gets: {
-        Payload: SearchParam<{ tid: string }>;
+        Payload: SearchParam<{ tid: Thread['id'] }>;
         Response: ApiSearchResponse<Message[]>;
     };
     Create: {
@@ -53,11 +53,11 @@ export interface MessageControllerAction {
         Response: ApiResponse<Message>;
     };
     Update: {
-        Request: Omit<Request, 'params' | 'body'> & { params: { tid: string }; body: { data: Partial<Thread> } };
+        Payload: { tid: Thread['id']; data: Partial<Message> };
         Response: ApiResponse<Message | null>;
     };
-    Remove: {
-        Request: Omit<Request, 'params'> & { params: { tid: string } };
+    Revoke: {
+        Payload: SearchParam<{ tid: Thread['id']; mid: Message['id'] }>;
         Response: ApiResponse<boolean>;
     };
 }
