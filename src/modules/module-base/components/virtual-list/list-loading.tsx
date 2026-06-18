@@ -10,9 +10,9 @@ import { cn } from '@module-base/utils/shadcn';
 /** components */
 import { Spinner } from '@module-base/components/spinner';
 
-export function ListLoading<
-    Data extends App.ModuleBase.Component.TypeTableData = App.ModuleBase.Component.TypeTableData,
->(props: App.ModuleBase.Component.TableLoadingProps<Data>) {
+export function ListLoading<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
+    props: App.ModuleBase.Component.ComponentWithBigdataStoreProps<Data>
+) {
     const { store } = props;
     const loading = store((state) => state.data.loading);
 

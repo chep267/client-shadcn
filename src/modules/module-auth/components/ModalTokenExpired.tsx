@@ -11,12 +11,12 @@ import { useNavigate } from 'react-router-dom';
 import { AlertTriangleIcon } from 'lucide-react';
 import { FormattedMessage } from 'react-intl';
 
-/** apis */
-import { axiosClient } from '@module-base/apis';
-
 /** constants */
 import { AuthRouterPath } from '@module-auth/constants/path';
 import { AuthLanguage } from '@module-auth/constants/language';
+
+/** utils */
+import { axiosClient } from '@module-base/utils/axiosClient';
 
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';

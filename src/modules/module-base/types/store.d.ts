@@ -6,12 +6,10 @@
 
 /** types */
 import type { InternalAxiosRequestConfig } from 'axios';
-export type Locale = 'vi' | 'en';
-export type LanguageMessages = Record<string, string>;
-export type Theme = 'dark' | 'light';
-export type SiderState = 'collapse' | 'expand' | 'hidden' | 'force';
+import type { Locale, Theme } from '@module-base/types/data.d';
 
-/** Setting store */
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/** setting store */
 type SettingStoreData = {
     locale: Locale;
     theme: Theme;

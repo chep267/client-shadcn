@@ -15,7 +15,7 @@ import { AppKey } from '@module-base/constants/env';
 import { AuthLanguage } from '@module-auth/constants/language';
 
 /** utils */
-import { isClientError } from '@module-base/utils/axios';
+import { isClientError } from '@module-base/utils/axiosHelper';
 
 /** services */
 import { authService } from '@module-auth/services';
@@ -35,7 +35,7 @@ export function useSignin() {
         onSuccess: async (response) => {
             const user = response.data.data;
             const { token } = response.data.metadata;
-            Cookies.set(AppKey.email, `${user.email || ''}`);
+            Cookies.set(AppKey.email, user.email ?? '');
             Cookies.set(AppKey.token, token.value);
             authAction.setData({ user, token: token.value });
         },

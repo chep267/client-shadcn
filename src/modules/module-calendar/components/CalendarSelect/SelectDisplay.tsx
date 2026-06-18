@@ -25,9 +25,14 @@ export const SelectDisplay = React.memo(function SelectDisplay(props: SelectDisp
     const { className } = props;
 
     const display = useCalendarStore(({ data }) => data.display);
-    const calendarAction = useCalendarStore(({ action }) => action);
+    const setDisplay = useCalendarStore(({ action }) => action.setDisplay);
 
-    const items = React.useMemo(() => {
+    const items = React.useMemo<
+        {
+            label: React.ReactNode;
+            value: App.ModuleCalendar.Data.CalendarDisplay;
+        }[]
+    >(() => {
         return [
             {
                 label: (
@@ -50,5 +55,5 @@ export const SelectDisplay = React.memo(function SelectDisplay(props: SelectDisp
         ];
     }, []);
 
-    return <SelectBase className={className} value={display} items={items} onChange={calendarAction.setDisplay} />;
+    return <SelectBase className={className} value={display} items={items} onChange={setDisplay} />;
 });

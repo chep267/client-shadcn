@@ -7,15 +7,11 @@
 /** libs */
 import * as React from 'react';
 
-/** constants */
-import { AppTimer, OrderType } from '@module-base/constants/config';
-
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
-import { delay } from '@module-base/utils/delay';
 
 /** stores */
-import { createTableStore } from '@module-base/components/table-base/utils/table-store';
+import { createBigdataStore } from '@module-base/stores/useBigdataStore';
 
 /** components */
 import { Table } from '@module-base/components/table';
@@ -23,69 +19,53 @@ import { TableHeader } from '@module-base/components/table-base/table-header';
 import { TableBody } from '@module-base/components/table-base/table-body';
 import { TableLoading } from '@module-base/components/table-base/table-loading';
 
-export function TableBase<Data extends App.ModuleBase.Component.TypeTableData>(
+export function TableBase<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
     props: App.ModuleBase.Component.TableProps<Data>
 ) {
-    const { className, initialSetup, columns, items, emptyContent } = props;
-    const {
-        loading,
-        hasCheckbox = false,
-        delayLoading = AppTimer.searching,
-        dataKeyForCheckbox = 'id',
-        searchKey = '',
-        orderBy = dataKeyForCheckbox,
-        orderType = OrderType.asc,
-        filters,
-        searchableKeys,
-    } = initialSetup ?? {};
+    const { className, setup = {}, items, emptyContent, columns } = props;
 
-    const elemContainer = React.useRef<HTMLDivElement | null>(null);
-    const tableStore = React.useMemo(() => createTableStore<Data>(), []);
+    const virtuoso = React.useRef<HTMLDivElement | null>(null);
+    const dataStore = React.useMemo(() => createBigdataStore<Data>(), []);
 
-    const storeOrderBy = tableStore((state) => state.data.orderBy);
-    const storeOrderType = tableStore((state) => state.data.orderType);
+    const action = dataStore((state) => state.action);
+    const isTableEmpty = dataStore((state) => state.data.currentItems.length === 0);
 
     React.useEffect(() => {
-        tableStore.getState().action.initState({
-            loading,
-            hasCheckbox,
-            dataKeyForCheckbox,
-            delayLoading,
-            searchKey,
-            orderBy,
-            orderType,
-            columns,
+        action.init({
+            ref: virtuoso.current?.querySelector('[data-slot="table-container"]'),
             items,
-            filters,
-            searchableKeys,
             emptyContent,
+            columns,
+            ...setup,
         });
-    }, [tableStore, loading, hasCheckbox, dataKeyForCheckbox, delayLoading, columns, items]);
+    }, [items, emptyContent, columns, JSON.stringify(setup)]);
 
     React.useEffect(() => {
-        tableStore.getState().action.search(searchKey);
-    }, [searchKey]);
+        action.search(setup.searchKey);
+    }, [setup.searchKey]);
 
     React.useEffect(() => {
-        tableStore.getState().action.sort(orderBy, orderType);
-    }, [orderBy, orderType]);
+        action.sort(setup.orderBy, setup.orderType);
+    }, [setup.orderBy, setup.orderType]);
 
     React.useEffect(() => {
-        tableStore.getState().action.filter(filters);
-    }, [JSON.stringify(filters)]);
-
-    React.useEffect(() => {
-        delay(delayLoading).then(() => {
-            elemContainer.current?.querySelector('[data-slot="table-container"]')?.scrollTo({ top: 0 });
-        });
-    }, [searchKey, storeOrderBy, storeOrderType, JSON.stringify(filters), JSON.stringify(searchableKeys)]);
+        action.filter(setup.filters);
+    }, [JSON.stringify(setup.filters)]);
 
     return (
-        <div ref={elemContainer} className={cn('relative h-full w-full rounded-md border', className)}>
-            <TableLoading store={tableStore} />
+        <div
+            ref={virtuoso}
+            className={cn(
+                'relative flex-1 overflow-hidden rounded-md border',
+                'min-h-40',
+                { 'max-h-40': isTableEmpty },
+                className
+            )}
+        >
+            <TableLoading store={dataStore} />
             <Table className={className}>
-                <TableHeader store={tableStore} />
-                <TableBody store={tableStore} />
+                <TableHeader store={dataStore} />
+                <TableBody store={dataStore} />
             </Table>
         </div>
     );

@@ -29,7 +29,15 @@ const defaultData: Readonly<App.ModuleBase.Store.SettingStore['data']> = {
 
 export const useSettingStore = create<App.ModuleBase.Store.SettingStore>((set) => {
     registerStore(() => {
-        set({ data: structuredClone(defaultData) });
+        set(
+            produce<App.ModuleBase.Store.SettingStore>((store) => {
+                store.data = {
+                    ...structuredClone(defaultData),
+                    locale: store.data.locale,
+                    theme: store.data.theme,
+                };
+            })
+        );
     });
 
     return {

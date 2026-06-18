@@ -5,20 +5,20 @@
  */
 
 /** constants */
-import { LocaleObject } from '@module-base/constants/config';
+import { AppLocale } from '@module-base/constants/config';
 
-type MessageModule = Record<App.ModuleBase.Store.Locale, App.ModuleBase.Store.LanguageMessages>;
+type MessageModule = Record<App.ModuleBase.Data.Locale, App.ModuleBase.Data.LanguageMessages>;
 
 const localeLoaders = import.meta.glob<MessageModule>('/src/langs/*.ts', { eager: false });
 
 const messagesCache = {} as MessageModule;
 
 const pendingPromises = {} as Record<
-    App.ModuleBase.Store.Locale,
-    Promise<App.ModuleBase.Store.LanguageMessages> | undefined
+    App.ModuleBase.Data.Locale,
+    Promise<App.ModuleBase.Data.LanguageMessages> | undefined
 >;
 
-export async function getMessage(locale: App.ModuleBase.Store.Locale): Promise<App.ModuleBase.Store.LanguageMessages> {
+export async function getMessage(locale: App.ModuleBase.Data.Locale): Promise<App.ModuleBase.Data.LanguageMessages> {
     if (messagesCache[locale]) {
         return messagesCache[locale];
     }
@@ -26,7 +26,7 @@ export async function getMessage(locale: App.ModuleBase.Store.Locale): Promise<A
         return pendingPromises[locale];
     }
 
-    const defaultLocale = LocaleObject.en;
+    const defaultLocale = AppLocale.en;
     const loaderPath = `/src/langs/${locale}.ts`;
     const loader = localeLoaders[loaderPath];
     if (!loader) {

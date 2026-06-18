@@ -10,9 +10,9 @@ import { cn } from '@module-base/utils/shadcn';
 /** components */
 import { TableRow, TableHead } from '@module-base/components/table';
 
-export function TableEmpty<
-    Data extends App.ModuleBase.Component.TypeTableData = App.ModuleBase.Component.TypeTableData,
->(props: App.ModuleBase.Component.TableEmptyProps<Data>) {
+export function TableEmpty<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
+    props: App.ModuleBase.Component.ComponentWithBigdataStoreProps<Data>
+) {
     const { store } = props;
 
     const isEmpty = store((state) => state.data.currentItems.length === 0);

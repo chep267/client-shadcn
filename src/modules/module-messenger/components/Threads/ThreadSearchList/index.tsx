@@ -31,7 +31,7 @@ export function ThreadSearchList() {
     return (
         <VirtualList
             className="max-tablet:[&>div]:scrollbar-hidden"
-            initialSetup={{
+            setup={{
                 loading: searchThreads.isFetching || searchUsers.isFetching,
             }}
             items={threads}

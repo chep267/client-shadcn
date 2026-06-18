@@ -6,8 +6,7 @@
 
 /** types */
 import type { Dayjs } from 'dayjs';
-
-export type CalendarDisplay = 'sunday' | 'monday' | 'weekend';
+import type { CalendarDisplay } from '@module-calendar/types/data.d';
 
 /** calendar store */
 type CalendarStoreData = {

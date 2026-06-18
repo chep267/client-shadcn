@@ -70,7 +70,7 @@ class FileSizeChecker {
             filePath
                 .split('/')
                 .pop()
-                ?.replace(/\.[^.]+$/, '') || ''; // 'MyComponent' từ 'MyComponent.tsx'
+                ?.replace(/\.[^.]+$/, '') ?? ''; // 'MyComponent' từ 'MyComponent.tsx'
 
         if (hasPascalCase) {
             const specialFileNames = ['index', 'main'];

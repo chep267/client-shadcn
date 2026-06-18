@@ -11,14 +11,14 @@ import { cn } from '@module-base/utils/shadcn';
 import { Checkbox } from '@module-base/components/checkbox';
 import { TableCell } from '@module-base/components/table';
 
-function TableCellCheckboxOne<
-    Data extends App.ModuleBase.Component.TypeTableData = App.ModuleBase.Component.TypeTableData,
->(props: App.ModuleBase.Component.TableCellCheckboxOneProps<Data>) {
+function TableCellCheckboxOne<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
+    props: App.ModuleBase.Component.TableCellCheckboxOneProps<Data>
+) {
     const { className, id, store } = props;
 
     const isChecked = store((state) => state.data.selectedIds.has(id));
     const hasCheckbox = store((state) => state.data.hasCheckbox);
-    const toggleRow = store((state) => state.action.toggleRow);
+    const toggleOne = store((state) => state.action.toggleOne);
 
     if (!hasCheckbox) return null;
 
@@ -28,7 +28,7 @@ function TableCellCheckboxOne<
                 aria-label="Select one"
                 className="cursor-pointer"
                 checked={isChecked}
-                onClick={() => toggleRow(id)}
+                onClick={() => toggleOne(id)}
             />
         </TableCell>
     );

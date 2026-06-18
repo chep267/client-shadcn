@@ -9,23 +9,23 @@ import Cookies from 'js-cookie';
 
 /** constants */
 import { AppEnv, AppKey } from '@module-base/constants/env';
-import { ThemeObject } from '@module-base/constants/config';
+import { AppTheme } from '@module-base/constants/config';
 
-export const getDeviceTheme = (): App.ModuleBase.Store.Theme => {
+export const getDeviceTheme = (): App.ModuleBase.Data.Theme => {
     // get from cookie
-    let theme = Cookies.get(AppKey.theme) as App.ModuleBase.Store.Theme;
-    if (theme in ThemeObject) {
+    let theme = Cookies.get(AppKey.theme) as App.ModuleBase.Data.Theme;
+    if (theme in AppTheme) {
         return theme;
     }
     // get from env
     theme = AppEnv.appTheme;
-    if (theme in ThemeObject) {
+    if (theme in AppTheme) {
         return theme;
     }
     // get from the device
     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return ThemeObject.dark;
+        return AppTheme.dark;
     }
     // default
-    return ThemeObject.light;
+    return AppTheme.light;
 };

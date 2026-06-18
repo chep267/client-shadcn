@@ -29,11 +29,9 @@ export function ThreadList() {
     const { tid = '' } = useParams();
     const { isPending, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetThreads();
 
-    const items = useThreadStore((store) => store.data.threads);
-
-    const threads = React.useMemo(() => {
-        return Array.from(items.values());
-    }, [items]);
+    const threads = useThreadStore((store) => store.data.threads)
+        .values()
+        .toArray();
 
     React.useEffect(() => {
         const fistThread = threads?.[0];
@@ -45,7 +43,7 @@ export function ThreadList() {
     return (
         <VirtualList
             className="max-tablet:[&>div]:scrollbar-hidden"
-            initialSetup={{
+            setup={{
                 loading: isPending || isFetchingNextPage,
             }}
             items={threads}

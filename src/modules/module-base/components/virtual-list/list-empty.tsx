@@ -7,8 +7,8 @@
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
-export function ListEmpty<Data extends App.ModuleBase.Component.TypeTableData = App.ModuleBase.Component.TypeTableData>(
-    props: App.ModuleBase.Component.TableEmptyProps<Data>
+export function ListEmpty<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
+    props: App.ModuleBase.Component.ComponentWithBigdataStoreProps<Data>
 ) {
     const { store } = props;
 

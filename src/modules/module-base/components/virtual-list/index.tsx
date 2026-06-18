@@ -8,84 +8,63 @@
 import * as React from 'react';
 import { type VirtuosoHandle, Virtuoso } from 'react-virtuoso';
 
-/** constants */
-import { AppTimer, OrderType } from '@module-base/constants/config';
-
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
-import { delay } from '@module-base/utils/delay';
-import { createTableStore } from '@module-base/components/table-base/utils/table-store';
+
+/** stores */
+import { createBigdataStore } from '@module-base/stores/useBigdataStore';
 
 /** components */
 import { ListLoading } from '@module-base/components/virtual-list/list-loading';
 import { ListEmpty } from '@module-base/components/virtual-list/list-empty';
 
-export function VirtualList<Data extends App.ModuleBase.Component.TypeTableData>(
+export function VirtualList<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
     props: App.ModuleBase.Component.ListProps<Data>
 ) {
-    const { className, initialSetup, items, emptyContent, ...listProps } = props;
-    const {
-        loading,
-        hasCheckbox = false,
-        delayLoading = AppTimer.searching,
-        dataKeyForCheckbox = 'id',
-        searchKey = '',
-        orderBy = '',
-        orderType = OrderType.asc,
-        filters,
-        searchableKeys,
-    } = initialSetup ?? {};
+    const { className, setup = {}, items, emptyContent, ...otherProps } = props;
 
     const virtuoso = React.useRef<VirtuosoHandle>(null);
-    const listStore = React.useMemo(() => createTableStore<Data>(), []);
-    const currentItems = listStore((state) => state.data.currentItems);
-    const storeOrderBy = listStore((state) => state.data.orderBy);
-    const storeOrderType = listStore((state) => state.data.orderType);
+    const dataStore = React.useMemo(() => createBigdataStore<Data>(), []);
+
+    const action = dataStore((state) => state.action);
+    const currentItems = dataStore((state) => state.data.currentItems);
+    const isTableEmpty = currentItems.length === 0;
 
     React.useEffect(() => {
-        listStore.getState().action.initState({
-            loading,
-            hasCheckbox,
-            dataKeyForCheckbox,
-            delayLoading,
-            searchKey,
-            orderBy,
-            orderType,
+        action.init({
+            ref: virtuoso.current,
             items,
-            filters,
-            searchableKeys,
             emptyContent,
+            ...setup,
         });
-    }, [listStore, loading, hasCheckbox, dataKeyForCheckbox, delayLoading, items]);
+    }, [items, emptyContent, JSON.stringify(setup)]);
 
     React.useEffect(() => {
-        listStore.getState().action.search(searchKey);
-    }, [searchKey]);
+        action.search(setup.searchKey);
+    }, [setup.searchKey]);
 
     React.useEffect(() => {
-        listStore.getState().action.sort(orderBy, orderType);
-    }, [orderBy, orderType]);
+        action.sort(setup.orderBy, setup.orderType);
+    }, [setup.orderBy, setup.orderType]);
 
     React.useEffect(() => {
-        listStore.getState().action.filter(filters);
-    }, [JSON.stringify(filters)]);
-
-    React.useEffect(() => {
-        delay(delayLoading).then(() => {
-            virtuoso.current?.scrollTo({ top: 0 });
-        });
-    }, [searchKey, storeOrderBy, storeOrderType, JSON.stringify(filters), JSON.stringify(searchableKeys)]);
+        action.filter(setup.filters);
+    }, [JSON.stringify(setup.filters)]);
 
     return (
-        <div className={cn('relative h-full w-full', className)}>
-            <ListLoading store={listStore} />
-            <ListEmpty store={listStore} />
-            <Virtuoso
-                ref={virtuoso}
-                className={cn('h-full w-full', 'scrollbar-custom scrollbar-thin')}
-                data={currentItems}
-                {...listProps}
-            />
+        <div className={cn('relative flex-1 overflow-hidden', 'min-h-40', { 'max-h-40': isTableEmpty }, className)}>
+            <ListLoading store={dataStore} />
+            <ListEmpty store={dataStore} />
+            {React.useMemo(() => {
+                return (
+                    <Virtuoso
+                        ref={virtuoso}
+                        className={cn('h-full w-full', 'scrollbar-custom scrollbar-thin')}
+                        data={currentItems}
+                        {...otherProps}
+                    />
+                );
+            }, [className, currentItems, otherProps])}
         </div>
     );
 }

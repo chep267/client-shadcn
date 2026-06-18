@@ -8,3 +8,5 @@
 import type { Dayjs } from 'dayjs';
 
 export type CalendarData = Dayjs;
+
+export type CalendarDisplay = 'sunday' | 'monday' | 'weekend';

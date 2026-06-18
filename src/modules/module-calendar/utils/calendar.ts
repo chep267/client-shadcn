@@ -10,7 +10,7 @@ import { CalendarDisplay } from '@module-calendar/constants/config';
 /** types */
 import type { Dayjs } from 'dayjs';
 
-export function genMatrixCalendar(time: Dayjs, display: App.ModuleCalendar.Store.CalendarDisplay) {
+export function genMatrixCalendar(time: Dayjs, display: App.ModuleCalendar.Data.CalendarDisplay) {
     const matrixCalendar = Array.from<number, number[]>({ length: 7 }, () => []);
     const firstDay = time.set('date', 1);
     const totalDate = time.daysInMonth();
@@ -61,7 +61,7 @@ export function genMatrixCalendar(time: Dayjs, display: App.ModuleCalendar.Store
     return matrixCalendar;
 }
 
-export function genMatrixCalendarDayJS(time: Dayjs, display: App.ModuleCalendar.Store.CalendarDisplay) {
+export function genMatrixCalendarDayJS(time: Dayjs, display: App.ModuleCalendar.Data.CalendarDisplay) {
     const matrixCalendar = Array.from<Dayjs, Dayjs[]>({ length: 7 }, () => []);
     const firstDay = time.set('date', 1);
     const totalDate = time.daysInMonth();

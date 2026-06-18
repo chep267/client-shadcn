@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import { PaletteIcon, LanguagesIcon, MoonStarIcon, SunIcon } from 'lucide-react';
 
 /** constants */
-import { LocaleObject, ThemeObject } from '@module-base/constants/config';
+import { AppLocale, AppTheme } from '@module-base/constants/config';
 import { BaseLanguage } from '@module-base/constants/language';
 
 /** utils */
@@ -129,20 +129,20 @@ export function MenuSetting() {
                 {
                     id: 'theme-dark',
                     className: 'cursor-pointer',
-                    disabled: theme === ThemeObject.dark,
-                    value: ThemeObject.dark,
+                    disabled: theme === AppTheme.dark,
+                    value: AppTheme.dark,
                     title: BaseLanguage.component.label.theme.dark,
                     icon: <MoonStarIcon className="size-5" />,
-                    onClick: () => settingAction.changeTheme(ThemeObject.dark),
+                    onClick: () => settingAction.changeTheme(AppTheme.dark),
                 },
                 {
                     id: 'theme-light',
                     className: 'cursor-pointer',
-                    disabled: theme === ThemeObject.light,
-                    value: ThemeObject.light,
+                    disabled: theme === AppTheme.light,
+                    value: AppTheme.light,
                     title: BaseLanguage.component.label.theme.light,
                     icon: <SunIcon className="text-warning size-5" />,
-                    onClick: () => settingAction.changeTheme(ThemeObject.light),
+                    onClick: () => settingAction.changeTheme(AppTheme.light),
                 },
             ],
         },
@@ -157,18 +157,18 @@ export function MenuSetting() {
                 {
                     id: 'Language-Vi',
                     className: 'cursor-pointer',
-                    disabled: locale === LocaleObject.vi,
+                    disabled: locale === AppLocale.vi,
                     title: BaseLanguage.component.label.locale.vi,
                     icon: <span>🇻🇳</span>,
-                    onClick: () => settingAction.changeLocale(LocaleObject.vi),
+                    onClick: () => settingAction.changeLocale(AppLocale.vi),
                 },
                 {
                     id: 'Language-En',
                     className: 'cursor-pointer',
-                    disabled: locale === LocaleObject.en,
+                    disabled: locale === AppLocale.en,
                     title: BaseLanguage.component.label.locale.en,
                     icon: <span>🇬🇧</span>,
-                    onClick: () => settingAction.changeLocale(LocaleObject.en),
+                    onClick: () => settingAction.changeLocale(AppLocale.en),
                 },
             ],
         },

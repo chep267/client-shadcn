@@ -5,12 +5,12 @@
  */
 
 /** constants */
-import { ThemeObject } from '@module-base/constants/config';
+import { AppTheme } from '@module-base/constants/config';
 
 /** types */
 import type { IParticlesProps } from '@tsparticles/react';
 
-export const ParticleOptions = (mode: App.ModuleBase.Store.Theme): IParticlesProps['options'] => ({
+export const ParticleOptions = (mode: App.ModuleBase.Data.Theme): IParticlesProps['options'] => ({
     autoPlay: true,
     clear: true,
     delay: 0,
@@ -51,7 +51,7 @@ export const ParticleOptions = (mode: App.ModuleBase.Store.Theme): IParticlesPro
             },
         },
         color: {
-            value: mode === ThemeObject.light ? '#1565c0' : '#ef6c00',
+            value: mode === AppTheme.light ? '#1565c0' : '#ef6c00',
             animation: {
                 h: {
                     count: 0,

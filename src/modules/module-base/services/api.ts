@@ -4,14 +4,12 @@
  *
  */
 
-/** apis */
-import { axiosClient } from '@module-base/apis';
-
 /** constants */
 import { AppTimer } from '@module-base/constants/config';
 
 /** utils */
 import { delay as funcDelay } from '@module-base/utils/delay';
+import { axiosClient } from '@module-base/utils/axiosClient';
 
 /** types */
 import type { AxiosResponse, AxiosRequestConfig } from 'axios';

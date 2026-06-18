@@ -23,14 +23,20 @@ import { ActionMenu } from '@module-dashboard/components/ActionMenu';
 import { Assignee } from '@module-dashboard/components/Assignee';
 import { SelectTicketStatus } from '@module-dashboard/components/SelectTicketStatus';
 
-type TypeFilterItem = NonNullable<App.ModuleBase.Component.TypeTableSetup['filters']>[number];
+type TypeFilterItem = NonNullable<
+    App.ModuleBase.Component.BigdataStoreData<App.ModuleDashboard.Data.TypeTicketData>['filters']
+>[number];
 
 export function TableTicket() {
     const [searchValue, setSearchValue] = React.useState('');
     const [filters, setFilters] = React.useState<TypeFilterItem[]>([]);
     const { isPending, data } = useGetTickets();
 
-    const handleFilter = (dataKey: string, value: string, item?: App.ModuleBase.Component.TypeSelectItem) => {
+    const handleFilter = (
+        dataKey: App.ModuleBase.Component.BigdataKey<App.ModuleDashboard.Data.TypeTicketData>,
+        value: string,
+        item?: App.ModuleBase.Component.SelectBaseItem
+    ) => {
         setFilters((prevFilters) => {
             const next = prevFilters.filter((filter) => filter.dataKey !== dataKey);
             if (value === 'null') return next;
@@ -51,11 +57,11 @@ export function TableTicket() {
                             dayjs(item.deadline).format('DD/MM/YYYY').includes(value)
                         );
                     },
-                } as App.ModuleBase.Component.TypeSelectItem;
+                } as App.ModuleBase.Component.SelectBaseItem;
             });
     }, []);
 
-    const columns = React.useMemo<App.ModuleBase.Component.TypeTableColumn<App.ModuleDashboard.Data.TypeTicketData>[]>(
+    const columns = React.useMemo<App.ModuleBase.Component.TableColumn<App.ModuleDashboard.Data.TypeTicketData>[]>(
         () => [
             {
                 dataKey: 'id',
@@ -111,23 +117,23 @@ export function TableTicket() {
                         className="tablet:max-w-40 tablet:min-w-25 w-full"
                         placeholder="Filter by status"
                         hasClear
-                        value={filters.find((filter) => filter.dataKey === 'status')?.value || ''}
+                        value={filters.find((filter) => filter.dataKey === 'status')?.value ?? ''}
                         onChange={(value, item) => handleFilter('status', value, item)}
                     />
                     <SelectBase
                         className="tablet:max-w-40 tablet:min-w-25 w-full"
                         placeholder="Filter by year"
                         hasClear
-                        value={filters.find((filter) => filter.dataKey === 'year')?.value || ''}
+                        value={filters.find((filter) => filter.dataKey === 'createdAt')?.value ?? ''}
                         items={filterYears}
-                        onChange={(value, item) => handleFilter('year', value, item)}
+                        onChange={(value, item) => handleFilter('createdAt', value, item)}
                     />
                 </div>
             </div>
 
             <VirtualTable
                 className="scrollbar-custom flex scrollbar-thin"
-                initialSetup={{
+                setup={{
                     loading: isPending,
                     hasCheckbox: true,
                     dataKeyForCheckbox: 'id',

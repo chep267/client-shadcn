@@ -26,16 +26,23 @@ type LayerScreenProps = React.PropsWithChildren<{
     component?: 'div' | 'main';
 }>;
 
+function ParticleWrapper() {
+    const theme = useSettingStore((store) => store.data.theme);
+
+    return (
+        <React.Suspense fallback={null}>
+            <Particle options={ParticleOptions(theme)} />
+        </React.Suspense>
+    );
+}
+
 export default function LayerScreen(props: LayerScreenProps) {
     const { children, className, component: Component = 'div' } = props;
-    const theme = useSettingStore((store) => store.data.theme);
 
     return (
         <Component className={cn('flex flex-1 items-center justify-center', className)}>
             {children}
-            <React.Suspense fallback={null}>
-                <Particle options={ParticleOptions(theme)} />
-            </React.Suspense>
+            <ParticleWrapper />
         </Component>
     );
 }

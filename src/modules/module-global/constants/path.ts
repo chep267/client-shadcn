@@ -6,6 +6,7 @@
 
 export const GlobalRouterPath = {
     home: '/',
+    feed: '/feed',
     account: '/account',
     notFound: '/not-found',
     ageCalculator: '/age-calculator',

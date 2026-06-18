@@ -8,7 +8,7 @@
 import * as React from 'react';
 
 /** constants */
-import { ThemeObject } from '@module-base/constants/config';
+import { AppTheme } from '@module-base/constants/config';
 
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';
@@ -20,7 +20,7 @@ export function ThemeProvider(props: React.PropsWithChildren) {
 
     React.useLayoutEffect(() => {
         const root = window.document.documentElement;
-        root.classList.remove(...Object.values(ThemeObject));
+        root.classList.remove(...Object.values(AppTheme));
         root.classList.add(theme);
     }, [theme]);
 

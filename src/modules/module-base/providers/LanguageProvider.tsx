@@ -12,7 +12,7 @@ import 'dayjs/locale/vi';
 import 'dayjs/locale/en';
 
 /** constants */
-import { LocaleObject } from '@module-base/constants/config';
+import { AppLocale } from '@module-base/constants/config';
 
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';
@@ -24,7 +24,7 @@ export function LanguageProvider(props: React.PropsWithChildren) {
     const { children } = props;
 
     const locale = useSettingStore((store) => store.data.locale);
-    const [messages, setMessages] = React.useState<App.ModuleBase.Store.LanguageMessages | null>(null);
+    const [messages, setMessages] = React.useState<App.ModuleBase.Data.LanguageMessages | null>(null);
 
     React.useEffect(() => {
         dayjs.locale(locale);
@@ -36,7 +36,7 @@ export function LanguageProvider(props: React.PropsWithChildren) {
     }
 
     return (
-        <IntlProvider defaultLocale={LocaleObject.en} locale={locale} messages={messages}>
+        <IntlProvider defaultLocale={AppLocale.en} locale={locale} messages={messages}>
             {children}
         </IntlProvider>
     );

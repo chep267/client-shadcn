@@ -22,7 +22,7 @@ interface SelectTicketStatusProps {
     hasClear?: boolean;
     disabled?: boolean;
     value?: string;
-    onChange?: (value: string, item?: App.ModuleBase.Component.TypeSelectItem) => void;
+    onChange?: (value: string, item?: App.ModuleBase.Component.SelectBaseItem) => void;
 }
 
 export function SelectTicketStatus(props: SelectTicketStatusProps) {
@@ -33,9 +33,9 @@ export function SelectTicketStatus(props: SelectTicketStatusProps) {
         return statuses?.map((status) => {
             return {
                 className: 'capitalize',
-                label: status.split('_').join(' '),
+                label: String(status).split('_').join(' '),
                 value: status,
-            } as App.ModuleBase.Component.TypeSelectItem;
+            } as App.ModuleBase.Component.SelectBaseItem;
         });
     }, [statuses]);
 

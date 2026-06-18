@@ -28,6 +28,7 @@ const PoemRouter = React.lazy(() => import('@module-poem/screens/PoemRouter'));
 const UserRouter = React.lazy(() => import('@module-user/screens/UserRouter'));
 const MessengerRouter = React.lazy(() => import('@module-messenger/screens/MessengerRouter'));
 const AgeCalculatorScreen = React.lazy(() => import('@module-global/screens/AgeCalculatorScreen'));
+const FeedScreen = React.lazy(() => import('@module-global/screens/FeedScreen'));
 
 export function AppRouter() {
     const defaultPaths = React.useMemo(() => [...Object.values(AuthRouterPath), GlobalRouterPath.home], []);
@@ -45,6 +46,7 @@ export function AppRouter() {
                     <Route path={PoemRouterPath.root} element={<PoemRouter />} />
                     <Route path={GlobalRouterPath.account} element={<UserRouter />} />
                     <Route path={GlobalRouterPath.ageCalculator} element={<AgeCalculatorScreen />} />
+                    <Route path={GlobalRouterPath.feed} element={<FeedScreen />} />
                     <Route path="*" element={<NotFoundScreen />} />
                 </Routes>
             </React.Suspense>

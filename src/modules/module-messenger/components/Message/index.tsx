@@ -14,8 +14,8 @@ export function Message({ isMe, message, currentUid, authorName = 'User', author
     const { metadata } = message;
 
     // Hàm format thời gian nhanh dạng HH:MM
-    const formatTime = (timestamp?: string) => {
-        return new Date(timestamp || '').toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const formatTime = (timestamp: string = '') => {
+        return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     };
 
     // Hàm render Icon cho các trạng thái tin nhắn

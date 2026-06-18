@@ -4,7 +4,7 @@
  *
  */
 
-export function AppLogo(props: App.ModuleBase.Component.TypeIconSVGProps) {
+export function AppLogo(props: App.ModuleBase.Component.IconSVGProps) {
     return (
         <svg
             width="32px"

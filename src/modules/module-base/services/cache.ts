@@ -7,23 +7,27 @@
 export class CacheService<Data = unknown> {
     protected readonly cache = new Map<string, Data>();
 
-    public get = (id: string = '') => {
+    get = (id: string) => {
+        if (!id) throw new Error('param "id" is required!');
         return this.cache.get(id);
     };
 
-    public add = (id: string, data: Data): void => {
+    add = (id: string, data: Data): void => {
+        if (!id) throw new Error('param "id" is required!');
+        if (!data) throw new Error('param "data" is required!');
         this.cache.set(id, data);
     };
 
-    public remove = (id: string = '') => {
-        this.cache.delete(id);
+    remove = (id: string) => {
+        if (!id) throw new Error('param "id" is required!');
+        return this.cache.delete(id);
     };
 
-    public getKeys = () => {
+    getKeys = () => {
         return Array.from(this.cache.keys());
     };
 
-    public getValues = () => {
+    getValues = () => {
         return Array.from(this.cache.values());
     };
 }

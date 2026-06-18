@@ -19,14 +19,9 @@ export function AppSocket() {
     useEffect(() => {
         if (!meId) return;
 
-        const socket = connectSocket(meId);
-
-        socket.on('notification', (data) => {
-            console.log('New notification:', data);
-        });
+        connectSocket(meId);
 
         return () => {
-            socket.off('notification');
             disconnectSocket();
         };
     }, [meId]);

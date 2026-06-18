@@ -16,56 +16,64 @@ import { deepGet } from '@module-base/utils/data';
 import { deepIncludes, normalizeString } from '@module-base/utils/string';
 import { debounce } from '@module-base/utils/debounce';
 import { delay } from '@module-base/utils/delay';
-import { sortTableData } from '@module-base/utils/virtual';
+import { sortBigdata } from '@module-base/utils/virtual';
 
 enableMapSet();
 
-export const createTableStore = <Data extends App.ModuleBase.Component.TypeTableData>() => {
-    return create<App.ModuleBase.Component.TableStoreProps<Data>>((set, get) => ({
+export const createBigdataStore = <
+    Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata,
+>() => {
+    return create<App.ModuleBase.Component.BigdataStore<Data>>((set, get) => ({
         data: {
+            // state
+            ref: undefined,
             loading: false,
-            hasCheckbox: false,
-            dataKeyForCheckbox: 'id',
             isCheckedAll: false,
             isIndeterminate: false,
             searchKey: '',
-            orderBy: '',
+            orderBy: '' as App.ModuleBase.Component.BigdataKey<Data>,
             orderType: OrderType.asc,
             selectedIds: new Set(),
-            emptyContent: null,
-            columns: [],
-            items: [],
+
+            // setup
             delayLoading: AppTimer.searching,
-            filters: undefined,
-            searchableKeys: undefined,
+            hasCheckbox: false,
+            dataKeyForCheckbox: 'id' as App.ModuleBase.Component.BigdataKey<Data>,
+            searchableKeys: [],
+            filters: [],
+
+            // data
+            columns: [],
+            emptyContent: null,
+            items: [],
             currentItems: [],
         },
         action: {
-            initState: (initialData: Partial<App.ModuleBase.Component.TableStoreProps<Data>['data']>) => {
+            init: (initialData: Partial<App.ModuleBase.Component.BigdataStore<Data>['data']>) => {
                 set(
-                    produce<App.ModuleBase.Component.TableStoreProps<Data>>(({ data }) => {
+                    produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
                         Object.entries(initialData).forEach(([key, value]) => {
                             if (key in data) {
-                                (data as Record<typeof key, unknown>)[key] = value;
+                                (data as Record<string, unknown>)[key] = value;
                             }
-                            data.items = data.items || [];
-                            data.currentItems = data.items;
                         });
+                        data.items = data.items ?? [];
+                        data.currentItems = data.items;
                     })
                 );
             },
             setParam: (key, value) => {
                 set(
-                    produce<App.ModuleBase.Component.TableStoreProps<Data>>(({ data }) => {
+                    produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
                         if (key in data) {
-                            (data as Record<typeof key, unknown>)[key] = value;
+                            (data as Record<string, unknown>)[key] = value;
                         }
                     })
                 );
             },
-            toggleRow: (id) => {
+            toggleOne: (id) => {
                 set(
-                    produce<App.ModuleBase.Component.TableStoreProps<Data>>(({ data }) => {
+                    produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
                         if (data.selectedIds.has(id)) {
                             data.selectedIds.delete(id);
                         } else {
@@ -80,7 +88,7 @@ export const createTableStore = <Data extends App.ModuleBase.Component.TypeTable
             },
             toggleAll: () => {
                 set(
-                    produce<App.ModuleBase.Component.TableStoreProps<Data>>(({ data }) => {
+                    produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
                         data.isIndeterminate = false;
                         if (data.isCheckedAll) {
                             data.isCheckedAll = false;
@@ -93,12 +101,12 @@ export const createTableStore = <Data extends App.ModuleBase.Component.TypeTable
                     })
                 );
             },
-            sort: (dataKey, type) => {
+            sort: (orderBy, orderType) => {
                 set(
                     produce((state) => {
-                        const nextOrderBy = dataKey || state.data.orderBy;
+                        const nextOrderBy = orderBy || state.data.orderBy;
                         const nextOrderType =
-                            type ||
+                            orderType ||
                             (nextOrderBy !== state.data.orderBy || state.data.orderType === OrderType.desc
                                 ? OrderType.asc
                                 : OrderType.desc);
@@ -126,13 +134,9 @@ export const createTableStore = <Data extends App.ModuleBase.Component.TypeTable
             },
             calculateData: (() => {
                 const runCalculation = (isImmediate = false) => {
-                    const { data, action } = get();
-                    const { items, searchKey, searchableKeys, filters, orderBy, orderType, delayLoading } = data;
-
+                    const { data } = get();
+                    const { items, searchKey, searchableKeys, filters, orderBy, orderType, delayLoading = 0 } = data;
                     const timingStart = performance.now();
-                    if (isImmediate) {
-                        action.setParam('loading', true);
-                    }
 
                     // --- STEP 1: Search ---
                     let result = [...items];
@@ -153,7 +157,7 @@ export const createTableStore = <Data extends App.ModuleBase.Component.TypeTable
 
                     // --- STEP 3: Sort ---
                     if (orderBy) {
-                        result = sortTableData({
+                        result = sortBigdata({
                             items: result,
                             orderBy,
                             orderType,
@@ -162,31 +166,32 @@ export const createTableStore = <Data extends App.ModuleBase.Component.TypeTable
 
                     // --- STEP 4: Update State with Delay UX ---
                     const duration = performance.now() - timingStart;
-                    const remainingTime = isImmediate ? Math.max(0, (delayLoading || 0) - duration) : 0;
+                    const remainingTime = isImmediate ? Math.max(0, delayLoading - duration) : 0;
 
                     delay(remainingTime).then(() => {
                         set(
                             produce((state) => {
-                                state.data.currentItems = result;
-                                state.data.loading = false;
-                                // Re-calculate the checkbox status based on a new list
-                                const selected = state.data.selectedIds.size;
                                 const total = result.length;
+                                const selected = state.data.selectedIds.size;
+                                state.data.currentItems = result;
                                 state.data.isCheckedAll = total > 0 && selected === total;
                                 state.data.isIndeterminate = selected > 0 && selected < total;
+                                state.data.loading = false;
                             })
                         );
+                        data.ref?.scrollTo({ top: 0 });
                     });
                 };
 
-                const debouncedCalc = debounce(() => runCalculation(), AppTimer.searching);
+                const debouncedCalc = debounce(() => runCalculation(false), AppTimer.searching);
 
                 return (isImmediate = false) => {
+                    const { action } = get();
+                    action.setParam('loading', true);
                     if (isImmediate) {
                         debouncedCalc.cancel();
                         runCalculation(true);
                     } else {
-                        get().action.setParam('loading', true);
                         debouncedCalc();
                     }
                 };

@@ -15,7 +15,7 @@ import { AppKey } from '@module-base/constants/env';
 import { AuthLanguage } from '@module-auth/constants/language';
 
 /** utils */
-import { isClientError } from '@module-base/utils/axios';
+import { isClientError } from '@module-base/utils/axiosHelper';
 
 /** services */
 import { authService } from '@module-auth/services';

@@ -38,7 +38,7 @@ class StorageBase {
     set = (key: string, data: App.ModuleBase.Data.StorageValue) => {
         this.checkParams('set', key, 'storage key');
         this.checkParams('set', data, 'data');
-        const value = `${data || ''}`;
+        const value = data ?? '';
         window[this.storageName].setItem(key, value);
         this.storageCache.set(key, value);
     };

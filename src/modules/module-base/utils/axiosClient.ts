@@ -14,7 +14,7 @@ import { AppTimer } from '@module-base/constants/config';
 
 /** utils */
 import { delay } from '@module-base/utils/delay';
-import { isTokenExpired } from '@module-base/utils/axios';
+import { isTokenExpired } from '@module-base/utils/axiosHelper';
 
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';

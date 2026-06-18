@@ -24,7 +24,12 @@ const parsePath = (path: string): PathKey[] => {
     return result;
 };
 
-export const getValueByDataKey = <Data extends object>(item: Data, dataKey = ''): string => {
+export const getValueByDataKey = <Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
+    item: Data,
+    dataKey?: App.ModuleBase.Component.BigdataKey<Data>
+): string => {
+    if (isNull(item)) return '';
+    if (typeof item !== 'object') return String(item).trim().normalize('NFC');
     if (!dataKey) return '';
     const path = parsePath(dataKey);
     let value: any = item;
@@ -42,16 +47,17 @@ interface SortMeta {
     num: number;
     extracted: number[];
 }
-export const sortTableData = <Data extends object>(payload: {
+export const sortBigdata = <Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(payload: {
     items?: Data[];
-    orderType?: App.ModuleBase.Component.TypeOrderType;
-    orderBy?: string;
+    orderType?: App.ModuleBase.Component.OrderType;
+    orderBy?: App.ModuleBase.Component.BigdataKey<Data>;
 }): Array<Data> => {
-    const { items, orderType = OrderType.asc, orderBy = 'id' } = payload;
+    const { items, orderType = OrderType.asc, orderBy } = payload;
     if (!items?.length) return [];
 
     const multiplier = orderType === OrderType.asc ? 1 : -1;
-    const metaCache = new WeakMap<Data, SortMeta>();
+    const isObjectArray = items.every((item) => typeof item === 'object' && item !== null);
+    const metaCache = isObjectArray ? new WeakMap<any, SortMeta>() : new Map<any, SortMeta>();
 
     const getMeta = (item: Data): SortMeta => {
         let meta = metaCache.get(item);

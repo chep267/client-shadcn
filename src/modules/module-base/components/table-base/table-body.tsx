@@ -13,7 +13,7 @@ import { TableBody as TableBodyUI } from '@module-base/components/table';
 import { TableEmpty } from '@module-base/components/table-base/table-empty';
 import { TableBodyRow } from '@module-base/components/table-base/table-body-row';
 
-export function TableBody<Data extends App.ModuleBase.Component.TypeTableData>(
+export function TableBody<Data extends App.ModuleBase.Component.Bigdata>(
     props: App.ModuleBase.Component.TableBodyProps<Data>
 ) {
     const { className, children, store, ...otherProps } = props;
@@ -28,7 +28,7 @@ export function TableBody<Data extends App.ModuleBase.Component.TypeTableData>(
             {children ||
                 currentItems.map((item, indexRow) => {
                     const id = deepGet(item, dataKeyForCheckbox) ?? `row-${indexRow}`;
-                    return <TableBodyRow key={id} id={id} indexRow={indexRow} item={item} store={store} />;
+                    return <TableBodyRow key={id} indexRow={indexRow} item={item} store={store} />;
                 })}
         </TableBodyUI>
     );
