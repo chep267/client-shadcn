@@ -21,7 +21,7 @@ import { ListEmpty } from '@module-base/components/virtual-list/list-empty';
 export function VirtualList<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
     props: App.ModuleBase.Component.ListProps<Data>
 ) {
-    const { className, setup = {}, items, emptyContent, ...otherProps } = props;
+    const { className, setup, items, emptyContent, ...otherProps } = props;
 
     const virtuoso = React.useRef<VirtuosoHandle>(null);
     const dataStore = React.useMemo(() => createBigdataStore<Data>(), []);
@@ -39,18 +39,6 @@ export function VirtualList<Data extends App.ModuleBase.Component.Bigdata = App.
         });
     }, [items, emptyContent, JSON.stringify(setup)]);
 
-    React.useEffect(() => {
-        action.search(setup.searchKey);
-    }, [setup.searchKey]);
-
-    React.useEffect(() => {
-        action.sort(setup.orderBy, setup.orderType);
-    }, [setup.orderBy, setup.orderType]);
-
-    React.useEffect(() => {
-        action.filter(setup.filters);
-    }, [JSON.stringify(setup.filters)]);
-
     return (
         <div className={cn('relative flex-1 overflow-hidden', 'min-h-40', { 'max-h-40': isTableEmpty }, className)}>
             <ListLoading store={dataStore} />
@@ -59,7 +47,7 @@ export function VirtualList<Data extends App.ModuleBase.Component.Bigdata = App.
                 return (
                     <Virtuoso
                         ref={virtuoso}
-                        className={cn('h-full w-full', 'scrollbar-custom scrollbar-thin')}
+                        className={cn('h-full w-full', className)}
                         data={currentItems}
                         {...otherProps}
                     />

@@ -101,21 +101,21 @@ type BigdataStoreData<Data extends Bigdata = Bigdata> = {
     isCheckedAll: boolean;
     isIndeterminate: boolean;
     searchKey: string;
-    orderBy: BigdataKey<Data>;
-    orderType: OrderType;
+    orderBy?: BigdataKey<Data>;
+    orderType?: OrderType;
     selectedIds: Set<ItemId>;
 
     // setup
-    delayLoading: number;
-    hasCheckbox: boolean;
-    dataKeyForCheckbox: BigdataKey<Data>;
-    searchableKeys: BigdataKey<Data>[];
-    filters: { dataKey: BigdataKey<Data>; value: string; fnFilter?: (item: Data) => boolean }[];
+    hasCheckbox?: boolean;
+    dataKeyForCheckbox?: BigdataKey<Data>;
+    searchableKeys?: BigdataKey<Data>[];
+    filters?: { dataKey: BigdataKey<Data>; value: string; fnFilter?: (item: Data) => boolean }[];
+    delayLoading?: number;
 
     // data
-    columns: TableColumn<Data>[];
-    emptyContent: ElementContent;
-    items: Data[];
+    columns?: TableColumn<Data>[];
+    emptyContent?: ElementContent;
+    items?: Data[];
     currentItems: Data[];
 };
 type BigdataStoreAction<Data extends Bigdata = Bigdata> = {
@@ -124,7 +124,7 @@ type BigdataStoreAction<Data extends Bigdata = Bigdata> = {
     toggleOne: (id: ItemId) => void;
     toggleAll: () => void;
     sort: (orderBy?: BigdataKey<Data>, orderType?: OrderType) => void;
-    filter: (filters: ListSetup<Data>['filters']) => void;
+    filter: (filters: BigdataStoreData<Data>['filters']) => void;
     search: (value?: string) => void;
     calculateData: (isImmediate?: boolean) => void;
 };

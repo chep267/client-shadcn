@@ -25,7 +25,7 @@ import { TableBody } from '@module-base/components/table-base/table-body';
 export function VirtualTable<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
     props: App.ModuleBase.Component.TableProps<Data>
 ) {
-    const { className, setup = {}, items, emptyContent, columns } = props;
+    const { className, setup, items, emptyContent, columns } = props;
 
     const virtuoso = React.useRef<TableVirtuosoHandle>(null);
     const dataStore = React.useMemo(() => createBigdataStore<Data>(), []);
@@ -55,22 +55,10 @@ export function VirtualTable<Data extends App.ModuleBase.Component.Bigdata = App
         });
     }, [items, emptyContent, columns, JSON.stringify(setup)]);
 
-    React.useEffect(() => {
-        action.search(setup.searchKey);
-    }, [setup.searchKey]);
-
-    React.useEffect(() => {
-        action.sort(setup.orderBy, setup.orderType);
-    }, [setup.orderBy, setup.orderType]);
-
-    React.useEffect(() => {
-        action.filter(setup.filters);
-    }, [JSON.stringify(setup.filters)]);
-
     return (
         <div
             className={cn(
-                'relative flex-1 overflow-hidden rounded-md border',
+                'relative flex-1 overflow-hidden rounded-sm border',
                 'min-h-40',
                 { 'max-h-40': isTableEmpty },
                 className
@@ -82,7 +70,7 @@ export function VirtualTable<Data extends App.ModuleBase.Component.Bigdata = App
                     <TableVirtuoso
                         ref={virtuoso}
                         className={cn(
-                            'relative h-full w-full rounded-md',
+                            'relative h-full w-full',
                             '**:data-[slot=table-container]:overflow-visible',
                             className
                         )}

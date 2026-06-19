@@ -15,8 +15,7 @@ import { AppTimer, OrderType } from '@module-base/constants/config';
 import { deepGet } from '@module-base/utils/data';
 import { deepIncludes, normalizeString } from '@module-base/utils/string';
 import { debounce } from '@module-base/utils/debounce';
-import { delay } from '@module-base/utils/delay';
-import { sortBigdata } from '@module-base/utils/virtual';
+import { sortBigdata, getValueByDataKey } from '@module-base/utils/virtual';
 
 enableMapSet();
 
@@ -31,43 +30,37 @@ export const createBigdataStore = <
             isCheckedAll: false,
             isIndeterminate: false,
             searchKey: '',
-            orderBy: '' as App.ModuleBase.Component.BigdataKey<Data>,
-            orderType: OrderType.asc,
+            orderBy: undefined,
+            orderType: undefined,
             selectedIds: new Set(),
 
             // setup
-            delayLoading: AppTimer.searching,
             hasCheckbox: false,
-            dataKeyForCheckbox: 'id' as App.ModuleBase.Component.BigdataKey<Data>,
-            searchableKeys: [],
-            filters: [],
+            dataKeyForCheckbox: undefined,
+            searchableKeys: undefined,
+            filters: undefined,
 
             // data
-            columns: [],
-            emptyContent: null,
-            items: [],
+            columns: undefined,
+            emptyContent: undefined,
+            items: undefined,
             currentItems: [],
         },
         action: {
-            init: (initialData: Partial<App.ModuleBase.Component.BigdataStore<Data>['data']>) => {
+            init: (initialData: Partial<App.ModuleBase.Component.BigdataStore<Data>['data']> = {}) => {
+                const isImmediate = !initialData.searchKey && !initialData.filters?.length;
                 set(
                     produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
-                        Object.entries(initialData).forEach(([key, value]) => {
-                            if (key in data) {
-                                (data as Record<string, unknown>)[key] = value;
-                            }
-                        });
-                        data.items = data.items ?? [];
-                        data.currentItems = data.items;
+                        Object.assign(data, initialData);
+                        data.loading = !isImmediate;
                     })
                 );
+                get().action.calculateData(isImmediate);
             },
             setParam: (key, value) => {
                 set(
                     produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
-                        if (key in data) {
-                            (data as Record<string, unknown>)[key] = value;
-                        }
+                        Object.assign(data, { [key]: value });
                     })
                 );
             },
@@ -92,7 +85,7 @@ export const createBigdataStore = <
                         data.isIndeterminate = false;
                         if (data.isCheckedAll) {
                             data.isCheckedAll = false;
-                            data.selectedIds = new Set();
+                            data.selectedIds.clear();
                         } else {
                             const ids = data.currentItems.map((item) => deepGet(item, data.dataKeyForCheckbox));
                             data.isCheckedAll = true;
@@ -103,96 +96,95 @@ export const createBigdataStore = <
             },
             sort: (orderBy, orderType) => {
                 set(
-                    produce((state) => {
-                        const nextOrderBy = orderBy || state.data.orderBy;
-                        const nextOrderType =
-                            orderType ||
-                            (nextOrderBy !== state.data.orderBy || state.data.orderType === OrderType.desc
-                                ? OrderType.asc
-                                : OrderType.desc);
-                        state.data.orderBy = nextOrderBy;
-                        state.data.orderType = nextOrderType;
+                    produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
+                        Object.assign(data, {
+                            orderBy: orderBy,
+                            orderType:
+                                orderType ||
+                                (!data.orderType || data.orderType === OrderType.asc ? OrderType.desc : OrderType.asc),
+                        });
                     })
                 );
                 get().action.calculateData(true);
             },
             search: (text = '') => {
+                const isImmediate = !text;
                 set(
-                    produce((state) => {
-                        state.data.searchKey = text;
+                    produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
+                        data.searchKey = text;
+                        data.loading = !isImmediate;
                     })
                 );
-                get().action.calculateData();
+                get().action.calculateData(isImmediate);
             },
             filter: (filters) => {
                 set(
-                    produce((state) => {
-                        state.data.filters = filters;
+                    produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
+                        Object.assign(data, { filters });
+                        data.loading = true;
                     })
                 );
                 get().action.calculateData();
             },
             calculateData: (() => {
-                const runCalculation = (isImmediate = false) => {
-                    const { data } = get();
-                    const { items, searchKey, searchableKeys, filters, orderBy, orderType, delayLoading = 0 } = data;
-                    const timingStart = performance.now();
+                const process = () => {
+                    const { ref, items = [], searchKey, searchableKeys, filters = [], orderBy, orderType } = get().data;
+                    let nextItems = items;
 
-                    // --- STEP 1: Search ---
-                    let result = [...items];
-                    const normalized = normalizeString(searchKey.trim());
-                    if (normalized) {
-                        result = result.filter((item) => deepIncludes(item, normalized, searchableKeys));
-                    }
+                    if (searchKey || filters.length) {
+                        // filter & search logic
+                        const normalizedQuery = normalizeString(searchKey);
+                        nextItems = items.filter((item) => {
+                            // filter logic
+                            const isMatchFilter = filters.every((filter) => {
+                                if (filter.fnFilter) {
+                                    return filter.fnFilter(item);
+                                }
+                                const val = normalizeString(getValueByDataKey(item, filter.dataKey));
+                                return val.includes(normalizeString(filter.value));
+                            });
+                            if (!isMatchFilter) return false;
 
-                    // --- STEP 2: Filter ---
-                    if (filters?.length) {
-                        result = result.filter((item) =>
-                            filters.every(({ dataKey, value, fnFilter }) => {
-                                if (typeof fnFilter === 'function') return fnFilter(item);
-                                return deepGet(item, dataKey) === value;
-                            })
-                        );
-                    }
-
-                    // --- STEP 3: Sort ---
-                    if (orderBy) {
-                        result = sortBigdata({
-                            items: result,
-                            orderBy,
-                            orderType,
+                            // search logic
+                            if (!normalizedQuery) return true;
+                            if (searchableKeys?.length) {
+                                return searchableKeys.some((key) => {
+                                    const val = getValueByDataKey(item, key);
+                                    return normalizeString(val).includes(normalizedQuery);
+                                });
+                            }
+                            return deepIncludes(item, normalizedQuery);
                         });
                     }
 
-                    // --- STEP 4: Update State with Delay UX ---
-                    const duration = performance.now() - timingStart;
-                    const remainingTime = isImmediate ? Math.max(0, delayLoading - duration) : 0;
+                    if (orderBy) {
+                        // sort logic
+                        nextItems = sortBigdata({ items: nextItems, orderBy, orderType });
+                    }
 
-                    delay(remainingTime).then(() => {
-                        set(
-                            produce((state) => {
-                                const total = result.length;
-                                const selected = state.data.selectedIds.size;
-                                state.data.currentItems = result;
-                                state.data.isCheckedAll = total > 0 && selected === total;
-                                state.data.isIndeterminate = selected > 0 && selected < total;
-                                state.data.loading = false;
-                            })
-                        );
-                        data.ref?.scrollTo({ top: 0 });
-                    });
+                    set(
+                        produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
+                            const total = nextItems.length;
+                            const selected = data.selectedIds.size;
+                            Object.assign(data, {
+                                currentItems: nextItems,
+                                isCheckedAll: total > 0 && selected === total,
+                                isIndeterminate: selected > 0 && selected < total,
+                                loading: false,
+                            });
+                        })
+                    );
+                    ref?.scrollTo({ top: 0 });
                 };
 
-                const debouncedCalc = debounce(() => runCalculation(false), AppTimer.searching);
+                const debouncedProcess = debounce(process, AppTimer.searching);
 
-                return (isImmediate = false) => {
-                    const { action } = get();
-                    action.setParam('loading', true);
+                return (isImmediate) => {
+                    debouncedProcess.cancel();
                     if (isImmediate) {
-                        debouncedCalc.cancel();
-                        runCalculation(true);
+                        process();
                     } else {
-                        debouncedCalc();
+                        debouncedProcess();
                     }
                 };
             })(),

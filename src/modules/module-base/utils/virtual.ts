@@ -51,7 +51,7 @@ export const sortBigdata = <Data extends App.ModuleBase.Component.Bigdata = App.
     items?: Data[];
     orderType?: App.ModuleBase.Component.OrderType;
     orderBy?: App.ModuleBase.Component.BigdataKey<Data>;
-}): Array<Data> => {
+}): Data[] => {
     const { items, orderType = OrderType.asc, orderBy } = payload;
     if (!items?.length) return [];
 

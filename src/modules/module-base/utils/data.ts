@@ -10,7 +10,7 @@ export const isEmptyString = (v: string): boolean => v === '';
 
 export const isNumber = (v: string | number): boolean => !isEmptyString(`${v}`) && !Number.isNaN(Number(v));
 
-export const deepGet = (obj: any, path: string, defaultValue: unknown = undefined) => {
+export const deepGet = (obj: any, path: string = '', defaultValue: unknown = undefined) => {
     if (!obj || !path) return defaultValue;
 
     const paths = path.replace(/\[(\d+)]/g, '.$1').split('.');

@@ -24,9 +24,7 @@ export function TableHeader<Data extends App.ModuleBase.Component.Bigdata = App.
 
     return (
         <TableHeaderUI className={cn('sticky top-0 z-10', 'bg-background shadow-xs', className)}>
-            <TableRow
-                className={cn('group', 'h-12', '[&_th:first-child]:rounded-tl-md [&_th:last-child]:rounded-tr-md')}
-            >
+            <TableRow className={cn('group', 'h-12')}>
                 <TableCellCheckboxAll store={store} />
                 {columns?.map((column) => {
                     const isOrderBy = orderBy === column.dataKey;
