@@ -15,7 +15,7 @@ import { AppTimer, OrderType } from '@module-base/constants/config';
 import { deepGet } from '@module-base/utils/data';
 import { deepIncludes, normalizeString } from '@module-base/utils/string';
 import { debounce } from '@module-base/utils/debounce';
-import { sortBigdata, getValueByDataKey } from '@module-base/utils/virtual';
+import { sortBigdata, getNestedValue } from '@module-base/utils/virtual';
 
 enableMapSet();
 
@@ -129,28 +129,26 @@ export const createBigdataStore = <
             calculateData: (() => {
                 const process = () => {
                     const { ref, items = [], searchKey, searchableKeys, filters = [], orderBy, orderType } = get().data;
+                    const normalizedQuery = normalizeString(searchKey);
                     let nextItems = items;
 
-                    if (searchKey || filters.length) {
+                    if (normalizedQuery || filters.length) {
                         // filter & search logic
-                        const normalizedQuery = normalizeString(searchKey);
                         nextItems = items.filter((item) => {
                             // filter logic
                             const isMatchFilter = filters.every((filter) => {
                                 if (filter.fnFilter) {
                                     return filter.fnFilter(item);
                                 }
-                                const val = normalizeString(getValueByDataKey(item, filter.dataKey));
+                                const val = normalizeString(`${getNestedValue(item, filter.dataKey)}`);
                                 return val.includes(normalizeString(filter.value));
                             });
                             if (!isMatchFilter) return false;
 
                             // search logic
-                            if (!normalizedQuery) return true;
                             if (searchableKeys?.length) {
                                 return searchableKeys.some((key) => {
-                                    const val = getValueByDataKey(item, key);
-                                    return normalizeString(val).includes(normalizedQuery);
+                                    return normalizeString(`${getNestedValue(item, key)}`).includes(normalizedQuery);
                                 });
                             }
                             return deepIncludes(item, normalizedQuery);

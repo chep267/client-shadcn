@@ -9,7 +9,7 @@ import * as React from 'react';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
-import { getValueByDataKey } from '@module-base/utils/virtual';
+import { getNestedValue } from '@module-base/utils/virtual';
 import { deepGet } from '@module-base/utils/data';
 
 /** components */
@@ -27,13 +27,10 @@ function TableBodyRow<Data extends App.ModuleBase.Component.Bigdata = App.Module
 
     const renderRow = () => {
         return columns?.map(({ dataKey, sortable: _sortable, render, ...cellProps }, indexCell) => {
+            const value = getNestedValue(item, dataKey);
             return (
                 <TableCell key={dataKey} {...cellProps}>
-                    {typeof render === 'function' ? (
-                        render({ indexRow, indexCell, item })
-                    ) : (
-                        <span>{getValueByDataKey(item, dataKey)}</span>
-                    )}
+                    {typeof render === 'function' ? render({ indexRow, indexCell, item }) : <span>{`${value}`}</span>}
                 </TableCell>
             );
         });
