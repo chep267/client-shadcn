@@ -12,9 +12,8 @@ import { produce, enableMapSet } from 'immer';
 import { AppTimer, OrderType } from '@module-base/constants/config';
 
 /** utils */
-import { deepGet } from '@module-base/utils/data';
-import { deepIncludes, normalizeString } from '@module-base/utils/string';
 import { debounce } from '@module-base/utils/debounce';
+import { deepIncludes, normalizeString } from '@module-base/utils/string';
 import { sortBigdata, getNestedValue } from '@module-base/utils/virtual';
 
 enableMapSet();
@@ -87,7 +86,9 @@ export const createBigdataStore = <
                             data.isCheckedAll = false;
                             data.selectedIds.clear();
                         } else {
-                            const ids = data.currentItems.map((item) => deepGet(item, data.dataKeyForCheckbox));
+                            const ids = data.currentItems.map(
+                                (item) => getNestedValue(item, data.dataKeyForCheckbox) as string
+                            );
                             data.isCheckedAll = true;
                             data.selectedIds = new Set(ids);
                         }
@@ -101,7 +102,11 @@ export const createBigdataStore = <
                             orderBy: orderBy,
                             orderType:
                                 orderType ||
-                                (!data.orderType || data.orderType === OrderType.asc ? OrderType.desc : OrderType.asc),
+                                (orderBy !== data.orderBy
+                                    ? OrderType.asc
+                                    : !data.orderType || data.orderType === OrderType.asc
+                                      ? OrderType.desc
+                                      : OrderType.asc),
                         });
                     })
                 );

@@ -10,7 +10,6 @@ import * as React from 'react';
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 import { getNestedValue } from '@module-base/utils/virtual';
-import { deepGet } from '@module-base/utils/data';
 
 /** components */
 import { TableCell, TableRow } from '@module-base/components/table';
@@ -23,7 +22,9 @@ function TableBodyRow<Data extends App.ModuleBase.Component.Bigdata = App.Module
 
     const columns = store((state) => state.data.columns);
     const dataKeyForCheckbox = store((state) => state.data.dataKeyForCheckbox);
-    const id = deepGet(item, dataKeyForCheckbox, `row-${indexRow}`);
+
+    const value = dataKeyForCheckbox ? getNestedValue(item, dataKeyForCheckbox) : undefined;
+    const id = typeof value === 'string' || typeof value === 'number' ? value : `row-${indexRow}`;
 
     const renderRow = () => {
         return columns?.map(({ dataKey, sortable: _sortable, render, ...cellProps }, indexCell) => {
