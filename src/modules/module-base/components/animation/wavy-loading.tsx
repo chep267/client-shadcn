@@ -13,12 +13,13 @@ interface WavyLoadingProps {
 }
 
 export function WavyLoading(props: WavyLoadingProps) {
-    const { text = 'Loading...', className = 'text-main' } = props;
+    const { text = 'Loading...', className } = props;
 
     return (
         <div
             className={cn(
-                'flex h-full w-full items-center justify-center text-2xl font-bold tracking-widest',
+                'flex h-full w-full items-center justify-center',
+                'text-main text-2xl font-bold tracking-widest',
                 className
             )}
         >

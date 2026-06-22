@@ -34,7 +34,7 @@ export function ButtonSignout() {
 
     return (
         <Button
-            className={cn('hover:*:!text-danger cursor-pointer', { '*:!text-danger': hookSignout.isPending })}
+            className={cn('hover:*:text-danger! cursor-pointer', { '*:text-danger!': hookSignout.isPending })}
             variant="outline"
             onClick={onSignout}
         >

@@ -23,7 +23,7 @@ export function TableHeader<Data extends App.ModuleBase.Component.Bigdata = App.
     const orderType = store((state) => state.data.orderType);
 
     return (
-        <TableHeaderUI className={cn('sticky top-0 z-10', 'bg-background shadow-xs', className)}>
+        <TableHeaderUI className={cn('sticky top-0 z-10', 'bg-background shadow-border shadow-sm', className)}>
             <TableRow className={cn('group', 'h-12')}>
                 <TableCellCheckboxAll store={store} />
                 {columns?.map((column) => {

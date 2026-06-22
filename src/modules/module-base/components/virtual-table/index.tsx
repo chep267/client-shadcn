@@ -58,7 +58,7 @@ export function VirtualTable<Data extends App.ModuleBase.Component.Bigdata = App
     return (
         <div
             className={cn(
-                'relative flex-1 overflow-hidden rounded-sm border',
+                'relative h-full w-full overflow-hidden rounded-sm border',
                 'min-h-40',
                 { 'max-h-40': isTableEmpty },
                 className

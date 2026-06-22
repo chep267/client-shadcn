@@ -123,13 +123,14 @@ export const createBigdataStore = <
                 get().action.calculateData(isImmediate);
             },
             filter: (filters) => {
+                const isImmediate = !filters?.length;
                 set(
                     produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
                         Object.assign(data, { filters });
-                        data.loading = true;
+                        data.loading = !isImmediate;
                     })
                 );
-                get().action.calculateData();
+                get().action.calculateData(isImmediate);
             },
             calculateData: (() => {
                 const process = () => {

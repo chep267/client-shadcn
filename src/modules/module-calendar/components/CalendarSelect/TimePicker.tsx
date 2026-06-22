@@ -53,6 +53,7 @@ export function TimePicker() {
                     className="min-w-0 cursor-pointer"
                     variant="outline"
                     size="sm"
+                    aria-label="prev-year"
                     onClick={() => onChangeTime('prev', 'year')}
                 >
                     <ChevronsLeftIcon />
@@ -61,6 +62,7 @@ export function TimePicker() {
                     className="min-w-0 cursor-pointer"
                     variant="outline"
                     size="sm"
+                    aria-label="prev-month"
                     onClick={() => onChangeTime('prev', 'month')}
                 >
                     <ChevronLeftIcon />
@@ -82,6 +84,7 @@ export function TimePicker() {
                     className="min-w-0 cursor-pointer"
                     variant="outline"
                     size="sm"
+                    aria-label="next-month"
                     onClick={() => onChangeTime('next', 'month')}
                 >
                     <ChevronRightIcon />
@@ -90,6 +93,7 @@ export function TimePicker() {
                     className="min-w-0 cursor-pointer"
                     variant="outline"
                     size="sm"
+                    aria-label="next-year"
                     onClick={() => onChangeTime('next', 'year')}
                 >
                     <ChevronsRightIcon />
