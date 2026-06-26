@@ -21,16 +21,17 @@ export function useGetMessage(mid: string = '') {
 
     return useQuery({
         queryKey: [MessengerQueryKey.message, { mid }],
-        queryFn: () => messageService.getOne({ mid }),
-        initialData: () => {
-            if (!message) return;
-            return {
-                message: '',
-                data: message,
-                metadata: {},
-            };
+        queryFn: () => {
+            if (message) {
+                return {
+                    message: '',
+                    data: message,
+                    metadata: {},
+                };
+            }
+            return messageService.getOne({ mid });
         },
-        enabled: !!mid && !message,
+        enabled: !!mid,
         staleTime: Infinity,
         gcTime: 1000 * 60 * 15,
     });

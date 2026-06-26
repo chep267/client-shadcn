@@ -7,6 +7,7 @@
 /** libs */
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { LucideThumbsUp } from 'lucide-react';
 
 /** constants */
 import { MessengerLanguage } from '@module-messenger/constants/language';
@@ -57,9 +58,13 @@ export function LastMessageText(props: LastMessageTextProps) {
     }
 
     return (
-        <Typography className={cn('text-muted-foreground truncate text-xs', className)} {...otherProps}>
-            {senderName}:&nbsp;
-            {message.content}
-        </Typography>
+        <div className="flex items-center">
+            <Typography className={cn('text-muted-foreground text-xs', className)} {...otherProps}>
+                {senderName}:&nbsp;
+            </Typography>
+            <Typography className={cn('text-muted-foreground truncate text-xs', className)} {...otherProps}>
+                {message.type === 'sticker' ? <LucideThumbsUp className="size-3" /> : message.content}
+            </Typography>
+        </div>
     );
 }

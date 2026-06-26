@@ -16,17 +16,17 @@ export const AppTimer = {
     delayTooltip: 300,
 } as const;
 
-export const AppLocale: Readonly<{ [Key in App.ModuleBase.Data.Locale]: Key }> = {
+export const AppLocale: App.ModuleBase.Data.Constant<App.ModuleBase.Data.Locale> = {
     vi: 'vi',
     en: 'en',
 };
 
-export const AppTheme: Readonly<{ [Key in App.ModuleBase.Data.Theme]: Key }> = {
+export const AppTheme: App.ModuleBase.Data.Constant<App.ModuleBase.Data.Theme> = {
     dark: 'dark',
     light: 'light',
 };
 
-export const OrderType: Readonly<{ [Key in App.ModuleBase.Component.OrderType]: Key }> = {
+export const OrderType: App.ModuleBase.Data.Constant<App.ModuleBase.Data.OrderType> = {
     asc: 'asc',
     desc: 'desc',
 };

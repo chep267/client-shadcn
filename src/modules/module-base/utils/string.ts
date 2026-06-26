@@ -13,7 +13,7 @@ export const normalizeString = (text: string = ''): string => {
         .toLowerCase();
 };
 
-export const deepIncludes = (data: any, normalizedQuery: string, searchableKeys?: string[]): boolean => {
+export const deepIncludes = (data: unknown, normalizedQuery: string, searchableKeys?: string[]): boolean => {
     if (!normalizedQuery) return true;
 
     const keySet = searchableKeys?.length ? new Set(searchableKeys) : undefined;

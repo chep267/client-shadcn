@@ -18,7 +18,7 @@ import type {
 } from 'react';
 import type { UseBoundStore, StoreApi } from 'zustand';
 import type { VirtuosoProps, TableVirtuosoHandle } from 'react-virtuoso';
-import type { ItemId } from '@module-base/types/data.d';
+import type { ItemId, OrderType } from '@module-base/types/data.d';
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** ErrorBoundary */
@@ -80,7 +80,6 @@ export interface SelectBaseProps<Value extends string = string> {
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** Big data store */
 export type ElementContent = ReactNode | (() => ReactNode);
-export type OrderType = 'asc' | 'desc';
 export type Bigdata = unknown;
 type DeepKeyOf<T> = T extends object
     ? {
@@ -91,9 +90,10 @@ type DeepKeyOf<T> = T extends object
                 : `${K}`;
       }[keyof T & (string | number)]
     : string;
-export type BigdataKey<Data extends Bigdata = Bigdata> = Data extends object
-    ? DeepKeyOf<Data> | 'id' | 'action'
-    : string;
+export type BigdataKey<Data extends Bigdata = Bigdata> =
+    | (Data extends object ? DeepKeyOf<Data> : string)
+    | 'id'
+    | 'action';
 type BigdataStoreData<Data extends Bigdata = Bigdata> = {
     // state
     ref?: TableVirtuosoHandle | HTMLDivElement | null;

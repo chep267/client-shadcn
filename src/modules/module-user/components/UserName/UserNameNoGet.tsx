@@ -21,7 +21,7 @@ export function UserNameNoGet(props: UserNameNoGetProps) {
     const { className, name, ...otherProps } = props;
 
     return (
-        <Typography className={cn('truncate', className)} {...otherProps}>
+        <Typography data-slot="name" className={cn('truncate', className)} {...otherProps}>
             {name}
         </Typography>
     );

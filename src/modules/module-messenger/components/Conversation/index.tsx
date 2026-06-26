@@ -17,7 +17,10 @@ import { ConversationFooter } from '@module-messenger/components/Conversation/Co
 
 export function Conversation() {
     return (
-        <Card className={cn('flex-1', 'ml-1 gap-0 rounded-sm border-l p-0', 'overflow-hidden')}>
+        <Card
+            data-slot="messenger-center"
+            className={cn('flex-1', 'ml-1 gap-0 rounded-sm border-l p-0', 'overflow-hidden')}
+        >
             <ConversationHeader />
             <ConversationBody />
             <ConversationFooter />

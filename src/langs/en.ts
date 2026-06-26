@@ -14,4 +14,14 @@ import { en as enPoem } from '@module-poem/utils/langs/en';
 import { en as enDashboard } from '@module-dashboard/utils/langs/en';
 import { en as enMessenger } from '@module-messenger/utils/langs/en';
 
-export const en = Object.assign({}, enBase, enUser, enAuth, enGlobal, enCalendar, enPoem, enDashboard, enMessenger);
+export const en: App.ModuleBase.Data.LanguageMessages = Object.assign(
+    {},
+    enBase,
+    enUser,
+    enAuth,
+    enGlobal,
+    enCalendar,
+    enPoem,
+    enDashboard,
+    enMessenger
+);

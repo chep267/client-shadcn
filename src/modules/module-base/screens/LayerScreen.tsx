@@ -8,7 +8,7 @@
 import * as React from 'react';
 
 /** constants */
-import { ParticleOptions } from '@module-base/constants/ParticleOptions';
+import { ParticleOptions } from '@module-base/constants/option';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';

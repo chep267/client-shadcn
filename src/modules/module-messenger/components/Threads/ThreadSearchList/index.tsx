@@ -7,9 +7,6 @@
 /** libs */
 import { useParams } from 'react-router-dom';
 
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
-
 /** stores */
 import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';
 
@@ -35,16 +32,17 @@ export function ThreadSearchList() {
                 loading: searchThreads.isFetching || searchUsers.isFetching,
             }}
             items={threads}
-            itemContent={(index, thread) => (
-                <ThreadItem
-                    key={index}
-                    className={cn('border-b', {
-                        'bg-main/50!': tid === thread.id,
-                    })}
-                    data={thread}
-                    hasOption={false}
-                />
-            )}
+            computeItemKey={(_index, thread) => thread.id}
+            itemContent={(_index, thread) => {
+                return (
+                    <ThreadItem
+                        className="data-[active=true]:bg-main/50! border-b"
+                        id={thread.id}
+                        data-active={tid === thread.id}
+                        hasOption={false}
+                    />
+                );
+            }}
         />
     );
 }

@@ -9,6 +9,11 @@ export const AppEnv = {
     apiHost: import.meta.env.VITE_APP_API_HOST,
     appTheme: import.meta.env.VITE_APP_CLIENT_THEME,
     appLocale: import.meta.env.VITE_APP_CLIENT_LOCALE,
+
+    pusher: {
+        key: import.meta.env.VITE_APP_PUSHER_KEY,
+        cluster: import.meta.env.VITE_APP_PUSHER_CLUSTER,
+    },
 } as const;
 
 export const AppKey = {

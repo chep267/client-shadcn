@@ -14,7 +14,6 @@ import { MessengerLanguage } from '@module-messenger/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
-import { delay } from '@module-base/utils/delay';
 
 /** stores */
 import { useAuthStore } from '@module-auth/stores/useAuthStore';
@@ -33,29 +32,38 @@ export function ConversationBody() {
     const { tid = '' } = useParams();
     const isDraft = tid.startsWith('uid.');
     const containerRef = React.useRef<HTMLDivElement>(null);
-    const isFirstLoadRef = React.useRef(true);
+    const lengthRef = React.useRef(0);
     const meId = useAuthStore((store) => store.data.user!.id);
 
     const { isPending } = useGetMessages(isDraft ? '' : tid);
-    const messageIds = useMessageStore((store) => store.data.messageIds.get(tid));
+    const messageIdsStore = useMessageStore((store) => store.data.messageIds.get(tid));
     const messages = useMessageStore((store) => store.data.messages);
 
-    React.useEffect(() => {
-        isFirstLoadRef.current = true;
-    }, [tid]);
+    const messageIds = React.useMemo(() => {
+        return Array.from(messageIdsStore || []);
+    }, [messageIdsStore, messageIdsStore?.size]);
 
     React.useEffect(() => {
-        delay(100).then(() => {
-            containerRef.current?.scrollTo({
-                top: containerRef.current.scrollHeight,
-                behavior: isFirstLoadRef.current ? 'auto' : 'smooth',
-            });
+        if (!messageIds?.length || lengthRef.current > messageIds.length) return;
+
+        containerRef.current?.scrollTo({
+            top: containerRef.current.scrollHeight,
+            behavior: 'auto',
         });
-        isFirstLoadRef.current = false;
+        lengthRef.current = messageIds.length;
     }, [messageIds]);
 
+    const itemContent = React.useCallback(
+        (id: App.ModuleMessenger.Data.Message['id']) => {
+            const message = messages.get(id);
+            if (!message) return null;
+            return <Message key={id} message={message} isMe={message.uid === meId} />;
+        },
+        [messages]
+    );
+
     return (
-        <CardContent className={cn('relative flex-1')}>
+        <CardContent className={cn('relative flex-1 p-0')}>
             <div
                 ref={containerRef}
                 className={cn('absolute inset-0 flex-1 overflow-y-auto', 'scrollbar-custom scrollbar-thin')}
@@ -75,11 +83,7 @@ export function ConversationBody() {
 
                 {!!tid && !isDraft && isPending ? <WavyLoading /> : null}
 
-                {messageIds?.toReversed().map((mid) => {
-                    const message = messages.get(mid);
-                    if (!message) return null;
-                    return <Message key={mid} message={message} isMe={message.uid === meId} />;
-                })}
+                {messageIds?.toReversed().map(itemContent)}
             </div>
         </CardContent>
     );

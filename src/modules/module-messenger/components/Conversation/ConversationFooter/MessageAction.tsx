@@ -21,7 +21,7 @@ import { ButtonSticker } from '@module-messenger/components/Conversation/Convers
 export function MessageAction() {
     const { tid = '' } = useParams();
 
-    const isTyping = useMessengerStore((store) => store.data.drafts.has(tid) || store.data.attachments.has(tid));
+    const isTyping = useMessengerStore((store) => store.data.drafts.get(tid) || store.data.attachments.get(tid));
 
     return (
         <div

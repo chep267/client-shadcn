@@ -26,8 +26,8 @@ export function MessageEditor() {
 
     React.useEffect(() => {
         // set up the next conversation
-        const nextDraft = useMessengerStore.getState().data.drafts.get(tid) ?? '';
-        setText(nextDraft);
+        const currentDraft = useMessengerStore.getState().data.drafts.get(tid) ?? '';
+        setText(currentDraft);
         editorRef.current?.focus();
     }, [tid]);
 
@@ -37,10 +37,6 @@ export function MessageEditor() {
             editorRef.current?.focus();
         }
     }, [hasDraft]);
-
-    React.useEffect(() => {
-        action.addDraft({ tid, draft: text });
-    }, [text]);
 
     return (
         <Textarea
@@ -53,7 +49,11 @@ export function MessageEditor() {
             className={cn('h-auto max-h-65 min-h-10', 'scrollbar-custom scrollbar-thin')}
             placeholder="Aa..."
             value={text}
-            onChange={(event) => setText(event.target.value)}
+            onChange={(event) => {
+                const draft = event.target.value;
+                setText(draft);
+                action.addDraft({ tid, draft });
+            }}
         />
     );
 }

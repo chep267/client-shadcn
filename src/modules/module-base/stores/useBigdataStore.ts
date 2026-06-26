@@ -35,7 +35,7 @@ export const createBigdataStore = <
 
             // setup
             hasCheckbox: false,
-            dataKeyForCheckbox: undefined,
+            dataKeyForCheckbox: 'id',
             searchableKeys: undefined,
             filters: undefined,
 

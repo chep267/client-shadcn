@@ -11,42 +11,22 @@ import * as React from 'react';
 import { MessengerSocketEvent } from '@module-messenger/constants/key';
 
 /** utils */
-import { getSocket } from '@module-base/utils/socket';
+import { getChannel } from '@module-base/utils/pusher';
 
-/** stores */
-import { useThreadStore } from '@module-messenger/stores/useThreadStore';
-import { useMessageStore } from '@module-messenger/stores/useMessageStore';
+/** services */
+import { socketService } from '@module-messenger/services/socket';
 
 export const useSocket = () => {
-    const receiveMessage = (message: App.ModuleMessenger.Data.Message) => {
-        // add message to store
-        const {
-            data: { threads },
-            action: threadAction,
-        } = useThreadStore.getState();
-        useMessageStore.getState().action.unshift(message.tid, message);
-
-        // update last message id
-        const thread = threads.get(message.tid);
-        if (thread) {
-            threadAction.add({
-                ...thread,
-                metadata: {
-                    ...thread.metadata,
-                    lastMessageId: message.id,
-                },
-            });
-        }
-    };
-
     React.useEffect(() => {
-        const socket = getSocket();
-        if (!socket) return;
+        const chanel = getChannel();
+        if (!chanel) return;
 
-        socket.on(MessengerSocketEvent.MESSAGE_CREATED, receiveMessage);
+        chanel.bind(MessengerSocketEvent.THREAD_CREATED, socketService.receiveThread);
+        chanel.bind(MessengerSocketEvent.MESSAGE_CREATED, socketService.receiveMessage);
 
         return () => {
-            socket.off(MessengerSocketEvent.MESSAGE_CREATED, receiveMessage);
+            chanel.unbind(MessengerSocketEvent.THREAD_CREATED, socketService.receiveThread);
+            chanel.unbind(MessengerSocketEvent.MESSAGE_CREATED, socketService.receiveMessage);
         };
     }, []);
 };

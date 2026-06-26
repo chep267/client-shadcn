@@ -19,9 +19,9 @@ import { ListLoading } from '@module-base/components/virtual-list/list-loading';
 import { ListEmpty } from '@module-base/components/virtual-list/list-empty';
 
 export function VirtualList<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
-    props: App.ModuleBase.Component.ListProps<Data>
+    props: App.ModuleBase.Component.ListProps<Data> & { ref?: React.Ref<VirtuosoHandle> }
 ) {
-    const { className, setup, items, emptyContent, ...otherProps } = props;
+    const { ref, className, setup, items, emptyContent, ...otherProps } = props;
 
     const virtuoso = React.useRef<VirtuosoHandle>(null);
     const dataStore = React.useMemo(() => createBigdataStore<Data>(), []);
@@ -39,8 +39,17 @@ export function VirtualList<Data extends App.ModuleBase.Component.Bigdata = App.
         });
     }, [items, emptyContent, JSON.stringify(setup)]);
 
+    React.useImperativeHandle(ref, () => virtuoso.current as VirtuosoHandle, []);
+
     return (
-        <div className={cn('relative flex-1 overflow-hidden', 'min-h-40', { 'max-h-40': isTableEmpty }, className)}>
+        <div
+            className={cn(
+                'relative h-full w-full overflow-hidden',
+                'min-h-40',
+                { 'max-h-40': isTableEmpty },
+                className
+            )}
+        >
             <ListLoading store={dataStore} />
             <ListEmpty store={dataStore} />
             {React.useMemo(() => {

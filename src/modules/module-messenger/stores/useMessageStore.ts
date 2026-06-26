@@ -28,53 +28,41 @@ export const useMessageStore = create<App.ModuleMessenger.Store.MessageStore>((s
         action: {
             unshift: (tid, message) => {
                 set(
-                    produce<App.ModuleMessenger.Store.MessageStore>((store) => {
-                        store.data.messages.delete(message.id);
-                        store.data.messages = new Map([[message.id, message], ...store.data.messages]);
-
-                        if (store.data.messageIds.has(tid)) {
-                            const itemIds = store.data.messageIds.get(tid)!;
-                            itemIds.unshift(message.id);
-                        } else {
-                            store.data.messageIds.set(tid, [message.id]);
-                        }
+                    produce<App.ModuleMessenger.Store.MessageStore>(({ data }) => {
+                        data.messages.set(message.id, message);
+                        const ids = data.messageIds.get(tid) || new Set();
+                        ids.delete(message.id);
+                        data.messageIds.set(tid, new Set([message.id, ...ids]));
                     })
                 );
             },
             add: (tid, message) => {
                 set(
-                    produce<App.ModuleMessenger.Store.MessageStore>((store) => {
-                        store.data.messages.set(message.id, message);
-
-                        if (store.data.messageIds.has(tid)) {
-                            const itemIds = store.data.messageIds.get(tid)!;
-                            itemIds.push(message.id);
-                        } else {
-                            store.data.messageIds.set(tid, [message.id]);
-                        }
+                    produce<App.ModuleMessenger.Store.MessageStore>(({ data }) => {
+                        data.messages.set(message.id, message);
+                        const ids = data.messageIds.get(tid) || new Set();
+                        ids.add(message.id);
+                        data.messageIds.set(tid, ids);
                     })
                 );
             },
             multiAdd: (tid, messages) => {
                 set(
-                    produce<App.ModuleMessenger.Store.MessageStore>((store) => {
+                    produce<App.ModuleMessenger.Store.MessageStore>(({ data }) => {
                         messages.forEach((message) => {
-                            store.data.messages.set(message.id, message);
-
-                            if (store.data.messageIds.has(tid)) {
-                                const itemIds = store.data.messageIds.get(tid)!;
-                                itemIds.push(message.id);
-                            } else {
-                                store.data.messageIds.set(tid, [message.id]);
-                            }
+                            data.messages.set(message.id, message);
+                            const ids = data.messageIds.get(tid) || new Set();
+                            ids.add(message.id);
+                            data.messageIds.set(tid, ids);
                         });
                     })
                 );
             },
-            remove: (id) => {
+            remove: (tid, mid) => {
                 set(
-                    produce<App.ModuleMessenger.Store.MessageStore>((store) => {
-                        store.data.messages.delete(id);
+                    produce<App.ModuleMessenger.Store.MessageStore>(({ data }) => {
+                        data.messages.delete(mid);
+                        data.messageIds.get(tid)?.delete(mid);
                     })
                 );
             },

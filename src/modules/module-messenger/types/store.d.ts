@@ -36,6 +36,7 @@ export type MessengerStore = {
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** thread store */
 type ThreadStoreData = {
+    threadIds: Set<Thread['id']>;
     threads: Map<Thread['id'], Thread>;
     searches: Map<Thread['id'], Thread>;
 };
@@ -45,6 +46,7 @@ type ThreadStoreAction = {
     multiAdd: (threads: Thread[]) => void;
     remove: (tid: Thread['id']) => void;
     multiSearch: (threads: Thread[]) => void;
+    update: (thread: Pick<Thread, 'id'> & Partial<Thread>) => void;
 };
 export interface ThreadStore {
     data: ThreadStoreData;
@@ -54,7 +56,7 @@ export interface ThreadStore {
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** message store */
 type MessageStoreData = {
-    messageIds: Map<Thread['tid'], Message['id'][]>;
+    messageIds: Map<Thread['tid'], Set<Message['id']>>;
     messages: Map<Message['id'], Message>;
 };
 type MessageStoreAction = {

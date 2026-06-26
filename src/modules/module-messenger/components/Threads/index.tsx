@@ -23,6 +23,7 @@ import { ThreadSearch } from '@module-messenger/components/Threads/ThreadSearch'
 export function Threads() {
     return (
         <Card
+            data-slot="messenger-left"
             className={cn(
                 'flex-1 gap-0 overflow-hidden rounded-sm p-0',
                 'max-w-(--app-size-width-messenger-threads) min-w-(--app-size-width-messenger-threads)',

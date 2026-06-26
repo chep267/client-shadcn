@@ -50,7 +50,7 @@ export async function getMessage(locale: App.ModuleBase.Data.Locale): Promise<Ap
             return getMessage(defaultLocale);
         })
         .finally(() => {
-            pendingPromises[locale] = undefined;
+            delete pendingPromises[locale];
         });
 
     return pendingPromises[locale];

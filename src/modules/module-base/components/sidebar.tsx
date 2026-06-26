@@ -490,7 +490,7 @@ function SidebarMenuButton({
         />
     );
 
-    if (!tooltip) {
+    if (!tooltip || state === 'expanded') {
         return button;
     }
 

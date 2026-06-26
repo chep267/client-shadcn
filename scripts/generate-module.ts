@@ -20,7 +20,7 @@ const createModuleStructure = (moduleName = 'module-test') => {
     const basePath = path.join(process.cwd(), 'src', 'modules', moduleName);
 
     // Danh sách các thư mục sẽ được tạo
-    const folders = ['apis', 'components', 'constants', 'hooks', 'screens', 'services', 'stores', 'utils', 'types'];
+    const folders = ['components', 'constants', 'hooks', 'screens', 'services', 'stores', 'utils', 'types'];
 
     // Kiểm tra nếu thư mục gốc đã tồn tại
     if (fs.existsSync(basePath)) {

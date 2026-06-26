@@ -1,4 +1,4 @@
-import { FileIcon, PinIcon, ReplyIcon, Check, CheckCheck } from 'lucide-react';
+import { FileIcon, PinIcon, ReplyIcon, Check, CheckCheck, LucideThumbsUp } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@module-base/components/avatar';
 import { cn } from '@module-base/utils/shadcn';
 
@@ -66,7 +66,8 @@ export function Message({ isMe, message, currentUid, authorName = 'User', author
                         'relative flex flex-col gap-1.5 rounded-2xl px-4 py-2.5 text-sm shadow-sm',
                         isMe
                             ? 'bg-primary text-primary-foreground rounded-br-none'
-                            : 'bg-muted text-foreground rounded-bl-none'
+                            : 'bg-muted text-foreground rounded-bl-none',
+                        { 'bg-inherit px-0': message.type === 'sticker' }
                     )}
                 >
                     {/* 2.a Khung Reply (Nếu có) */}
@@ -88,9 +89,15 @@ export function Message({ isMe, message, currentUid, authorName = 'User', author
                     {/* 2.b Nội dung Text / Thu hồi */}
                     {metadata.isDeleted ? (
                         <span className="text-xs italic opacity-60">Tin nhắn đã bị thu hồi</span>
+                    ) : message.type === 'text' ? (
+                        <p className="break-word leading-relaxed whitespace-pre-wrap">{message.content}</p>
                     ) : (
-                        message.type === 'text' && (
-                            <p className="break-word leading-relaxed whitespace-pre-wrap">{message.content}</p>
+                        message.type === 'sticker' && (
+                            <LucideThumbsUp
+                                className={cn('fill-main size-10', {
+                                    '-scale-x-100': isMe,
+                                })}
+                            />
                         )
                     )}
 

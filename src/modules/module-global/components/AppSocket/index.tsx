@@ -5,10 +5,10 @@
  */
 
 /** libs */
-import { useEffect } from 'react';
+import * as React from 'react';
 
 /** utils */
-import { connectSocket, disconnectSocket } from '@module-base/utils/socket';
+import { connectSocket, disconnectSocket } from '@module-base/utils/pusher';
 
 /** stores */
 import { useAuthStore } from '@module-auth/stores/useAuthStore';
@@ -16,7 +16,7 @@ import { useAuthStore } from '@module-auth/stores/useAuthStore';
 export function AppSocket() {
     const meId = useAuthStore((store) => store.data.user?.id);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (!meId) return;
 
         connectSocket(meId);

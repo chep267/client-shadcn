@@ -15,18 +15,11 @@ import { AuthLanguage } from '@module-auth/constants/language';
 /** services */
 import { threadService } from '@module-messenger/services/thread';
 
-/** stores */
-import { useThreadStore } from '@module-messenger/stores/useThreadStore';
-
 export function useCreateThread() {
     const { formatMessage } = useIntl();
 
     return useMutation({
         mutationFn: threadService.create,
-        onSuccess: (response) => {
-            const { data: thread } = response;
-            useThreadStore.getState().action.unshift(thread);
-        },
         onError: () => {
             toast.error(
                 formatMessage({

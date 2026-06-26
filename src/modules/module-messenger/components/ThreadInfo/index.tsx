@@ -5,6 +5,7 @@
  */
 
 /** libs */
+import { useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 /** utils */
@@ -16,13 +17,15 @@ import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';
 /** components */
 import { Typography } from '@module-base/components/typography';
 import { Card, CardHeader, CardTitle, CardContent } from '@module-base/components/card';
-import { ThreadCurrent } from '@module-messenger/components/ThreadInfo/ThreadCurrent';
+import { ThreadItem } from '@module-messenger/components/Threads/ThreadList/ThreadItem';
 
 export function ThreadInfo() {
+    const { tid = '' } = useParams();
     const openInfo = useMessengerStore((store) => store.data.openInfo);
 
     return (
         <Card
+            data-slot="messenger-right"
             className={cn(
                 'w-0 gap-0 overflow-hidden rounded-sm p-0',
                 'transition-all duration-200 ease-linear',
@@ -48,7 +51,17 @@ export function ThreadInfo() {
                 </CardTitle>
             </CardHeader>
             <CardContent className="flex-1 p-0">
-                <ThreadCurrent />
+                <ThreadItem
+                    className={cn(
+                        'flex-col hover:bg-inherit',
+                        '*:data-[slot=avatar]:size-28 **:data-[slot=avatar-fallback]:text-4xl',
+                        '**:data-[slot=name]:text-xl'
+                    )}
+                    id={tid}
+                    hasLink={false}
+                    hasOption={false}
+                    hasDescription={false}
+                />
             </CardContent>
         </Card>
     );

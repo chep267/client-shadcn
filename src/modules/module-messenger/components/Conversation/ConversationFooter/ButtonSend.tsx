@@ -39,13 +39,12 @@ export function ButtonSend() {
     const isDraft = tid.startsWith('uid.');
     const Icon = isTyping ? SendHorizonalIcon : ThumbsUpIcon;
 
-    const onCreateMessage = React.useCallback((message: App.ModuleMessenger.Data.Message) => {
+    const onCreateMessage = React.useCallback((message: App.ModuleMessenger.Data.Message, callback?: () => void) => {
+        messengerAction.sentMessage({ tid: message.tid });
         sendMessage(
             { data: message },
             {
-                onSuccess: () => {
-                    messengerAction.sentMessage({ tid: message.tid });
-                },
+                onSuccess: callback,
             }
         );
     }, []);
@@ -61,12 +60,14 @@ export function ButtonSend() {
                 {
                     onSuccess: (response) => {
                         const { data: thread } = response;
+
                         // replace new thread id
-                        onCreateMessage({ ...message, tid: thread.id });
-                        const path =
-                            MessengerRouterPath.home + MessengerRouterPath.conversation.replace(':tid', thread.id);
-                        messengerAction.closeSearch();
-                        navigate(path, { replace: true });
+                        onCreateMessage({ ...message, tid: thread.id }, () => {
+                            messengerAction.closeSearch();
+                            const path =
+                                MessengerRouterPath.home + MessengerRouterPath.conversation.replace(':tid', thread.id);
+                            navigate(path, { replace: true });
+                        });
                     },
                 }
             );

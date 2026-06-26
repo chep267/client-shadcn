@@ -11,9 +11,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 /** constants */
 import { MessengerRouterPath } from '@module-messenger/constants/path';
 
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
-
 /** hooks */
 import { useGetThreads } from '@module-messenger/hooks/useGetThreads';
 
@@ -28,17 +25,14 @@ export function ThreadList() {
     const navigate = useNavigate();
     const { tid = '' } = useParams();
     const { isPending, fetchNextPage, hasNextPage, isFetchingNextPage } = useGetThreads();
-
-    const threads = useThreadStore((store) => store.data.threads)
-        .values()
-        .toArray();
+    const threadIds = Array.from(useThreadStore((store) => store.data.threadIds));
 
     React.useEffect(() => {
-        const fistThread = threads?.[0];
-        if (fistThread && !tid) {
-            navigate(`${MessengerRouterPath.home}/${fistThread.id}`, { replace: true });
+        const firstTid = threadIds[0];
+        if (firstTid && !tid) {
+            navigate(`${MessengerRouterPath.home}/${firstTid}`, { replace: true });
         }
-    }, [threads, tid]);
+    }, [threadIds, tid]);
 
     return (
         <VirtualList
@@ -46,15 +40,13 @@ export function ThreadList() {
             setup={{
                 loading: isPending || isFetchingNextPage,
             }}
-            items={threads}
-            itemContent={(_index, thread) => (
-                <ThreadItem
-                    className={cn('border-b', {
-                        'bg-main/50!': tid === thread.id,
-                    })}
-                    data={thread}
-                />
-            )}
+            items={threadIds}
+            computeItemKey={(_index, id) => id}
+            itemContent={(_index, id) => {
+                return (
+                    <ThreadItem className="data-[active=true]:bg-main/50! border-b" id={id} data-active={tid === id} />
+                );
+            }}
             endReached={() => {
                 if (hasNextPage && !isFetchingNextPage) {
                     fetchNextPage().then();

@@ -84,16 +84,16 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.MessengerStore
         genMessage: (payload) => {
             const { tid, uid } = payload;
             const { drafts, attachments } = get().data;
-            const content = drafts.get(tid) ?? '';
+            const content = (drafts.get(tid) ?? '').trim();
             const files = attachments.get(tid) ?? [];
 
             return {
                 id: '',
                 uid,
                 tid,
-                type: 'text',
+                type: content ? 'text' : 'sticker',
                 attachments: files.map(mapFileToAttachment) as App.ModuleMessenger.Data.Attachment[],
-                content: content.trim(),
+                content,
                 status: 'sending',
                 metadata: {
                     replyTo: '',
@@ -128,6 +128,7 @@ export const useMessengerStore = create<App.ModuleMessenger.Store.MessengerStore
             set(
                 produce<App.ModuleMessenger.Store.MessengerStore>((store) => {
                     store.data.drafts.delete(tid);
+                    store.data.attachments.delete(tid);
                 })
             );
         },
