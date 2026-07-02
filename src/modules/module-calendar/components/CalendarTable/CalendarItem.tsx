@@ -39,7 +39,7 @@ export function CalendarItem(props: App.ModuleCalendar.Component.CalendarItemPro
                 'hover:bg-muted hover:border',
                 {
                     ['border']: isSelectedDay,
-                    ['bg-main/10 text-main [&_*]:font-bold']: isToday,
+                    ['bg-main/10 text-main **:font-bold']: isToday,
                     ['text-danger hover:text-danger']: isWeekend,
                     ['bg-danger/10 text-danger']: isToday && isWeekend,
                     ['text-secondary hover:text-primary']: !isInMonth,

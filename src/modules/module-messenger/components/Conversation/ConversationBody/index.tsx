@@ -44,6 +44,10 @@ export function ConversationBody() {
     }, [messageIdsStore, messageIdsStore?.size]);
 
     React.useEffect(() => {
+        lengthRef.current = 0;
+    }, [tid]);
+
+    React.useEffect(() => {
         if (!messageIds?.length || lengthRef.current > messageIds.length) return;
 
         containerRef.current?.scrollTo({

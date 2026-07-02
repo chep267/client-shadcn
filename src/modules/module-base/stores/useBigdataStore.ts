@@ -7,6 +7,7 @@
 /** libs */
 import { create } from 'zustand';
 import { produce, enableMapSet } from 'immer';
+import merge from 'lodash-es/merge';
 
 /** constants */
 import { AppTimer, OrderType } from '@module-base/constants/config';
@@ -24,7 +25,7 @@ export const createBigdataStore = <
     return create<App.ModuleBase.Component.BigdataStore<Data>>((set, get) => ({
         data: {
             // state
-            ref: undefined,
+            element: null,
             loading: false,
             isCheckedAll: false,
             isIndeterminate: false,
@@ -36,32 +37,25 @@ export const createBigdataStore = <
             // setup
             hasCheckbox: false,
             dataKeyForCheckbox: 'id',
-            searchableKeys: undefined,
-            filters: undefined,
+            searchableKeys: [],
+            filters: [],
 
             // data
-            columns: undefined,
-            emptyContent: undefined,
-            items: undefined,
+            columns: [],
+            emptyContent: null,
+            items: [],
             currentItems: [],
         },
         action: {
-            init: (initialData: Partial<App.ModuleBase.Component.BigdataStore<Data>['data']> = {}) => {
+            setup: (initialData: Partial<App.ModuleBase.Component.BigdataStore<Data>['data']>) => {
                 const isImmediate = !initialData.searchKey && !initialData.filters?.length;
                 set(
                     produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
-                        Object.assign(data, initialData);
+                        merge(data, initialData);
                         data.loading = !isImmediate;
                     })
                 );
                 get().action.calculateData(isImmediate);
-            },
-            setParam: (key, value) => {
-                set(
-                    produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
-                        Object.assign(data, { [key]: value });
-                    })
-                );
             },
             toggleOne: (id) => {
                 set(
@@ -98,16 +92,16 @@ export const createBigdataStore = <
             sort: (orderBy, orderType) => {
                 set(
                     produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
-                        Object.assign(data, {
-                            orderBy: orderBy,
-                            orderType:
-                                orderType ||
-                                (orderBy !== data.orderBy
-                                    ? OrderType.asc
-                                    : !data.orderType || data.orderType === OrderType.asc
-                                      ? OrderType.desc
-                                      : OrderType.asc),
-                        });
+                        const nextOrderType =
+                            orderType ||
+                            (orderBy !== data.orderBy
+                                ? OrderType.asc
+                                : !data.orderType || data.orderType === OrderType.asc
+                                  ? OrderType.desc
+                                  : OrderType.asc);
+
+                        data.orderBy = orderBy as typeof data.orderBy;
+                        data.orderType = nextOrderType;
                     })
                 );
                 get().action.calculateData(true);
@@ -123,10 +117,10 @@ export const createBigdataStore = <
                 get().action.calculateData(isImmediate);
             },
             filter: (filters) => {
-                const isImmediate = !filters?.length;
+                const isImmediate = !filters.length;
                 set(
                     produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
-                        Object.assign(data, { filters });
+                        data.filters = filters as typeof data.filters;
                         data.loading = !isImmediate;
                     })
                 );
@@ -134,7 +128,7 @@ export const createBigdataStore = <
             },
             calculateData: (() => {
                 const process = () => {
-                    const { ref, items = [], searchKey, searchableKeys, filters = [], orderBy, orderType } = get().data;
+                    const { element, items, searchKey, searchableKeys, filters, orderBy, orderType } = get().data;
                     const normalizedQuery = normalizeString(searchKey);
                     let nextItems = items;
 
@@ -152,7 +146,7 @@ export const createBigdataStore = <
                             if (!isMatchFilter) return false;
 
                             // search logic
-                            if (searchableKeys?.length) {
+                            if (searchableKeys.length) {
                                 return searchableKeys.some((key) => {
                                     return normalizeString(`${getNestedValue(item, key)}`).includes(normalizedQuery);
                                 });
@@ -170,15 +164,13 @@ export const createBigdataStore = <
                         produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
                             const total = nextItems.length;
                             const selected = data.selectedIds.size;
-                            Object.assign(data, {
-                                currentItems: nextItems,
-                                isCheckedAll: total > 0 && selected === total,
-                                isIndeterminate: selected > 0 && selected < total,
-                                loading: false,
-                            });
+                            data.isCheckedAll = total > 0 && selected >= total;
+                            data.isIndeterminate = selected > 0 && selected < total;
+                            data.currentItems = nextItems as typeof data.currentItems;
+                            data.loading = false;
                         })
                     );
-                    ref?.scrollTo({ top: 0 });
+                    element?.current?.scrollTo({ top: 0 });
                 };
 
                 const debouncedProcess = debounce(process, AppTimer.searching);

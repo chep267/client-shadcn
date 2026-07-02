@@ -25,66 +25,69 @@ import { TableBody } from '@module-base/components/table-base/table-body';
 export function VirtualTable<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
     props: App.ModuleBase.Component.TableProps<Data>
 ) {
-    const { className, setup, items, emptyContent, columns } = props;
+    const { ref, className, setup, items, emptyContent, columns, ...otherProps } = props;
 
     const virtuoso = React.useRef<TableVirtuosoHandle>(null);
     const dataStore = React.useMemo(() => createBigdataStore<Data>(), []);
 
     const action = dataStore((state) => state.action);
     const currentItems = dataStore((state) => state.data.currentItems);
-    const isTableEmpty = currentItems.length === 0;
+    const isEmpty = currentItems.length === 0;
 
     const components = React.useMemo<TableComponents<Data>>(() => {
         return {
             Table: Table,
             TableHead: (props) => <Slot.Root {...props} />,
             TableRow: TableRow,
-            TableBody: (props) => {
-                return <TableBody {...props} store={dataStore} />;
-            },
+            TableBody: (props) => <TableBody {...props} store={dataStore} />,
         };
-    }, []);
+    }, [dataStore]);
 
     React.useEffect(() => {
-        action.init({
-            ref: virtuoso.current,
+        action.setup({
+            element: virtuoso,
             items,
             emptyContent,
             columns,
             ...setup,
         });
-    }, [items, emptyContent, columns, JSON.stringify(setup)]);
+    }, [items, emptyContent, columns, setup]);
+
+    const fixedHeaderContent = React.useCallback(() => <TableHeader store={dataStore} />, [dataStore]);
+
+    const itemContent = React.useCallback(
+        (indexRow: number, item: Data) => {
+            return <TableBodyRow asChild indexRow={indexRow} item={item} store={dataStore} />;
+        },
+        [dataStore]
+    );
+
+    React.useImperativeHandle(ref, () => {
+        return {
+            element: virtuoso,
+            action,
+        };
+    }, []);
 
     return (
         <div
             className={cn(
                 'relative h-full w-full overflow-hidden rounded-sm border',
                 'min-h-40',
-                { 'max-h-40': isTableEmpty },
+                { 'max-h-40!': isEmpty },
                 className
             )}
         >
             <TableLoading store={dataStore} />
-            {React.useMemo(() => {
-                return (
-                    <TableVirtuoso
-                        ref={virtuoso}
-                        className={cn(
-                            'relative h-full w-full',
-                            '**:data-[slot=table-container]:overflow-visible',
-                            className
-                        )}
-                        components={components}
-                        data={currentItems}
-                        fixedHeaderContent={() => {
-                            return <TableHeader store={dataStore} />;
-                        }}
-                        itemContent={(indexRow, item) => {
-                            return <TableBodyRow asChild indexRow={indexRow} item={item} store={dataStore} />;
-                        }}
-                    />
-                );
-            }, [className, currentItems])}
+            <TableVirtuoso
+                ref={virtuoso}
+                className={cn('h-full w-full', '**:data-[slot=table-container]:overflow-visible', className)}
+                components={components}
+                data={currentItems}
+                fixedHeaderContent={fixedHeaderContent}
+                itemContent={itemContent}
+                {...otherProps}
+            />
         </div>
     );
 }

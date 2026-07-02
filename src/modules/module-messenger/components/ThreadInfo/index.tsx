@@ -54,6 +54,7 @@ export function ThreadInfo() {
                 <ThreadItem
                     className={cn(
                         'flex-col hover:bg-inherit',
+                        'h-auto py-5',
                         '*:data-[slot=avatar]:size-28 **:data-[slot=avatar-fallback]:text-4xl',
                         '**:data-[slot=name]:text-xl'
                     )}

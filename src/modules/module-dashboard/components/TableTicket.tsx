@@ -61,7 +61,7 @@ export function TableTicket() {
             });
     }, []);
 
-    const columns = React.useMemo<App.ModuleBase.Component.TableColumn<App.ModuleDashboard.Data.TypeTicketData>[]>(
+    const columns = React.useMemo<App.ModuleBase.Component.Column<App.ModuleDashboard.Data.TypeTicketData>[]>(
         () => [
             {
                 dataKey: 'id',

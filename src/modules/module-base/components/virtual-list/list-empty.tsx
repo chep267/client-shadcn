@@ -4,6 +4,12 @@
  *
  */
 
+/** libs */
+import { FormattedMessage } from 'react-intl';
+
+/** constants */
+import { BaseLanguage } from '@module-base/constants/language';
+
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
@@ -21,7 +27,11 @@ export function ListEmpty<Data extends App.ModuleBase.Component.Bigdata = App.Mo
     if (!emptyContent || typeof emptyContent === 'string' || typeof emptyContent === 'number') {
         return (
             <div className={cn('absolute inset-0', 'flex items-center justify-center')}>
-                <span className="opacity-50">{emptyContent || 'No data!'}</span>
+                <span className="opacity-50">
+                    {emptyContent || (
+                        <FormattedMessage id={BaseLanguage.component.table.empty} defaultMessage="No data!" />
+                    )}
+                </span>
             </div>
         );
     }

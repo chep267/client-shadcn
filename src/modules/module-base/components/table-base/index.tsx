@@ -22,36 +22,42 @@ import { TableLoading } from '@module-base/components/table-base/table-loading';
 export function TableBase<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
     props: App.ModuleBase.Component.TableProps<Data>
 ) {
-    const { className, setup, items, emptyContent, columns } = props;
+    const { ref, className, setup, items, emptyContent, columns } = props;
 
-    const virtuoso = React.useRef<HTMLDivElement | null>(null);
+    const virtuoso = React.useRef<HTMLTableElement | null>(null);
     const dataStore = React.useMemo(() => createBigdataStore<Data>(), []);
 
     const action = dataStore((state) => state.action);
-    const isTableEmpty = dataStore((state) => state.data.currentItems.length === 0);
+    const isEmpty = dataStore((state) => state.data.currentItems.length === 0);
 
     React.useEffect(() => {
-        action.init({
-            ref: virtuoso.current?.querySelector('[data-slot="table-container"]'),
+        action.setup({
+            element: virtuoso,
             items,
             emptyContent,
             columns,
             ...setup,
         });
-    }, [items, emptyContent, columns, JSON.stringify(setup)]);
+    }, [items, emptyContent, columns, setup]);
+
+    React.useImperativeHandle(ref, () => {
+        return {
+            element: virtuoso,
+            action,
+        };
+    }, []);
 
     return (
         <div
-            ref={virtuoso}
             className={cn(
                 'relative h-full w-full overflow-hidden rounded-sm border',
                 'min-h-40',
-                { 'max-h-40': isTableEmpty },
+                { 'max-h-40!': isEmpty },
                 className
             )}
         >
             <TableLoading store={dataStore} />
-            <Table className={className}>
+            <Table ref={virtuoso} className={className}>
                 <TableHeader store={dataStore} />
                 <TableBody store={dataStore} />
             </Table>

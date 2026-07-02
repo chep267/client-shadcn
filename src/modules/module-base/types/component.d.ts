@@ -5,19 +5,19 @@
  */
 
 /** types */
-import type {
-    FunctionComponent,
-    PropsWithChildren,
-    LazyExoticComponent,
-    RefObject,
-    SVGProps,
-    ReactNode,
-    MouseEvent,
-    ComponentProps,
-    Ref,
+import {
+    type FunctionComponent,
+    type PropsWithChildren,
+    type LazyExoticComponent,
+    type RefObject,
+    type SVGProps,
+    type ReactNode,
+    type MouseEvent,
+    type ComponentProps,
+    type Ref,
 } from 'react';
 import type { UseBoundStore, StoreApi } from 'zustand';
-import type { VirtuosoProps, TableVirtuosoHandle } from 'react-virtuoso';
+import type { VirtuosoProps, VirtuosoHandle, TableVirtuosoHandle, TableVirtuosoProps } from 'react-virtuoso';
 import type { ItemId, OrderType } from '@module-base/types/data.d';
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -80,7 +80,16 @@ export interface SelectBaseProps<Value extends string = string> {
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** Big data store */
 export type ElementContent = ReactNode | (() => ReactNode);
+export type Column<Data extends Bigdata = Bigdata> = {
+    className?: string;
+    dataKey?: BigdataKey<Data>;
+    label?: ElementContent;
+    sortable?: boolean;
+    onClick?(event: MouseEvent<HTMLTableCellElement>, data: { indexRow: number; indexCell: number; item: Data }): void;
+    render?(data: { indexRow: number; indexCell: number; item: Data }): ReactNode;
+};
 export type Bigdata = unknown;
+
 type DeepKeyOf<T> = T extends object
     ? {
           [K in keyof T & (string | number)]: T[K] extends any[]
@@ -90,13 +99,10 @@ type DeepKeyOf<T> = T extends object
                 : `${K}`;
       }[keyof T & (string | number)]
     : string;
-export type BigdataKey<Data extends Bigdata = Bigdata> =
-    | (Data extends object ? DeepKeyOf<Data> : string)
-    | 'id'
-    | 'action';
+export type BigdataKey<Data extends Bigdata = Bigdata> = DeepKeyOf<Data> | 'id' | 'action';
 type BigdataStoreData<Data extends Bigdata = Bigdata> = {
     // state
-    ref?: TableVirtuosoHandle | HTMLDivElement | null;
+    element: RefObject<TableVirtuosoHandle | VirtuosoHandle | HTMLTableElement | null> | null;
     loading: boolean;
     isCheckedAll: boolean;
     isIndeterminate: boolean;
@@ -106,26 +112,24 @@ type BigdataStoreData<Data extends Bigdata = Bigdata> = {
     selectedIds: Set<ItemId>;
 
     // setup
-    hasCheckbox?: boolean;
-    dataKeyForCheckbox?: BigdataKey<Data>;
-    searchableKeys?: BigdataKey<Data>[];
-    filters?: { dataKey: BigdataKey<Data>; value: string; fnFilter?: (item: Data) => boolean }[];
-    delayLoading?: number;
+    hasCheckbox: boolean;
+    dataKeyForCheckbox: BigdataKey<Data>;
+    searchableKeys: BigdataKey<Data>[];
+    filters: { dataKey: BigdataKey<Data>; value: string; fnFilter?: (item: Data) => boolean }[];
 
     // data
-    columns?: TableColumn<Data>[];
-    emptyContent?: ElementContent;
-    items?: Data[];
+    columns: Column<Data>[];
+    emptyContent: ElementContent;
+    items: Data[];
     currentItems: Data[];
 };
 type BigdataStoreAction<Data extends Bigdata = Bigdata> = {
-    init: (state: Partial<BigdataStoreData<Data>>) => void;
-    setParam: <Key extends keyof BigdataStoreData<Data>>(key: Key, value: BigdataStoreData<Data>[Key]) => void;
+    setup: (data: Partial<BigdataStoreData<Data>>) => void;
     toggleOne: (id: ItemId) => void;
     toggleAll: () => void;
     sort: (orderBy?: BigdataKey<Data>, orderType?: OrderType) => void;
     filter: (filters: BigdataStoreData<Data>['filters']) => void;
-    search: (value?: string) => void;
+    search: (value?: BigdataStoreData<Data>['searchKey']) => void;
     calculateData: (isImmediate?: boolean) => void;
 };
 export interface BigdataStore<Data extends Bigdata = Bigdata> {
@@ -139,60 +143,58 @@ export interface ComponentWithBigdataStoreProps<Data extends Bigdata = Bigdata> 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** List base */
 export interface ListProps<Data extends Bigdata = Bigdata> extends VirtuosoProps<Data, unknown> {
+    ref?: Ref<{
+        element: BigdataStoreData<Data>['element'];
+        action: BigdataStoreAction<Data>;
+    }>;
     className?: string;
     items?: Data[];
-    setup?: {
-        loading?: boolean;
-        hasCheckbox?: boolean;
-        dataKeyForCheckbox?: BigdataKey<Data>;
-        delayLoading?: number;
-        searchKey?: string;
-        orderType?: OrderType;
-        orderBy?: BigdataKey<Data>;
-        filters?: BigdataStoreData<Data>['filters'];
-        searchableKeys?: BigdataStoreData<Data>['searchableKeys'];
-    };
+    setup?: Partial<
+        Pick<
+            BigdataStoreData<Data>,
+            | 'loading'
+            | 'hasCheckbox'
+            | 'dataKeyForCheckbox'
+            | 'searchKey'
+            | 'orderBy'
+            | 'orderType'
+            | 'searchableKeys'
+            | 'filters'
+        >
+    >;
     emptyContent?: ElementContent;
 }
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** Table base */
-export type TableColumn<Data extends Bigdata = Bigdata> = {
-    className?: string;
-    dataKey?: BigdataKey<Data>;
-    label?: ElementContent;
-    sortable?: boolean;
-    onClickItem?(
-        event: MouseEvent<HTMLTableCellElement>,
-        data: { indexRow: number; indexCell: number; item: Data }
-    ): void;
-    render?(data: { indexRow: number; indexCell: number; item: Data }): ReactNode;
-};
-export interface TableProps<Data extends Bigdata = Bigdata> {
+export interface TableProps<Data extends Bigdata = Bigdata> extends TableVirtuosoProps<Data, unknown> {
+    ref?: Ref<{
+        element: BigdataStoreData<Data>['element'];
+        action: BigdataStoreAction<Data>;
+    }>;
     className?: string;
     items?: Data[];
-    setup?: {
-        loading?: boolean;
-        hasCheckbox?: boolean;
-        dataKeyForCheckbox?: BigdataKey<Data>;
-        delayLoading?: number;
-        searchKey?: string;
-        orderType?: OrderType;
-        orderBy?: BigdataKey<Data>;
-        filters?: BigdataStoreData<Data>['filters'];
-        searchableKeys?: BigdataStoreData<Data>['searchableKeys'];
-    };
+    setup?: Partial<
+        Pick<
+            BigdataStoreData<Data>,
+            | 'loading'
+            | 'hasCheckbox'
+            | 'dataKeyForCheckbox'
+            | 'searchKey'
+            | 'orderBy'
+            | 'orderType'
+            | 'searchableKeys'
+            | 'filters'
+        >
+    >;
     emptyContent?: ElementContent;
-    columns?: TableColumn<Data>[];
+    columns?: Column<Data>[];
 }
 export interface TableHeaderProps<Data extends Bigdata = Bigdata> extends ComponentWithBigdataStoreProps<Data> {
     className?: string;
 }
-export interface TableHeaderCellProps<Data extends Bigdata = Bigdata> {
-    column: TableColumn<Data>;
-    isOrderBy?: boolean;
-    orderType?: OrderType;
-    sort?: (dataKey?: BigdataKey<Data>) => void;
+export interface TableHeaderCellProps<Data extends Bigdata = Bigdata> extends ComponentWithBigdataStoreProps<Data> {
+    column: Column<Data>;
 }
 export interface TableBodyProps<Data extends Bigdata = Bigdata> extends ComponentWithBigdataStoreProps<Data> {
     className?: string;

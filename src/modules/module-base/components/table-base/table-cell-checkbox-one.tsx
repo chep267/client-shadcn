@@ -11,7 +11,7 @@ import { cn } from '@module-base/utils/shadcn';
 import { Checkbox } from '@module-base/components/checkbox';
 import { TableCell } from '@module-base/components/table';
 
-function TableCellCheckboxOne<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
+export function TableCellCheckboxOne<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
     props: App.ModuleBase.Component.TableCellCheckboxOneProps<Data>
 ) {
     const { className, id, store } = props;
@@ -33,5 +33,3 @@ function TableCellCheckboxOne<Data extends App.ModuleBase.Component.Bigdata = Ap
         </TableCell>
     );
 }
-
-export { TableCellCheckboxOne };

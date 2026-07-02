@@ -4,6 +4,12 @@
  *
  */
 
+/** libs */
+import { FormattedMessage } from 'react-intl';
+
+/** constants */
+import { BaseLanguage } from '@module-base/constants/language';
+
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
@@ -25,7 +31,9 @@ export function TableEmpty<Data extends App.ModuleBase.Component.Bigdata = App.M
         return (
             <TableRow className={cn('absolute inset-0', 'flex items-center justify-center', 'hover:bg-transparent')}>
                 <TableHead className="flex items-center justify-center opacity-50">
-                    {emptyContent || 'No data!'}
+                    {emptyContent || (
+                        <FormattedMessage id={BaseLanguage.component.table.empty} defaultMessage="No data!" />
+                    )}
                 </TableHead>
             </TableRow>
         );

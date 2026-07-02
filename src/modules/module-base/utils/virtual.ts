@@ -108,9 +108,9 @@ const compareValues = <Data extends App.ModuleBase.Component.Bigdata = App.Modul
 };
 
 export const sortBigdata = <Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(payload: {
-    items?: Data[];
-    orderType?: App.ModuleBase.Data.OrderType;
-    orderBy?: App.ModuleBase.Component.BigdataKey<Data>;
+    items?: Data[] | null;
+    orderType?: App.ModuleBase.Data.OrderType | null;
+    orderBy?: App.ModuleBase.Component.BigdataKey<Data> | null;
 }): Data[] => {
     const { items, orderType = OrderType.asc, orderBy } = payload;
     if (!items?.length) return [];

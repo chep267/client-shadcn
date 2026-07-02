@@ -46,10 +46,11 @@ function SingleThread(props: ThreadItemProps) {
 
     return (
         <div
+            data-slot="thread-item"
             className={cn(
                 'group/thread-item',
-                'flex h-(--app-size-height-messenger-conversation-header) w-full items-center',
-                'cursor-pointer gap-2 px-2',
+                'flex items-center',
+                'h-(--app-size-height-messenger-conversation-header) w-full gap-2 px-2',
                 'hover:bg-accent hover:text-accent-foreground',
                 className
             )}
@@ -71,10 +72,11 @@ function GroupThread(props: ThreadItemProps) {
 
     return (
         <div
+            data-slot="thread-item"
             className={cn(
                 'group/thread-item',
-                'flex h-(--app-size-height-messenger-conversation-header) w-full items-center',
-                'cursor-pointer gap-2 px-2',
+                'flex items-center',
+                'h-(--app-size-height-messenger-conversation-header) w-full gap-2 px-2',
                 'hover:bg-accent hover:text-accent-foreground',
                 className
             )}
@@ -105,7 +107,7 @@ const ThreadItem = React.memo(function ThreadItem(props: ThreadItemContainerProp
 
     return (
         <Link to={`${MessengerRouterPath.home}/${id}`} className="overflow-hidden" replace>
-            <Comp data-slot="thread-item" thread={thread} {...otherProps} />
+            <Comp thread={thread} {...otherProps} />
         </Link>
     );
 });

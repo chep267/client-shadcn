@@ -7,7 +7,7 @@
 /** libs */
 import * as React from 'react';
 
-export function useLatest<T>(value: T) {
+export function useLatest<T = unknown>(value: T) {
     const ref = React.useRef(value);
     React.useLayoutEffect(() => {
         ref.current = value;

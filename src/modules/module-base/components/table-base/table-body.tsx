@@ -20,10 +20,10 @@ export function TableBody<Data extends App.ModuleBase.Component.Bigdata = App.Mo
 
     const currentItems = store((state) => state.data.currentItems);
     const dataKeyForCheckbox = store((state) => state.data.dataKeyForCheckbox);
-    const isTableEmpty = currentItems.length === 0;
+    const isEmpty = currentItems.length === 0;
 
     return (
-        <TableBodyUI {...otherProps} className={cn('relative', { 'h-24': isTableEmpty }, className)}>
+        <TableBodyUI {...otherProps} className={cn('relative', { 'h-24': isEmpty }, className)}>
             <TableEmpty store={store} />
             {children ||
                 currentItems.map((item, indexRow) => {

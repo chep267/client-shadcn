@@ -17,26 +17,17 @@ export function TableHeader<Data extends App.ModuleBase.Component.Bigdata = App.
 ) {
     const { className, store } = props;
 
-    const action = store((state) => state.action);
     const columns = store((state) => state.data.columns);
-    const orderBy = store((state) => state.data.orderBy);
-    const orderType = store((state) => state.data.orderType);
+    const isEmpty = store((state) => state.data.currentItems.length === 0);
 
     return (
-        <TableHeaderUI className={cn('sticky top-0 z-10', 'bg-background shadow-border shadow-sm', className)}>
+        <TableHeaderUI
+            className={cn('sticky top-0 z-10', 'bg-background shadow-sm', { 'shadow-border': !isEmpty }, className)}
+        >
             <TableRow className={cn('group', 'h-12')}>
                 <TableCellCheckboxAll store={store} />
                 {columns?.map((column) => {
-                    const isOrderBy = orderBy === column.dataKey;
-                    return (
-                        <TableHeaderCell
-                            key={column.dataKey}
-                            column={column}
-                            isOrderBy={isOrderBy}
-                            orderType={isOrderBy ? orderType : undefined}
-                            sort={action.sort}
-                        />
-                    );
+                    return <TableHeaderCell key={column.dataKey} column={column} store={store} />;
                 })}
             </TableRow>
         </TableHeaderUI>

@@ -24,12 +24,5 @@ export function useGetUsers(payload: App.ModuleUser.Api.UserService['Gets']['Pay
             useUserStore.getState().action.multiAdd(response.data);
             return response;
         },
-        select: (response) => {
-            return {
-                list: response.data,
-                map: new Map(response.data.map((user) => [user.id, user])),
-                metadata: response.metadata,
-            };
-        },
     });
 }

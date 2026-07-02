@@ -44,9 +44,9 @@ export function CalendarTable() {
             (id) =>
                 ({
                     dataKey: `${id}`,
-                    label: <CalendarLabel day={id} />,
+                    label: () => <CalendarLabel day={id} />,
                     render: ({ item }) => <CalendarItem day={item[id]} />,
-                }) as App.ModuleBase.Component.TableColumn<App.ModuleCalendar.Data.CalendarData[]>
+                }) as App.ModuleBase.Component.Column<App.ModuleCalendar.Data.CalendarData[]>
         );
     }, [display]);
 

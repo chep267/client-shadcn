@@ -23,25 +23,31 @@ function TableBodyRow<Data extends App.ModuleBase.Component.Bigdata = App.Module
     const columns = store((state) => state.data.columns);
     const dataKeyForCheckbox = store((state) => state.data.dataKeyForCheckbox);
 
-    const value = dataKeyForCheckbox ? getNestedValue(item, dataKeyForCheckbox) : undefined;
-    const id = typeof value === 'string' || typeof value === 'number' ? value : `row-${indexRow}`;
+    const id = React.useMemo(() => {
+        const value = dataKeyForCheckbox ? getNestedValue(item, dataKeyForCheckbox) : undefined;
+        return typeof value === 'string' || typeof value === 'number' ? value : `row-${indexRow}`;
+    }, [item, dataKeyForCheckbox]);
 
-    const renderRow = () => {
-        return columns?.map(({ dataKey, sortable: _sortable, render, ...cellProps }, indexCell) => {
+    const renderRow = React.useMemo(() => {
+        return columns?.map(({ dataKey, className, render, onClick }, indexCell) => {
             const value = getNestedValue(item, dataKey);
             return (
-                <TableCell key={dataKey} {...cellProps}>
+                <TableCell
+                    key={dataKey}
+                    className={className}
+                    onClick={(event) => onClick?.(event, { item, indexRow, indexCell })}
+                >
                     {typeof render === 'function' ? render({ indexRow, indexCell, item }) : <span>{`${value}`}</span>}
                 </TableCell>
             );
         });
-    };
+    }, [columns, item, indexRow]);
 
     if (asChild) {
         return (
             <React.Fragment>
                 <TableCellCheckboxOne id={id} store={store} />
-                {renderRow()}
+                {renderRow}
             </React.Fragment>
         );
     }
@@ -49,7 +55,7 @@ function TableBodyRow<Data extends App.ModuleBase.Component.Bigdata = App.Module
     return (
         <TableRow className={cn('h-10')}>
             <TableCellCheckboxOne id={id} store={store} />
-            {renderRow()}
+            {renderRow}
         </TableRow>
     );
 }
