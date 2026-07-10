@@ -39,7 +39,7 @@ export function AppRouter() {
             <React.Suspense>
                 <Routes>
                     {defaultPaths.map((path) => (
-                        <Route key={path} path={path} element={<Navigate to={GlobalRouterPath.feed} />} />
+                        <Route key={path} path={path} element={<Navigate to={GlobalRouterPath.default} />} />
                     ))}
                     <Route path={MessengerRouterPath.root} element={<MessengerRouter />} />
                     <Route path={CalendarRouterPath.root} element={<CalendarRouter />} />
@@ -53,3 +53,5 @@ export function AppRouter() {
         </main>
     );
 }
+
+export default AppRouter;

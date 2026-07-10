@@ -40,15 +40,15 @@ export function useSignin() {
             authAction.setData({ user, token: token.value });
         },
         onError: (error: AxiosError) => {
-            let messageIntl: string;
+            let message: string;
             switch (true) {
                 case isClientError(error):
-                    messageIntl = AuthLanguage.notify.signin.error;
+                    message = AuthLanguage.notify.signin.error;
                     break;
                 default:
-                    messageIntl = AuthLanguage.notify.server.error;
+                    message = AuthLanguage.notify.server.error;
             }
-            toast.error(formatMessage({ id: messageIntl, defaultMessage: messageIntl }));
+            toast.error(formatMessage({ id: message, defaultMessage: message }));
         },
     });
 }

@@ -30,15 +30,15 @@ export function useRegister() {
             toast.success(formatMessage({ id: AuthLanguage.notify.register.success, defaultMessage: 'Success' }));
         },
         onError: (error: AxiosError) => {
-            let messageIntl: string;
+            let message: string;
             switch (true) {
                 case isClientError(error):
-                    messageIntl = AuthLanguage.notify.register.error;
+                    message = AuthLanguage.notify.register.error;
                     break;
                 default:
-                    messageIntl = AuthLanguage.notify.server.error;
+                    message = AuthLanguage.notify.server.error;
             }
-            toast.error(formatMessage({ id: messageIntl, defaultMessage: messageIntl }));
+            toast.error(formatMessage({ id: message, defaultMessage: message }));
         },
     });
 }

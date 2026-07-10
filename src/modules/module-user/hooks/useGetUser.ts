@@ -22,19 +22,18 @@ export function useGetUser(uid: string = '') {
     return useQuery({
         queryKey: [UserQueryKey.user, { uid }],
         queryFn: async () => {
+            if (user) {
+                return {
+                    message: '',
+                    data: user,
+                    metadata: {},
+                };
+            }
             const response = await userServices.getOne({ uid });
             useUserStore.getState().action.add(response.data);
             return response;
         },
-        enabled: !!uid && !user,
-        initialData: () => {
-            if (!user) return;
-            return {
-                message: '',
-                data: user,
-                metadata: {},
-            };
-        },
+        enabled: !!uid,
         staleTime: Infinity,
         gcTime: 1000 * 60 * 15,
     });

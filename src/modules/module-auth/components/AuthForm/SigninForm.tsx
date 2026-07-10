@@ -6,7 +6,7 @@
 
 /** libs */
 import * as z from 'zod';
-import Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -52,7 +52,7 @@ const schema = z.object({
 export function SigninForm() {
     const { handleSubmit, control, setError, clearErrors } = useForm<App.ModuleAuth.Component.FormSigninData>({
         defaultValues: {
-            [FormFieldsName.email]: Cookie.get(AppKey.email) || 'dong.nguyenthanh@powergatesoftware.com',
+            [FormFieldsName.email]: Cookies.get(AppKey.email) || 'dong.nguyenthanh@powergatesoftware.com',
             [FormFieldsName.password]: 'Midom@2024',
         },
         mode: 'onSubmit',
@@ -61,17 +61,17 @@ export function SigninForm() {
     });
 
     const onSubmitError = (error: AxiosError) => {
-        let messageIntl: string;
+        let message: string;
         switch (true) {
             case isClientError(error):
-                messageIntl = AuthLanguage.notify.signin.error;
+                message = AuthLanguage.notify.signin.error;
                 break;
             default:
-                messageIntl = AuthLanguage.notify.server.error;
+                message = AuthLanguage.notify.server.error;
                 break;
         }
-        setError(FormFieldsName.email, { message: messageIntl });
-        setError(FormFieldsName.password, { message: messageIntl });
+        setError(FormFieldsName.email, { message });
+        setError(FormFieldsName.password, { message });
         delay(AppTimer.notifyDuration).then(() => clearErrors());
     };
 

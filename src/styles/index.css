@@ -89,16 +89,16 @@
         --app-size-height-header: calc(var(--spacing) * 16); /* 64px */
         --app-size-height-sidebar-mini: calc(var(--spacing) * 12); /* 48px */
         --app-size-height-sidebar: calc(100dvh - var(--app-size-height-header));
-        --app-size-width-sidebar-collapse: 48px;
-        --app-size-width-sidebar-expand: 256px;
-        --app-size-breakpoint-sidebar-collapse: 1030px;
-        --app-size-breakpoint-sidebar-hidden: 600px;
+        --app-size-width-sidebar-collapse: calc(var(--spacing) * 12); /* 48px */
+        --app-size-width-sidebar-expand: calc(var(--spacing) * 64); /* 256px */
+        --app-size-breakpoint-sidebar-collapse: var(--breakpoint-laptop); /* 1024px */
+        --app-size-breakpoint-sidebar-hidden: calc(var(--spacing) * 150); /* 600px */
         --app-size-height-screen: calc(100dvh - var(--app-size-height-header));
 
         /* messenger */
         --app-size-width-messenger-threads-collapsed: calc(var(--spacing) * 12); /* 48px */
         --app-size-width-messenger-threads-expanded: calc(var(--spacing) * 70); /* 280px */
-        --app-size-width-messenger-threads: var(--app-size-width-messenger-threads-expanded);
+        --app-size-width-messenger-threads: var(--app-size-width-messenger-threads-expanded); /* 280px */
         --app-size-height-messenger-conversation-header: calc(var(--spacing) * 16); /* 64px */
 
         --z-index-header: theme(zIndex.50);
@@ -202,8 +202,7 @@
         font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
     }
 
-    @media (max-width: 47.99rem) {
-        /* Nhỏ hơn tablet */
+    @media only screen and (max-width: theme(--breakpoint-tablet)) {
         :root {
             --app-size-height-screen: calc(
                 100dvh - var(--app-size-height-header) - var(--app-size-height-sidebar-mini)

@@ -39,16 +39,16 @@ export function useRestart() {
             authAction.setData({ user, token: token.value });
         },
         onError: async (error: AxiosError) => {
-            let messageIntl: string;
+            let message: string;
             switch (true) {
                 case isClientError(error):
-                    messageIntl = AuthLanguage.notify.refresh.error;
+                    message = AuthLanguage.notify.refresh.error;
                     break;
                 default:
-                    messageIntl = AuthLanguage.notify.server.error;
+                    message = AuthLanguage.notify.server.error;
             }
 
-            toast.error(formatMessage({ id: messageIntl, defaultMessage: messageIntl }));
+            toast.error(formatMessage({ id: message, defaultMessage: message }));
             Cookies.remove(AppKey.token);
             authAction.setData({ user: null, prePath: '/' });
         },

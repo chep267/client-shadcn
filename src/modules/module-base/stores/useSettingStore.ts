@@ -23,7 +23,7 @@ const defaultData: Readonly<App.ModuleBase.Store.SettingStore['data']> = {
     theme: getDeviceTheme(),
     api: {
         statusCode: axios.HttpStatusCode.Ok,
-        queue: [],
+        queues: [],
     },
 };
 
@@ -66,17 +66,17 @@ export const useSettingStore = create<App.ModuleBase.Store.SettingStore>((set) =
                     })
                 );
             },
-            addApiQueue: (apiConfig: App.ModuleBase.Store.SettingStore['data']['api']['queue'][number]) => {
+            addApiQueue: (apiConfig: App.ModuleBase.Store.SettingStore['data']['api']['queues'][number]) => {
                 set(
                     produce<App.ModuleBase.Store.SettingStore>((store) => {
-                        store.data.api.queue.push(apiConfig);
+                        store.data.api.queues.push(apiConfig);
                     })
                 );
             },
             clearApiQueue: () => {
                 set(
                     produce<App.ModuleBase.Store.SettingStore>((store) => {
-                        store.data.api.queue = [];
+                        store.data.api.queues = [];
                     })
                 );
             },

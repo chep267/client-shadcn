@@ -39,10 +39,10 @@ export function ModalTokenExpired() {
             hookRestart.mutate(void 0, {
                 onSuccess: async () => {
                     const { data } = useSettingStore.getState();
-                    const { queue } = data.api;
-                    if (queue.length > 0) {
+                    const { queues } = data.api;
+                    if (queues.length > 0) {
                         try {
-                            await Promise.all(queue.map((config) => axiosClient.request(config)));
+                            await Promise.all(queues.map((config) => axiosClient.request(config)));
                         } catch {
                             // nothing
                         }

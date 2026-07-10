@@ -6,7 +6,7 @@
 
 /** libs */
 import * as z from 'zod';
-import Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -46,7 +46,7 @@ const schema = z.object({
 export function RecoverForm() {
     const { handleSubmit, control, setError, clearErrors } = useForm<App.ModuleAuth.Component.FormRecoverData>({
         defaultValues: {
-            [FormFieldsName.email]: Cookie.get(AppKey.email) ?? '',
+            [FormFieldsName.email]: Cookies.get(AppKey.email) ?? '',
         },
         mode: 'onSubmit',
         reValidateMode: 'onChange',
@@ -54,16 +54,16 @@ export function RecoverForm() {
     });
 
     const onSubmitError = (error: AxiosError) => {
-        let messageIntl: string;
+        let message: string;
         switch (true) {
             case isClientError(error):
-                messageIntl = AuthLanguage.notify.recover.error;
+                message = AuthLanguage.notify.recover.error;
                 break;
             default:
-                messageIntl = AuthLanguage.notify.server.error;
+                message = AuthLanguage.notify.server.error;
                 break;
         }
-        setError(FormFieldsName.email, { message: messageIntl });
+        setError(FormFieldsName.email, { message });
         delay(AppTimer.notifyDuration).then(() => clearErrors());
     };
 

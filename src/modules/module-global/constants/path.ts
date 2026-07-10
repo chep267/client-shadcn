@@ -6,6 +6,7 @@
 
 export const GlobalRouterPath = {
     home: '/',
+    default: '/feed',
     feed: '/feed',
     account: '/account',
     notFound: '/not-found',

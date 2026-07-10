@@ -9,7 +9,6 @@
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "paths": {
-            "@/*": ["./src/*"],
             "@src/*": ["./src/*"],
             "@tests/*": ["./tests/*"],
             "@langs/*": ["./src/langs/*"],

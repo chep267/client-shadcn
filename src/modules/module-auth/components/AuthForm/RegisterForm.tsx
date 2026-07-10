@@ -70,18 +70,18 @@ export function RegisterForm() {
     });
 
     const onSubmitError = (error: AxiosError) => {
-        let messageIntl: string;
+        let message: string;
         switch (true) {
             case isClientError(error):
-                messageIntl = AuthLanguage.notify.register.error;
+                message = AuthLanguage.notify.register.error;
                 break;
             default:
-                messageIntl = AuthLanguage.notify.server.error;
+                message = AuthLanguage.notify.server.error;
                 break;
         }
-        setError(FormFieldsName.email, { message: messageIntl });
-        setError(FormFieldsName.password, { message: messageIntl });
-        setError(FormFieldsName.confirmPassword, { message: messageIntl });
+        setError(FormFieldsName.email, { message });
+        setError(FormFieldsName.password, { message });
+        setError(FormFieldsName.confirmPassword, { message });
         delay(AppTimer.notifyDuration).then(() => clearErrors());
     };
 

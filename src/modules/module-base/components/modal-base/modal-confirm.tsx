@@ -26,7 +26,7 @@ import {
     AlertDialogMedia,
 } from '@module-base/components/alert-dialog';
 
-interface ModalConfirmProps {
+interface ModalConfirmProps extends React.PropsWithChildren {
     className?: string;
     open?: boolean;
     loading?: boolean;
@@ -40,7 +40,7 @@ interface ModalConfirmProps {
     onCancel?(): void;
 }
 
-export function ModalConfirm(props: React.PropsWithChildren<ModalConfirmProps>) {
+export function ModalConfirm(props: ModalConfirmProps) {
     const {
         className,
         open,

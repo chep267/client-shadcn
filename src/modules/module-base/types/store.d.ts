@@ -15,7 +15,7 @@ type SettingStoreData = {
     theme: Theme;
     api: {
         statusCode: number;
-        queue: InternalAxiosRequestConfig[];
+        queues: InternalAxiosRequestConfig[];
     };
 };
 type SettingStoreAction = {

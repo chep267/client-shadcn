@@ -15,7 +15,7 @@ import { AppProvider } from '@module-base/providers/AppProvider';
 import MainScreen from '@module-global/screens/MainScreen';
 
 /** styles */
-import '@src/main.css';
+import '@src/styles/index.css';
 
 const root = createRoot(document.getElementById('root')!);
 root.render(

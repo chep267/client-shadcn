@@ -24,40 +24,31 @@ export class ApiService {
     }
 
     private concatUrl = (url: string = '') => {
-        return this.url + url;
+        return this.url.concat(url);
     };
 
-    protected withDelay = async <Res = unknown>(promise: Promise<Res>, delay = this.delay): Promise<Res> => {
+    withDelay = async <Res = unknown>(promise: Promise<Res>, delay = this.delay): Promise<Res> => {
         const [res] = await Promise.all([promise, funcDelay(delay)]);
         return res;
     };
 
-    protected get = async <Res = unknown>(configs?: AxiosRequestConfig) => {
+    get = async <Res = unknown>(configs?: AxiosRequestConfig) => {
         return axiosClient.get<Res>(this.concatUrl(configs?.url), configs);
     };
 
-    protected post = <Res = unknown, Body = unknown>(
-        body: Body,
-        configs?: AxiosRequestConfig
-    ): Promise<AxiosResponse<Res>> => {
+    post = <Res = unknown, Body = unknown>(body: Body, configs?: AxiosRequestConfig): Promise<AxiosResponse<Res>> => {
         return axiosClient.post<Res>(this.concatUrl(configs?.url), body, configs);
     };
 
-    protected put = <Res = unknown, Body = unknown>(
-        body: Body,
-        configs?: AxiosRequestConfig
-    ): Promise<AxiosResponse<Res>> => {
+    put = <Res = unknown, Body = unknown>(body: Body, configs?: AxiosRequestConfig): Promise<AxiosResponse<Res>> => {
         return axiosClient.put<Res>(this.concatUrl(configs?.url), body, configs);
     };
 
-    protected patch = <Res = unknown, Body = unknown>(
-        body: Body,
-        configs?: AxiosRequestConfig
-    ): Promise<AxiosResponse<Res>> => {
+    patch = <Res = unknown, Body = unknown>(body: Body, configs?: AxiosRequestConfig): Promise<AxiosResponse<Res>> => {
         return axiosClient.patch<Res>(this.concatUrl(configs?.url), body, configs);
     };
 
-    protected delete = <Res = unknown>(configs?: AxiosRequestConfig): Promise<AxiosResponse> => {
+    delete = <Res = unknown>(configs?: AxiosRequestConfig): Promise<AxiosResponse> => {
         return axiosClient.delete<Res>(this.concatUrl(configs?.url), configs);
     };
 }

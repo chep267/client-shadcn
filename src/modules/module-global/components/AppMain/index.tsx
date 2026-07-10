@@ -19,12 +19,8 @@ import { SidebarProvider } from '@module-base/components/sidebar';
 import AuthProvider from '@module-auth/providers/AuthProvider';
 
 /** lazy components */
-const AppSidebar = React.lazy(() =>
-    import('@module-global/components/AppSidebar').then((module) => ({ default: module.AppSidebar }))
-);
-const AppRouter = React.lazy(() =>
-    import('@module-global/components/AppRouter').then((module) => ({ default: module.AppRouter }))
-);
+const AppSidebar = React.lazy(() => import('@module-global/components/AppSidebar'));
+const AppRouter = React.lazy(() => import('@module-global/components/AppRouter'));
 
 export function AppMain() {
     return (

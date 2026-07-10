@@ -5,7 +5,7 @@
  */
 
 /** libs */
-import Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 import { create } from 'zustand';
 import { produce } from 'immer';
 
@@ -18,7 +18,7 @@ import { registerStore } from '@module-base/utils/store';
 const defaultData: Readonly<App.ModuleAuth.Store.AuthStore['data']> = {
     user: null,
     prePath: '/',
-    token: Cookie.get(AppKey.token) ?? '',
+    token: Cookies.get(AppKey.token) ?? '',
 };
 
 export const useAuthStore = create<App.ModuleAuth.Store.AuthStore>((set) => {
@@ -39,7 +39,7 @@ export const useAuthStore = create<App.ModuleAuth.Store.AuthStore>((set) => {
             refreshToken: () => {
                 set(
                     produce<App.ModuleAuth.Store.AuthStore>(({ data }) => {
-                        data.token = Cookie.get(AppKey.token) ?? '';
+                        data.token = Cookies.get(AppKey.token) ?? '';
                     })
                 );
             },
