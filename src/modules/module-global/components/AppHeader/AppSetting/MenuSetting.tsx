@@ -192,3 +192,5 @@ export function MenuSetting() {
         </DropdownMenuContent>
     );
 }
+
+export default MenuSetting;

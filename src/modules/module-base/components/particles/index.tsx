@@ -27,3 +27,4 @@ function Particle(props: IParticlesProps) {
     );
 }
 export { Particle };
+export default Particle;

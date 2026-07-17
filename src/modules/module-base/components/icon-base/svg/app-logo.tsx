@@ -26,3 +26,5 @@ export function AppLogo(props: App.ModuleBase.Component.IconSVGProps) {
         </svg>
     );
 }
+
+export default AppLogo;

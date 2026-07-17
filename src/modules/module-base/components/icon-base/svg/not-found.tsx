@@ -13,3 +13,5 @@ export function NotFound(props: App.ModuleBase.Component.IconSVGProps) {
         </svg>
     );
 }
+
+export default NotFound;

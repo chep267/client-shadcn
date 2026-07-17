@@ -97,3 +97,5 @@ export function RecoverForm() {
         </Card>
     );
 }
+
+export default RecoverForm;

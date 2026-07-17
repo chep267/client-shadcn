@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { PanelLeftIcon } from 'lucide-react';
 import { Slot } from 'radix-ui';
 
-import { useIsMobile } from '@module-base/hooks/useMobile';
+import { useScreen } from '@module-base/hooks/useScreen';
 import { cn } from '@module-base/utils/shadcn';
 import { Button } from '@module-base/components/button';
 import { Input } from '@module-base/components/input';
@@ -53,7 +53,7 @@ function SidebarProvider({
     open?: boolean;
     onOpenChange?: (open: boolean) => void;
 }) {
-    const isMobile = useIsMobile();
+    const { isMobile } = useScreen();
     const [openMobile, setOpenMobile] = React.useState(false);
 
     // This is the internal state of the sidebar.

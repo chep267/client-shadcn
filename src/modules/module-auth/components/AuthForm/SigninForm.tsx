@@ -112,3 +112,5 @@ export function SigninForm() {
         </Card>
     );
 }
+
+export default SigninForm;

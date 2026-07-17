@@ -14,3 +14,5 @@ export function Error(props: App.ModuleBase.Component.IconSVGProps) {
         </svg>
     );
 }
+
+export default Error;

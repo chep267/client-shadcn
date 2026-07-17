@@ -20,14 +20,14 @@ import { useSettingStore } from '@module-base/stores/useSettingStore';
 import { useCalendarStore } from '@module-calendar/stores/useCalendarStore';
 
 /** hooks */
-import { useIsMobile } from '@module-base/hooks/useMobile';
+import { useScreen } from '@module-base/hooks/useScreen';
 
 /** components */
 import { Button } from '@module-base/components/button';
 import { Typography } from '@module-base/components/typography';
 
 export function TimePicker() {
-    const isMobile = useIsMobile();
+    const { isMobile } = useScreen();
 
     const locale = useSettingStore(({ data }) => data.locale);
     const selectedDay = useCalendarStore(({ data }) => data.day);

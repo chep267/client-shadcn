@@ -15,11 +15,7 @@ import { DropdownMenu } from '@module-base/components/dropdown-menu';
 import { ButtonOption } from '@module-messenger/components/Threads/ThreadOption/ButtonOption';
 
 /** lazy components */
-const MenuOption = React.lazy(() =>
-    import('@module-messenger/components/Threads/ThreadOption/MenuOption').then((module) => ({
-        default: module.MenuOption,
-    }))
-);
+const MenuOption = React.lazy(() => import('@module-messenger/components/Threads/ThreadOption/MenuOption'));
 
 interface ThreadOptionProps {
     thread: App.ModuleMessenger.Data.Thread;

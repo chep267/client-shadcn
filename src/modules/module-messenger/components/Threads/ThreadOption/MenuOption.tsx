@@ -158,3 +158,5 @@ export function MenuOption(props: MenuOptionProps) {
         </DropdownMenuContent>
     );
 }
+
+export default MenuOption;

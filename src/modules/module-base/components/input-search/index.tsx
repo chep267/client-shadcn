@@ -61,52 +61,60 @@ export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
         onSearch?.(newValue);
     };
 
+    const SearchIconElement = React.useMemo(() => {
+        return (
+            <SearchIcon
+                data-slot="search-icon"
+                className={cn('absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2', 'text-muted-foreground')}
+                aria-hidden="true"
+            />
+        );
+    }, []);
+
+    const SearchClearButton = React.useMemo(() => {
+        return (
+            <Button
+                data-slot="search-close"
+                type="button"
+                variant="ghost"
+                size="icon"
+                className={cn(
+                    'absolute top-1/2 right-1 h-7 w-7 -translate-y-1/2',
+                    'cursor-pointer rounded-full',
+                    'text-muted-foreground hover:text-foreground hover:bg-transparent'
+                )}
+                onClick={handleClear}
+                aria-label="Clear search input"
+                title="Clear"
+            >
+                <XIcon className="h-4 w-4" aria-hidden="true" />
+            </Button>
+        );
+    }, []);
+
     return (
-        <div className={cn('relative w-full', className)}>
-            <label htmlFor={inputId} className="sr-only">
-                {label}
-            </label>
+        <div
+            data-slot="search-container"
+            className={cn('relative w-full', 'data-[empty=true]:[&>button]:data-[slot=search-close]:hidden', className)}
+            data-empty={!localValue}
+        >
+            {SearchIconElement}
 
-            <div className="relative">
-                <SearchIcon
-                    className={cn('absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2', 'text-muted-foreground')}
-                    aria-hidden="true"
-                />
+            <Input
+                data-slot="search-input"
+                {...otherProps}
+                id={inputId}
+                ref={internalRef}
+                type="text"
+                role="searchbox"
+                placeholder={placeholder}
+                value={localValue}
+                onChange={handleChange}
+                className={cn('pr-9 pl-9 focus-visible:ring-2')}
+                aria-label={label}
+            />
 
-                <Input
-                    {...otherProps}
-                    id={inputId}
-                    ref={internalRef}
-                    type="text"
-                    role="searchbox"
-                    placeholder={placeholder}
-                    value={localValue}
-                    onChange={handleChange}
-                    className={cn('pr-9 pl-9 focus-visible:ring-2')}
-                    aria-label={label}
-                />
-
-                <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className={cn(
-                        'absolute top-1/2 right-1 h-7 w-7 -translate-y-1/2',
-                        'cursor-pointer rounded-full',
-                        'text-muted-foreground hover:text-foreground hover:bg-transparent',
-                        { hidden: !localValue }
-                    )}
-                    onClick={handleClear}
-                    aria-label="Clear search input"
-                    title="Clear"
-                >
-                    <XIcon className="h-4 w-4" aria-hidden="true" />
-                </Button>
-            </div>
-
-            <span className="sr-only" aria-live="polite">
-                {localValue ? `Searching for ${localValue}` : 'Search input cleared'}
-            </span>
+            {SearchClearButton}
         </div>
     );
 }

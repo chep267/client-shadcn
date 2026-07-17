@@ -12,17 +12,11 @@ import { Spinner } from '@module-base/components/spinner';
 
 const Icons: Readonly<App.ModuleBase.Component.IconBaseList> = {
     /** app icon */
-    ['app-logo']: React.lazy(() =>
-        import('@module-base/components/icon-base/svg/app-logo').then((module) => ({ default: module.AppLogo }))
-    ),
+    ['app-logo']: React.lazy(() => import('@module-base/components/icon-base/svg/app-logo')),
 
     /** another icon */
-    ['error']: React.lazy(() =>
-        import('@module-base/components/icon-base/svg/error').then((module) => ({ default: module.Error }))
-    ),
-    ['not-found']: React.lazy(() =>
-        import('@module-base/components/icon-base/svg/not-found').then((module) => ({ default: module.NotFound }))
-    ),
+    ['error']: React.lazy(() => import('@module-base/components/icon-base/svg/error')),
+    ['not-found']: React.lazy(() => import('@module-base/components/icon-base/svg/not-found')),
 };
 
 const IconBase = React.memo<App.ModuleBase.Component.IconBaseProps>(function IconBase(props) {
