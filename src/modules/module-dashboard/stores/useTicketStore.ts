@@ -8,7 +8,7 @@
 import { create } from 'zustand';
 import { produce } from 'immer';
 
-export const useTicketStore = create<App.ModuleDashboard.Store.TypeDashboardStore>((set) => ({
+export const useTicketStore = create<App.ModuleDashboard.Store.DashboardStore>((set) => ({
     data: {
         itemDelete: null,
         itemEdit: null,
@@ -18,7 +18,7 @@ export const useTicketStore = create<App.ModuleDashboard.Store.TypeDashboardStor
     action: {
         setData: (updateData = {}) => {
             set(
-                produce<App.ModuleDashboard.Store.TypeDashboardStore>(({ data }) => {
+                produce<App.ModuleDashboard.Store.DashboardStore>(({ data }) => {
                     Object.assign(data, updateData);
                 })
             );

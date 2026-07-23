@@ -18,7 +18,7 @@ type GetByKeys<T, Keys extends readonly string[]> = Keys extends [
     infer First extends string,
     ...infer Rest extends string[],
 ]
-    ? T extends Array<infer Item>
+    ? T extends (infer Item)[]
         ? Rest extends []
             ? Item | undefined
             : GetByKeys<Item, Rest> | undefined
@@ -31,7 +31,7 @@ type GetByKeys<T, Keys extends readonly string[]> = Keys extends [
 
 type GetNestedValueReturn<Data, Path> = Path extends undefined
     ? Data
-    : Data extends Array<infer Item>
+    : Data extends (infer Item)[]
       ? Path extends number
           ? Item | undefined
           : unknown
@@ -50,10 +50,10 @@ export const getNestedValue = <
     if (!path) return data as GetNestedValueReturn<Data, Path>;
 
     // Chuẩn hóa path thành array các key
-    let keys: Array<string | number>;
+    let keys: (string | number)[];
 
     if (Array.isArray(path)) {
-        keys = path as Array<string | number>;
+        keys = path as (string | number)[];
     } else if (typeof path === 'string') {
         // Hỗ trợ dot-notation: 'a.b.c' hoặc 'a[0].b'
         keys = path

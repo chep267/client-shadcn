@@ -49,7 +49,7 @@ const schema = z.object({
         .regex(AppRegex.password, AuthLanguage.status.password.invalid),
 });
 
-export function SigninForm() {
+function SigninForm() {
     const { handleSubmit, control, setError, clearErrors } = useForm<App.ModuleAuth.Component.FormSigninData>({
         defaultValues: {
             [FormFieldsName.email]: Cookies.get(AppKey.email) || 'dong.nguyenthanh@powergatesoftware.com',
@@ -72,7 +72,9 @@ export function SigninForm() {
         }
         setError(FormFieldsName.email, { message });
         setError(FormFieldsName.password, { message });
-        delay(AppTimer.notifyDuration).then(() => clearErrors());
+        void delay(AppTimer.notifyDuration).then(() => {
+            clearErrors();
+        });
     };
 
     return (
@@ -113,4 +115,5 @@ export function SigninForm() {
     );
 }
 
+export { SigninForm };
 export default SigninForm;

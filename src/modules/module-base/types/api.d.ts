@@ -21,16 +21,16 @@ export type SearchParam<P = Param> = P & {
     limit?: string | number;
 };
 
-export type SearchResponse<D = Data, M = Metadata> = {
+export interface SearchResponse<D = Data, M = Metadata> {
     data: D;
     metadata: SearchMetadata<M>;
-};
+}
 
-export type ApiResponse<D = Data, M = Metadata> = {
+export interface ApiResponse<D = Data, M = Metadata> {
     message: string;
     data: D;
     metadata: M;
-};
+}
 
 export type ApiSearchResponse<D = Data, M = Metadata> = SearchResponse<D, M> & {
     message: string;

@@ -20,7 +20,9 @@ import { Typography } from '@module-base/components/typography';
 
 function Timer() {
     const { second } = useCountdown({
-        callback: () => window.location.reload(),
+        callback: () => {
+            window.location.reload();
+        },
         numberCountdown: AppTimer.countdownError,
     });
     return (
@@ -40,7 +42,9 @@ export function ButtonRetry(props: Pick<App.ModuleBase.Component.FallbackDefault
             <Button
                 className="text-danger hover:text-main cursor-pointer capitalize"
                 variant="outline"
-                onClick={() => window.location.reload()}
+                onClick={() => {
+                    window.location.reload();
+                }}
             >
                 <FormattedMessage id={BaseLanguage.component.button.retry} defaultMessage="Retry" />
             </Button>

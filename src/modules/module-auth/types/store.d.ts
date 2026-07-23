@@ -8,16 +8,16 @@
 import type { User } from '@module-user/types/data.d';
 
 /** Auth store */
-type AuthStoreData = {
+interface AuthStoreData {
     user: User | null;
     prePath: string;
     token: string;
-};
-type AuthStoreAction = {
+}
+interface AuthStoreAction {
     setData: (options?: Partial<AuthStoreData>) => void;
     refreshToken: () => void;
-};
-export type AuthStore = {
+}
+export interface AuthStore {
     data: AuthStoreData;
     action: AuthStoreAction;
-};
+}

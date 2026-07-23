@@ -1,6 +1,6 @@
-type BadgeProps = {
+interface BadgeProps {
     status: string;
-};
+}
 
 export function StatusBadge({ status }: BadgeProps) {
     const statusStyles: Record<string, string> = {

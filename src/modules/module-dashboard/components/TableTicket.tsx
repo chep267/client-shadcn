@@ -24,7 +24,7 @@ import { Assignee } from '@module-dashboard/components/Assignee';
 import { SelectTicketStatus } from '@module-dashboard/components/SelectTicketStatus';
 
 type TypeFilterItem = NonNullable<
-    App.ModuleBase.Component.BigdataStoreData<App.ModuleDashboard.Data.TypeTicketData>['filters']
+    App.ModuleBase.Component.BigdataStoreData<App.ModuleDashboard.Data.TicketData>['filters']
 >[number];
 
 export function TableTicket() {
@@ -33,7 +33,7 @@ export function TableTicket() {
     const { isPending, data } = useGetTickets();
 
     const handleFilter = (
-        dataKey: App.ModuleBase.Component.BigdataKey<App.ModuleDashboard.Data.TypeTicketData>,
+        dataKey: App.ModuleBase.Component.BigdataKey<App.ModuleDashboard.Data.TicketData>,
         value: string,
         item?: App.ModuleBase.Component.SelectBaseItem
     ) => {
@@ -51,17 +51,17 @@ export function TableTicket() {
                 return {
                     label: value,
                     value,
-                    fnFilter: (item: App.ModuleDashboard.Data.TypeTicketData) => {
+                    fnFilter: (item: App.ModuleDashboard.Data.TicketData) => {
                         return (
                             dayjs(item.createdAt).format('DD/MM/YYYY').includes(value) ||
                             dayjs(item.deadline).format('DD/MM/YYYY').includes(value)
                         );
                     },
-                } as App.ModuleBase.Component.SelectBaseItem;
+                };
             });
     }, []);
 
-    const columns = React.useMemo<App.ModuleBase.Component.Column<App.ModuleDashboard.Data.TypeTicketData>[]>(
+    const columns = React.useMemo<App.ModuleBase.Component.Column<App.ModuleDashboard.Data.TicketData>[]>(
         () => [
             {
                 dataKey: 'id',
@@ -118,7 +118,9 @@ export function TableTicket() {
                         placeholder="Filter by status"
                         hasClear
                         value={filters.find((filter) => filter.dataKey === 'status')?.value ?? ''}
-                        onChange={(value, item) => handleFilter('status', value, item)}
+                        onChange={(value, item) => {
+                            handleFilter('status', value, item);
+                        }}
                     />
                     <SelectBase
                         className="tablet:max-w-40 tablet:min-w-25 w-full"
@@ -126,7 +128,9 @@ export function TableTicket() {
                         hasClear
                         value={filters.find((filter) => filter.dataKey === 'createdAt')?.value ?? ''}
                         items={filterYears}
-                        onChange={(value, item) => handleFilter('createdAt', value, item)}
+                        onChange={(value, item) => {
+                            handleFilter('createdAt', value, item);
+                        }}
                     />
                 </div>
             </div>

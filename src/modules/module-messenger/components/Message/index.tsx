@@ -14,7 +14,7 @@ export function Message({ isMe, message, currentUid, authorName = 'User', author
     const { metadata } = message;
 
     // Hàm format thời gian nhanh dạng HH:MM
-    const formatTime = (timestamp: string = '') => {
+    const formatTime = (timestamp = '') => {
         return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     };
 
@@ -159,14 +159,15 @@ export function Message({ isMe, message, currentUid, authorName = 'User', author
                                 isMe ? 'right-2' : 'left-2'
                             )}
                         >
-                            {Object.keys(message.metadata.reactions).map((emoji) => (
-                                <span key={emoji} title={(message.metadata?.reactions as any)[emoji].join(', ')}>
-                                    {emoji}{' '}
-                                    <span className="text-muted-foreground font-mono">
-                                        {(message.metadata?.reactions as any)[emoji].length}
+                            {Object.keys(message.metadata.reactions).map((emoji) => {
+                                const reactions = (message.metadata.reactions as Record<string, string[]>)[emoji];
+                                return (
+                                    <span key={emoji} title={reactions.join(', ')}>
+                                        {emoji}{' '}
+                                        <span className="text-muted-foreground font-mono">{reactions.length}</span>
                                     </span>
-                                </span>
-                            ))}
+                                );
+                            })}
                         </div>
                     )}
                 </div>

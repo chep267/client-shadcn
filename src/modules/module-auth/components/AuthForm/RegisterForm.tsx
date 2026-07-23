@@ -57,7 +57,7 @@ const schema = z
         message: AuthLanguage.status.password.different,
     });
 
-export function RegisterForm() {
+function RegisterForm() {
     const { handleSubmit, control, setError, clearErrors } = useForm<App.ModuleAuth.Component.FormRegisterData>({
         defaultValues: {
             [FormFieldsName.email]: '',
@@ -82,7 +82,9 @@ export function RegisterForm() {
         setError(FormFieldsName.email, { message });
         setError(FormFieldsName.password, { message });
         setError(FormFieldsName.confirmPassword, { message });
-        delay(AppTimer.notifyDuration).then(() => clearErrors());
+        void delay(AppTimer.notifyDuration).then(() => {
+            clearErrors();
+        });
     };
 
     return (
@@ -129,4 +131,5 @@ export function RegisterForm() {
     );
 }
 
+export { RegisterForm };
 export default RegisterForm;

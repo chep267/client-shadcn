@@ -15,7 +15,13 @@ import { InputSearch } from '@module-base/components/input-search';
 import { TableBase } from '@module-base/components/table-base';
 import { VirtualTable } from '@module-base/components/virtual-table';
 
-type TableItem = { id: number; name: string; email: string; phone: string; address: string };
+interface TableItem {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+}
 
 export default function FeedScreen() {
     const baseRef: App.ModuleBase.Component.TableProps<TableItem>['ref'] = React.useRef(null);

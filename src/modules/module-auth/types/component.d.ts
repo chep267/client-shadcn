@@ -9,16 +9,16 @@ import type { ComponentProps } from 'react';
 import type { Control, FieldPath, FieldValues, UseFormHandleSubmit } from 'react-hook-form';
 import type { AxiosError } from 'axios';
 
-export type AuthBreadcrumbsItem = {
+export interface AuthBreadcrumbsItem {
     title: string;
     path: string;
     append?: string;
     hidden?: boolean;
-};
+}
 
-export type AuthBreadcrumbsProps = {
+export interface AuthBreadcrumbsProps {
     mode?: 'signin' | 'register' | 'recover';
-};
+}
 
 export type AuthTitleProps = AuthBreadcrumbsProps;
 
@@ -35,9 +35,7 @@ interface AuthButtonSubmitProps extends ComponentProps<'button'> {
 
 /** signin */
 type FormSigninFieldsName = 'email' | 'password';
-type FormSigninData = {
-    [Key in FormSigninFieldsName]: string;
-};
+type FormSigninData = Record<FormSigninFieldsName, string>;
 interface ButtonSigninProps extends ComponentProps<'button'> {
     handleSubmit: UseFormHandleSubmit<FormSigninData>;
     onSubmitError: (error: AxiosError) => void;
@@ -45,9 +43,7 @@ interface ButtonSigninProps extends ComponentProps<'button'> {
 
 /** register */
 type FormRegisterFieldsName = 'email' | 'password' | 'confirmPassword';
-type FormRegisterData = {
-    [Key in FormRegisterFieldsName]: string;
-};
+type FormRegisterData = Record<FormRegisterFieldsName, string>;
 interface ButtonRegisterProps extends ComponentProps<'button'> {
     handleSubmit: UseFormHandleSubmit<FormRegisterData>;
     onSubmitError: (error: AxiosError) => void;
@@ -55,9 +51,7 @@ interface ButtonRegisterProps extends ComponentProps<'button'> {
 
 /** recover */
 type FormRecoverFieldsName = 'email';
-type FormRecoverData = {
-    [Key in FormRecoverFieldsName]: string;
-};
+type FormRecoverData = Record<FormRecoverFieldsName, string>;
 interface ButtonRecoverProps extends ComponentProps<'button'> {
     handleSubmit: UseFormHandleSubmit<FormRecoverData>;
     onSubmitError: (error: AxiosError) => void;

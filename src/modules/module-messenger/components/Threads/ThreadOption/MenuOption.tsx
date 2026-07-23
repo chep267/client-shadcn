@@ -140,7 +140,9 @@ export function MenuOption(props: MenuOptionProps) {
             title: 'Delete',
             icon: <TrashIcon className="size-5 text-inherit" />,
             divide: 'top',
-            onClick: () => removeThread({ tid: thread.id }),
+            onClick: () => {
+                removeThread({ tid: thread.id });
+            },
         },
     ];
 

@@ -16,7 +16,7 @@ import { userServices } from '@module-user/services/api';
 /** stores */
 import { useUserStore } from '@module-user/stores/useUserStore';
 
-export function useGetUser(uid: string = '') {
+export function useGetUser(uid = '') {
     const user = useUserStore((store) => store.data.users.get(uid));
 
     return useQuery({

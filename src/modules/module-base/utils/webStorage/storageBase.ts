@@ -13,7 +13,7 @@ class StorageBase {
     private readonly storageName: App.ModuleBase.Data.StorageName;
     private storageCache: Map<string, string | null>;
 
-    private checkParams = (method: string, variable: any, name: string) => {
+    private checkParams = (method: string, variable: unknown, name: string) => {
         if (!variable) {
             throw new Error(`${this.storageName} -- ${method} :: no ${name}!`);
         }
@@ -45,7 +45,9 @@ class StorageBase {
     setList = (keys: string[], data: App.ModuleBase.Data.StorageValue[]) => {
         this.checkParams('setList', keys, 'array storage key');
         this.checkParams('setList', data, 'array data');
-        keys.forEach((key, index) => this.set(key, data[index]));
+        keys.forEach((key, index) => {
+            this.set(key, data[index]);
+        });
     };
 
     remove = (key: string) => {

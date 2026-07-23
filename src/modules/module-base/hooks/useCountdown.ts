@@ -14,7 +14,9 @@ export const useCountdown = (props: App.ModuleBase.Hook.UseCountdownProps) => {
     const [second, setSecond] = React.useState(numberCountdown);
     const [refresh, setRefresh] = React.useState(0);
 
-    const onStop = React.useCallback(() => clearInterval(countdownRef.current), []);
+    const onStop = React.useCallback(() => {
+        clearInterval(countdownRef.current);
+    }, []);
 
     const onRefresh = React.useCallback(
         (number = numberCountdown) => {

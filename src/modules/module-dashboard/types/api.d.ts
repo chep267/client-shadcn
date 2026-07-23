@@ -6,29 +6,29 @@
 
 /** types */
 import type { ItemIds, Items } from '@module-base/types/data.d';
-import type { TypeTicketData } from '@module-dashboard/types/data.d';
+import type { TicketData } from '@module-dashboard/types/data.d';
 
 export interface TypeApi {
     Get: {
         Payload: {
-            id: TypeTicketData['id'];
+            id: TicketData['id'];
         };
         Response: App.ModuleBase.Api.ApiResponse<void>;
     };
     GetAll: {
         Payload: void;
-        Response: App.ModuleBase.Api.ApiResponse<{ itemIds: ItemIds; items: Items<TypeTicketData> }>;
+        Response: App.ModuleBase.Api.ApiResponse<{ itemIds: ItemIds; items: Items<TicketData> }>;
     };
     Update: {
         Payload: {
-            id: TypeTicketData['id'];
-            data: { description: TypeTicketData['description']; status: TypeTicketData['status'] };
+            id: TicketData['id'];
+            data: { description: TicketData['description']; status: TicketData['status'] };
         };
-        Response: App.ModuleBase.Api.ApiResponse<TypeTicketData>;
+        Response: App.ModuleBase.Api.ApiResponse<TicketData>;
     };
     Remove: {
         Payload: {
-            id: TypeTicketData['id'];
+            id: TicketData['id'];
         };
         Response: App.ModuleBase.Api.ApiResponse<void>;
     };

@@ -43,7 +43,7 @@ const schema = z.object({
         .regex(AppRegex.email, AuthLanguage.status.email.invalid),
 });
 
-export function RecoverForm() {
+function RecoverForm() {
     const { handleSubmit, control, setError, clearErrors } = useForm<App.ModuleAuth.Component.FormRecoverData>({
         defaultValues: {
             [FormFieldsName.email]: Cookies.get(AppKey.email) ?? '',
@@ -64,7 +64,9 @@ export function RecoverForm() {
                 break;
         }
         setError(FormFieldsName.email, { message });
-        delay(AppTimer.notifyDuration).then(() => clearErrors());
+        void delay(AppTimer.notifyDuration).then(() => {
+            clearErrors();
+        });
     };
 
     return (
@@ -98,4 +100,5 @@ export function RecoverForm() {
     );
 }
 
+export { RecoverForm };
 export default RecoverForm;

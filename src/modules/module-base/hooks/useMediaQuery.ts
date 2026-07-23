@@ -25,11 +25,15 @@ export function useMediaQuery(cssVar: string, direction: Direction = 'up') {
 
         const media = window.matchMedia(query);
 
-        const listener = () => setMatches(media.matches);
+        const listener = () => {
+            setMatches(media.matches);
+        };
         setMatches(media.matches);
 
         media.addEventListener('change', listener);
-        return () => media.removeEventListener('change', listener);
+        return () => {
+            media.removeEventListener('change', listener);
+        };
     }, [cssVar, direction]);
 
     return matches;

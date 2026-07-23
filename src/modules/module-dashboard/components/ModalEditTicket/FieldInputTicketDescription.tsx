@@ -46,7 +46,9 @@ export function FieldInputTicketDescription<T extends FieldValues>(props: FieldI
                 spellCheck={false}
                 aria-invalid={hasError}
                 {...fieldProps}
-                ref={(elem) => field.ref(elem)}
+                ref={(elem) => {
+                    field.ref(elem);
+                }}
                 name={field.name}
                 value={field.value}
                 disabled={field.disabled}

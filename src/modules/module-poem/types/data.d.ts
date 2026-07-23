@@ -7,7 +7,7 @@
 /** types */
 import type { User } from '@module-user/types/data';
 
-export type TypePoem = {
+export interface TypePoem {
     id: string;
     title: string;
     description: string;
@@ -15,4 +15,4 @@ export type TypePoem = {
     author: User;
     createdAt: string;
     updatedAt: string;
-};
+}

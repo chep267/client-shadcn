@@ -21,12 +21,12 @@ interface ImportMetaEnv {
 }
 
 declare module '*.svg' {
-    const ReactComponent: any;
+    const ReactComponent: unknown;
     export const ReactComponent;
 }
 
 declare module '*.png' {
-    const ReactComponent: any;
+    const ReactComponent: unknown;
     export const ReactComponent;
 }
 

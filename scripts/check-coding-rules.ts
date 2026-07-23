@@ -46,7 +46,7 @@ class FileSizeChecker {
         const files = await Promise.all(
             direntList.map((dirent) => {
                 const res = join(dir, dirent.name);
-                return dirent.isDirectory() ? this.getAllFiles(res) : res;
+                return dirent.isDirectory() ? this.getAllFiles(res) : Promise.resolve(res);
             })
         );
         return files.flat();
@@ -104,7 +104,7 @@ class FileSizeChecker {
         // 1. Check PascalCase, camelCase
         this.checkFileName(absPath);
         // 2. Check lines / words
-        this.checkFileSize(absPath).then();
+        void this.checkFileSize(absPath);
     }
 
     public async run() {

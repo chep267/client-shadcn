@@ -10,7 +10,7 @@ export type MessageType = 'text' | 'image' | 'video' | 'file' | 'audio' | 'stick
 
 export type MessageStatus = 'sending' | 'sent' | 'received' | 'seen' | 'failed';
 
-export type Attachment = {
+export interface Attachment {
     id: string;
     uid: string;
     url: string;
@@ -19,9 +19,9 @@ export type Attachment = {
     fileSize: number;
     createdAt: string;
     updatedAt: string;
-};
+}
 
-export type Message = {
+export interface Message {
     id: string;
     tid: string;
     uid: string;
@@ -37,9 +37,9 @@ export type Message = {
         isDeleted: boolean;
         isPinned: boolean;
     } & Record<string, unknown>;
-};
+}
 
-export type Thread = {
+export interface Thread {
     id: string;
     name: string;
     avatar: string;
@@ -56,4 +56,4 @@ export type Thread = {
         isPinned?: boolean;
         lastMessageId?: string;
     } & Record<string, unknown>;
-};
+}

@@ -21,13 +21,13 @@ import { FieldInputTicketDescription } from '@module-dashboard/components/ModalE
 /** types */
 import type { UseFormHandleSubmit } from 'react-hook-form';
 
-type TypeTicketData = App.ModuleDashboard.Data.TypeTicketData;
+type TicketData = App.ModuleDashboard.Data.TicketData;
 
 interface FormEditTicketProps {
     ref?: React.Ref<{
-        onSubmit: UseFormHandleSubmit<{ description: TypeTicketData['description']; status: TypeTicketData['status'] }>;
+        onSubmit: UseFormHandleSubmit<{ description: TicketData['description']; status: TicketData['status'] }>;
     }>;
-    item: TypeTicketData;
+    item: TicketData;
 }
 
 const FormFieldsName = {

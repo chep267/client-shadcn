@@ -36,13 +36,20 @@ export function MediaPreview() {
                     <Image
                         key={index}
                         file={file}
-                        handleRemove={() => action.removeAsset({ tid, pos: index })}
+                        handleRemove={() => {
+                            action.removeAsset({ tid, pos: index });
+                        }}
                         handleView={setSrc}
                     />
                 ))}
             </div>
 
-            <Dialog open={!!src} onOpenChange={() => setSrc(undefined)}>
+            <Dialog
+                open={!!src}
+                onOpenChange={() => {
+                    setSrc(undefined);
+                }}
+            >
                 <DialogContent
                     className={cn(
                         'group',

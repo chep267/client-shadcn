@@ -7,7 +7,7 @@
 /** libs */
 import * as React from 'react';
 
-export function useWhyDidYouUpdate(name: string, props: Record<string, any>) {
+export function useWhyDidYouUpdate(name: string, props: Record<string, unknown>) {
     const previousProps = React.useRef(props);
 
     React.useEffect(() => {
@@ -15,7 +15,7 @@ export function useWhyDidYouUpdate(name: string, props: Record<string, any>) {
     }, []);
 
     React.useEffect(() => {
-        const changedProps: Record<string, any> = {};
+        const changedProps: Record<string, unknown> = {};
         Object.keys(props).forEach((key) => {
             if (previousProps.current[key] !== props[key]) {
                 changedProps[key] = {

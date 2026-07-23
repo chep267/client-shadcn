@@ -64,7 +64,7 @@ export function ModalTokenExpired() {
         const { action: authAction } = useAuthStore.getState();
         setTokenExpired(false);
         authAction.setData({ token: '' });
-        navigate(AuthRouterPath.signin, { replace: true });
+        void navigate(AuthRouterPath.signin, { replace: true });
     };
 
     return (

@@ -7,7 +7,7 @@
 /** constants */
 import { AppTimer } from '@module-base/constants/config';
 
-export function debounce<T extends (...args: any[]) => void>(cb: T, ms: number = AppTimer.debounce) {
+export function debounce<T extends (...args: unknown[]) => void>(cb: T, ms: number = AppTimer.debounce) {
     let timeout: ReturnType<typeof setTimeout> | undefined;
 
     const debounced = (...args: Parameters<T>) => {

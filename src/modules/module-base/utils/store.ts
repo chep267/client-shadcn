@@ -17,5 +17,7 @@ export const registerStore = (resetFn: ResetFn) => {
 };
 
 export const resetStores = () => {
-    appStores.forEach((resetFn) => resetFn?.());
+    appStores.forEach((resetFn) => {
+        resetFn?.();
+    });
 };

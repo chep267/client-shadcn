@@ -16,7 +16,7 @@ import { threadService } from '@module-messenger/services/thread';
 /** stores */
 import { useThreadStore } from '@module-messenger/stores/useThreadStore';
 
-export function useGetThread(tid: string = '') {
+export function useGetThread(tid = '') {
     const thread = useThreadStore((store) => store.data.threads.get(tid) || store.data.searches.get(tid));
 
     return useQuery({

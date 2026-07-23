@@ -4,7 +4,7 @@
  *
  */
 
-export function AppLogo(props: App.ModuleBase.Component.IconSVGProps) {
+function AppLogo(props: App.ModuleBase.Component.IconSVGProps) {
     return (
         <svg
             width="32px"
@@ -27,4 +27,5 @@ export function AppLogo(props: App.ModuleBase.Component.IconSVGProps) {
     );
 }
 
+export { AppLogo };
 export default AppLogo;

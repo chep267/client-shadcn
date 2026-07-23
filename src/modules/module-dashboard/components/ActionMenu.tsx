@@ -20,7 +20,7 @@ import {
 import { Button } from '@module-base/components/button';
 
 interface ActionMenuProps {
-    item: App.ModuleDashboard.Data.TypeTicketData;
+    item: App.ModuleDashboard.Data.TicketData;
 }
 
 export function ActionMenu(props: ActionMenuProps) {

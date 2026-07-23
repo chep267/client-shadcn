@@ -22,8 +22,8 @@ export default function DashBoardHeader() {
     const status = React.useMemo(() => {
         return items?.reduce(
             (output, ticket) => {
-                output['in_progress'] += ticket.status === 'in_progress' ? 1 : 0;
-                output['done'] += ticket.status === 'done' ? 1 : 0;
+                output.in_progress += ticket.status === 'in_progress' ? 1 : 0;
+                output.done += ticket.status === 'done' ? 1 : 0;
                 return output;
             },
             { in_progress: 0, done: 0 }
@@ -61,7 +61,7 @@ export default function DashBoardHeader() {
                         {isPending ? (
                             <Skeleton className="h-6 w-12" />
                         ) : (
-                            <p className="text-info text-xl font-bold">{status?.['in_progress']}</p>
+                            <p className="text-info text-xl font-bold">{status?.in_progress}</p>
                         )}
                     </CardContent>
                 </Card>
@@ -72,7 +72,7 @@ export default function DashBoardHeader() {
                         {isPending ? (
                             <Skeleton className="h-6 w-12" />
                         ) : (
-                            <p className="text-success text-xl font-bold">{status?.['done']}</p>
+                            <p className="text-success text-xl font-bold">{status?.done}</p>
                         )}
                     </CardContent>
                 </Card>

@@ -36,7 +36,9 @@ export function TableHeaderCell<Data extends App.ModuleBase.Component.Bigdata = 
                     className={cn('group cursor-pointer px-0 has-[>svg]:px-0', 'hover:bg-transparent!')}
                     variant="ghost"
                     size="sm"
-                    onClick={() => action.sort(column.dataKey)}
+                    onClick={() => {
+                        action.sort(column.dataKey);
+                    }}
                 >
                     {typeof column.label === 'function' ? column.label() : column.label}
                     <ArrowUpDown

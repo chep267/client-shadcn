@@ -30,7 +30,7 @@ export function ThreadList() {
     React.useEffect(() => {
         const firstTid = threadIds[0];
         if (firstTid && !tid) {
-            navigate(`${MessengerRouterPath.home}/${firstTid}`, { replace: true });
+            void navigate(`${MessengerRouterPath.home}/${firstTid}`, { replace: true });
         }
     }, [threadIds, tid]);
 
@@ -49,7 +49,7 @@ export function ThreadList() {
             }}
             endReached={() => {
                 if (hasNextPage && !isFetchingNextPage) {
-                    fetchNextPage().then();
+                    void fetchNextPage();
                 }
             }}
         />

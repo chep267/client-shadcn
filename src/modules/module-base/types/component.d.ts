@@ -80,19 +80,19 @@ export interface SelectBaseProps<Value extends string = string> {
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** Big data store */
 export type ElementContent = ReactNode | (() => ReactNode);
-export type Column<Data extends Bigdata = Bigdata> = {
+export interface Column<Data extends Bigdata = Bigdata> {
     className?: string;
     dataKey?: BigdataKey<Data>;
     label?: ElementContent;
     sortable?: boolean;
     onClick?(event: MouseEvent<HTMLTableCellElement>, data: { indexRow: number; indexCell: number; item: Data }): void;
     render?(data: { indexRow: number; indexCell: number; item: Data }): ReactNode;
-};
+}
 export type Bigdata = unknown;
 
 type DeepKeyOf<T> = T extends object
     ? {
-          [K in keyof T & (string | number)]: T[K] extends any[]
+          [K in keyof T & (string | number)]: T[K] extends unknown[]
               ? `${K}`
               : T[K] extends object
                 ? `${K}` | `${K}.${DeepKeyOf<T[K]>}`
@@ -100,7 +100,7 @@ type DeepKeyOf<T> = T extends object
       }[keyof T & (string | number)]
     : string;
 export type BigdataKey<Data extends Bigdata = Bigdata> = DeepKeyOf<Data> | 'id' | 'action';
-type BigdataStoreData<Data extends Bigdata = Bigdata> = {
+interface BigdataStoreData<Data extends Bigdata = Bigdata> {
     // state
     element: RefObject<TableVirtuosoHandle | VirtuosoHandle | HTMLTableElement | null> | null;
     loading: boolean;
@@ -122,8 +122,8 @@ type BigdataStoreData<Data extends Bigdata = Bigdata> = {
     emptyContent: ElementContent;
     items: Data[];
     currentItems: Data[];
-};
-type BigdataStoreAction<Data extends Bigdata = Bigdata> = {
+}
+interface BigdataStoreAction<Data extends Bigdata = Bigdata> {
     setup: (data: Partial<BigdataStoreData<Data>>) => void;
     toggleOne: (id: ItemId) => void;
     toggleAll: () => void;
@@ -131,7 +131,7 @@ type BigdataStoreAction<Data extends Bigdata = Bigdata> = {
     filter: (filters: BigdataStoreData<Data>['filters']) => void;
     search: (value?: BigdataStoreData<Data>['searchKey']) => void;
     calculateData: (isImmediate?: boolean) => void;
-};
+}
 export interface BigdataStore<Data extends Bigdata = Bigdata> {
     data: BigdataStoreData<Data>;
     action: BigdataStoreAction<Data>;

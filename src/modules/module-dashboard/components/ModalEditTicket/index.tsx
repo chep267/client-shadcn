@@ -38,7 +38,7 @@ export function ModalEditTicket() {
         if (!item) return;
         event.preventDefault();
         event.stopPropagation();
-        formRef.current?.onSubmit((data) => {
+        void formRef.current?.onSubmit((data) => {
             updateTicket(
                 { id: item.id, data },
                 {

@@ -7,10 +7,10 @@
 /** types */
 import type { Dayjs } from 'dayjs';
 
-export type CalendarItemProps = {
+export interface CalendarItemProps {
     day: Dayjs;
-};
+}
 
-export type CalendarLabelProps = {
+export interface CalendarLabelProps {
     day: number;
-};
+}

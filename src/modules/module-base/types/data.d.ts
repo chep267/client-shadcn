@@ -6,7 +6,7 @@
 
 export type ItemId = string | number;
 export type ItemIds = ItemId[];
-export type Items<Data = any> = Data[];
+export type Items<Data = unknown> = Data[];
 
 export type StorageName = 'localStorage' | 'sessionStorage';
 export type StorageValue = string | null | undefined;

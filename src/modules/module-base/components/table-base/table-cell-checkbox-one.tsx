@@ -28,7 +28,9 @@ export function TableCellCheckboxOne<Data extends App.ModuleBase.Component.Bigda
                 aria-label="Select one"
                 className="cursor-pointer"
                 checked={isChecked}
-                onClick={() => toggleOne(id)}
+                onClick={() => {
+                    toggleOne(id);
+                }}
             />
         </TableCell>
     );

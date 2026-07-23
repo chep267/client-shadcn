@@ -4,7 +4,7 @@
  *
  */
 
-export const normalizeString = (text: string = ''): string => {
+export const normalizeString = (text = ''): string => {
     return text
         .normalize('NFD')
         .replace(/[\u0300-\u036f]/g, '')
@@ -19,7 +19,7 @@ export const deepIncludes = (data: unknown, normalizedQuery: string, searchableK
     const keySet = searchableKeys?.length ? new Set(searchableKeys) : undefined;
     const visited = new WeakSet();
 
-    const isMatch = (currentData: any, isRoot: boolean): boolean => {
+    const isMatch = (currentData: unknown, isRoot: boolean): boolean => {
         if (currentData === null || currentData === undefined) return false;
 
         if (typeof currentData === 'string' || typeof currentData === 'number') {
@@ -39,7 +39,7 @@ export const deepIncludes = (data: unknown, normalizedQuery: string, searchableK
                     if (isRoot && keySet && !keySet.has(key)) {
                         continue;
                     }
-                    if (isMatch(currentData[key], false)) {
+                    if (isMatch((currentData as Record<string, string>)[key], false)) {
                         return true;
                     }
                 }

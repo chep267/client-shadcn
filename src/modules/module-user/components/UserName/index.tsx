@@ -8,7 +8,7 @@
 import * as React from 'react';
 
 /** components */
-import { Typography } from '@module-base/components/typography';
+import type { Typography } from '@module-base/components/typography';
 import { UserNameGet } from '@module-user/components/UserName/UserNameGet';
 import { UserNameNoGet } from '@module-user/components/UserName/UserNameNoGet';
 

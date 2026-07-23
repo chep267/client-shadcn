@@ -44,7 +44,9 @@ export function AgeCalculator() {
                             step="1"
                             defaultValue="00:00:00"
                             className="bg-background appearance-none [&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-calendar-picker-indicator]:appearance-none"
-                            onChange={(e) => setBirthTime(e.target.value)}
+                            onChange={(e) => {
+                                setBirthTime(e.target.value);
+                            }}
                         />
                     </Field>
                 </FieldGroup>

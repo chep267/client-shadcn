@@ -10,7 +10,7 @@ import { twMerge } from 'tailwind-merge';
 
 export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
 
-export const getCssVariable = (name: string, defaultValue: number = NaN) => {
+export const getCssVariable = (name: string, defaultValue = NaN) => {
     if (typeof window === 'undefined') return defaultValue;
     const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
     if (!value) return defaultValue;

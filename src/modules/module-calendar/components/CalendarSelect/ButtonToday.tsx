@@ -33,7 +33,9 @@ export const ButtonToday = React.memo(function ButtonToday(props: ButtonTodayPro
             variant="outline"
             className={className}
             disabled={calendarAction.isToday(selectedDay)}
-            onClick={() => calendarAction.setDay(today)}
+            onClick={() => {
+                calendarAction.setDay(today);
+            }}
         >
             <FormattedMessage id={CalendarLanguage.component.label.today} defaultMessage="Today" />
         </Button>

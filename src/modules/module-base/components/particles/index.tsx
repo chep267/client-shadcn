@@ -12,7 +12,7 @@ import { loadSlim } from '@tsparticles/slim';
 /** types */
 import type { IParticlesProps, ParticlesPluginRegistrar } from '@tsparticles/react';
 
-const particlesInit: ParticlesPluginRegistrar = async (engine): Promise<void> => {
+const particlesInit: ParticlesPluginRegistrar = async (engine) => {
     await loadSlim(engine);
 };
 

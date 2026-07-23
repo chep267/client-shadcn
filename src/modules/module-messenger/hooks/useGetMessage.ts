@@ -16,7 +16,7 @@ import { messageService } from '@module-messenger/services/message';
 /** stores */
 import { useMessageStore } from '@module-messenger/stores/useMessageStore';
 
-export function useGetMessage(mid: string = '') {
+export function useGetMessage(mid = '') {
     const message = useMessageStore((store) => store.data.messages.get(mid));
 
     return useQuery({

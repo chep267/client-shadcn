@@ -28,7 +28,7 @@ export function LanguageProvider(props: React.PropsWithChildren) {
 
     React.useEffect(() => {
         dayjs.locale(locale);
-        getMessage(locale).then(setMessages);
+        void getMessage(locale).then(setMessages);
     }, [locale]);
 
     if (!messages) {

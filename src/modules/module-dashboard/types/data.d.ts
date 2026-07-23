@@ -6,7 +6,7 @@
 
 /** types */
 
-export interface TypeTicketData {
+export interface TicketData {
     id: string;
     description: string;
     assignee: {

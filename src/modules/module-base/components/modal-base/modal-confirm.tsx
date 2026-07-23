@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import { BaseLanguage } from '@module-base/constants/language';
 
 /** components */
-import { Button } from '@module-base/components/button';
+import type { Button } from '@module-base/components/button';
 import { Spinner } from '@module-base/components/spinner';
 import {
     AlertDialog,

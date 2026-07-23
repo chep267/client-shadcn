@@ -66,7 +66,7 @@ export function ButtonSend() {
                             messengerAction.closeSearch();
                             const path =
                                 MessengerRouterPath.home + MessengerRouterPath.conversation.replace(':tid', thread.id);
-                            navigate(path, { replace: true });
+                            void navigate(path, { replace: true });
                         });
                     },
                 }
@@ -81,11 +81,12 @@ export function ButtonSend() {
 
         if (isDraft) {
             // create thread & send message
-            return onCreateThread(message);
+            onCreateThread(message);
+            return;
         }
 
         // send message
-        return onCreateMessage(message);
+        onCreateMessage(message);
     };
 
     return (

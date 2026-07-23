@@ -28,7 +28,7 @@ export function useRemoveThread() {
         mutationFn: threadService.remove,
         onSuccess: (_response, { tid }) => {
             useThreadStore.getState().action.remove(tid);
-            navigate(MessengerRouterPath.home, { replace: true });
+            void navigate(MessengerRouterPath.home, { replace: true });
         },
         onError: () => {
             toast.error(

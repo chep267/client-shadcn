@@ -10,22 +10,22 @@ import type { Locale, Theme } from '@module-base/types/data.d';
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** setting store */
-type SettingStoreData = {
+interface SettingStoreData {
     locale: Locale;
     theme: Theme;
     api: {
         statusCode: number;
         queues: InternalAxiosRequestConfig[];
     };
-};
-type SettingStoreAction = {
+}
+interface SettingStoreAction {
     changeLocale: (locale?: Locale) => void;
     changeTheme: (theme?: Theme) => void;
     updateStatusCode: (code?: number) => void;
     addApiQueue: (apiConfig: InternalAxiosRequestConfig) => void;
     clearApiQueue: () => void;
-};
-export type SettingStore = {
+}
+export interface SettingStore {
     data: SettingStoreData;
     action: SettingStoreAction;
-};
+}

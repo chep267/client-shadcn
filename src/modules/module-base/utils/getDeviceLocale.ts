@@ -26,7 +26,7 @@ export const getDeviceLocale = (): App.ModuleBase.Data.Locale => {
     const deviceLocale =
         navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language;
     // vi_VN | en_UK | en_US | ...
-    locale = `${deviceLocale}`.slice(0, 2) as App.ModuleBase.Data.Locale;
+    locale = deviceLocale.slice(0, 2) as App.ModuleBase.Data.Locale;
     if (locale in AppLocale) {
         return locale;
     }

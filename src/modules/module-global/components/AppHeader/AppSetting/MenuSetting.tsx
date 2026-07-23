@@ -124,7 +124,9 @@ export function MenuSetting() {
             icon: <PaletteIcon className="size-5 text-inherit" />,
             divide: 'top',
             value: theme,
-            onChange: (value) => settingAction.changeTheme(value as typeof theme),
+            onChange: (value) => {
+                settingAction.changeTheme(value as typeof theme);
+            },
             subMenu: [
                 {
                     id: 'theme-dark',
@@ -133,7 +135,9 @@ export function MenuSetting() {
                     value: AppTheme.dark,
                     title: BaseLanguage.component.label.theme.dark,
                     icon: <MoonStarIcon className="size-5" />,
-                    onClick: () => settingAction.changeTheme(AppTheme.dark),
+                    onClick: () => {
+                        settingAction.changeTheme(AppTheme.dark);
+                    },
                 },
                 {
                     id: 'theme-light',
@@ -142,7 +146,9 @@ export function MenuSetting() {
                     value: AppTheme.light,
                     title: BaseLanguage.component.label.theme.light,
                     icon: <SunIcon className="text-warning size-5" />,
-                    onClick: () => settingAction.changeTheme(AppTheme.light),
+                    onClick: () => {
+                        settingAction.changeTheme(AppTheme.light);
+                    },
                 },
             ],
         },
@@ -160,7 +166,9 @@ export function MenuSetting() {
                     disabled: locale === AppLocale.vi,
                     title: BaseLanguage.component.label.locale.vi,
                     icon: <span>🇻🇳</span>,
-                    onClick: () => settingAction.changeLocale(AppLocale.vi),
+                    onClick: () => {
+                        settingAction.changeLocale(AppLocale.vi);
+                    },
                 },
                 {
                     id: 'Language-En',
@@ -168,7 +176,9 @@ export function MenuSetting() {
                     disabled: locale === AppLocale.en,
                     title: BaseLanguage.component.label.locale.en,
                     icon: <span>🇬🇧</span>,
-                    onClick: () => settingAction.changeLocale(AppLocale.en),
+                    onClick: () => {
+                        settingAction.changeLocale(AppLocale.en);
+                    },
                 },
             ],
         },

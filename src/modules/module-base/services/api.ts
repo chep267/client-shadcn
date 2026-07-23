@@ -18,12 +18,12 @@ export class ApiService {
     protected readonly url: string;
     protected readonly delay: number;
 
-    constructor(url: string = '', delay: number = AppTimer.pendingApi) {
+    constructor(url = '', delay: number = AppTimer.pendingApi) {
         this.url = url;
         this.delay = delay;
     }
 
-    private concatUrl = (url: string = '') => {
+    private concatUrl = (url = '') => {
         return this.url.concat(url);
     };
 

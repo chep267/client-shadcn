@@ -5,11 +5,11 @@
  */
 
 /** types */
-import * as React from 'react';
+import type { ElementType } from 'react';
 
 export interface AppItem {
     path: string;
-    icon: React.ElementType;
+    icon: ElementType;
     name: string;
 }
 

@@ -13,7 +13,7 @@ import { ModalTokenExpired } from '@module-auth/components/ModalTokenExpired';
 /** screens */
 import AuthRouter from '@module-auth/screens/AuthRouter';
 
-export default function AuthProvider(props: React.PropsWithChildren) {
+function AuthProvider(props: React.PropsWithChildren) {
     const { children } = props;
 
     return (
@@ -23,3 +23,5 @@ export default function AuthProvider(props: React.PropsWithChildren) {
         </React.Fragment>
     );
 }
+
+export default AuthProvider;

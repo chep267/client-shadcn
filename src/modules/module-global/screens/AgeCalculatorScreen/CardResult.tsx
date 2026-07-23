@@ -52,12 +52,14 @@ export function CardResult(props: CardResultProps) {
             }, 1000);
         }
 
-        return () => clearInterval(timerRef.current);
+        return () => {
+            clearInterval(timerRef.current);
+        };
     }, [date]);
 
     React.useEffect(() => {
         if (date && age && loading) {
-            delay(600).then(() => setLoading(false));
+            void delay(600).then(() => setLoading(false));
         }
     }, [age]);
 

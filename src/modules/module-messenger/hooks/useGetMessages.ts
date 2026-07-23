@@ -16,7 +16,7 @@ import { messageService } from '@module-messenger/services/message';
 /** stores */
 import { useMessageStore } from '@module-messenger/stores/useMessageStore';
 
-export function useGetMessages(tid: string = '') {
+export function useGetMessages(tid = '') {
     return useInfiniteQuery({
         queryKey: [MessengerQueryKey.messages, { tid }],
         queryFn: async ({ pageParam: page = 1 }) => {

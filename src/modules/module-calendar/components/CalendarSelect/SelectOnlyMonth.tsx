@@ -55,7 +55,9 @@ export const SelectOnlyMonth = React.memo(function SelectOnlyMonth(props: Select
             className={className}
             value={`${isOnlyMonth}`}
             items={items}
-            onChange={(value) => calendarAction.setIsOnlyMonth(value === 'true')}
+            onChange={(value) => {
+                calendarAction.setIsOnlyMonth(value === 'true');
+            }}
         />
     );
 });

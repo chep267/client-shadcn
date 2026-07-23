@@ -5,6 +5,7 @@
  */
 
 /** libs */
+import * as React from 'react';
 import dayjs from 'dayjs';
 import { FormattedMessage } from 'react-intl';
 import { toast } from 'sonner';
@@ -22,7 +23,7 @@ import { useSettingStore } from '@module-base/stores/useSettingStore';
 import { Button } from '@module-base/components/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@module-base/components/tooltip';
 
-export function AppButtonDev(props: any) {
+export function AppButtonDev(props: { icon: React.ReactNode }) {
     const { icon } = props;
 
     const locale = useSettingStore((store) => store.data.locale);

@@ -8,7 +8,7 @@
 import * as React from 'react';
 
 /** components */
-import { Avatar } from '@module-base/components/avatar';
+import type { Avatar } from '@module-base/components/avatar';
 import { UserAvatarNoGet } from '@module-user/components/UserAvatar/UserAvatarNoGet';
 import { UserAvatarGet } from '@module-user/components/UserAvatar/UserAvatarGet';
 

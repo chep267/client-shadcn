@@ -12,6 +12,8 @@ export function useWindowEvent(event: string, handler: EventListener) {
 
     React.useEffect(() => {
         window.addEventListener(event, onEvent);
-        return () => window.removeEventListener(event, onEvent);
+        return () => {
+            window.removeEventListener(event, onEvent);
+        };
     }, [event]);
 }

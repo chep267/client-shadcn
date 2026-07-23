@@ -22,6 +22,7 @@ export async function getMessage(locale: App.ModuleBase.Data.Locale): Promise<Ap
     if (messagesCache[locale]) {
         return messagesCache[locale];
     }
+
     if (pendingPromises[locale]) {
         return pendingPromises[locale];
     }
@@ -29,6 +30,7 @@ export async function getMessage(locale: App.ModuleBase.Data.Locale): Promise<Ap
     const defaultLocale = AppLocale.en;
     const loaderPath = `/src/langs/${locale}.ts`;
     const loader = localeLoaders[loaderPath];
+
     if (!loader) {
         if (locale === defaultLocale) {
             throw new Error('Default locale is missing');

@@ -10,16 +10,16 @@ import type { User } from '@module-user/types/data.d';
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** user store */
-type UserStoreData = {
+interface UserStoreData {
     users: Map<string, User>;
     metadata: SearchMetadata;
-};
-type UserStoreAction = {
+}
+interface UserStoreAction {
     add: (user: User) => void;
     multiAdd: (users: User[], metadata?: SearchMetadata) => void;
     remove: (uid: User['id']) => void;
-};
-export type UserStore = {
+}
+export interface UserStore {
     data: UserStoreData;
     action: UserStoreAction;
-};
+}
