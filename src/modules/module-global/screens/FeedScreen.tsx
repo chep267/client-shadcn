@@ -29,7 +29,13 @@ export default function FeedScreen() {
 
     return (
         <div className="tablet:p-5 flex h-full max-h-(--app-size-height-screen) w-full flex-col gap-10 px-2 py-4">
-            <div className={cn('flex flex-1 flex-col', 'tablet:pt-10 gap-4 p-4', 'rounded-md border')}>
+            <div
+                className={cn(
+                    'flex flex-1 flex-col',
+                    'tablet:pt-10 mobile:p-4 gap-4',
+                    'mobile:border mobile:rounded-md'
+                )}
+            >
                 <InputSearch
                     className="tablet:max-w-sm col-span-4"
                     onSearch={(text) => {

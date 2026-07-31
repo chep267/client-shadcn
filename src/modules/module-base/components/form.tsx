@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import type { Label as LabelPrimitive } from 'radix-ui';
 import { Slot } from 'radix-ui';
@@ -16,12 +18,12 @@ import { Label } from '@module-base/components/label';
 
 const Form = FormProvider;
 
-interface FormFieldContextValue<
+type FormFieldContextValue<
     TFieldValues extends FieldValues = FieldValues,
     TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> {
+> = {
     name: TName;
-}
+};
 
 const FormFieldContext = React.createContext<FormFieldContextValue>({} as FormFieldContextValue);
 
@@ -61,9 +63,9 @@ const useFormField = () => {
     };
 };
 
-interface FormItemContextValue {
+type FormItemContextValue = {
     id: string;
-}
+};
 
 const FormItemContext = React.createContext<FormItemContextValue>({} as FormItemContextValue);
 
@@ -98,7 +100,7 @@ function FormControl({ ...props }: React.ComponentProps<typeof Slot.Root>) {
         <Slot.Root
             data-slot="form-control"
             id={formItemId}
-            aria-describedby={!error ? formDescriptionId : `${formDescriptionId} ${formMessageId}`}
+            aria-describedby={!error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`}
             aria-invalid={!!error}
             {...props}
         />

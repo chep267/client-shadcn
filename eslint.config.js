@@ -5,34 +5,47 @@
  */
 
 /** libs */
-import { defineConfig } from 'eslint/config';
 import globals from 'globals';
+import { defineConfig } from 'eslint/config';
 import eslint from '@eslint/js';
 import tsEslint from 'typescript-eslint';
 import pluginReact from 'eslint-plugin-react';
 import pluginQuery from '@tanstack/eslint-plugin-query';
 import pluginReactHooks from 'eslint-plugin-react-hooks';
-import pluginReactRefresh from 'eslint-plugin-react-refresh';
-import eslintConfigPrettier from 'eslint-config-prettier';
+import { reactRefresh } from 'eslint-plugin-react-refresh';
+import prettierConfig from 'eslint-config-prettier';
 
-export default defineConfig([
+export default defineConfig(
     {
         ignores: ['dist/**/*', 'node_modules/**/*', 'public/**/*', '.vercel/**/*'],
     },
-
-    eslint.configs.recommended,
-    ...tsEslint.configs.recommended,
-
     {
-        files: ['*.js', '*.mjs', '*.cjs'],
+        files: ['**/*.{js,mjs,cjs}'],
+        extends: [eslint.configs.recommended],
         languageOptions: {
             parserOptions: {
+                ecmaVersion: 'latest',
+                globals: {
+                    ...globals.browser,
+                    ...globals.node,
+                },
                 projectService: false,
             },
         },
+        rules: {
+            // Variables
+            'no-unused-vars': [
+                'warn',
+                {
+                    argsIgnorePattern: '^_',
+                    varsIgnorePattern: '^_',
+                },
+            ],
+        },
     },
     {
-        files: ['**/*.{ts,tsx,vue}'],
+        files: ['**/*.{ts,tsx}'],
+        extends: [eslint.configs.recommended, ...tsEslint.configs.recommended],
         languageOptions: {
             ecmaVersion: 'latest',
             parser: tsEslint.parser,
@@ -46,14 +59,17 @@ export default defineConfig([
                 ...globals.node,
             },
         },
-
         plugins: {
             react: pluginReact,
+            'react-refresh': reactRefresh.plugin,
             'react-hooks': pluginReactHooks,
-            'react-refresh': pluginReactRefresh,
             '@tanstack/query': pluginQuery,
         },
-
+        settings: {
+            react: {
+                version: 'detect',
+            },
+        },
         rules: {
             // Variables
             '@typescript-eslint/no-unused-vars': [
@@ -72,17 +88,20 @@ export default defineConfig([
             '@typescript-eslint/no-explicit-any': 'warn',
             '@typescript-eslint/no-floating-promises': 'error',
             '@typescript-eslint/await-thenable': 'error',
+            '@typescript-eslint/ban-ts-comment': 'off',
 
-            // Others
+            // React
             'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
             'react/jsx-uses-react': 'off',
             'react/react-in-jsx-scope': 'off',
             'react/jsx-no-target-blank': 'warn',
-            '@typescript-eslint/ban-ts-ignore': 'off',
-            '@typescript-eslint/ban-ts-comment': 'off',
-            'import/no-named-as-default': 'off',
-            'no-case-declarations': 'off',
+
+            // React Hooks
+            'react-hooks/rules-of-hooks': 'error',
             'react-hooks/exhaustive-deps': 'off',
+
+            // Others
+            'no-case-declarations': 'off',
 
             // @tanstack/query
             '@tanstack/query/exhaustive-deps': 'off',
@@ -103,6 +122,5 @@ export default defineConfig([
             'react-refresh/only-export-components': 'off',
         },
     },
-
-    eslintConfigPrettier,
-]);
+    prettierConfig
+);

@@ -23,7 +23,7 @@ const AppSidebarMiniItem = React.memo(function AppSidebarMiniItem(props: App.Mod
             aria-label={item.name}
             variant="ghost"
             size="lg"
-            className={cn('grow rounded-none', {
+            className={cn('h-full grow rounded-none', {
                 'text-main hover:text-main': active,
             })}
         >

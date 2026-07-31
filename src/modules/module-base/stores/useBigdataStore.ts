@@ -137,7 +137,7 @@ export const createBigdataStore = <
                         nextItems = items.filter((item) => {
                             // filter logic
                             const isMatchFilter = filters.every((filter) => {
-                                if (filter.fnFilter) {
+                                if (typeof filter.fnFilter === 'function') {
                                     return filter.fnFilter(item);
                                 }
                                 const val = normalizeString(`${getNestedValue(item, filter.dataKey)}`);

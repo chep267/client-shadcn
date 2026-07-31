@@ -1,3 +1,5 @@
+'use client';
+
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { PanelLeftIcon } from 'lucide-react';
@@ -19,7 +21,7 @@ const SIDEBAR_WIDTH_MOBILE = '18rem';
 const SIDEBAR_WIDTH_ICON = '3rem';
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 
-interface SidebarContextProps {
+type SidebarContextProps = {
     state: 'expanded' | 'collapsed';
     open: boolean;
     setOpen: (open: boolean) => void;
@@ -27,7 +29,7 @@ interface SidebarContextProps {
     setOpenMobile: (open: boolean) => void;
     isMobile: boolean;
     toggleSidebar: () => void;
-}
+};
 
 const SidebarContext = React.createContext<SidebarContextProps | null>(null);
 
@@ -77,11 +79,7 @@ function SidebarProvider({
 
     // Helper to toggle the sidebar.
     const toggleSidebar = React.useCallback(() => {
-        if (isMobile) {
-            setOpenMobile((open) => !open);
-        } else {
-            setOpen((open) => !open);
-        }
+        return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open);
     }, [isMobile, setOpen, setOpenMobile]);
 
     // Adds a keyboard shortcut to toggle the sidebar.
@@ -94,9 +92,7 @@ function SidebarProvider({
         };
 
         window.addEventListener('keydown', handleKeyDown);
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
+        return () => window.removeEventListener('keydown', handleKeyDown);
     }, [toggleSidebar]);
 
     // We add a state so that we can do data-state="expanded" or "collapsed".
@@ -218,8 +214,8 @@ function Sidebar({
                 className={cn(
                     'fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear md:flex',
                     side === 'left'
-                        ? 'left-0 group-data-[collapsible=offcanvas]:-left-(--sidebar-width)'
-                        : 'right-0 group-data-[collapsible=offcanvas]:-right-(--sidebar-width)',
+                        ? 'left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]'
+                        : 'right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]',
                     // Adjust the padding for floating and inset variants.
                     variant === 'floating' || variant === 'inset'
                         ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]'
@@ -459,7 +455,7 @@ const sidebarMenuButtonVariants = cva(
             size: {
                 default: 'h-8 text-sm',
                 sm: 'h-7 text-xs',
-                lg: 'h-12 text-sm',
+                lg: 'h-12 text-sm group-data-[collapsible=icon]:p-0!',
             },
         },
         defaultVariants: {
@@ -496,7 +492,7 @@ function SidebarMenuButton({
         />
     );
 
-    if (!tooltip || state === 'expanded') {
+    if (!tooltip) {
         return button;
     }
 

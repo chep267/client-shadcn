@@ -42,9 +42,7 @@ export function ButtonRetry(props: Pick<App.ModuleBase.Component.FallbackDefault
             <Button
                 className="text-danger hover:text-main cursor-pointer capitalize"
                 variant="outline"
-                onClick={() => {
-                    window.location.reload();
-                }}
+                onClick={() => window.location.reload()}
             >
                 <FormattedMessage id={BaseLanguage.component.button.retry} defaultMessage="Retry" />
             </Button>

@@ -54,9 +54,7 @@ export function TimePicker() {
                     variant="outline"
                     size="sm"
                     aria-label="prev-year"
-                    onClick={() => {
-                        onChangeTime('prev', 'year');
-                    }}
+                    onClick={() => onChangeTime('prev', 'year')}
                 >
                     <ChevronsLeftIcon />
                 </Button>
@@ -65,9 +63,7 @@ export function TimePicker() {
                     variant="outline"
                     size="sm"
                     aria-label="prev-month"
-                    onClick={() => {
-                        onChangeTime('prev', 'month');
-                    }}
+                    onClick={() => onChangeTime('prev', 'month')}
                 >
                     <ChevronLeftIcon />
                 </Button>
@@ -89,9 +85,7 @@ export function TimePicker() {
                     variant="outline"
                     size="sm"
                     aria-label="next-month"
-                    onClick={() => {
-                        onChangeTime('next', 'month');
-                    }}
+                    onClick={() => onChangeTime('next', 'month')}
                 >
                     <ChevronRightIcon />
                 </Button>
@@ -100,9 +94,7 @@ export function TimePicker() {
                     variant="outline"
                     size="sm"
                     aria-label="next-year"
-                    onClick={() => {
-                        onChangeTime('next', 'year');
-                    }}
+                    onClick={() => onChangeTime('next', 'year')}
                 >
                     <ChevronsRightIcon />
                 </Button>
