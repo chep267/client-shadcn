@@ -14,7 +14,15 @@ import { CalendarSelect } from '@module-calendar/components/CalendarSelect';
 
 export default function CalendarScreen() {
     return (
-        <div className={cn('flex flex-1 flex-col', 'px-2 py-4', 'tablet:px-5')}>
+        <div
+            className={cn(
+                '[--app-size-calendar-screen-py:--spacing(4)]',
+                '[--app-size-calendar-select-height:60px]',
+                'flex flex-1 flex-col',
+                'px-2 py-(--app-size-calendar-screen-py)',
+                'tablet:px-5'
+            )}
+        >
             <CalendarSelect />
             <CalendarTable />
             <CalendarModal />

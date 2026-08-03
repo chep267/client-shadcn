@@ -24,21 +24,17 @@ export function ListEmpty<Data extends App.ModuleBase.Component.Bigdata = App.Mo
 
     if (loading || !isEmpty) return null;
 
-    if (!emptyContent || typeof emptyContent === 'string' || typeof emptyContent === 'number') {
-        return (
-            <div className={cn('absolute inset-0', 'flex items-center justify-center')}>
+    return (
+        <div className={cn('absolute inset-0', 'flex items-center justify-center')}>
+            {typeof emptyContent === 'function' ? (
+                emptyContent()
+            ) : (
                 <span className="opacity-50">
                     {emptyContent || (
                         <FormattedMessage id={BaseLanguage.component.table.empty} defaultMessage="No data!" />
                     )}
                 </span>
-            </div>
-        );
-    }
-
-    return (
-        <div className={cn('absolute inset-0', 'flex items-center justify-center')}>
-            {typeof emptyContent === 'function' ? emptyContent() : emptyContent}
+            )}
         </div>
     );
 }

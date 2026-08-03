@@ -58,7 +58,11 @@ export function CalendarTable() {
 
     return (
         <TableBase
-            className={cn('scrollbar-custom scrollbar-thin', 'h-auto', '[&_tr]:hover:bg-inherit')}
+            className={cn(
+                '**:data-[slot=table-container]:scrollbar-custom **:data-[slot=table-container]:scrollbar-thin',
+                'max-h-[calc(var(--app-size-height-screen)-var(--app-size-calendar-screen-py)*2-var(--app-size-calendar-select-height))]',
+                '[&_tr]:hover:bg-inherit'
+            )}
             items={items}
             columns={columns}
         />

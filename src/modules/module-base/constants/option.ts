@@ -18,9 +18,9 @@ export const ParticleOptions = (mode: App.ModuleBase.Data.Theme): IParticlesProp
         enable: true,
         zIndex: 0,
     },
-    detectRetina: true,
+    detectRetina: false,
     duration: 0,
-    fpsLimit: 120,
+    fpsLimit: 60,
     particles: {
         bounce: {
             horizontal: {
@@ -181,7 +181,7 @@ export const ParticleOptions = (mode: App.ModuleBase.Data.Theme): IParticlesProp
                 mode: 'delete',
                 value: 1,
             },
-            value: 200,
+            value: 100,
         },
         opacity: {
             value: 1,

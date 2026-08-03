@@ -67,7 +67,7 @@ export function VirtualTable<Data extends App.ModuleBase.Component.Bigdata = App
             element: virtuoso,
             action,
         };
-    }, []);
+    }, [action]);
 
     return (
         <div
@@ -81,7 +81,11 @@ export function VirtualTable<Data extends App.ModuleBase.Component.Bigdata = App
             <TableLoading store={dataStore} />
             <TableVirtuoso
                 ref={virtuoso}
-                className={cn('h-full w-full', '**:data-[slot=table-container]:overflow-visible', className)}
+                data-slot="table-container"
+                className={cn(
+                    'h-full w-full',
+                    '**:data-[slot=table]:h-full **:data-[slot=table-container]:h-full **:data-[slot=table-container]:overflow-visible'
+                )}
                 components={components}
                 data={currentItems}
                 fixedHeaderContent={fixedHeaderContent}

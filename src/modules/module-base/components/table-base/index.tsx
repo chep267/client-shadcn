@@ -45,19 +45,19 @@ export function TableBase<Data extends App.ModuleBase.Component.Bigdata = App.Mo
             element: virtuoso,
             action,
         };
-    }, []);
+    }, [action]);
 
     return (
         <div
             className={cn(
-                'relative h-full w-full overflow-hidden rounded-sm border',
+                'relative h-auto w-full overflow-hidden rounded-sm border',
                 'min-h-40',
                 { 'max-h-40!': isEmpty },
                 className
             )}
         >
             <TableLoading store={dataStore} />
-            <Table ref={virtuoso} className={className}>
+            <Table ref={virtuoso} className={'h-full *:data-[slot=table]:h-full'}>
                 <TableHeader store={dataStore} />
                 <TableBody store={dataStore} />
             </Table>

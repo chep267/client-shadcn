@@ -46,7 +46,10 @@ export default function FeedScreen() {
                 <div className="relative flex-1 overflow-hidden">
                     <TableBase
                         ref={baseRef}
-                        className="scrollbar-custom absolute inset-0 z-10 max-h-full scrollbar-thin"
+                        className={cn(
+                            'absolute inset-0 z-10',
+                            '**:data-[slot=table-container]:scrollbar-custom **:data-[slot=table-container]:scrollbar-thin'
+                        )}
                         setup={{ hasCheckbox: true, dataKeyForCheckbox: 'id' }}
                         items={Array.from({ length: 99 }, (_, i) => ({
                             id: i + 1,
@@ -68,7 +71,10 @@ export default function FeedScreen() {
                 <div className="relative flex-1 overflow-hidden">
                     <VirtualTable
                         ref={virtualRef}
-                        className="scrollbar-custom scrollbar-thin"
+                        className={cn(
+                            'absolute inset-0 z-10',
+                            '**:data-[slot=table-container]:scrollbar-custom **:data-[slot=table-container]:scrollbar-thin'
+                        )}
                         setup={{ hasCheckbox: true, dataKeyForCheckbox: 'id' }}
                         items={Array.from({ length: 9999 }, (_, i) => ({
                             id: i + 1,

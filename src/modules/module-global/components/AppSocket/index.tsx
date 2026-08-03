@@ -13,7 +13,7 @@ import { connectSocket, disconnectSocket } from '@module-base/utils/pusher';
 /** stores */
 import { useAuthStore } from '@module-auth/stores/useAuthStore';
 
-export function AppSocket() {
+export function AppSocket(): null {
     const meId = useAuthStore((store) => store.data.user?.id);
 
     React.useEffect(() => {
