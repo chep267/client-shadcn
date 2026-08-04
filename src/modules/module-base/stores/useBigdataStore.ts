@@ -7,7 +7,6 @@
 /** libs */
 import { create } from 'zustand';
 import { produce, enableMapSet } from 'immer';
-import merge from 'lodash-es/merge';
 
 /** constants */
 import { AppTimer, OrderType } from '@module-base/constants/config';
@@ -25,7 +24,7 @@ export const createBigdataStore = <
     return create<App.ModuleBase.Component.BigdataStore<Data>>((set, get) => ({
         data: {
             // state
-            element: null,
+            element: undefined,
             loading: false,
             isCheckedAll: false,
             isIndeterminate: false,
@@ -37,13 +36,13 @@ export const createBigdataStore = <
             // setup
             hasCheckbox: false,
             dataKeyForCheckbox: 'id',
-            searchableKeys: [],
-            filters: [],
+            searchableKeys: undefined,
+            filters: undefined,
 
             // data
-            columns: [],
-            emptyContent: null,
-            items: [],
+            columns: undefined,
+            emptyContent: undefined,
+            items: undefined,
             currentItems: [],
         },
         action: {
@@ -51,7 +50,7 @@ export const createBigdataStore = <
                 const isImmediate = !initialData.searchKey && !initialData.filters?.length;
                 set(
                     produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
-                        merge(data, initialData);
+                        Object.assign(data, initialData);
                         data.loading = !isImmediate;
                     })
                 );
@@ -117,7 +116,7 @@ export const createBigdataStore = <
                 get().action.calculateData(isImmediate);
             },
             filter: (filters) => {
-                const isImmediate = !filters.length;
+                const isImmediate = !filters?.length;
                 set(
                     produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
                         data.filters = filters as typeof data.filters;
@@ -132,11 +131,11 @@ export const createBigdataStore = <
                     const normalizedQuery = normalizeString(searchKey);
                     let nextItems = items;
 
-                    if (normalizedQuery || filters.length) {
+                    if (normalizedQuery || filters?.length) {
                         // filter & search logic
-                        nextItems = items.filter((item) => {
+                        nextItems = items?.filter((item) => {
                             // filter logic
-                            const isMatchFilter = filters.every((filter) => {
+                            const isMatchFilter = filters?.every((filter) => {
                                 if (typeof filter.fnFilter === 'function') {
                                     return filter.fnFilter(item);
                                 }
@@ -146,7 +145,7 @@ export const createBigdataStore = <
                             if (!isMatchFilter) return false;
 
                             // search logic
-                            if (searchableKeys.length) {
+                            if (searchableKeys?.length) {
                                 return searchableKeys.some((key) => {
                                     return normalizeString(`${getNestedValue(item, key)}`).includes(normalizedQuery);
                                 });
@@ -162,15 +161,15 @@ export const createBigdataStore = <
 
                     set(
                         produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
-                            const total = nextItems.length;
-                            const selected = data.selectedIds.size;
+                            const total = nextItems?.length ?? 0;
+                            const selected = data.selectedIds.size ?? 0;
                             data.isCheckedAll = total > 0 && selected >= total;
                             data.isIndeterminate = selected > 0 && selected < total;
-                            data.currentItems = nextItems as typeof data.currentItems;
+                            data.currentItems = (nextItems as typeof data.currentItems) ?? [];
                             data.loading = false;
                         })
                     );
-                    element?.current?.scrollTo({ top: 0 });
+                    element?.scrollTo({ top: 0 });
                 };
 
                 const debouncedProcess = debounce(process, AppTimer.searching);

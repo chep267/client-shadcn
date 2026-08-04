@@ -102,25 +102,25 @@ type DeepKeyOf<T> = T extends object
 export type BigdataKey<Data extends Bigdata = Bigdata> = DeepKeyOf<Data> | 'id' | 'action';
 interface BigdataStoreData<Data extends Bigdata = Bigdata> {
     // state
-    element: RefObject<TableVirtuosoHandle | VirtuosoHandle | HTMLTableElement | null> | null;
-    loading: boolean;
-    isCheckedAll: boolean;
-    isIndeterminate: boolean;
-    searchKey: string;
+    element?: TableVirtuosoHandle | VirtuosoHandle | HTMLTableElement | null;
+    loading?: boolean;
+    isCheckedAll?: boolean;
+    isIndeterminate?: boolean;
+    searchKey?: string;
     orderBy?: BigdataKey<Data>;
     orderType?: OrderType;
     selectedIds: Set<ItemId>;
 
     // setup
-    hasCheckbox: boolean;
-    dataKeyForCheckbox: BigdataKey<Data>;
-    searchableKeys: BigdataKey<Data>[];
-    filters: { dataKey: BigdataKey<Data>; value: string; fnFilter?: (item: Data) => boolean }[];
+    hasCheckbox?: boolean;
+    dataKeyForCheckbox?: BigdataKey<Data>;
+    searchableKeys?: BigdataKey<Data>[];
+    filters?: { dataKey: BigdataKey<Data>; value: string; fnFilter?: (item: Data) => boolean }[];
 
     // data
-    columns: Column<Data>[];
-    emptyContent: ElementContent;
-    items: Data[];
+    columns?: Column<Data>[];
+    emptyContent?: ElementContent;
+    items?: Data[];
     currentItems: Data[];
 }
 interface BigdataStoreAction<Data extends Bigdata = Bigdata> {

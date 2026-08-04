@@ -14,6 +14,7 @@ import { BaseLanguage } from '@module-base/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
+import { delay } from '@module-base/utils/delay';
 
 /** components */
 import { Input } from '@module-base/components/input';
@@ -58,7 +59,7 @@ export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
         setLocalValue(newValue);
-        onSearch?.(newValue);
+        void delay(1).then(() => onSearch?.(newValue));
     };
 
     const SearchIconElement = React.useMemo(() => {

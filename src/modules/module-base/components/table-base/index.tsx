@@ -10,6 +10,9 @@ import * as React from 'react';
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
+/** hooks */
+import { useConst } from '@module-base/hooks/useConst';
+
 /** stores */
 import { createBigdataStore } from '@module-base/stores/useBigdataStore';
 
@@ -25,14 +28,14 @@ export function TableBase<Data extends App.ModuleBase.Component.Bigdata = App.Mo
     const { ref, className, setup, items, emptyContent, columns } = props;
 
     const virtuoso = React.useRef<HTMLTableElement | null>(null);
-    const dataStore = React.useMemo(() => createBigdataStore<Data>(), []);
+    const dataStore = useConst(() => createBigdataStore<Data>());
 
     const action = dataStore((state) => state.action);
     const isEmpty = dataStore((state) => state.data.currentItems.length === 0);
 
     React.useEffect(() => {
         action.setup({
-            element: virtuoso,
+            element: virtuoso.current,
             items,
             emptyContent,
             columns,
@@ -42,7 +45,7 @@ export function TableBase<Data extends App.ModuleBase.Component.Bigdata = App.Mo
 
     React.useImperativeHandle(ref, () => {
         return {
-            element: virtuoso,
+            element: virtuoso.current,
             action,
         };
     }, [action]);

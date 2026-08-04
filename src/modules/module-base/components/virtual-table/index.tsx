@@ -12,6 +12,9 @@ import { TableVirtuoso, type TableComponents, type TableVirtuosoHandle } from 'r
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
+/** hooks */
+import { useConst } from '@module-base/hooks/useConst';
+
 /** stores */
 import { createBigdataStore } from '@module-base/stores/useBigdataStore';
 
@@ -28,7 +31,7 @@ export function VirtualTable<Data extends App.ModuleBase.Component.Bigdata = App
     const { ref, className, setup, items, emptyContent, columns, ...otherProps } = props;
 
     const virtuoso = React.useRef<TableVirtuosoHandle>(null);
-    const dataStore = React.useMemo(() => createBigdataStore<Data>(), []);
+    const dataStore = useConst(() => createBigdataStore<Data>());
 
     const action = dataStore((state) => state.action);
     const currentItems = dataStore((state) => state.data.currentItems);
@@ -45,7 +48,7 @@ export function VirtualTable<Data extends App.ModuleBase.Component.Bigdata = App
 
     React.useEffect(() => {
         action.setup({
-            element: virtuoso,
+            element: virtuoso.current,
             items,
             emptyContent,
             columns,
@@ -64,7 +67,7 @@ export function VirtualTable<Data extends App.ModuleBase.Component.Bigdata = App
 
     React.useImperativeHandle(ref, () => {
         return {
-            element: virtuoso,
+            element: virtuoso.current,
             action,
         };
     }, [action]);

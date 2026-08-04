@@ -13,7 +13,7 @@ import { cn } from '@module-base/utils/shadcn';
 /** components */
 import { InputSearch } from '@module-base/components/input-search';
 import { TableBase } from '@module-base/components/table-base';
-import { VirtualTable } from '@module-base/components/virtual-table';
+// import { VirtualTable } from '@module-base/components/virtual-table';
 
 interface TableItem {
     id: number;
@@ -52,31 +52,6 @@ export default function FeedScreen() {
                         )}
                         setup={{ hasCheckbox: true, dataKeyForCheckbox: 'id' }}
                         items={Array.from({ length: 99 }, (_, i) => ({
-                            id: i + 1,
-                            name: `user${i + 1}`,
-                            email: `user${i + 1}@gmail.com`,
-                            phone: `0900000${String(i + 1).padStart(3, '0')}`,
-                            address: `${i + 1} Hoang Quoc Viet, Ha Noi, Viet Nam`,
-                        }))}
-                        columns={[
-                            { dataKey: 'id', label: 'ID', sortable: true },
-                            { dataKey: 'name', label: 'Name', sortable: true },
-                            { dataKey: 'email', label: 'Email', sortable: true },
-                            { dataKey: 'phone', label: 'Phone' },
-                            { dataKey: 'address', label: 'Address' },
-                        ]}
-                    />
-                </div>
-
-                <div className="relative flex-1 overflow-hidden">
-                    <VirtualTable
-                        ref={virtualRef}
-                        className={cn(
-                            'absolute inset-0 z-10',
-                            '**:data-[slot=table-container]:scrollbar-custom **:data-[slot=table-container]:scrollbar-thin'
-                        )}
-                        setup={{ hasCheckbox: true, dataKeyForCheckbox: 'id' }}
-                        items={Array.from({ length: 9999 }, (_, i) => ({
                             id: i + 1,
                             name: `user${i + 1}`,
                             email: `user${i + 1}@gmail.com`,

@@ -11,6 +11,9 @@ import { type VirtuosoHandle, Virtuoso } from 'react-virtuoso';
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
+/** hooks */
+import { useConst } from '@module-base/hooks/useConst';
+
 /** stores */
 import { createBigdataStore } from '@module-base/stores/useBigdataStore';
 
@@ -24,7 +27,7 @@ export function VirtualList<Data extends App.ModuleBase.Component.Bigdata = App.
     const { ref, className, setup, items, emptyContent, ...otherProps } = props;
 
     const virtuoso = React.useRef<VirtuosoHandle>(null);
-    const dataStore = React.useMemo(() => createBigdataStore<Data>(), []);
+    const dataStore = useConst(() => createBigdataStore<Data>());
 
     const action = dataStore((state) => state.action);
     const currentItems = dataStore((state) => state.data.currentItems);
@@ -32,7 +35,7 @@ export function VirtualList<Data extends App.ModuleBase.Component.Bigdata = App.
 
     React.useEffect(() => {
         action.setup({
-            element: virtuoso,
+            element: virtuoso.current,
             items,
             emptyContent,
             ...setup,
@@ -41,7 +44,7 @@ export function VirtualList<Data extends App.ModuleBase.Component.Bigdata = App.
 
     React.useImperativeHandle(ref, () => {
         return {
-            element: virtuoso,
+            element: virtuoso.current,
             action,
         };
     }, []);
