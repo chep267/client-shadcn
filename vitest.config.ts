@@ -9,7 +9,7 @@ import { mergeConfig } from 'vite';
 import { defineConfig } from 'vitest/config';
 
 /** config */
-import viteConfig from './vite.config';
+import viteConfig from './vite.config.ts';
 
 export default mergeConfig(
     viteConfig({ mode: 'test', command: 'build' }),
@@ -17,7 +17,7 @@ export default mergeConfig(
         test: {
             globals: true,
             environment: 'jsdom',
-            setupFiles: ['./tests/vitest.setup.ts'],
+            setupFiles: ['./test/vitest.setup.ts'],
             alias: { '@/': new URL('./src', import.meta.url).pathname },
         },
     })

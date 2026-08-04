@@ -1,6 +1,6 @@
 {
     "extends": "@tsconfig/vite-react/tsconfig.json",
-    "include": ["src/**/*", "tests/**/*"],
+    "include": ["src/**/*", "test/**/*"],
     "exclude": ["node_modules", "dist"],
     "compilerOptions": {
         "target": "ESNext",
@@ -10,7 +10,7 @@
         "allowSyntheticDefaultImports": true,
         "paths": {
             "@src/*": ["./src/*"],
-            "@tests/*": ["./tests/*"],
+            "@test/*": ["./test/*"],
             "@langs/*": ["./src/langs/*"],
             "@modules/*": ["./src/modules/*"],
             "@module-base/*": ["./src/modules/module-base/*"],

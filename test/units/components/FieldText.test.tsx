@@ -9,7 +9,7 @@ import { describe, it, expect } from 'vitest';
 import { useForm } from 'react-hook-form';
 
 /** utils */
-import { render } from '@tests/utils';
+import { render } from '@test/utils';
 
 /** components */
 import { FieldEmail } from '@module-auth/components/general/FieldEmail';
@@ -27,6 +27,7 @@ const ElementTest = (props: { name: string; label: string; value: string }) => {
 describe('FieldText', () => {
     const label = 'Text field';
     const value = 'user@test.com';
+
     it('renders and shows initial value', () => {
         const { getByLabelText } = render(<ElementTest name="email" label={label} value={value} />);
         const input = getByLabelText(label);

@@ -23,7 +23,7 @@ function resolveAlias() {
     for (let i = 0, n = paths.length; i < n; ++i) {
         const [key, value] = paths[i];
         const aKey = key.replace('/*', '');
-        alias[aKey] = resolve(__dirname, value[0].replace('/*', ''));
+        alias[aKey] = resolve(import.meta.dirname, value[0].replace('/*', ''));
     }
     return alias;
 }
