@@ -32,11 +32,7 @@ export function TableTicket() {
     const [filters, setFilters] = React.useState<TypeFilterItem[]>([]);
     const { isPending, data } = useGetTickets();
 
-    const handleFilter = (
-        dataKey: App.ModuleBase.Component.BigdataKey<App.ModuleDashboard.Data.TicketData>,
-        value: string,
-        item?: App.ModuleBase.Component.SelectBaseItem
-    ) => {
+    const handleFilter = (dataKey: string, value: string, item?: App.ModuleBase.Component.SelectBaseItem) => {
         setFilters((prevFilters) => {
             const next = prevFilters.filter((filter) => filter.dataKey !== dataKey);
             if (value === 'null') return next;

@@ -22,9 +22,7 @@ import { TableHeader } from '@module-base/components/table-base/table-header';
 import { TableBody } from '@module-base/components/table-base/table-body';
 import { TableLoading } from '@module-base/components/table-base/table-loading';
 
-export function TableBase<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
-    props: App.ModuleBase.Component.TableProps<Data>
-) {
+export function TableBase<Data = unknown>(props: App.ModuleBase.Component.TableProps<Data>) {
     const { ref, className, setup, items, emptyContent, columns } = props;
 
     const virtuoso = React.useRef<HTMLTableElement | null>(null);

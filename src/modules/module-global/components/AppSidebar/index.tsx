@@ -16,7 +16,7 @@ import { AppSidebarFooter } from '@module-global/components/AppSidebar/AppSideba
 export function AppSidebar() {
     return (
         <Sidebar
-            className={cn('peer', 'top-(--app-size-height-header) h-[calc(100%-(--app-size-height-header))]')}
+            className={cn('top-(--app-size-height-header) h-[calc(100%-(--app-size-height-header))]')}
             collapsible="icon"
         >
             <SidebarRail />

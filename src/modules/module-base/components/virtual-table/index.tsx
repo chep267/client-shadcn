@@ -21,13 +21,11 @@ import { createBigdataStore } from '@module-base/stores/useBigdataStore';
 /** components */
 import { Table, TableRow } from '@module-base/components/table';
 import { TableHeader } from '@module-base/components/table-base/table-header';
-import { TableBodyRow } from '@module-base/components/table-base/table-body-row';
+import { TableBodyRow } from '@module-base/components/table-base/table-body/table-body-row';
 import { TableLoading } from '@module-base/components/table-base/table-loading';
 import { TableBody } from '@module-base/components/table-base/table-body';
 
-export function VirtualTable<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
-    props: App.ModuleBase.Component.TableProps<Data>
-) {
+export function VirtualTable<Data>(props: App.ModuleBase.Component.TableProps<Data>) {
     const { ref, className, setup, items, emptyContent, columns, ...otherProps } = props;
 
     const virtuoso = React.useRef<TableVirtuosoHandle>(null);

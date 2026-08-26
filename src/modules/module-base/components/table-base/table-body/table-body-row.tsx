@@ -13,11 +13,9 @@ import { getNestedValue } from '@module-base/utils/virtual';
 
 /** components */
 import { TableCell, TableRow } from '@module-base/components/table';
-import { TableCellCheckboxOne } from '@module-base/components/table-base/table-cell-checkbox-one';
+import { TableBodyCellCheckbox } from '@module-base/components/table-base/table-body/table-body-cell-checkbox';
 
-function TableBodyRow<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
-    props: App.ModuleBase.Component.TableBodyRowProps<Data>
-) {
+function TableBodyRow<Data>(props: App.ModuleBase.Component.TableBodyRowProps<Data>) {
     const { asChild, indexRow, item, store } = props;
 
     const columns = store((state) => state.data.columns);
@@ -46,7 +44,7 @@ function TableBodyRow<Data extends App.ModuleBase.Component.Bigdata = App.Module
     if (asChild) {
         return (
             <React.Fragment>
-                <TableCellCheckboxOne id={id} store={store} />
+                <TableBodyCellCheckbox id={id} store={store} />
                 {renderRow}
             </React.Fragment>
         );
@@ -54,7 +52,7 @@ function TableBodyRow<Data extends App.ModuleBase.Component.Bigdata = App.Module
 
     return (
         <TableRow className={cn('h-10')}>
-            <TableCellCheckboxOne id={id} store={store} />
+            <TableBodyCellCheckbox id={id} store={store} />
             {renderRow}
         </TableRow>
     );

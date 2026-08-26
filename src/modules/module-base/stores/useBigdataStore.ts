@@ -17,10 +17,9 @@ import { deepIncludes, normalizeString } from '@module-base/utils/string';
 import { sortBigdata, getNestedValue } from '@module-base/utils/virtual';
 
 enableMapSet();
+const NUMBER_ITEM_THRESHOLD_LOADING = 200;
 
-export const createBigdataStore = <
-    Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata,
->() => {
+export const createBigdataStore = <Data>() => {
     return create<App.ModuleBase.Component.BigdataStore<Data>>((set, get) => ({
         data: {
             // state
@@ -89,6 +88,12 @@ export const createBigdataStore = <
                 );
             },
             sort: (orderBy, orderType) => {
+                const {
+                    action,
+                    data: { currentItems },
+                } = get();
+                const isImmediate = currentItems.length < NUMBER_ITEM_THRESHOLD_LOADING;
+
                 set(
                     produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
                         const nextOrderType =
@@ -101,9 +106,10 @@ export const createBigdataStore = <
 
                         data.orderBy = orderBy as typeof data.orderBy;
                         data.orderType = nextOrderType;
+                        data.loading = !isImmediate;
                     })
                 );
-                get().action.calculateData(true);
+                action.calculateData(isImmediate);
             },
             search: (text = '') => {
                 const isImmediate = !text;
@@ -127,13 +133,13 @@ export const createBigdataStore = <
             },
             calculateData: (() => {
                 const process = () => {
-                    const { element, items, searchKey, searchableKeys, filters, orderBy, orderType } = get().data;
+                    const { element, items = [], searchKey, searchableKeys, filters, orderBy, orderType } = get().data;
                     const normalizedQuery = normalizeString(searchKey);
                     let nextItems = items;
 
                     if (normalizedQuery || filters?.length) {
                         // filter & search logic
-                        nextItems = items?.filter((item) => {
+                        nextItems = items.filter((item) => {
                             // filter logic
                             const isMatchFilter = filters?.every((filter) => {
                                 if (typeof filter.fnFilter === 'function') {
@@ -161,11 +167,11 @@ export const createBigdataStore = <
 
                     set(
                         produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
-                            const total = nextItems?.length ?? 0;
+                            const total = nextItems.length ?? 0;
                             const selected = data.selectedIds.size ?? 0;
                             data.isCheckedAll = total > 0 && selected >= total;
                             data.isIndeterminate = selected > 0 && selected < total;
-                            data.currentItems = (nextItems as typeof data.currentItems) ?? [];
+                            data.currentItems = nextItems as typeof data.currentItems;
                             data.loading = false;
                         })
                     );
@@ -178,9 +184,9 @@ export const createBigdataStore = <
                     debouncedProcess.cancel();
                     if (isImmediate) {
                         process();
-                    } else {
-                        debouncedProcess();
+                        return;
                     }
+                    debouncedProcess();
                 };
             })(),
         },

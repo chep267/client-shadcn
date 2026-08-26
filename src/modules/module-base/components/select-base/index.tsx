@@ -4,95 +4,34 @@
  *
  */
 
-/** libs */
-import { FormattedMessage } from 'react-intl';
-
-/** constants */
-import { BaseLanguage } from '@module-base/constants/language';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
-
 /** components */
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@module-base/components/select';
-import { Spinner } from '@module-base/components/spinner';
+import { Select, SelectContent, SelectGroup } from '@module-base/components/select';
+import { SelectTrigger } from '@module-base/components/select-base/select-trigger';
+import { SelectContentLoading } from '@module-base/components/select-base/select-content-loading';
+import { SelectContentEmpty } from '@module-base/components/select-base/select-content-empty';
+import { SelectContentClear } from '@module-base/components/select-base/select-content-clear';
+import { SelectContentItems } from '@module-base/components/select-base/select-content-items';
 
 export function SelectBase<Value extends string = string>(props: App.ModuleBase.Component.SelectBaseProps<Value>) {
-    const {
-        className,
-        value,
-        hasClear,
-        loading,
-        disabled,
-        placeholder: placeholderProps,
-        clearContent: clearContentProps,
-        emptyContent: emptyContentProps,
-        items,
-        onChange,
-    } = props;
+    const { className, value, hasClear, loading, disabled, placeholder, clearContent, emptyContent, items, onChange } =
+        props;
+    const showClear = !!(hasClear && !!value && value !== 'null' && value !== 'undefined');
 
     const handleChange = (value: Value) => {
         const item = items?.find((item) => item.value === value);
         onChange?.(value, item);
     };
 
-    const showClear = hasClear && value && value !== 'null' && value !== 'undefined';
-    const placeholder = placeholderProps ?? (
-        <FormattedMessage id={BaseLanguage.component.select.placeholder} defaultMessage="Select..." />
-    );
-    const clearContent = clearContentProps ?? (
-        <FormattedMessage id={BaseLanguage.component.select.clear} defaultMessage="-- Clear --" />
-    );
-    const emptyContent = emptyContentProps ?? (
-        <FormattedMessage id={BaseLanguage.component.select.empty} defaultMessage="No data!" />
-    );
-
     return (
         <Select value={value} onValueChange={handleChange} disabled={disabled}>
-            <SelectTrigger aria-label="select" className={cn('w-full cursor-pointer', className)}>
-                <SelectValue placeholder={placeholder} />
-            </SelectTrigger>
+            <SelectTrigger className={className} placeholder={placeholder} />
+
             <SelectContent position="popper">
                 <SelectGroup>
-                    {showClear && (
-                        <SelectItem value="null" className="cursor-pointer">
-                            {clearContent}
-                        </SelectItem>
-                    )}
-
-                    {loading ? (
-                        <SelectItem value="null" className="cursor-pointer items-center justify-center px-0" disabled>
-                            <Spinner />
-                        </SelectItem>
-                    ) : null}
-
-                    {!loading && !items?.length ? (
-                        <SelectItem value="null" className="cursor-pointer" disabled>
-                            {emptyContent}
-                        </SelectItem>
-                    ) : null}
-
-                    {!loading
-                        ? items?.map((item) => {
-                              return (
-                                  <SelectItem
-                                      key={item.value}
-                                      value={item.value}
-                                      disabled={value === item.value}
-                                      className={cn('cursor-pointer', item.className)}
-                                  >
-                                      {typeof item.label === 'function' ? item.label() : item.label}
-                                  </SelectItem>
-                              );
-                          })
-                        : null}
+                    <SelectContentClear clear={showClear} clearContent={clearContent} />
+                    <SelectContentLoading loading={loading} />
+                    <SelectContentEmpty empty={!loading && !items?.length} emptyContent={emptyContent} />
+                    <SelectContentItems value={value} items={items} />
                 </SelectGroup>
             </SelectContent>
         </Select>

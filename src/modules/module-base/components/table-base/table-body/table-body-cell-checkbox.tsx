@@ -11,9 +11,7 @@ import { cn } from '@module-base/utils/shadcn';
 import { Checkbox } from '@module-base/components/checkbox';
 import { TableCell } from '@module-base/components/table';
 
-export function TableCellCheckboxOne<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
-    props: App.ModuleBase.Component.TableCellCheckboxOneProps<Data>
-) {
+export function TableBodyCellCheckbox<Data>(props: App.ModuleBase.Component.TableCellCheckboxOneProps<Data>) {
     const { className, id, store } = props;
 
     const isChecked = store((state) => state.data.selectedIds.has(id));

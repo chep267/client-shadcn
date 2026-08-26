@@ -19,7 +19,7 @@ const Icons: Readonly<App.ModuleBase.Component.IconBaseList> = {
     ['not-found']: React.lazy(() => import('@module-base/components/icon-base/svg/not-found')),
 };
 
-const IconBase = React.memo<App.ModuleBase.Component.IconBaseProps>(function IconBase(props) {
+export const IconBase = React.memo<App.ModuleBase.Component.IconBaseProps>(function IconBase(props) {
     const { name, size = 24, width = size, height = size, ...iconProps } = props;
     const Icon = Icons[name];
 
@@ -29,5 +29,3 @@ const IconBase = React.memo<App.ModuleBase.Component.IconBaseProps>(function Ico
         </React.Suspense>
     );
 });
-
-export { IconBase };

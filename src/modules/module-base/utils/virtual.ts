@@ -39,10 +39,7 @@ type GetNestedValueReturn<Data, Path> = Path extends undefined
         ? GetByKeys<Data, Split<Path>>
         : undefined;
 
-export const getNestedValue = <
-    Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata,
-    Path extends App.ModuleBase.Component.BigdataKey<Data> | string | number | undefined = undefined,
->(
+export const getNestedValue = <Data, Path extends string | number | undefined = undefined>(
     data?: Data,
     path?: Path
 ): GetNestedValueReturn<Data, Path> => {
@@ -92,10 +89,7 @@ export const getNestedValue = <
  * - Date: so sánh theo timestamp
  * - string: localeCompare (đúng thứ tự tiếng Việt/Unicode)
  */
-const compareValues = <Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
-    a: Data,
-    b: Data
-): number => {
+const compareValues = <Data>(a: Data, b: Data): number => {
     if (typeof a === 'number' && typeof b === 'number') {
         return a - b;
     }
@@ -107,10 +101,10 @@ const compareValues = <Data extends App.ModuleBase.Component.Bigdata = App.Modul
     return String(a).localeCompare(String(b), undefined, { numeric: true, sensitivity: 'base' });
 };
 
-export const sortBigdata = <Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(payload: {
+export const sortBigdata = <Data>(payload: {
     items?: Data[] | null;
     orderType?: App.ModuleBase.Data.OrderType | null;
-    orderBy?: App.ModuleBase.Component.BigdataKey<Data> | null;
+    orderBy?: string | null;
 }): Data[] => {
     const { items, orderType = OrderType.asc, orderBy } = payload;
     if (!items?.length) return [];

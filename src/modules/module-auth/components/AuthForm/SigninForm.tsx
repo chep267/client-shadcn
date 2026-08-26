@@ -33,7 +33,7 @@ import { FieldPassword } from '@module-auth/components/general/FieldPassword';
 /** types */
 import type { AxiosError } from 'axios';
 
-const FormFieldsName: { [Key in App.ModuleAuth.Component.FormSigninFieldsName]: Key } = {
+const FormFieldsName: App.ModuleBase.Data.Constant<App.ModuleAuth.Component.FormSigninFieldsName> = {
     email: 'email',
     password: 'password',
 };

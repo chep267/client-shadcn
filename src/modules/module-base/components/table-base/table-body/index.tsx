@@ -9,13 +9,11 @@ import { cn } from '@module-base/utils/shadcn';
 import { getNestedValue } from '@module-base/utils/virtual';
 
 /** components */
-import { TableBody as TableBodyUI } from '@module-base/components/table';
+import { TableBody as TableBodyComp } from '@module-base/components/table';
 import { TableEmpty } from '@module-base/components/table-base/table-empty';
-import { TableBodyRow } from '@module-base/components/table-base/table-body-row';
+import { TableBodyRow } from '@module-base/components/table-base/table-body/table-body-row';
 
-export function TableBody<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
-    props: App.ModuleBase.Component.TableBodyProps<Data>
-) {
+export function TableBody<Data>(props: App.ModuleBase.Component.TableBodyProps<Data>) {
     const { className, children, store, ...otherProps } = props;
 
     const currentItems = store((state) => state.data.currentItems);
@@ -23,7 +21,7 @@ export function TableBody<Data extends App.ModuleBase.Component.Bigdata = App.Mo
     const isEmpty = currentItems.length === 0;
 
     return (
-        <TableBodyUI {...otherProps} className={cn('relative', { 'h-24': isEmpty }, className)}>
+        <TableBodyComp {...otherProps} className={cn('relative', { 'h-24': isEmpty }, className)}>
             <TableEmpty store={store} />
             {children ||
                 currentItems.map((item, indexRow) => {
@@ -31,6 +29,6 @@ export function TableBody<Data extends App.ModuleBase.Component.Bigdata = App.Mo
                     const id = typeof value === 'string' || typeof value === 'number' ? value : `row-${indexRow}`;
                     return <TableBodyRow key={id} indexRow={indexRow} item={item} store={store} />;
                 })}
-        </TableBodyUI>
+        </TableBodyComp>
     );
 }

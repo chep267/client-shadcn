@@ -13,9 +13,7 @@ import { BaseLanguage } from '@module-base/constants/language';
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
 
-export function ListEmpty<Data extends App.ModuleBase.Component.Bigdata = App.ModuleBase.Component.Bigdata>(
-    props: App.ModuleBase.Component.ComponentWithBigdataStoreProps<Data>
-) {
+export function ListEmpty<Data>(props: App.ModuleBase.Component.ComponentWithBigdataStoreProps<Data>) {
     const { store } = props;
 
     const isEmpty = store((state) => state.data.currentItems.length === 0);
