@@ -52,13 +52,15 @@ export function TableBase<Data = unknown>(props: App.ModuleBase.Component.TableP
         <div
             className={cn(
                 'relative h-auto w-full overflow-hidden rounded-sm border',
-                'min-h-40',
                 { 'max-h-40!': isEmpty },
                 className
             )}
         >
             <TableLoading store={dataStore} />
-            <Table ref={virtuoso} className={'h-full *:data-[slot=table]:h-full'}>
+            <Table
+                ref={virtuoso}
+                className={cn('h-full *:data-[slot=table]:h-auto', 'scrollbar-custom scrollbar-thin')}
+            >
                 <TableHeader store={dataStore} />
                 <TableBody store={dataStore} />
             </Table>

@@ -115,6 +115,7 @@ export function TableTicket() {
                         hasClear
                         value={filters.find((filter) => filter.dataKey === 'status')?.value ?? ''}
                         onChange={(value, item) => {
+                            if (!value) return;
                             handleFilter('status', value, item);
                         }}
                     />
@@ -125,6 +126,7 @@ export function TableTicket() {
                         value={filters.find((filter) => filter.dataKey === 'createdAt')?.value ?? ''}
                         items={filterYears}
                         onChange={(value, item) => {
+                            if (!value) return;
                             handleFilter('createdAt', value, item);
                         }}
                     />

@@ -112,7 +112,7 @@ export const createBigdataStore = <Data>() => {
                 action.calculateData(isImmediate);
             },
             search: (text = '') => {
-                const isImmediate = !text;
+                const isImmediate = false;
                 set(
                     produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
                         data.searchKey = text;
@@ -122,7 +122,7 @@ export const createBigdataStore = <Data>() => {
                 get().action.calculateData(isImmediate);
             },
             filter: (filters) => {
-                const isImmediate = !filters?.length;
+                const isImmediate = false;
                 set(
                     produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
                         data.filters = filters as typeof data.filters;
@@ -133,15 +133,23 @@ export const createBigdataStore = <Data>() => {
             },
             calculateData: (() => {
                 const process = () => {
-                    const { element, items = [], searchKey, searchableKeys, filters, orderBy, orderType } = get().data;
+                    const {
+                        element,
+                        items = [],
+                        searchKey,
+                        searchableKeys,
+                        filters = [],
+                        orderBy,
+                        orderType,
+                    } = get().data;
                     const normalizedQuery = normalizeString(searchKey);
                     let nextItems = items;
 
-                    if (normalizedQuery || filters?.length) {
+                    if (normalizedQuery || filters.length) {
                         // filter & search logic
                         nextItems = items.filter((item) => {
                             // filter logic
-                            const isMatchFilter = filters?.every((filter) => {
+                            const isMatchFilter = filters.every((filter) => {
                                 if (typeof filter.fnFilter === 'function') {
                                     return filter.fnFilter(item);
                                 }

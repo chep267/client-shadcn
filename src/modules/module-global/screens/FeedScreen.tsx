@@ -12,6 +12,7 @@ import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { InputSearch } from '@module-base/components/input-search';
+import { SelectBase } from '@module-base/components/select-base';
 import { TableBase } from '@module-base/components/table-base';
 import { VirtualTable } from '@module-base/components/virtual-table';
 
@@ -28,70 +29,80 @@ export default function FeedScreen() {
     const virtualRef: App.ModuleBase.Component.TableProps<TableItem>['ref'] = React.useRef(null);
 
     return (
-        <div className="tablet:p-5 flex h-full max-h-(--app-size-height-screen) w-full flex-col gap-10 px-2 py-4">
+        <div className={cn('flex h-full w-full', 'max-h-(--app-size-height-screen)', 'gap-10 px-2 py-4', 'tablet:p-5')}>
             <div
                 className={cn(
-                    'flex flex-1 flex-col',
+                    'flex flex-1 flex-col overflow-hidden',
                     'tablet:pt-10 mobile:p-4 gap-4',
                     'mobile:border mobile:rounded-md'
                 )}
             >
-                <InputSearch
-                    className="tablet:max-w-sm col-span-4"
-                    onSearch={(text) => {
-                        baseRef.current?.action.search(text);
-                        virtualRef.current?.action.search(text);
-                    }}
-                />
-                <div className="relative flex-1 overflow-hidden">
-                    <TableBase
-                        ref={baseRef}
-                        className={cn(
-                            'absolute inset-0 z-10',
-                            '**:data-[slot=table-container]:scrollbar-custom **:data-[slot=table-container]:scrollbar-thin'
-                        )}
-                        setup={{ hasCheckbox: true, dataKeyForCheckbox: 'id' }}
-                        columns={[
-                            { dataKey: 'id', label: 'ID', sortable: true },
-                            { dataKey: 'name', label: 'Name', sortable: true },
-                            { dataKey: 'email', label: 'Email', sortable: true },
-                            { dataKey: 'phone', label: 'Phone' },
-                            { dataKey: 'address', label: 'Address' },
-                        ]}
-                        items={Array.from({ length: 150 }, (_, i) => ({
-                            id: i + 1,
-                            name: `user${i + 1}`,
-                            email: `user${i + 1}@gmail.com`,
-                            phone: `0900000${String(i + 1).padStart(3, '0')}`,
-                            address: `${i + 1} Hoang Quoc Viet, Ha Noi, Viet Nam`,
-                        }))}
+                <div className={cn('flex w-full flex-col gap-2', 'tablet:flex-row tablet:items-center')}>
+                    <InputSearch
+                        className="tablet:max-w-sm"
+                        onSearch={(text) => {
+                            baseRef.current?.action.search(text);
+                            virtualRef.current?.action.search(text);
+                        }}
+                    />
+                    <SelectBase
+                        className="tablet:max-w-40 tablet:w-fit"
+                        placeholder="Filter by ID"
+                        hasClear
+                        items={Array.from({ length: 100 })
+                            .map((_, index) => `${1 + index}`)
+                            .map((value) => {
+                                return {
+                                    label: value,
+                                    value,
+                                };
+                            })}
+                        onChange={(value) => {
+                            baseRef.current?.action.filter(value ? [{ value, dataKey: 'id' }] : undefined);
+                            virtualRef.current?.action.filter(value ? [{ value, dataKey: 'id' }] : undefined);
+                        }}
                     />
                 </div>
 
-                <div className="relative flex-1 overflow-hidden">
-                    <VirtualTable
-                        ref={virtualRef}
-                        className={cn(
-                            'absolute inset-0 z-10',
-                            '**:data-[slot=table-container]:scrollbar-custom **:data-[slot=table-container]:scrollbar-thin'
-                        )}
-                        setup={{ hasCheckbox: true, dataKeyForCheckbox: 'id' }}
-                        columns={[
-                            { dataKey: 'id', label: 'ID', sortable: true },
-                            { dataKey: 'name', label: 'Name', sortable: true },
-                            { dataKey: 'email', label: 'Email', sortable: true },
-                            { dataKey: 'phone', label: 'Phone' },
-                            { dataKey: 'address', label: 'Address' },
-                        ]}
-                        items={Array.from({ length: 9999 }, (_, i) => ({
-                            id: i + 1,
-                            name: `user${i + 1}`,
-                            email: `user${i + 1}@gmail.com`,
-                            phone: `0900000${String(i + 1).padStart(3, '0')}`,
-                            address: `${i + 1} Hoang Quoc Viet, Ha Noi, Viet Nam`,
-                        }))}
-                    />
-                </div>
+                <TableBase
+                    ref={baseRef}
+                    className="max-h-1/2"
+                    setup={{ hasCheckbox: true, dataKeyForCheckbox: 'id' }}
+                    columns={[
+                        { dataKey: 'id', label: 'ID', sortable: true },
+                        { dataKey: 'name', label: 'Name', sortable: true },
+                        { dataKey: 'email', label: 'Email', sortable: true },
+                        { dataKey: 'phone', label: 'Phone' },
+                        { dataKey: 'address', label: 'Address' },
+                    ]}
+                    items={Array.from({ length: 150 }, (_, i) => ({
+                        id: i + 1,
+                        name: `user${i + 1}`,
+                        email: `user${i + 1}@gmail.com`,
+                        phone: `0900000${String(i + 1).padStart(3, '0')}`,
+                        address: `${i + 1} Hoang Quoc Viet, Ha Noi, Viet Nam`,
+                    }))}
+                />
+
+                <VirtualTable
+                    ref={virtualRef}
+                    className="max-h-1/2"
+                    setup={{ hasCheckbox: true, dataKeyForCheckbox: 'id' }}
+                    columns={[
+                        { dataKey: 'id', label: 'ID', sortable: true },
+                        { dataKey: 'name', label: 'Name', sortable: true },
+                        { dataKey: 'email', label: 'Email', sortable: true },
+                        { dataKey: 'phone', label: 'Phone' },
+                        { dataKey: 'address', label: 'Address' },
+                    ]}
+                    items={Array.from({ length: 9999 }, (_, i) => ({
+                        id: i + 1,
+                        name: `user${i + 1}`,
+                        email: `user${i + 1}@gmail.com`,
+                        phone: `0900000${String(i + 1).padStart(3, '0')}`,
+                        address: `${i + 1} Hoang Quoc Viet, Ha Noi, Viet Nam`,
+                    }))}
+                />
             </div>
         </div>
     );
