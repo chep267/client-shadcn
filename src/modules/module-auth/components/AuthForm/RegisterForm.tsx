@@ -8,6 +8,7 @@
 import * as z from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import delay from 'lodash-es/delay';
 
 /** constants */
 import { AppRegex } from '@module-base/constants/regex';
@@ -16,7 +17,6 @@ import { AuthLanguage } from '@module-auth/constants/language';
 
 /** utils */
 import { cn } from '@module-base/utils/shadcn';
-import { delay } from '@module-base/utils/delay';
 import { isClientError } from '@module-base/utils/axiosHelper';
 
 /** components */
@@ -82,9 +82,7 @@ function RegisterForm() {
         setError(FormFieldsName.email, { message });
         setError(FormFieldsName.password, { message });
         setError(FormFieldsName.confirmPassword, { message });
-        void delay(AppTimer.notifyDuration).then(() => {
-            clearErrors();
-        });
+        delay(clearErrors, AppTimer.notifyDuration);
     };
 
     return (

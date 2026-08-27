@@ -8,7 +8,7 @@
 import { AppTimer } from '@module-base/constants/config';
 
 /** utils */
-import { delay as funcDelay } from '@module-base/utils/delay';
+import { sleep } from '@module-base/utils/sleep';
 import { axiosClient } from '@module-base/utils/axiosClient';
 
 /** types */
@@ -27,8 +27,8 @@ export class ApiService {
         return this.url.concat(url);
     };
 
-    withDelay = async <Res = unknown>(promise: Promise<Res>, delay = this.delay): Promise<Res> => {
-        const [res] = await Promise.all([promise, funcDelay(delay)]);
+    withDelay = async <Res = unknown>(promise: Promise<Res>, timer = this.delay): Promise<Res> => {
+        const [res] = await Promise.all([promise, sleep(timer)]);
         return res;
     };
 

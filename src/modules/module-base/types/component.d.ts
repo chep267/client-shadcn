@@ -66,6 +66,7 @@ export type SelectBaseItem<Value extends string = string> = {
 } & Record<string, unknown>;
 export interface SelectBaseProps<Value extends string = string> {
     className?: string;
+    popperClassName?: string;
     value?: Value;
     placeholder?: ReactNode;
     loading?: boolean;

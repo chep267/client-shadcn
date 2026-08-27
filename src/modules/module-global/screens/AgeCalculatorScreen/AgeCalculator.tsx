@@ -34,7 +34,13 @@ export function AgeCalculator() {
                 <FieldGroup className="w-full flex-row">
                     <Field>
                         <FieldLabel htmlFor="date">Ngày sinh</FieldLabel>
-                        <DatePicker id="date" onChange={setBirthDate} />
+                        <DatePicker
+                            id="date"
+                            disabled={{
+                                after: new Date(),
+                            }}
+                            onChange={setBirthDate}
+                        />
                     </Field>
                     <Field>
                         <FieldLabel htmlFor="time">Giờ sinh</FieldLabel>

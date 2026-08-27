@@ -7,9 +7,7 @@
 /** libs */
 import * as React from 'react';
 import { intervalToDuration } from 'date-fns';
-
-/** utils */
-import { delay } from '@module-base/utils/delay';
+import delay from 'lodash-es/delay';
 
 /** components */
 import { CardFooter } from '@module-base/components/card';
@@ -59,7 +57,7 @@ export function CardResult(props: CardResultProps) {
 
     React.useEffect(() => {
         if (date && age && loading) {
-            void delay(600).then(() => setLoading(false));
+            delay(() => setLoading(false), 300);
         }
     }, [age]);
 

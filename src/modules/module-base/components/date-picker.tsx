@@ -13,11 +13,12 @@ import { Popover, PopoverContent, PopoverTrigger } from '@module-base/components
 interface DatePickerProps {
     id?: string;
     value?: Date;
+    disabled?: React.ComponentProps<typeof Calendar>['disabled'];
     onChange?: (date: Date | undefined) => void;
 }
 
 export function DatePicker(props: DatePickerProps) {
-    const { id, value, onChange } = props;
+    const { id, value, disabled, onChange } = props;
     const [open, setOpen] = React.useState(false);
     const [date, setDate] = React.useState<DatePickerProps['value']>(value);
 
@@ -28,7 +29,7 @@ export function DatePicker(props: DatePickerProps) {
                     id={id}
                     variant="outline"
                     data-empty={!date}
-                    className="data-[empty=true]:text-muted-foreground w-[212px] justify-between text-left font-normal"
+                    className="data-[empty=true]:text-muted-foreground justify-between text-left font-normal"
                 >
                     <span>{date ? format(date, 'dd/MM/yyyy') : 'dd/mm/yyyy'}</span>
                     <ChevronDownIcon />
@@ -41,6 +42,7 @@ export function DatePicker(props: DatePickerProps) {
                         years_dropdown: 'scrollbar-hidden',
                     }}
                     mode="single"
+                    disabled={disabled}
                     selected={date}
                     defaultMonth={date}
                     captionLayout="dropdown"

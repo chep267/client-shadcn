@@ -47,6 +47,7 @@ export default function FeedScreen() {
                     />
                     <SelectBase
                         className="tablet:max-w-40 tablet:w-fit"
+                        popperClassName="h-70"
                         placeholder="Filter by ID"
                         hasClear
                         items={Array.from({ length: 100 })

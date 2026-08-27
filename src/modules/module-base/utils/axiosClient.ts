@@ -13,8 +13,8 @@ import { AppEnv, AppKey } from '@module-base/constants/env';
 import { AppTimer } from '@module-base/constants/config';
 
 /** utils */
-import { delay } from '@module-base/utils/delay';
 import { isTokenExpired } from '@module-base/utils/axiosHelper';
+import { sleep } from '@module-base/utils/sleep';
 
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';
@@ -58,7 +58,7 @@ axiosClient.interceptors.response.use(
             action.updateStatusCode(axios.HttpStatusCode.Unauthorized);
         }
         /** Waiting, pause for about 600 ms */
-        await delay(AppTimer.pendingApi);
+        await sleep(AppTimer.pendingApi);
         return Promise.reject(error);
     }
 );

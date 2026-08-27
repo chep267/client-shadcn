@@ -32,6 +32,7 @@ const ITEM_CLEAR_VALUE = 'null';
 export function SelectBase<Value extends string = string>(props: App.ModuleBase.Component.SelectBaseProps<Value>) {
     const {
         className,
+        popperClassName,
         value: externalValue,
         hasClear,
         loading,
@@ -79,7 +80,7 @@ export function SelectBase<Value extends string = string>(props: App.ModuleBase.
                 <SelectValue placeholder={placeholder} />
             </SelectTrigger>
 
-            <SelectContent position="popper">
+            <SelectContent className={popperClassName} position="popper">
                 <SelectGroup>
                     {/* item loading */}
                     <SelectContentLoading loading={loading} />

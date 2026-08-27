@@ -7,12 +7,12 @@
 /** libs */
 import { create } from 'zustand';
 import { produce, enableMapSet } from 'immer';
+import debounce from 'lodash-es/debounce';
 
 /** constants */
 import { AppTimer, OrderType } from '@module-base/constants/config';
 
 /** utils */
-import { debounce } from '@module-base/utils/debounce';
 import { deepIncludes, normalizeString } from '@module-base/utils/string';
 import { sortBigdata, getNestedValue } from '@module-base/utils/virtual';
 
@@ -89,7 +89,7 @@ export const createBigdataStore = <Data>() => {
             },
             sort: (orderBy, orderType) => {
                 const {
-                    action,
+                    action: { calculateData },
                     data: { currentItems },
                 } = get();
                 const isImmediate = currentItems.length < NUMBER_ITEM_THRESHOLD_LOADING;
@@ -109,27 +109,35 @@ export const createBigdataStore = <Data>() => {
                         data.loading = !isImmediate;
                     })
                 );
-                action.calculateData(isImmediate);
+                calculateData(isImmediate);
             },
-            search: (text = '') => {
-                const isImmediate = false;
+            search: (value = '') => {
+                const {
+                    action: { calculateData },
+                    data: { searchKey },
+                } = get();
+                const nextSearchKey = value.trim();
+
+                if (nextSearchKey === searchKey) {
+                    return;
+                }
+
                 set(
                     produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
-                        data.searchKey = text;
-                        data.loading = !isImmediate;
+                        data.searchKey = nextSearchKey;
+                        data.loading = true;
                     })
                 );
-                get().action.calculateData(isImmediate);
+                calculateData();
             },
             filter: (filters) => {
-                const isImmediate = false;
                 set(
                     produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
                         data.filters = filters as typeof data.filters;
-                        data.loading = !isImmediate;
+                        data.loading = true;
                     })
                 );
-                get().action.calculateData(isImmediate);
+                get().action.calculateData();
             },
             calculateData: (() => {
                 const process = () => {
@@ -156,6 +164,7 @@ export const createBigdataStore = <Data>() => {
                                 const val = normalizeString(`${getNestedValue(item, filter.dataKey)}`);
                                 return val.includes(normalizeString(filter.value));
                             });
+
                             if (!isMatchFilter) return false;
 
                             // search logic
