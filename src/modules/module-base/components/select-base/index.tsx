@@ -16,6 +16,7 @@ import { BaseLanguage } from '@module-base/constants/language';
 import { cn } from '@module-base/utils/shadcn';
 
 /** components */
+import { Spinner } from '@module-base/components/spinner';
 import {
     Select,
     SelectContent,
@@ -24,10 +25,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@module-base/components/select';
-import { SelectContentLoading } from '@module-base/components/select-base/select-content-loading';
-import { SelectContentEmpty } from '@module-base/components/select-base/select-content-empty';
 
-const ITEM_CLEAR_VALUE = 'null';
+const ITEM_CLEAR_VALUE = '__MODULE_BASE_SELECT_CLEAR_ITEM_DO_NOT_USE__';
+const ITEM_EMPTY_VALUE = '__MODULE_BASE_SELECT_EMPTY_ITEM_DO_NOT_USE__';
 
 export function SelectBase<Value extends string = string>(props: App.ModuleBase.Component.SelectBaseProps<Value>) {
     const {
@@ -38,7 +38,8 @@ export function SelectBase<Value extends string = string>(props: App.ModuleBase.
         loading,
         disabled,
         placeholder: externalPlaceholder,
-        emptyContent,
+        clearContent: externalClearContent,
+        emptyContent: externaEmptyContent,
         items,
         onChange,
     } = props;
@@ -55,7 +56,7 @@ export function SelectBase<Value extends string = string>(props: App.ModuleBase.
         setLocalValue(value);
         delay(() => {
             if (value === ITEM_CLEAR_VALUE) {
-                onChange?.(undefined);
+                onChange?.();
                 return;
             }
 
@@ -68,34 +69,50 @@ export function SelectBase<Value extends string = string>(props: App.ModuleBase.
     const placeholder = externalPlaceholder ?? (
         <FormattedMessage id={BaseLanguage.component.select.placeholder} defaultMessage="Select..." />
     );
+    const clearContent = externalClearContent ?? (
+        <FormattedMessage id={BaseLanguage.component.select.clear} defaultMessage="-- Clear --" />
+    );
+    const emptyContent = externaEmptyContent ?? (
+        <FormattedMessage id={BaseLanguage.component.select.empty} defaultMessage="No data!" />
+    );
 
     return (
-        <Select value={localValue} onValueChange={handleChange} disabled={disabled}>
+        <Select value={localValue} onValueChange={handleChange} disabled={loading || disabled}>
             <SelectTrigger
                 aria-label="select"
                 className={cn('w-full cursor-pointer', className, {
                     'text-muted-foreground': localValue === ITEM_CLEAR_VALUE,
                 })}
             >
-                <SelectValue placeholder={placeholder} />
+                {loading ? (
+                    <Spinner />
+                ) : localValue === ITEM_CLEAR_VALUE ? (
+                    placeholder
+                ) : (
+                    <SelectValue placeholder={placeholder} />
+                )}
             </SelectTrigger>
 
             <SelectContent className={popperClassName} position="popper">
                 <SelectGroup>
-                    {/* item loading */}
-                    <SelectContentLoading loading={loading} />
-
-                    {/* item empty */}
-                    <SelectContentEmpty empty={!loading && !items?.length} emptyContent={emptyContent} />
-
                     {/* item clear */}
                     <SelectItem
                         key={ITEM_CLEAR_VALUE}
                         value={ITEM_CLEAR_VALUE}
-                        className={cn('text-muted-foreground cursor-pointer', { hidden: !showClear })}
+                        className={cn('text-muted-foreground cursor-pointer overflow-hidden', {
+                            'h-0 opacity-0': !showClear,
+                            hidden: !items?.length,
+                        })}
                     >
-                        {placeholder}
+                        {clearContent}
                     </SelectItem>
+
+                    {/* item empty */}
+                    {!items?.length && (
+                        <SelectItem key={ITEM_EMPTY_VALUE} value={ITEM_EMPTY_VALUE} disabled>
+                            {emptyContent}
+                        </SelectItem>
+                    )}
 
                     {/* list item */}
                     {items?.map((item) => {

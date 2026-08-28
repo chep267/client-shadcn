@@ -72,9 +72,10 @@ export interface SelectBaseProps<Value extends string = string> {
     loading?: boolean;
     disabled?: boolean;
     hasClear?: boolean;
+    clearContent?: ReactNode;
     emptyContent?: ReactNode;
     items?: SelectBaseItem<Value>[];
-    onChange?: (value: Value | undefined, item?: SelectBaseItem<Value>) => void;
+    onChange?: (value?: Value | undefined, item?: SelectBaseItem<Value>) => void;
 }
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
