@@ -50,7 +50,8 @@ export type InputElement = HTMLInputElement | null;
 export interface InputSearchRef {
     clear: () => void;
 }
-export interface InputSearchProps extends ComponentProps<'input'> {
+export interface InputSearchProps extends Omit<ComponentProps<'input'>, 'value'> {
+    value?: string;
     onSearch?: (value: string) => void;
     debounceTime?: number;
     label?: string;

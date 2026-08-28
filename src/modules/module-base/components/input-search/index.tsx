@@ -23,7 +23,6 @@ import { Button } from '@module-base/components/button';
 export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
     const {
         ref,
-        id,
         className,
         value: externalValue,
         label = 'Search',
@@ -33,34 +32,27 @@ export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
     } = props;
 
     const { formatMessage } = useIntl();
-    const [localValue, setLocalValue] = React.useState<string>((externalValue as string) ?? '');
-    const generatedId = React.useId();
-    const inputId = id || generatedId;
+    const [localValue, setLocalValue] = React.useState(externalValue);
     const internalRef = React.useRef<HTMLInputElement>(null);
 
     const placeholder =
         externalPlaceholder ||
         formatMessage({ id: BaseLanguage.component.input.placeholder, defaultMessage: 'Search...' });
 
-    React.useImperativeHandle(
-        ref,
-        () => ({
-            clear: handleClear,
-        }),
-        []
-    );
-
-    const handleClear = () => {
+    const handleClear = React.useCallback(() => {
         setLocalValue('');
         internalRef.current?.focus();
         delay(() => onSearch?.(''), 1);
-    };
+    }, [onSearch]);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const newValue = e.target.value;
-        setLocalValue(newValue);
-        delay(() => onSearch?.(newValue), 1);
-    };
+    const handleChange = React.useCallback(
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+            const nextValue = e.target.value;
+            setLocalValue(nextValue);
+            delay(() => onSearch?.(nextValue), 1);
+        },
+        [onSearch]
+    );
 
     const SearchIconElement = React.useMemo(() => {
         return (
@@ -93,6 +85,14 @@ export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
         );
     }, []);
 
+    React.useImperativeHandle(
+        ref,
+        () => ({
+            clear: handleClear,
+        }),
+        [handleClear]
+    );
+
     return (
         <div
             data-slot="search-container"
@@ -104,7 +104,6 @@ export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
             <Input
                 data-slot="search-input"
                 {...otherProps}
-                id={inputId}
                 ref={internalRef}
                 type="text"
                 role="searchbox"

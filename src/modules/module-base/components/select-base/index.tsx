@@ -39,7 +39,7 @@ export function SelectBase<Value extends string = string>(props: App.ModuleBase.
         disabled,
         placeholder: externalPlaceholder,
         clearContent: externalClearContent,
-        emptyContent: externaEmptyContent,
+        emptyContent: externalEmptyContent,
         items,
         onChange,
     } = props;
@@ -72,7 +72,7 @@ export function SelectBase<Value extends string = string>(props: App.ModuleBase.
     const clearContent = externalClearContent ?? (
         <FormattedMessage id={BaseLanguage.component.select.clear} defaultMessage="-- Clear --" />
     );
-    const emptyContent = externaEmptyContent ?? (
+    const emptyContent = externalEmptyContent ?? (
         <FormattedMessage id={BaseLanguage.component.select.empty} defaultMessage="No data!" />
     );
 
