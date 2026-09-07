@@ -6,14 +6,12 @@
 
 /** libs */
 import * as React from 'react';
+import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 import { LucideThumbsUp } from 'lucide-react';
 
 /** constants */
 import { MessengerLanguage } from '@module-messenger/constants/language';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** hooks */
 import { useGetMessage } from '@module-messenger/hooks/useGetMessage';

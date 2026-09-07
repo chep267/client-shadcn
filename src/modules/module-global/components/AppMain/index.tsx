@@ -6,10 +6,8 @@
 
 /** libs */
 import * as React from 'react';
+import { cn } from 'cn';
 import { Routes, Route } from 'react-router-dom';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { StartLoading } from '@module-base/components/start-loading';

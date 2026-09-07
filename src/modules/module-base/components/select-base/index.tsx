@@ -7,13 +7,11 @@
 /** libs */
 import * as React from 'react';
 import delay from 'lodash-es/delay';
+import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
 import { BaseLanguage } from '@module-base/constants/language';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { Spinner } from '@module-base/components/spinner';
@@ -65,7 +63,7 @@ export function SelectBase<Value extends string = string>(props: App.ModuleBase.
         }, 1);
     };
 
-    const showClear = !!(hasClear && !!localValue && localValue !== ITEM_CLEAR_VALUE);
+    const showClear = hasClear && !!localValue && localValue !== ITEM_CLEAR_VALUE;
     const placeholder = externalPlaceholder ?? (
         <FormattedMessage id={BaseLanguage.component.select.placeholder} defaultMessage="Select..." />
     );
@@ -78,16 +76,11 @@ export function SelectBase<Value extends string = string>(props: App.ModuleBase.
 
     return (
         <Select value={localValue} onValueChange={handleChange} disabled={loading || disabled}>
-            <SelectTrigger
-                aria-label="select"
-                className={cn('w-full cursor-pointer', className, {
-                    'text-muted-foreground': localValue === ITEM_CLEAR_VALUE,
-                })}
-            >
+            <SelectTrigger aria-label="select" className={cn('w-full cursor-pointer', className)}>
                 {loading ? (
                     <Spinner />
                 ) : localValue === ITEM_CLEAR_VALUE ? (
-                    placeholder
+                    <span className="text-muted-foreground">{placeholder}</span>
                 ) : (
                     <SelectValue placeholder={placeholder} />
                 )}

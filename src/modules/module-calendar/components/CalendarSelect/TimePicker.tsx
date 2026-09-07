@@ -6,14 +6,12 @@
 
 /** libs */
 import * as React from 'react';
+import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 import { ChevronLeftIcon, ChevronsLeftIcon, ChevronRightIcon, ChevronsRightIcon } from 'lucide-react';
 
 /** constants */
 import { CalendarLanguage } from '@module-calendar/constants/language';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';

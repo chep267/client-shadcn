@@ -1,7 +1,6 @@
 import * as React from 'react';
+import { cn } from 'cn';
 import { Tooltip as TooltipPrimitive } from 'radix-ui';
-
-import { cn } from '@module-base/utils/shadcn';
 
 function TooltipProvider({ delayDuration = 0, ...props }: React.ComponentProps<typeof TooltipPrimitive.Provider>) {
     return <TooltipPrimitive.Provider data-slot="tooltip-provider" delayDuration={delayDuration} {...props} />;

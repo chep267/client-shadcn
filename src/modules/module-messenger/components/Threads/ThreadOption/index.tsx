@@ -6,9 +6,7 @@
 
 /** libs */
 import * as React from 'react';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
+import { cn } from 'cn';
 
 /** components */
 import { DropdownMenu } from '@module-base/components/dropdown-menu';

@@ -4,8 +4,8 @@
  *
  */
 
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
+/** libs */
+import { cn } from 'cn';
 
 /** components */
 import { Sidebar, SidebarRail } from '@module-base/components/sidebar';

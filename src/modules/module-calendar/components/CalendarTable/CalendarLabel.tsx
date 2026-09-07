@@ -5,11 +5,9 @@
  */
 
 /** libs */
+import { cn } from 'cn';
 import dayjs from 'dayjs';
 import { Typography } from '@module-base/components/typography';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';

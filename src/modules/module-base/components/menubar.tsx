@@ -1,10 +1,7 @@
-'use client';
-
 import * as React from 'react';
+import { cn } from 'cn';
 import { CheckIcon, ChevronRightIcon, CircleIcon } from 'lucide-react';
 import { Menubar as MenubarPrimitive } from 'radix-ui';
-
-import { cn } from '@module-base/utils/shadcn';
 
 function Menubar({ className, ...props }: React.ComponentProps<typeof MenubarPrimitive.Root>) {
     return (

@@ -7,6 +7,7 @@
 /** libs */
 import * as z from 'zod';
 import Cookies from 'js-cookie';
+import { cn } from 'cn';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import delay from 'lodash-es/delay';
@@ -18,7 +19,6 @@ import { AppTimer } from '@module-base/constants/config';
 import { AuthLanguage } from '@module-auth/constants/language';
 
 /** utils */
-import { cn } from '@module-base/utils/shadcn';
 import { isClientError } from '@module-base/utils/axiosHelper';
 
 /** components */

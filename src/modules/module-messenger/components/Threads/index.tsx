@@ -5,13 +5,11 @@
  */
 
 /** libs */
+import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
 import { MessengerLanguage } from '@module-messenger/constants/language';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { Typography } from '@module-base/components/typography';

@@ -4,12 +4,6 @@
  *
  */
 
-/** libs */
-import clsx, { type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-export const cn = (...inputs: ClassValue[]) => twMerge(clsx(inputs));
-
 export const getCssVariable = (name: string, defaultValue = NaN) => {
     if (typeof window === 'undefined') return defaultValue;
     const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();

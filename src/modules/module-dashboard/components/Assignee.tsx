@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@module-base/components/avatar';
 import React from 'react';
 import { Skeleton } from '@module-base/components/skeleton';
-import { cn } from '@module-base/utils/shadcn';
+import { cn } from 'cn';
 
 export function Assignee({ name = '', avatar }: { name?: string; avatar?: string }) {
     const [loading, setLoading] = React.useState(true);

@@ -8,9 +8,7 @@
 import * as React from 'react';
 import { Slot } from 'radix-ui';
 import { TableVirtuoso, type TableComponents, type TableVirtuosoHandle } from 'react-virtuoso';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
+import { cn } from 'cn';
 
 /** hooks */
 import { useConst } from '@module-base/hooks/useConst';

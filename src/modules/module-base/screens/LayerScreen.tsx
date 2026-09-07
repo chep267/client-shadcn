@@ -6,12 +6,10 @@
 
 /** libs */
 import * as React from 'react';
+import { cn } from 'cn';
 
 /** constants */
 import { ParticleOptions } from '@module-base/constants/option';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';

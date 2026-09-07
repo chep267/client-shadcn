@@ -2,8 +2,8 @@
 
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from 'cn';
 
-import { cn } from '@module-base/utils/shadcn';
 import { Button } from '@module-base/components/button';
 import { Input } from '@module-base/components/input';
 import { Textarea } from '@module-base/components/textarea';

@@ -6,12 +6,12 @@
 
 /** libs */
 import * as React from 'react';
+import { cn } from 'cn';
 
 /** constants */
 import { CalendarDisplay } from '@module-calendar/constants/config';
 
 /** utils */
-import { cn } from '@module-base/utils/shadcn';
 import { genMatrixCalendarDayJS, reverseMatrix } from '@module-calendar/utils/calendar';
 
 /** stores */

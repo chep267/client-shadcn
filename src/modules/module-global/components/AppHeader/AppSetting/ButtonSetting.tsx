@@ -5,14 +5,12 @@
  */
 
 /** libs */
+import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 import { MenuIcon } from 'lucide-react';
 
 /** constants */
 import { GlobalLanguage } from '@module-global/constants/language';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { Button } from '@module-base/components/button';

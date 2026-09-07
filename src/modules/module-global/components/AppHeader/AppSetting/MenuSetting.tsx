@@ -6,15 +6,13 @@
 
 /** libs */
 import * as React from 'react';
+import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 import { PaletteIcon, LanguagesIcon, MoonStarIcon, SunIcon } from 'lucide-react';
 
 /** constants */
 import { AppLocale, AppTheme } from '@module-base/constants/config';
 import { BaseLanguage } from '@module-base/constants/language';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import {

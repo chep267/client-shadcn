@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from 'cn';
 import { Slot } from 'radix-ui';
 
-import { cn } from '@module-base/utils/shadcn';
 import { Button } from '@module-base/components/button';
 
 const attachmentVariants = cva(

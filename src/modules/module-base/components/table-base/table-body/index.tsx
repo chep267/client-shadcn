@@ -4,8 +4,10 @@
  *
  */
 
+/** libs */
+import { cn } from 'cn';
+
 /** utils */
-import { cn } from '@module-base/utils/shadcn';
 import { getNestedValue } from '@module-base/utils/virtual';
 
 /** components */

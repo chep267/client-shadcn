@@ -5,11 +5,9 @@
  */
 
 /** libs */
+import { cn } from 'cn';
 import { useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** stores */
 import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';

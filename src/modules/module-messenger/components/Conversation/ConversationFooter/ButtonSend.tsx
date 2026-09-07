@@ -6,14 +6,12 @@
 
 /** libs */
 import * as React from 'react';
+import { cn } from 'cn';
 import { useNavigate, useParams } from 'react-router-dom';
 import { SendHorizonalIcon, ThumbsUpIcon } from 'lucide-react';
 
 /** constants */
 import { MessengerRouterPath } from '@module-messenger/constants/path';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** stores */
 import { useAuthStore } from '@module-auth/stores/useAuthStore';

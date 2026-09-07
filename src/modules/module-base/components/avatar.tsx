@@ -1,7 +1,6 @@
 import * as React from 'react';
+import { cn } from 'cn';
 import { Avatar as AvatarPrimitive } from 'radix-ui';
-
-import { cn } from '@module-base/utils/shadcn';
 
 function Avatar({
     className,

@@ -4,13 +4,13 @@
  *
  */
 
+/** libs */
+import { cn } from 'cn';
+
 /** components */
 import { AppHeader } from '@module-global/components/AppHeader';
 import { AppMain } from '@module-global/components/AppMain';
 import { AppSocket } from '@module-global/components/AppSocket';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 export default function MainScreen() {
     return (

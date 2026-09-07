@@ -1,6 +1,6 @@
 import { FileIcon, PinIcon, ReplyIcon, Check, CheckCheck, LucideThumbsUp } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@module-base/components/avatar';
-import { cn } from '@module-base/utils/shadcn';
+import { cn } from 'cn';
 
 interface MessageItemProps {
     isMe?: boolean;

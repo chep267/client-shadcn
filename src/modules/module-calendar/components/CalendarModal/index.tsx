@@ -5,13 +5,13 @@
  */
 
 /** libs */
+import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
 import { CalendarLanguage } from '@module-calendar/constants/language';
 
 /** utils */
-import { cn } from '@module-base/utils/shadcn';
 import VietnameseDate from '@module-calendar/utils/lunar';
 
 /** stores */

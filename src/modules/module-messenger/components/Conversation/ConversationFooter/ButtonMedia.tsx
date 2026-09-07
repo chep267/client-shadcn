@@ -8,9 +8,7 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { ImageIcon } from 'lucide-react';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
+import { cn } from 'cn';
 
 /** stores */
 import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';

@@ -6,14 +6,12 @@
 
 /** libs */
 import * as React from 'react';
+import { cn } from 'cn';
 import { useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
 import { MessengerLanguage } from '@module-messenger/constants/language';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** stores */
 import { useAuthStore } from '@module-auth/stores/useAuthStore';

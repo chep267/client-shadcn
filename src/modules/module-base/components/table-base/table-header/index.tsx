@@ -4,8 +4,8 @@
  *
  */
 
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
+/** libs */
+import { cn } from 'cn';
 
 /** components */
 import { TableHeader as TableHeaderComp, TableRow } from '@module-base/components/table';

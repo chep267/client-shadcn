@@ -6,11 +6,9 @@
 
 /** libs */
 import * as React from 'react';
+import { cn } from 'cn';
 import { useParams } from 'react-router-dom';
 import { XIcon } from 'lucide-react';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** stores */
 import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';

@@ -6,13 +6,11 @@
 
 /** libs */
 import * as React from 'react';
+import { cn } from 'cn';
 import { Link } from 'react-router-dom';
 
 /** constants */
 import { MessengerRouterPath } from '@module-messenger/constants/path';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** stores */
 import { useAuthStore } from '@module-auth/stores/useAuthStore';

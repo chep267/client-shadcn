@@ -5,10 +5,8 @@
  */
 
 /** libs */
+import { cn } from 'cn';
 import { EllipsisIcon } from 'lucide-react';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { Button } from '@module-base/components/button';

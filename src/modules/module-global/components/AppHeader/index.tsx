@@ -5,10 +5,8 @@
  */
 
 /** libs */
+import { cn } from 'cn';
 import { BellIcon } from 'lucide-react';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { AppInfo } from '@module-global/components/AppHeader/AppInfo';

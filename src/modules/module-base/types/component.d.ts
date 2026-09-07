@@ -5,20 +5,21 @@
  */
 
 /** types */
-import type {
-    FunctionComponent,
-    PropsWithChildren,
-    LazyExoticComponent,
-    RefObject,
-    SVGProps,
-    ReactNode,
-    MouseEvent,
-    ComponentProps,
-    Ref,
+import {
+    type FunctionComponent,
+    type PropsWithChildren,
+    type LazyExoticComponent,
+    type RefObject,
+    type SVGProps,
+    type ReactNode,
+    type MouseEvent,
+    type ComponentProps,
+    type Ref,
 } from 'react';
 import type { UseBoundStore, StoreApi } from 'zustand';
 import type { VirtuosoProps, VirtuosoHandle, TableVirtuosoHandle, TableVirtuosoProps } from 'react-virtuoso';
 import type { ItemId, OrderType } from '@module-base/types/data.d';
+import type { Button } from '@module-base/components/button';
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 /** ErrorBoundary */
@@ -56,6 +57,22 @@ export interface InputSearchProps extends Omit<ComponentProps<'input'>, 'value'>
     debounceTime?: number;
     label?: string;
     ref?: Ref<InputSearchRef | null>;
+}
+
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/** Modal */
+interface ModalConfirmProps extends PropsWithChildren {
+    className?: string;
+    open?: boolean;
+    loading?: boolean;
+    title?: ReactNode;
+    description?: ReactNode;
+    cancelText?: ReactNode;
+    confirmText?: ReactNode;
+    media?: ReactNode;
+    variant?: ComponentProps<typeof Button>['variant'];
+    onConfirm?(event: MouseEvent<HTMLButtonElement>): void;
+    onCancel?(): void;
 }
 
 /** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */

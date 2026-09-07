@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from 'cn';
 import { Slot } from 'radix-ui';
-
-import { cn } from '@module-base/utils/shadcn';
 
 function BubbleGroup({ className, ...props }: React.ComponentProps<'div'>) {
     return <div data-slot="bubble-group" className={cn('flex min-w-0 flex-col gap-2', className)} {...props} />;

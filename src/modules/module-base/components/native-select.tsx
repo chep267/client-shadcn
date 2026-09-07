@@ -1,7 +1,6 @@
 import * as React from 'react';
+import { cn } from 'cn';
 import { ChevronDownIcon } from 'lucide-react';
-
-import { cn } from '@module-base/utils/shadcn';
 
 function NativeSelect({
     className,

@@ -5,14 +5,12 @@
  */
 
 /** libs */
-import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
 import { BaseLanguage } from '@module-base/constants/language';
 
 /** components */
-import type { Button } from '@module-base/components/button';
 import { Spinner } from '@module-base/components/spinner';
 import {
     AlertDialog,
@@ -26,19 +24,8 @@ import {
     AlertDialogMedia,
 } from '@module-base/components/alert-dialog';
 
-interface ModalConfirmProps extends React.PropsWithChildren {
-    className?: string;
-    open?: boolean;
-    loading?: boolean;
-    title?: React.ReactNode;
-    description?: React.ReactNode;
-    cancelText?: React.ReactNode;
-    confirmText?: React.ReactNode;
-    media?: React.ReactNode;
-    variant?: React.ComponentProps<typeof Button>['variant'];
-    onConfirm?(event: React.MouseEvent<HTMLButtonElement>): void;
-    onCancel?(): void;
-}
+/** types */
+import type { ModalConfirmProps } from '@module-base/types/component';
 
 export function ModalConfirm(props: ModalConfirmProps) {
     const {

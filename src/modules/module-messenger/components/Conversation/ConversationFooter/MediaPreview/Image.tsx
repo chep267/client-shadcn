@@ -7,9 +7,7 @@
 /** libs */
 import * as React from 'react';
 import { XIcon } from 'lucide-react';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
+import { cn } from 'cn';
 
 /** components */
 import { Button } from '@module-base/components/button';

@@ -5,14 +5,12 @@
  */
 
 /** libs */
+import { cn } from 'cn';
 import { Link } from 'react-router-dom';
 
 /** constants */
 import { AppEnv } from '@module-base/constants/env';
 import { GlobalRouterPath } from '@module-global/constants/path';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { IconBase } from '@module-base/components/icon-base';

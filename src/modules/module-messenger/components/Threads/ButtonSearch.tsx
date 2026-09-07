@@ -5,10 +5,8 @@
  */
 
 /** libs */
+import { cn } from 'cn';
 import { SearchIcon } from 'lucide-react';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** stores */
 import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';

@@ -6,9 +6,7 @@
 
 /** libs */
 import * as React from 'react';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
+import { cn } from 'cn';
 
 /** components */
 import { InputSearch } from '@module-base/components/input-search';
@@ -30,13 +28,7 @@ export default function FeedScreen() {
 
     return (
         <div className={cn('flex h-full w-full', 'max-h-(--app-size-height-screen)', 'gap-10 px-2 py-4', 'tablet:p-5')}>
-            <div
-                className={cn(
-                    'flex flex-1 flex-col overflow-hidden',
-                    'tablet:pt-10 mobile:p-4 gap-4',
-                    'mobile:border mobile:rounded-md'
-                )}
-            >
+            <div className={cn('flex flex-1 flex-col overflow-hidden', 'gap-4 p-4', 'mobile:border mobile:rounded-md')}>
                 <div className={cn('flex w-full flex-col gap-2', 'tablet:flex-row tablet:items-center')}>
                     <InputSearch
                         className="tablet:max-w-sm"

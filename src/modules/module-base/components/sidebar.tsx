@@ -1,12 +1,10 @@
-'use client';
-
 import * as React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from 'cn';
 import { PanelLeftIcon } from 'lucide-react';
 import { Slot } from 'radix-ui';
 
 import { useScreen } from '@module-base/hooks/useScreen';
-import { cn } from '@module-base/utils/shadcn';
 import { Button } from '@module-base/components/button';
 import { Input } from '@module-base/components/input';
 import { Separator } from '@module-base/components/separator';

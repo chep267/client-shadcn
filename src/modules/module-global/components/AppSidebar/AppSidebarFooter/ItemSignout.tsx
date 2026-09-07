@@ -6,14 +6,12 @@
 
 /** libs */
 import * as React from 'react';
+import { cn } from 'cn';
 import { LogOutIcon } from 'lucide-react';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
 import { GlobalLanguage } from '@module-global/constants/language';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** hooks */
 import { useSignout } from '@module-auth/hooks/useSignout';

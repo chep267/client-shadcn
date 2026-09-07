@@ -4,11 +4,9 @@
  *
  */
 
-/** utils */
+/** libs */
 import * as React from 'react';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
+import { cn } from 'cn';
 
 /** stores */
 import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';

@@ -4,10 +4,9 @@
  *
  */
 
+/** libs */
+import { cn } from 'cn';
 import { useParams } from 'react-router-dom';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { CardHeader, CardTitle } from '@module-base/components/card';

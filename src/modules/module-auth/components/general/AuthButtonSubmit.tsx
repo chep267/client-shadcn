@@ -5,13 +5,11 @@
  */
 
 /** libs */
+import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
 import { AuthLanguage } from '@module-auth/constants/language';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { Button } from '@module-base/components/button';

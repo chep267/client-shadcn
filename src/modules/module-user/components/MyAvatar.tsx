@@ -6,9 +6,10 @@
 
 /** libs */
 import React from 'react';
+import { cn } from 'cn';
 
 /** utils */
-import { cn } from '@module-base/utils/shadcn';
+
 import { genAvatarFallbackFromName } from '@module-user/utils/user';
 
 /** stores */

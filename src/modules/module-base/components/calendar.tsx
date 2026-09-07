@@ -1,8 +1,10 @@
+'use client';
+
 import * as React from 'react';
+import { cn } from 'cn';
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import { DayPicker, getDefaultClassNames, type DayButton } from 'react-day-picker';
 
-import { cn } from '@module-base/utils/shadcn';
 import { Button, buttonVariants } from '@module-base/components/button';
 
 function Calendar({

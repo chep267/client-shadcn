@@ -6,12 +6,10 @@
 
 /** libs */
 import { ArrowUpDown } from 'lucide-react';
+import { cn } from 'cn';
 
 /** constants */
 import { OrderType } from '@module-base/constants/config';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { Button } from '@module-base/components/button';

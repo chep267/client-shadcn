@@ -1,7 +1,6 @@
 import * as React from 'react';
+import { cn } from 'cn';
 import { Drawer as DrawerPrimitive } from 'vaul';
-
-import { cn } from '@module-base/utils/shadcn';
 
 function Drawer({ ...props }: React.ComponentProps<typeof DrawerPrimitive.Root>) {
     return <DrawerPrimitive.Root data-slot="drawer" {...props} />;

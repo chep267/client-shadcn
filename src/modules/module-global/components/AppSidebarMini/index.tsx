@@ -5,13 +5,11 @@
  */
 
 /** libs */
+import { cn } from 'cn';
 import { useLocation } from 'react-router-dom';
 
 /** constants */
 import { SidebarItems } from '@module-global/constants/SidebarItems';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { ButtonGroup } from '@module-base/components/button-group';

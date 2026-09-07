@@ -1,7 +1,6 @@
 import * as React from 'react';
+import { cn } from 'cn';
 import { Slider as SliderPrimitive } from 'radix-ui';
-
-import { cn } from '@module-base/utils/shadcn';
 
 function Slider({
     className,

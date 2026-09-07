@@ -7,9 +7,7 @@
 /** libs */
 import * as React from 'react';
 import dayjs from 'dayjs';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
+import { cn } from 'cn';
 
 /** hooks */
 import { useGetTickets } from '@module-dashboard/hooks/useGetTickets';

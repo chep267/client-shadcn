@@ -7,9 +7,7 @@
 /** libs */
 import * as React from 'react';
 import { type VirtuosoHandle, Virtuoso } from 'react-virtuoso';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
+import { cn } from 'cn';
 
 /** hooks */
 import { useConst } from '@module-base/hooks/useConst';

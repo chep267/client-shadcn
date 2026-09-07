@@ -7,14 +7,12 @@
 /** libs */
 import * as React from 'react';
 import dayjs from 'dayjs';
+import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 import { toast } from 'sonner';
 
 /** constants */
 import { BaseLanguage } from '@module-base/constants/language';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** stores */
 import { useSettingStore } from '@module-base/stores/useSettingStore';

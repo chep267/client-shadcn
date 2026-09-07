@@ -6,6 +6,7 @@
 
 /** libs */
 import * as React from 'react';
+import { cn } from 'cn';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 /** constants */
@@ -14,9 +15,6 @@ import { CalendarRouterPath } from '@module-calendar/constants/path';
 import { PoemRouterPath } from '@module-poem/constants/path';
 import { MessengerRouterPath } from '@module-messenger/constants/path';
 import { GlobalRouterPath } from '@module-global/constants/path';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { AppSidebarMini } from '@module-global/components/AppSidebarMini';

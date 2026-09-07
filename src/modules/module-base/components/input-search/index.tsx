@@ -9,12 +9,13 @@ import * as React from 'react';
 import { useIntl } from 'react-intl';
 import { SearchIcon, XIcon } from 'lucide-react';
 import delay from 'lodash-es/delay';
+import { cn } from 'cn';
 
 /** constants */
 import { BaseLanguage } from '@module-base/constants/language';
 
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
+/** hooks */
+import { useLatest } from '@module-base/hooks/useLatest';
 
 /** components */
 import { Input } from '@module-base/components/input';
@@ -34,6 +35,7 @@ export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
     const { formatMessage } = useIntl();
     const [localValue, setLocalValue] = React.useState(externalValue);
     const internalRef = React.useRef<HTMLInputElement>(null);
+    const eventSearch = useLatest(onSearch);
 
     const placeholder =
         externalPlaceholder ||
@@ -42,17 +44,14 @@ export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
     const handleClear = React.useCallback(() => {
         setLocalValue('');
         internalRef.current?.focus();
-        delay(() => onSearch?.(''), 1);
-    }, [onSearch]);
+        delay(() => eventSearch.current?.(''), 1);
+    }, []);
 
-    const handleChange = React.useCallback(
-        (e: React.ChangeEvent<HTMLInputElement>) => {
-            const nextValue = e.target.value;
-            setLocalValue(nextValue);
-            delay(() => onSearch?.(nextValue), 1);
-        },
-        [onSearch]
-    );
+    const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const nextValue = e.target.value;
+        setLocalValue(nextValue);
+        delay(() => eventSearch.current?.(nextValue), 1);
+    }, []);
 
     const SearchIconElement = React.useMemo(() => {
         return (
@@ -90,7 +89,7 @@ export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
         () => ({
             clear: handleClear,
         }),
-        [handleClear]
+        []
     );
 
     return (

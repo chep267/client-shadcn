@@ -6,9 +6,7 @@
 
 /** libs */
 import React from 'react';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
+import { cn } from 'cn';
 
 /** components */
 import { Typography } from '@module-base/components/typography';

@@ -6,11 +6,9 @@
 
 /** libs */
 import * as React from 'react';
+import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 import { TrashIcon, BellOffIcon } from 'lucide-react';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** hooks */
 import { useRemoveThread } from '@module-messenger/hooks/useRemoveThread';

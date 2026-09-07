@@ -6,12 +6,10 @@
 
 /** libs */
 import { FormattedMessage } from 'react-intl';
+import { cn } from 'cn';
 
 /** constants */
 import { BaseLanguage } from '@module-base/constants/language';
-
-/** utils */
-import { cn } from '@module-base/utils/shadcn';
 
 /** components */
 import { TableRow, TableCell } from '@module-base/components/table';
