@@ -6,7 +6,7 @@
 
 /** libs */
 import * as React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { ImageIcon } from 'lucide-react';
 import { cn } from 'cn';
 

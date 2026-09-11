@@ -6,7 +6,7 @@
 
 /** libs */
 import { cn } from 'cn';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 /** constants */
 import { AppEnv } from '@module-base/constants/env';

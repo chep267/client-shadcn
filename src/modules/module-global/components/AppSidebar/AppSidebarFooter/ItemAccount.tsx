@@ -5,7 +5,7 @@
  */
 
 /** libs */
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { User2Icon } from 'lucide-react';
 import { FormattedMessage } from 'react-intl';
 

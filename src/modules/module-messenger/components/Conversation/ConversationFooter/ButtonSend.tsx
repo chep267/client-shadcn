@@ -7,7 +7,7 @@
 /** libs */
 import * as React from 'react';
 import { cn } from 'cn';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 import { SendHorizonalIcon, ThumbsUpIcon } from 'lucide-react';
 
 /** constants */
@@ -33,7 +33,9 @@ export function ButtonSend() {
     const messengerAction = useMessengerStore((store) => store.action);
 
     const meId = useAuthStore((store) => store.data.user!.id);
-    const isTyping = useMessengerStore((store) => store.data.drafts.has(tid) || store.data.attachments.has(tid));
+    const isTyping = useMessengerStore((store) =>
+        Boolean(store.data.drafts.get(tid) || store.data.attachments.get(tid))
+    );
     const isDraft = tid.startsWith('uid.');
     const Icon = isTyping ? SendHorizonalIcon : ThumbsUpIcon;
 

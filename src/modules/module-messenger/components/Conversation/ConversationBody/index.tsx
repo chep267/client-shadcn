@@ -7,7 +7,7 @@
 /** libs */
 import * as React from 'react';
 import { cn } from 'cn';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */

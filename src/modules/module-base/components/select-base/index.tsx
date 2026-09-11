@@ -6,7 +6,6 @@
 
 /** libs */
 import * as React from 'react';
-import delay from 'lodash-es/delay';
 import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 
@@ -52,15 +51,14 @@ export function SelectBase<Value extends string = string>(props: App.ModuleBase.
 
     const handleChange = (value: Value) => {
         setLocalValue(value);
-        delay(() => {
+        React.startTransition(() => {
             if (value === ITEM_CLEAR_VALUE) {
-                onChange?.();
-                return;
+                return onChange?.();
             }
 
             const item = items?.find((item) => item.value === value);
             onChange?.(value, item);
-        }, 1);
+        });
     };
 
     const showClear = hasClear && !!localValue && localValue !== ITEM_CLEAR_VALUE;

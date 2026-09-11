@@ -13,5 +13,5 @@ export const PoemApiPath = {
 export const PoemRouterPath = {
     root: '/poems/*',
     home: '/poems',
-    poem: '/poem/:id',
+    poem: '/:pid',
 } as const;

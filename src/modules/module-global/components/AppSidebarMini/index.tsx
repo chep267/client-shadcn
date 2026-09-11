@@ -6,7 +6,7 @@
 
 /** libs */
 import { cn } from 'cn';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router';
 
 /** constants */
 import { SidebarItems } from '@module-global/constants/SidebarItems';

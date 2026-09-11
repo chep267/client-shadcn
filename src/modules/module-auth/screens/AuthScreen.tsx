@@ -6,7 +6,7 @@
 
 /** libs */
 import * as React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router';
 
 /** constants */
 import { AuthRouterPath } from '@module-auth/constants/path';

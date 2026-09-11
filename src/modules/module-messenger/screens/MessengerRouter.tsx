@@ -6,7 +6,7 @@
 
 /** libs */
 import * as React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router';
 
 /** constants */
 import { MessengerRouterPath } from '@module-messenger/constants/path';

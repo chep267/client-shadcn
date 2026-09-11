@@ -7,7 +7,7 @@
 /** libs */
 import * as React from 'react';
 import { cn } from 'cn';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 /** components */
 import { Button } from '@module-base/components/button';

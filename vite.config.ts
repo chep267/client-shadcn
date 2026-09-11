@@ -67,6 +67,70 @@ export default ({ mode }: ConfigEnv) => {
             chunkSizeWarningLimit: 500,
             assetsInlineLimit: 4096,
             cssCodeSplit: true,
+            rolldownOptions: {
+                output: {
+                    codeSplitting: true,
+                    manualChunks(id) {
+                        if (!id.includes('node_modules')) return;
+
+                        if (
+                            id.includes('/node_modules/react/') ||
+                            id.includes('/node_modules/react-dom/') ||
+                            id.includes('/node_modules/react-router/') ||
+                            id.includes('/node_modules/react-router/')
+                        ) {
+                            return 'vendor-react-core';
+                        }
+
+                        if (
+                            id.includes('/node_modules/radix-ui/') ||
+                            id.includes('/node_modules/@radix-ui/') ||
+                            id.includes('/node_modules/@base-ui/') ||
+                            id.includes('/node_modules/vaul/') ||
+                            id.includes('/node_modules/cmdk/') ||
+                            id.includes('/node_modules/lucide-react/') ||
+                            id.includes('/node_modules/embla-carousel-react/') ||
+                            id.includes('/node_modules/react-day-picker/') ||
+                            id.includes('/node_modules/react-virtuoso/')
+                        ) {
+                            return 'vendor-ui';
+                        }
+
+                        if (
+                            id.includes('/node_modules/react-intl/') ||
+                            id.includes('/node_modules/date-fns/') ||
+                            id.includes('/node_modules/dayjs/')
+                        ) {
+                            return 'vendor-i18n-date';
+                        }
+
+                        if (
+                            id.includes('/node_modules/react-hook-form/') ||
+                            id.includes('/node_modules/@hookform/') ||
+                            id.includes('/node_modules/zod/')
+                        ) {
+                            return 'vendor-form';
+                        }
+
+                        if (
+                            id.includes('/node_modules/recharts/') ||
+                            id.includes('/node_modules/react-resizable-panels/')
+                        ) {
+                            return 'vendor-charts';
+                        }
+
+                        if (id.includes('/node_modules/@tsparticles')) {
+                            return 'vendor-particles';
+                        }
+
+                        if (id.includes('/node_modules/pusher-js/') || id.includes('/node_modules/socket.io-client/')) {
+                            return 'vendor-realtime';
+                        }
+
+                        return 'vendor';
+                    },
+                },
+            },
         },
         server: {
             host: config.host,

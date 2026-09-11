@@ -6,7 +6,7 @@
 
 /** libs */
 import { cn } from 'cn';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 /** components */
 import { CardHeader, CardTitle } from '@module-base/components/card';

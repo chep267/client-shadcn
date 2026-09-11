@@ -6,10 +6,9 @@
 
 /** libs */
 import * as React from 'react';
+import { cn } from 'cn';
 import { useIntl } from 'react-intl';
 import { SearchIcon, XIcon } from 'lucide-react';
-import delay from 'lodash-es/delay';
-import { cn } from 'cn';
 
 /** constants */
 import { BaseLanguage } from '@module-base/constants/language';
@@ -25,7 +24,7 @@ export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
     const {
         ref,
         className,
-        value: externalValue,
+        value: externalValue = '',
         label = 'Search',
         placeholder: externalPlaceholder,
         onSearch,
@@ -42,15 +41,19 @@ export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
         formatMessage({ id: BaseLanguage.component.input.placeholder, defaultMessage: 'Search...' });
 
     const handleClear = React.useCallback(() => {
-        setLocalValue('');
         internalRef.current?.focus();
-        delay(() => eventSearch.current?.(''), 1);
+        setLocalValue('');
+        React.startTransition(() => {
+            eventSearch.current?.('');
+        });
     }, []);
 
     const handleChange = React.useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const nextValue = e.target.value;
         setLocalValue(nextValue);
-        delay(() => eventSearch.current?.(nextValue), 1);
+        React.startTransition(() => {
+            eventSearch.current?.(nextValue);
+        });
     }, []);
 
     const SearchIconElement = React.useMemo(() => {

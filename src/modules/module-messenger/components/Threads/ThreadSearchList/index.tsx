@@ -5,7 +5,7 @@
  */
 
 /** libs */
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 /** stores */
 import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';

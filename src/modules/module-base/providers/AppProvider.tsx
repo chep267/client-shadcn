@@ -7,7 +7,7 @@
 /** libs */
 import * as React from 'react';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router';
 
 /** constants */
 import { AppTimer } from '@module-base/constants/config';
@@ -21,13 +21,10 @@ import { NotifyProvider } from '@module-base/providers/NotifyProvider';
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            refetchOnWindowFocus: false,
-            refetchOnMount: false,
-            refetchIntervalInBackground: false,
-            refetchInterval: false,
-            refetchOnReconnect: false,
             retryDelay: AppTimer.delay,
-            retry: false,
+            staleTime: 1000 * 60 * 5, // 5 minutes (invalidate)
+            gcTime: 1000 * 60 * 15, // 15 minutes (cache)
+            retry: 1,
         },
     },
 });

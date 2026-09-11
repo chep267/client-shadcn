@@ -6,7 +6,7 @@
 
 /** libs */
 import { cn } from 'cn';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 /** stores */
 import { useMessengerStore } from '@module-messenger/stores/useMessengerStore';
@@ -19,7 +19,9 @@ import { ButtonSticker } from '@module-messenger/components/Conversation/Convers
 export function MessageAction() {
     const { tid = '' } = useParams();
 
-    const isTyping = useMessengerStore((store) => store.data.drafts.get(tid) || store.data.attachments.get(tid));
+    const isTyping = useMessengerStore((store) =>
+        Boolean(store.data.drafts.get(tid) || store.data.attachments.get(tid))
+    );
 
     return (
         <div

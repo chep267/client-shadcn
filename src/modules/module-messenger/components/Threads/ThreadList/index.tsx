@@ -6,7 +6,7 @@
 
 /** libs */
 import * as React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router';
 
 /** constants */
 import { MessengerRouterPath } from '@module-messenger/constants/path';

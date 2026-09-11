@@ -6,7 +6,7 @@
 
 /** libs */
 import * as React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router';
 
 /** screens */
 const PoemScreen = React.lazy(() => import('@module-poem//screens/PoemScreen'));
