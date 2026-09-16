@@ -9,7 +9,7 @@ import { mergeConfig } from 'vite';
 import { defineConfig } from 'vitest/config';
 
 /** config */
-import viteConfig from './vite.config.ts';
+import viteConfig from './vite.config';
 
 export default mergeConfig(
     viteConfig({ mode: 'test', command: 'build' }),

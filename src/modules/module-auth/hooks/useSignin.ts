@@ -6,6 +6,7 @@
 
 /** libs */
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router';
 import { useIntl } from 'react-intl';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
@@ -27,7 +28,9 @@ import { useAuthStore } from '@module-auth/stores/useAuthStore';
 import type { AxiosError } from 'axios';
 
 export function useSignin() {
+    const navigate = useNavigate();
     const { formatMessage } = useIntl();
+    const path = useAuthStore(({ data }) => data.prePath);
     const authAction = useAuthStore(({ action }) => action);
 
     return useMutation({
@@ -37,7 +40,8 @@ export function useSignin() {
             const { token } = response.data.metadata;
             Cookies.set(AppKey.email, user.email ?? '');
             Cookies.set(AppKey.token, token.value);
-            authAction.setData({ user, token: token.value });
+            authAction.setData({ user, token: token.value, prePath: '/' });
+            void navigate(path, { replace: true });
         },
         onError: (error: AxiosError) => {
             let message: string;

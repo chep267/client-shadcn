@@ -27,7 +27,14 @@ export default function FeedScreen() {
     const virtualRef: App.ModuleBase.Component.TableProps<TableItem>['ref'] = React.useRef(null);
 
     return (
-        <div className={cn('flex h-full w-full', 'max-h-(--app-size-height-screen)', 'gap-10 px-2 py-4', 'tablet:p-5')}>
+        <div
+            className={cn(
+                'flex h-full w-full',
+                'max-h-[calc(100dvh-var(--app-size-height-header))]',
+                'gap-10 px-2 py-4',
+                'tablet:p-5'
+            )}
+        >
             <div className={cn('flex flex-1 flex-col overflow-hidden', 'gap-4 p-4', 'mobile:border mobile:rounded-md')}>
                 <div className={cn('flex w-full flex-col gap-2', 'tablet:flex-row tablet:items-center')}>
                     <InputSearch

@@ -7,6 +7,7 @@
 /** libs */
 import Cookies from 'js-cookie';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router';
 
 /** constants */
 import { AppKey } from '@module-base/constants/env';
@@ -19,6 +20,7 @@ import { authService } from '@module-auth/services';
 
 export function useSignout() {
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
 
     return useMutation({
         mutationFn: authService.signout,
@@ -26,6 +28,7 @@ export function useSignout() {
             queryClient.clear();
             resetStores();
             Cookies.remove(AppKey.token);
+            void navigate('/', { replace: true });
         },
     });
 }

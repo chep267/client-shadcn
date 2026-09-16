@@ -13,7 +13,7 @@ import { AppSidebarHeader } from '@module-global/components/AppSidebar/AppSideba
 import { AppSidebarContent } from '@module-global/components/AppSidebar/AppSidebarContent';
 import { AppSidebarFooter } from '@module-global/components/AppSidebar/AppSidebarFooter';
 
-export function AppSidebar() {
+export default function AppSidebar() {
     return (
         <Sidebar
             className={cn('top-(--app-size-height-header) h-[calc(100%-(--app-size-height-header))]')}
@@ -26,5 +26,3 @@ export function AppSidebar() {
         </Sidebar>
     );
 }
-
-export default AppSidebar;

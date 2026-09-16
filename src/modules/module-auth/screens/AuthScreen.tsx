@@ -6,7 +6,7 @@
 
 /** libs */
 import * as React from 'react';
-import { Routes, Route, Navigate } from 'react-router';
+import { useLocation } from 'react-router';
 
 /** constants */
 import { AuthRouterPath } from '@module-auth/constants/path';
@@ -20,15 +20,14 @@ const RegisterForm = React.lazy(() => import('@module-auth/components/AuthForm/R
 const RecoverForm = React.lazy(() => import('@module-auth/components/AuthForm/RecoverForm'));
 
 export default function AuthScreen() {
+    const { pathname } = useLocation();
+
     return (
         <LayerScreen className="p-2" component="main">
             <React.Suspense>
-                <Routes>
-                    <Route path={AuthRouterPath.signin} element={<SigninForm />} />
-                    <Route path={AuthRouterPath.register} element={<RegisterForm />} />
-                    <Route path={AuthRouterPath.recover} element={<RecoverForm />} />
-                    <Route path="*" element={<Navigate to={AuthRouterPath.signin} replace />} />
-                </Routes>
+                {pathname === AuthRouterPath.signin && <SigninForm />}
+                {pathname === AuthRouterPath.register && <RegisterForm />}
+                {pathname === AuthRouterPath.recover && <RecoverForm />}
             </React.Suspense>
         </LayerScreen>
     );

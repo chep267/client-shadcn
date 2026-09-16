@@ -10,18 +10,10 @@ import * as React from 'react';
 /** components */
 import { ModalTokenExpired } from '@module-auth/components/ModalTokenExpired';
 
-/** screens */
-import AuthRouter from '@module-auth/screens/AuthRouter';
-
-function AuthProvider(props: React.PropsWithChildren) {
-    const { children } = props;
-
+export default function AppModal() {
     return (
         <React.Fragment>
             <ModalTokenExpired />
-            <AuthRouter children={children} />
         </React.Fragment>
     );
 }
-
-export default AuthProvider;

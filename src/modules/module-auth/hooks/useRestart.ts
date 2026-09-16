@@ -6,6 +6,7 @@
 
 /** libs */
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router';
 import { useMutation } from '@tanstack/react-query';
 import { useIntl } from 'react-intl';
 import { toast } from 'sonner';
@@ -27,7 +28,9 @@ import { useAuthStore } from '@module-auth/stores/useAuthStore';
 import type { AxiosError } from 'axios';
 
 export function useRestart() {
+    const navigate = useNavigate();
     const { formatMessage } = useIntl();
+    const path = useAuthStore(({ data }) => data.prePath);
     const authAction = useAuthStore(({ action }) => action);
 
     return useMutation({
@@ -36,7 +39,8 @@ export function useRestart() {
             const user = response.data.data;
             const { token } = response.data.metadata;
             Cookies.set(AppKey.token, token.value);
-            authAction.setData({ user, token: token.value });
+            authAction.setData({ user, token: token.value, prePath: '/' });
+            void navigate(path, { replace: true });
         },
         onError: async (error: AxiosError) => {
             let message: string;
@@ -50,7 +54,7 @@ export function useRestart() {
 
             toast.error(formatMessage({ id: message, defaultMessage: message }));
             Cookies.remove(AppKey.token);
-            authAction.setData({ user: null, prePath: '/' });
+            authAction.setData({ user: null, token: undefined, prePath: '/' });
         },
     });
 }

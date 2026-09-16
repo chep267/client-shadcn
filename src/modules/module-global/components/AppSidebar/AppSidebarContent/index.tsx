@@ -23,7 +23,7 @@ export function AppSidebarContent() {
                 <SidebarGroupContent>
                     <SidebarMenu>
                         {SidebarItems.map((item) => (
-                            <AppSidebarItem key={item.path} item={item} active={item.path === pathname} />
+                            <AppSidebarItem key={item.path} item={item} active={pathname.startsWith(item.path)} />
                         ))}
                     </SidebarMenu>
                 </SidebarGroupContent>

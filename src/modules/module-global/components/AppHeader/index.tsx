@@ -14,7 +14,7 @@ import { AppTimer } from '@module-global/components/AppHeader/AppTimer';
 import { AppButtonDev } from '@module-global/components/AppHeader/AppButtonDev';
 import { AppSetting } from '@module-global/components/AppHeader/AppSetting';
 
-export function AppHeader() {
+export default function AppHeader() {
     return (
         <header
             className={cn(

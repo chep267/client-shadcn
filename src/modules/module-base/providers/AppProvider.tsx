@@ -7,7 +7,6 @@
 /** libs */
 import * as React from 'react';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
-import { BrowserRouter } from 'react-router';
 
 /** constants */
 import { AppTimer } from '@module-base/constants/config';
@@ -34,13 +33,11 @@ export function AppProvider(props: React.PropsWithChildren) {
 
     return (
         <QueryClientProvider client={queryClient}>
-            <BrowserRouter>
-                <LanguageProvider>
-                    <ThemeProvider>
-                        <NotifyProvider>{children}</NotifyProvider>
-                    </ThemeProvider>
-                </LanguageProvider>
-            </BrowserRouter>
+            <LanguageProvider>
+                <ThemeProvider>
+                    <NotifyProvider>{children}</NotifyProvider>
+                </ThemeProvider>
+            </LanguageProvider>
         </QueryClientProvider>
     );
 }
