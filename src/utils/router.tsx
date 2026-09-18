@@ -37,19 +37,22 @@ const authMiddleware = async ({ request }: { request: Request }) => {
 
     switch (true) {
         case accountState === AccountState.signin: {
+            /** not signed in => must be signin
+             * pathname in auth routers && pathname !== start => not redirect
+             */
             if (pathname !== AuthRouterPath.start && !requireAuth) return;
 
-            /** not signed in
-             * pathname must be verified
-             * save this url
+            /** pathname is other => save this url
              * redirect to signin */
             authAction.setData({ prePath: requireAuth ? currentPath : GlobalRouterPath.home });
             throw replace(AuthRouterPath.signin);
         }
         case accountState === AccountState.start: {
-            /** has token
-             * if requireAuth => save this url
-             * redirect to start */
+            /** has token => must be restart
+             * if requireAuth => save this url, replace it after restart
+             * pathname is "start" => not redirect
+             * pathname is other => redirect to start
+             */
             authAction.setData({ prePath: requireAuth ? currentPath : GlobalRouterPath.home });
             settingAction.updateStatusCode(axios.HttpStatusCode.Unauthorized);
 
@@ -57,11 +60,11 @@ const authMiddleware = async ({ request }: { request: Request }) => {
             throw replace(AuthRouterPath.start);
         }
         case accountState === AccountState.verified: {
+            /** verified => ok
+             * pathname in protected routers => nothing
+             * pathname in auth routers => redirect to home
+             */
             if (requireAuth) return;
-
-            /** verified
-             * pathname in AuthRouterPath
-             * redirect to home */
             throw replace(GlobalRouterPath.home);
         }
         default: // nothing
