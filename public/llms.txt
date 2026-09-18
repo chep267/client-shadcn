@@ -1,0 +1,12 @@
+# Chep Shadcn
+
+> This template should help get you started developing with React in Vite.
+
+## Documentation
+
+- [API docs](https://client-shadcn.vercel.app/docs/api): Detailed guide for using the API.
+- [System docs](https://client-shadcn.vercel.app/docs/intro): Overview of features and system architecture.
+
+## Related Links
+
+- [Home](https://client-shadcn.vercel.app): Main website homepage.
