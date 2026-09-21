@@ -14,12 +14,10 @@ In this project, you need to create a `.env` file in the root directory to confi
 - **VITE_APP_NAME**: The name of the application.
 - **VITE_APP_MODE**: The operating mode (`dev`, `prod`, etc.).
 
-
 - **VITE_APP_CLIENT_HOST**: The server host (e.g., `localhost`).
 - **VITE_APP_CLIENT_PORT**: The port on which the application runs.
 - **VITE_APP_CLIENT_LOCALE**: The default language (`en`, `vi`, etc.).
 - **VITE_APP_CLIENT_THEME**: The theme of the application (`light` or `dark`).
-
 
 - **VITE_APP_API_HOST**: The base URL for your API.
 - **VITE_APP_ACCESS_KEY**: The access key for external services or CDN.

@@ -36,7 +36,7 @@ jobs:
                   cache: 'pnpm'
 
             - name: Install Dependencies
-              run: pnpm config set ignore-scripts && pnpm install --frozen-lockfile
+              run: pnpm install --config.ignore-scripts=false
 
             - name: Linter
               run: pnpm lint
