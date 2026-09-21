@@ -15,7 +15,7 @@
         "preview": "vite preview",
         "lint": "eslint . --fix",
         "format": "prettier --write .",
-        "clean": "tsc --build --clean && rimraf node_modules && rimraf pnpm-lock.yaml && rimraf dist && rimraf stats.html",
+        "clean": "tsc --build --clean && rimraf dist && rimraf stats.html && rimraf node_modules",
         "check-code": "node scripts/check-coding-rules.*",
         "generate-module": "node scripts/generate-module.*"
     },
@@ -105,6 +105,12 @@
         ],
         "src/**/*.{json,css,scss,md}": [
             "prettier --write"
+        ]
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "esbuild",
+            "@tsparticles/engine"
         ]
     }
 }
