@@ -46,6 +46,16 @@ jobs:
 
             - name: Build Project
               run: pnpm build
+              env:
+                  # Đọc tự động các biến bạn đã add trên GitHub Settings (Variables / Secrets)
+                  VITE_APP_API_HOST: ${{ vars.VITE_APP_API_HOST || secrets.VITE_APP_API_HOST }}
+                  VITE_APP_CLIENT_HOST: ${{ vars.VITE_APP_CLIENT_HOST || secrets.VITE_APP_CLIENT_HOST }}
+                  VITE_APP_CLIENT_PORT: ${{ vars.VITE_APP_CLIENT_PORT || secrets.VITE_APP_CLIENT_PORT }}
+                  VITE_APP_CLIENT_LOCALE: ${{ vars.VITE_APP_CLIENT_LOCALE || secrets.VITE_APP_CLIENT_LOCALE }}
+                  VITE_APP_CLIENT_THEME: ${{ vars.VITE_APP_CLIENT_THEME || secrets.VITE_APP_CLIENT_THEME }}
+                  VITE_APP_BUILD_GZIP: ${{ vars.VITE_APP_BUILD_GZIP || secrets.VITE_APP_BUILD_GZIP }}
+                  VITE_APP_PUSHER_KEY: ${{ vars.VITE_APP_PUSHER_KEY || secrets.VITE_APP_PUSHER_KEY }}
+                  VITE_APP_PUSHER_CLUSTER: ${{ vars.VITE_APP_PUSHER_CLUSTER || secrets.VITE_APP_PUSHER_CLUSTER }}
 
             - name: Upload dist artifact
               uses: actions/upload-artifact@v4
@@ -65,9 +75,6 @@ jobs:
             url: ${{ steps.deployment.outputs.page_url }}
 
         steps:
-            - name: Checkout code
-              uses: actions/checkout@v5
-
             - name: Download dist artifact
               uses: actions/download-artifact@v4
               with:
