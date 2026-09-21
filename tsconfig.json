@@ -4,7 +4,7 @@
     "compilerOptions": {
         "types": ["node"],
         "paths": {
-            "@module-base/*": ["src/modules/module-base/*"]
+            "@module-base/*": ["./src/modules/module-base/*"]
         }
     }
 }
