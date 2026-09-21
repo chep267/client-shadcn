@@ -5,6 +5,7 @@
  */
 
 /** libs */
+import * as React from 'react';
 import { RouterProvider } from 'react-router/dom';
 
 /** providers */
@@ -18,8 +19,10 @@ import '@src/styles/index.css';
 
 export function App() {
     return (
-        <AppProvider>
-            <RouterProvider router={router} />
-        </AppProvider>
+        <React.StrictMode>
+            <AppProvider>
+                <RouterProvider router={router} />
+            </AppProvider>
+        </React.StrictMode>
     );
 }

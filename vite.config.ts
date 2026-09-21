@@ -55,6 +55,7 @@ export default ({ mode }: ConfigEnv) => {
                 : undefined,
             config.isDevMode ? pluginVisualizer({ filename: 'stats.html', open: true }) : undefined,
         ],
+        base: '/',
         resolve: {
             alias: resolveAlias(),
             extensions: ['.mjs', '.mts', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
