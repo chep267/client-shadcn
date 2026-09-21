@@ -6,7 +6,6 @@ on:
     pull_request:
         branches: [main]
 
-# Cấp quyền để deploy lên GitHub Pages
 permissions:
     contents: read
     pages: write
@@ -17,9 +16,10 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
-    # --- GIAI ĐOẠN 1: CI (Lint, Typecheck, Build & Store Artifact) ---
+    # --- GIAI ĐOẠN 1: CI ---
     ci:
         runs-on: ubuntu-latest
+
         steps:
             - name: Checkout code
               uses: actions/checkout@v5
@@ -36,38 +36,38 @@ jobs:
                   cache: 'pnpm'
 
             - name: Install Dependencies
-              run: pnpm install
+              run: pnpm install --frozen-lockfile
 
             - name: Linter
               run: pnpm lint
 
             - name: Type check
-              run: npx tsc --noEmit
+              run: pnpm exec tsc --noEmit
 
             - name: Build Project
               run: pnpm build
 
-            # Lưu bản build (dist) thành artifact để job CD tái sử dụng
             - name: Upload dist artifact
               uses: actions/upload-artifact@v4
               with:
                   name: build-dist
                   path: './dist'
-                  retention-days: 1 # Xóa artifact sau 1 ngày để tiết kiệm dung lượng lưu trữ
+                  retention-days: 1
 
-    # --- GIAI ĐOẠN 2: CD (Deploy từ Artifact có sẵn) ---
+    # --- GIAI ĐOẠN 2: CD ---
     cd:
         needs: ci
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         runs-on: ubuntu-latest
+
         environment:
             name: github-pages
             url: ${{ steps.deployment.outputs.page_url }}
+
         steps:
             - name: Checkout code
               uses: actions/checkout@v5
 
-            # Tải lại thư mục ./dist đã được build từ job CI
             - name: Download dist artifact
               uses: actions/download-artifact@v4
               with:
