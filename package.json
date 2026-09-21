@@ -107,10 +107,8 @@
             "prettier --write"
         ]
     },
-    "pnpm": {
-        "onlyBuiltDependencies": [
-            "esbuild",
-            "@tsparticles/engine"
-        ]
-    }
+    "onlyBuiltDependencies": [
+        "esbuild",
+        "@tsparticles/engine"
+    ]
 }
