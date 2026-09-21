@@ -8,6 +8,7 @@ on:
 
 permissions:
     contents: read
+    actions: read
     pages: write
     id-token: write
 
@@ -46,18 +47,19 @@ jobs:
             - name: Type check
               run: pnpm exec tsc --noEmit
 
-            - name: Load Env
-              env:
-                  GH_TOKEN: ${{ github.token }}
-              run: |
-                  gh api \
-                    --paginate \
-                    /repos/${{ github.repository }}/actions/variables \
-                    --jq '.variables[] | "\(.name)=\(.value)"' \
-                    >> "$GITHUB_ENV"
-
             - name: Build Project
               run: pnpm build
+              env:
+                  # Đọc tự động các biến bạn đã add trên GitHub Settings (Variables / Secrets)
+                  VITE_APP_TITLE: ${{ vars.VITE_APP_TITLE || secrets.VITE_APP_TITLE }}
+                  VITE_APP_NAME: ${{ vars.VITE_APP_NAME || secrets.VITE_APP_NAME }}
+                  VITE_APP_MODE: ${{ vars.VITE_APP_MODE || secrets.VITE_APP_MODE }}
+                  VITE_APP_CLIENT_LOCALE: ${{ vars.VITE_APP_CLIENT_LOCALE || secrets.VITE_APP_CLIENT_LOCALE }}
+                  VITE_APP_CLIENT_THEME: ${{ vars.VITE_APP_CLIENT_THEME || secrets.VITE_APP_CLIENT_THEME }}
+
+                  VITE_APP_API_HOST: ${{ vars.VITE_APP_API_HOST || secrets.VITE_APP_API_HOST }}
+                  VITE_APP_PUSHER_KEY: ${{ vars.VITE_APP_PUSHER_KEY || secrets.VITE_APP_PUSHER_KEY }}
+                  VITE_APP_PUSHER_CLUSTER: ${{ vars.VITE_APP_PUSHER_CLUSTER || secrets.VITE_APP_PUSHER_CLUSTER }}
 
             - name: Upload dist artifact
               uses: actions/upload-artifact@v4
