@@ -36,7 +36,7 @@ jobs:
                   cache: 'pnpm'
 
             - name: Install Dependencies
-              run: pnpm install --only-built-dependencies=esbuild,@tsparticles/engine
+              run: pnpm install
 
             - name: Linter
               run: pnpm lint
