@@ -2,7 +2,7 @@ name: CI/CD Pipeline - GitHub Pages
 
 on:
     push:
-        branches: [main, develop]
+        branches: [main]
     pull_request:
         branches: [main]
 
@@ -16,7 +16,9 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
-    # --- GIAI ĐOẠN 1: CI ---
+    # =========================
+    # CI
+    # =========================
     ci:
         runs-on: ubuntu-latest
 
@@ -33,7 +35,7 @@ jobs:
               uses: actions/setup-node@v5
               with:
                   node-version: 24
-                  cache: 'pnpm'
+                  cache: pnpm
 
             - name: Install Dependencies
               run: pnpm install --frozen-lockfile
@@ -44,27 +46,29 @@ jobs:
             - name: Type check
               run: pnpm exec tsc --noEmit
 
+            - name: Load Env
+              env:
+                  GH_TOKEN: ${{ github.token }}
+              run: |
+                  gh api \
+                    --paginate \
+                    /repos/${{ github.repository }}/actions/variables \
+                    --jq '.variables[] | "\(.name)=\(.value)"' \
+                    >> "$GITHUB_ENV"
+
             - name: Build Project
               run: pnpm build
-              env:
-                  # Đọc tự động các biến bạn đã add trên GitHub Settings (Variables / Secrets)
-                  VITE_APP_API_HOST: ${{ vars.VITE_APP_API_HOST || secrets.VITE_APP_API_HOST }}
-                  VITE_APP_CLIENT_HOST: ${{ vars.VITE_APP_CLIENT_HOST || secrets.VITE_APP_CLIENT_HOST }}
-                  VITE_APP_CLIENT_PORT: ${{ vars.VITE_APP_CLIENT_PORT || secrets.VITE_APP_CLIENT_PORT }}
-                  VITE_APP_CLIENT_LOCALE: ${{ vars.VITE_APP_CLIENT_LOCALE || secrets.VITE_APP_CLIENT_LOCALE }}
-                  VITE_APP_CLIENT_THEME: ${{ vars.VITE_APP_CLIENT_THEME || secrets.VITE_APP_CLIENT_THEME }}
-                  VITE_APP_BUILD_GZIP: ${{ vars.VITE_APP_BUILD_GZIP || secrets.VITE_APP_BUILD_GZIP }}
-                  VITE_APP_PUSHER_KEY: ${{ vars.VITE_APP_PUSHER_KEY || secrets.VITE_APP_PUSHER_KEY }}
-                  VITE_APP_PUSHER_CLUSTER: ${{ vars.VITE_APP_PUSHER_CLUSTER || secrets.VITE_APP_PUSHER_CLUSTER }}
 
             - name: Upload dist artifact
               uses: actions/upload-artifact@v4
               with:
                   name: build-dist
-                  path: './dist'
+                  path: ./dist
                   retention-days: 1
 
-    # --- GIAI ĐOẠN 2: CD ---
+    # =========================
+    # CD
+    # =========================
     cd:
         needs: ci
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -79,7 +83,7 @@ jobs:
               uses: actions/download-artifact@v4
               with:
                   name: build-dist
-                  path: './dist'
+                  path: ./dist
 
             - name: Setup Pages
               uses: actions/configure-pages@v5
@@ -87,7 +91,7 @@ jobs:
             - name: Upload GitHub Pages artifact
               uses: actions/upload-pages-artifact@v4
               with:
-                  path: './dist'
+                  path: ./dist
 
             - name: Deploy to GitHub Pages
               id: deployment
