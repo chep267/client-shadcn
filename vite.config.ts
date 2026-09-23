@@ -37,12 +37,13 @@ export default ({ mode }: ConfigEnv) => {
         port: Number(process.env.VITE_APP_CLIENT_PORT) || 3000,
         host: process.env.VITE_APP_CLIENT_HOST || 'localhost',
         isGzip: process.env.VITE_APP_BUILD_GZIP === 'true',
+        isGithub: process.env.VITE_APP_REPO === 'github',
     };
 
     return defineConfig({
         plugins: [
             pluginReact(),
-            pluginBasicSsl(),
+            config.isDevMode ? pluginBasicSsl() : undefined,
             pluginTailwindcss(),
             // Gzip compression for production builds
             config.isGzip
@@ -55,7 +56,7 @@ export default ({ mode }: ConfigEnv) => {
                 : undefined,
             config.isDevMode ? pluginVisualizer({ filename: 'stats.html', open: true }) : undefined,
         ],
-        base: config.isDevMode ? '/' : '/client-shadcn/',
+        base: config.isGithub ? '/client-shadcn/' : '/',
         resolve: {
             alias: resolveAlias(),
             extensions: ['.mjs', '.mts', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
@@ -77,7 +78,6 @@ export default ({ mode }: ConfigEnv) => {
                         if (
                             id.includes('/node_modules/react/') ||
                             id.includes('/node_modules/react-dom/') ||
-                            id.includes('/node_modules/react-router/') ||
                             id.includes('/node_modules/react-router/')
                         ) {
                             return 'vendor-react-core';

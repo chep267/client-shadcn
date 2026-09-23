@@ -36,8 +36,7 @@ export function ThreadSearch() {
                 'h-0 w-full overflow-hidden',
                 'transition-all duration-200 ease-linear',
                 {
-                    'h-full': openSearch,
-                    '[&>div]:invisible': !openSearch,
+                    'tablet:h-full': openSearch,
                 }
             )}
         >

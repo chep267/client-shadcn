@@ -111,7 +111,8 @@ export default defineConfig(
             'no-restricted-imports': [
                 'error',
                 {
-                    paths: ['lodash', 'lodash-es'],
+                    paths: ['lodash'],
+                    patterns: ['lodash/*'],
                 },
             ],
         },

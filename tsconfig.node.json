@@ -3,7 +3,7 @@
     "include": ["vite.config.*", "eslint.config.*", "prettier.config.*", "vitest.config.*", "scripts/**/*"],
     "compilerOptions": {
         "target": "ESNext",
-        "lib": ["ES2024", "ESNext"],
+        "lib": ["ESNext"],
         "module": "ESNext",
         "skipLibCheck": true,
 
