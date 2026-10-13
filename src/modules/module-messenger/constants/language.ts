@@ -7,6 +7,7 @@
 export const MessengerLanguage = {
     component: {
         label: {
+            router: 'module.messenger.component.label.router',
             threads: {
                 title: 'module.messenger.component.label.threads.title',
                 sender: 'module.messenger.component.label.threads.sender',

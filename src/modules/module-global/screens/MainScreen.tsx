@@ -27,14 +27,16 @@ export default function MainScreen() {
 
     return (
         <div
-            className={cn('relative', 'flex flex-col', 'h-dvh w-dvw', { '[--app-size-height-header:0px]': !hasHeader })}
+            className={cn('relative', 'flex flex-col', 'h-dvh w-dvw', {
+                '[--app-size-height-header:0px] [--app-size-height-screen:100dvh]': !hasHeader,
+            })}
         >
             <React.Suspense fallback={<StartLoading />}>
                 {hasHeader && <AppHeader />}
 
                 <div className={cn('flex flex-1', 'pt-(--app-size-height-header)')}>
                     {hasSider ? (
-                        <SidebarProvider className="min-h-[calc(100dvh-var(--app-size-height-header))]">
+                        <SidebarProvider className="min-h-(--app-size-height-screen)">
                             <AppSidebar />
                             <Outlet />
                         </SidebarProvider>

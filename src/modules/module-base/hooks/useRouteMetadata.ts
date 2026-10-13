@@ -15,10 +15,11 @@ export interface RouteHandle {
 export function useRouteMetadata() {
     const matches = useMatches();
     const currentMatch = matches[matches.length - 1] as UIMatch<unknown, RouteHandle>;
+    const routeViews = currentMatch.handle?.includes;
 
     return {
-        hasHeader: currentMatch.handle?.includes?.includes('header'),
-        hasFooter: currentMatch.handle?.includes?.includes('footer'),
-        hasSider: currentMatch.handle?.includes?.includes('sider'),
+        hasHeader: routeViews?.includes('header'),
+        hasFooter: routeViews?.includes('footer'),
+        hasSider: routeViews?.includes('sider'),
     };
 }

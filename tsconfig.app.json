@@ -20,6 +20,7 @@
             "@module-dashboard/*": ["./src/modules/module-dashboard/*"],
             "@module-calendar/*": ["./src/modules/module-calendar/*"],
             "@module-poem/*": ["./src/modules/module-poem/*"],
+            "@module-feed/*": ["./src/modules/module-feed/*"],
             "@module-messenger/*": ["./src/modules/module-messenger/*"]
         }
     }

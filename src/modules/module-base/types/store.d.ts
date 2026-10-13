@@ -29,3 +29,27 @@ export interface SettingStore {
     data: SettingStoreData;
     action: SettingStoreAction;
 }
+
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/** modal store */
+export type TypeAttachment = {
+    id: string;
+    url?: string | null;
+    type?: string | null;
+    size?: number | null;
+};
+interface ModalStoreData {
+    attachments: TypeAttachment[];
+    position: number;
+    open: boolean;
+}
+interface ModalStoreAction {
+    show: (attachments?: ModalStoreData['attachments'], position?: number) => void;
+    hide: () => void;
+    changePosition: (mode: 'prev' | 'next') => void;
+    setPosition: (position: number) => void;
+}
+export interface ModalStore {
+    data: ModalStoreData;
+    action: ModalStoreAction;
+}

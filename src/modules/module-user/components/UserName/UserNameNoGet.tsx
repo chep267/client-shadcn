@@ -5,7 +5,7 @@
  */
 
 /** libs */
-import React from 'react';
+import * as React from 'react';
 import { cn } from 'cn';
 
 /** components */
@@ -19,8 +19,8 @@ export function UserNameNoGet(props: UserNameNoGetProps) {
     const { className, name, ...otherProps } = props;
 
     return (
-        <Typography data-slot="name" className={cn('truncate', className)} {...otherProps}>
-            {name}
+        <Typography data-slot="user-name" className={cn('truncate', className)} {...otherProps}>
+            {name || 'Unknown user'}
         </Typography>
     );
 }

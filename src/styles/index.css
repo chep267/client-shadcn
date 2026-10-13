@@ -28,6 +28,18 @@
         }
     }
     --animate-wavy: wave 1.2s infinite ease-in-out;
+
+    @keyframes glow {
+        0% {
+            opacity: 0.4;
+            filter: brightness(0.9);
+        }
+        100% {
+            opacity: 1;
+            filter: brightness(1.15);
+        }
+    }
+    --animate-glow: glow 1.8s ease-in-out infinite alternate;
 }
 
 @theme inline {

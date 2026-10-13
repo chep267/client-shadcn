@@ -9,6 +9,7 @@ export const BaseLanguage = {
         label: {
             default: 'module.base.component.label.default',
             start: 'module.base.component.label.start',
+            loading: 'module.base.component.label.loading',
             develop: 'module.base.component.label.develop',
             error: {
                 fallback: {
@@ -47,6 +48,9 @@ export const BaseLanguage = {
             empty: 'module.base.component.select.empty',
             placeholder: 'module.base.component.select.placeholder',
             clear: 'module.base.component.select.clear',
+        },
+        image: {
+            error: 'module.base.component.image.error',
         },
     },
 } as const;

@@ -10,6 +10,7 @@ import { BaseLanguage } from '@module-base/constants/language';
 export const vi = {
     [BaseLanguage.component.label.default]: '',
     [BaseLanguage.component.label.start]: 'start',
+    [BaseLanguage.component.label.loading]: 'Đang tải...',
     [BaseLanguage.component.label.develop]: 'Đang phát triển!',
     [BaseLanguage.component.label.error.server]: 'Máy chủ không phản hồi!',
     [BaseLanguage.component.label.error.fallback.title]: 'Đã xảy ra lỗi',
@@ -37,4 +38,6 @@ export const vi = {
     [BaseLanguage.component.select.empty]: 'Dữ liệu trống!',
     [BaseLanguage.component.select.placeholder]: 'Chọn...',
     [BaseLanguage.component.select.clear]: '-- Xoá --',
+
+    [BaseLanguage.component.image.error]: 'Không tải được ảnh',
 } as const;

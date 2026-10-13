@@ -10,6 +10,7 @@ import { BaseLanguage } from '@module-base/constants/language';
 export const en = {
     [BaseLanguage.component.label.default]: '',
     [BaseLanguage.component.label.start]: 'start',
+    [BaseLanguage.component.label.loading]: 'Loading...',
     [BaseLanguage.component.label.develop]: 'In develop!',
     [BaseLanguage.component.label.error.server]: 'Server busy!',
     [BaseLanguage.component.label.error.fallback.title]: 'An error occurred',
@@ -37,4 +38,6 @@ export const en = {
     [BaseLanguage.component.select.empty]: 'No data!',
     [BaseLanguage.component.select.placeholder]: 'Select...',
     [BaseLanguage.component.select.clear]: '-- Clear --',
+
+    [BaseLanguage.component.image.error]: 'Loading error',
 } as const;

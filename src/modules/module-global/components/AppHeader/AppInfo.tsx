@@ -18,7 +18,7 @@ import { Typography } from '@module-base/components/typography';
 
 export function AppInfo() {
     return (
-        <Link className={cn('group', 'flex items-center gap-2')} to={GlobalRouterPath.home}>
+        <Link className={cn('group', 'flex items-center gap-2')} to={GlobalRouterPath.default}>
             <IconBase className={cn('group-hover:scale-120 group-hover:animate-spin')} name="app-logo" />
             <Typography component="h4" className="group-hover:text-main">
                 {AppEnv.appName}

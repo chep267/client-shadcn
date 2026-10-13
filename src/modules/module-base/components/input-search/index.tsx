@@ -36,9 +36,11 @@ export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
     const internalRef = React.useRef<HTMLInputElement>(null);
     const eventSearch = useLatest(onSearch);
 
-    const placeholder =
-        externalPlaceholder ||
-        formatMessage({ id: BaseLanguage.component.input.placeholder, defaultMessage: 'Search...' });
+    React.useEffect(() => {
+        if (externalValue !== localValue) {
+            setLocalValue(externalValue);
+        }
+    }, [externalValue]);
 
     const handleClear = React.useCallback(() => {
         internalRef.current?.focus();
@@ -56,18 +58,43 @@ export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
         });
     }, []);
 
-    const SearchIconElement = React.useMemo(() => {
-        return (
+    React.useImperativeHandle(
+        ref,
+        () => ({
+            clear: handleClear,
+        }),
+        []
+    );
+
+    const placeholder =
+        externalPlaceholder ||
+        formatMessage({ id: BaseLanguage.component.input.placeholder, defaultMessage: 'Search...' });
+
+    return (
+        <div
+            data-slot="search-container"
+            className={cn('relative w-full', 'data-[empty=true]:[&>button]:data-[slot=search-close]:hidden', className)}
+            data-empty={!localValue}
+        >
             <SearchIcon
                 data-slot="search-icon"
                 className={cn('absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2', 'text-muted-foreground')}
                 aria-hidden="true"
             />
-        );
-    }, []);
 
-    const SearchClearButton = React.useMemo(() => {
-        return (
+            <Input
+                {...otherProps}
+                data-slot="search-input"
+                type="text"
+                role="searchbox"
+                ref={internalRef}
+                className={cn('px-10')}
+                aria-label={label}
+                placeholder={placeholder}
+                value={localValue}
+                onChange={handleChange}
+            />
+
             <Button
                 data-slot="search-close"
                 type="button"
@@ -78,45 +105,12 @@ export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
                     'cursor-pointer rounded-full',
                     'text-muted-foreground hover:text-foreground hover:bg-transparent'
                 )}
-                onClick={handleClear}
                 aria-label="Clear search input"
                 title="Clear"
+                onClick={handleClear}
             >
                 <XIcon className="h-4 w-4" aria-hidden="true" />
             </Button>
-        );
-    }, []);
-
-    React.useImperativeHandle(
-        ref,
-        () => ({
-            clear: handleClear,
-        }),
-        []
-    );
-
-    return (
-        <div
-            data-slot="search-container"
-            className={cn('relative w-full', 'data-[empty=true]:[&>button]:data-[slot=search-close]:hidden', className)}
-            data-empty={!localValue}
-        >
-            {SearchIconElement}
-
-            <Input
-                data-slot="search-input"
-                {...otherProps}
-                ref={internalRef}
-                type="text"
-                role="searchbox"
-                placeholder={placeholder}
-                value={localValue}
-                onChange={handleChange}
-                className={cn('pr-9 pl-9 focus-visible:ring-2')}
-                aria-label={label}
-            />
-
-            {SearchClearButton}
         </div>
     );
 }

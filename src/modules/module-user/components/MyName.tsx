@@ -5,7 +5,7 @@
  */
 
 /** libs */
-import React from 'react';
+import * as React from 'react';
 
 /** stores */
 import { useAuthStore } from '@module-auth/stores/useAuthStore';

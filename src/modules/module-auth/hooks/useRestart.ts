@@ -39,7 +39,7 @@ export function useRestart() {
             const user = response.data.data;
             const { token } = response.data.metadata;
             Cookies.set(AppKey.token, token.value);
-            authAction.setData({ user, token: token.value, prePath: '/' });
+            authAction.setData({ user, token: token.value });
             void navigate(path, { replace: true });
         },
         onError: async (error: AxiosError) => {
@@ -54,7 +54,7 @@ export function useRestart() {
 
             toast.error(formatMessage({ id: message, defaultMessage: message }));
             Cookies.remove(AppKey.token);
-            authAction.setData({ user: null, token: undefined, prePath: '/' });
+            authAction.setData({ user: null, token: undefined });
         },
     });
 }

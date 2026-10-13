@@ -44,7 +44,7 @@ export function ThreadInfo() {
             >
                 <CardTitle>
                     <Typography component="h4">
-                        <FormattedMessage id="1" defaultMessage="Thread Info" />
+                        <FormattedMessage id="Thread Info" defaultMessage="Thread Info" />
                     </Typography>
                 </CardTitle>
             </CardHeader>

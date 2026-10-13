@@ -5,8 +5,9 @@
  */
 
 /** libs */
-import React from 'react';
+import * as React from 'react';
 import { cn } from 'cn';
+import { UserIcon } from 'lucide-react';
 
 /** utils */
 import { genAvatarFallbackFromName } from '@module-user/utils/user';
@@ -31,14 +32,16 @@ export function UserAvatarNoGet(props: UserAvatarNoGetProps) {
     };
 
     return (
-        <Avatar className={cn('relative', className)} size={size} {...otherProps}>
+        <Avatar data-slot="user-avatar" className={cn('relative', className)} size={size} {...otherProps}>
             <AvatarImage
                 className={cn({ 'opacity-0': loading })}
                 alt={src ? `Avatar of ${name}` : `Fallback avatar of ${name}`}
                 src={src}
                 onLoadingStatusChange={handleLoadingAvatar}
             />
-            <AvatarFallback className={cn({ 'opacity-0': loading })}>{genAvatarFallbackFromName(name)}</AvatarFallback>
+            <AvatarFallback className={cn({ 'opacity-0': loading })}>
+                {name ? genAvatarFallbackFromName(name) : <UserIcon className="size-5" />}
+            </AvatarFallback>
             {loading && <Skeleton className="absolute inset-0 h-full w-full rounded-full" />}
         </Avatar>
     );

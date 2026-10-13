@@ -8,5 +8,5 @@ export const UserApiPath = {
     root: '/app',
     create: '/create',
     users: '/users',
-    user: '/user/:uid',
+    user: '/users/:uid',
 } as const;

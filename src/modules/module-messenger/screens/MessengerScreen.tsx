@@ -19,7 +19,7 @@ export default function MessengerScreen() {
     useSocket();
 
     return (
-        <div className={cn('relative flex flex-1 p-1', 'max-h-[calc(100dvh-var(--app-size-height-header))]')}>
+        <div className={cn('relative flex flex-1 p-1', 'max-h-(--app-size-height-screen)')}>
             <Threads />
             <Conversation />
             <ThreadInfo />

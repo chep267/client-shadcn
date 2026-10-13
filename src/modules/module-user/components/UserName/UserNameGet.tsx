@@ -5,7 +5,7 @@
  */
 
 /** libs */
-import React from 'react';
+import * as React from 'react';
 import { cn } from 'cn';
 
 /** hooks */
@@ -34,5 +34,5 @@ export function UserNameGet(props: UserNameGetProps) {
         );
     }
 
-    return <UserNameNoGet {...otherProps} name={user?.name} />;
+    return <UserNameNoGet className={className} {...otherProps} name={user?.name} />;
 }

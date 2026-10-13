@@ -14,6 +14,7 @@ import { AccountState } from '@module-auth/constants/status';
 import { CalendarRouterPath } from '@module-calendar/constants/path';
 import { PoemRouterPath } from '@module-poem/constants/path';
 import { MessengerRouterPath } from '@module-messenger/constants/path';
+import { FeedRouterPath } from '@module-feed/constants/path';
 import { GlobalRouterPath } from '@module-global/constants/path';
 
 /** stores */
@@ -22,7 +23,7 @@ import { useAuthStore } from '@module-auth/stores/useAuthStore';
 
 const authMiddleware = async ({ request }: { request: Request }) => {
     const {
-        data: { user, token },
+        data: { user, token, prePath },
         action: authAction,
     } = useAuthStore.getState();
     const { action: settingAction } = useSettingStore.getState();
@@ -44,7 +45,7 @@ const authMiddleware = async ({ request }: { request: Request }) => {
 
             /** pathname is other => save this url
              * redirect to signin */
-            authAction.setData({ prePath: requireAuth ? currentPath : GlobalRouterPath.home });
+            authAction.setData({ prePath: requireAuth ? currentPath : GlobalRouterPath.default });
             throw replace(AuthRouterPath.signin);
         }
         case accountState === AccountState.start: {
@@ -53,10 +54,9 @@ const authMiddleware = async ({ request }: { request: Request }) => {
              * pathname is "start" => not redirect
              * pathname is other => redirect to start
              */
-            authAction.setData({ prePath: requireAuth ? currentPath : GlobalRouterPath.home });
-            settingAction.updateStatusCode(axios.HttpStatusCode.Unauthorized);
-
             if (pathname === AuthRouterPath.start) return;
+            settingAction.updateStatusCode(axios.HttpStatusCode.Unauthorized);
+            authAction.setData({ prePath: requireAuth ? currentPath : GlobalRouterPath.default });
             throw replace(AuthRouterPath.start);
         }
         case accountState === AccountState.verified: {
@@ -65,7 +65,7 @@ const authMiddleware = async ({ request }: { request: Request }) => {
              * pathname in auth routers => redirect to home
              */
             if (requireAuth) return;
-            throw replace(GlobalRouterPath.home);
+            throw replace(prePath);
         }
         default: // nothing
     }
@@ -76,7 +76,7 @@ export const router = createBrowserRouter([
         path: GlobalRouterPath.home,
         lazy: {
             Component: async () => (await import('@module-global/screens/MainScreen')).default,
-            HydrateFallback: async () => (await import('@module-base/components/start-loading')).StartLoading,
+            HydrateFallback: async () => (await import('@module-base/components/start-loading')).default,
         },
         children: [
             { index: true, element: <Navigate to={GlobalRouterPath.default} /> },
@@ -87,7 +87,7 @@ export const router = createBrowserRouter([
                 path: AuthRouterPath.start,
                 middleware: [authMiddleware],
                 lazy: {
-                    Component: async () => (await import('@module-base/components/start-loading')).StartLoading,
+                    Component: async () => (await import('@module-base/components/start-loading')).default,
                 },
             },
             {
@@ -127,7 +127,17 @@ export const router = createBrowserRouter([
                 path: GlobalRouterPath.default,
                 middleware: [authMiddleware],
                 lazy: {
-                    Component: async () => (await import('@module-global/screens/FeedScreen')).default,
+                    Component: async () => (await import('@module-global/screens/Dashboard')).default,
+                },
+                handle: {
+                    includes: ['header', 'sider'],
+                },
+            },
+            {
+                path: FeedRouterPath.root,
+                middleware: [authMiddleware],
+                lazy: {
+                    Component: async () => (await import('@module-feed/screens/FeedRouter')).default,
                 },
                 handle: {
                     includes: ['header', 'sider'],

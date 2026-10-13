@@ -6,6 +6,10 @@
 
 /** libs */
 import { cn } from 'cn';
+import { useIntl } from 'react-intl';
+
+/** constants */
+import { BaseLanguage } from '@module-base/constants/language';
 
 interface WavyLoadingProps {
     className?: string;
@@ -13,7 +17,11 @@ interface WavyLoadingProps {
 }
 
 export function WavyLoading(props: WavyLoadingProps) {
-    const { text = 'Loading...', className } = props;
+    const { text, className } = props;
+    const { formatMessage } = useIntl();
+
+    const placeholder =
+        text || formatMessage({ id: BaseLanguage.component.label.loading, defaultMessage: 'Loading...' });
 
     return (
         <div
@@ -23,7 +31,7 @@ export function WavyLoading(props: WavyLoadingProps) {
                 className
             )}
         >
-            {text.split('').map((char, index) => (
+            {placeholder.split('').map((char, index) => (
                 <span
                     key={index}
                     className="animate-wavy inline-block"

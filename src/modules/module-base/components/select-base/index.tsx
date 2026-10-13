@@ -12,6 +12,9 @@ import { FormattedMessage } from 'react-intl';
 /** constants */
 import { BaseLanguage } from '@module-base/constants/language';
 
+/** hooks */
+import { useLatest } from '@module-base/hooks/useLatest';
+
 /** components */
 import { Spinner } from '@module-base/components/spinner';
 import {
@@ -42,6 +45,8 @@ export function SelectBase<Value extends string = string>(props: App.ModuleBase.
     } = props;
 
     const [localValue, setLocalValue] = React.useState<Value | undefined>(externalValue);
+    const eventChange = useLatest(onChange);
+    const propItems = useLatest(items);
 
     React.useEffect(() => {
         if (externalValue !== localValue) {
@@ -49,17 +54,17 @@ export function SelectBase<Value extends string = string>(props: App.ModuleBase.
         }
     }, [externalValue]);
 
-    const handleChange = (value: Value) => {
-        setLocalValue(value);
+    const handleChange = React.useCallback((nextValue: string) => {
+        setLocalValue(nextValue as Value);
         React.startTransition(() => {
-            if (value === ITEM_CLEAR_VALUE) {
-                return onChange?.();
+            if (nextValue === ITEM_CLEAR_VALUE) {
+                return eventChange.current?.();
             }
 
-            const item = items?.find((item) => item.value === value);
-            onChange?.(value, item);
+            const item = propItems.current?.find((item) => item.value === nextValue);
+            eventChange.current?.(nextValue as Value, item);
         });
-    };
+    }, []);
 
     const showClear = hasClear && !!localValue && localValue !== ITEM_CLEAR_VALUE;
     const placeholder = externalPlaceholder ?? (

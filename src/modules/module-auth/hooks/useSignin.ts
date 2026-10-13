@@ -40,7 +40,7 @@ export function useSignin() {
             const { token } = response.data.metadata;
             Cookies.set(AppKey.email, user.email ?? '');
             Cookies.set(AppKey.token, token.value);
-            authAction.setData({ user, token: token.value, prePath: '/' });
+            authAction.setData({ user, token: token.value });
             void navigate(path, { replace: true });
         },
         onError: (error: AxiosError) => {

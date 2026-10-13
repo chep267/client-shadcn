@@ -17,7 +17,7 @@ import { Typography } from '@module-base/components/typography';
 /** styles */
 import './index.css';
 
-export function StartLoading() {
+function StartLoading() {
     return (
         <div className={cn('absolute flex items-center justify-center', 'top-0 right-0 bottom-0 left-0')}>
             <div
@@ -66,3 +66,6 @@ export function StartLoading() {
         </div>
     );
 }
+
+export { StartLoading };
+export default StartLoading;

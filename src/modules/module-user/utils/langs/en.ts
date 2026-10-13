@@ -5,8 +5,15 @@
  */
 
 /** constants */
-import { UserLanguage } from '@module-user/constants/language';
+import { FeedLanguage } from '@module-feed/constants/language';
 
 export const en = {
-    [UserLanguage.component.label.signout]: 'Sign out',
+    // label
+    [FeedLanguage.component.label.router]: 'New feed',
+
+    // button
+    [FeedLanguage.component.button.option]: 'Option',
+    [FeedLanguage.component.button.like]: 'Like',
+    [FeedLanguage.component.button.comment]: 'Comment',
+    [FeedLanguage.component.button.share]: 'Share',
 } as const;
