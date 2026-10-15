@@ -14,7 +14,7 @@ import { BaseLanguage } from '@module-base/constants/language';
 /** components */
 import { IconBase } from '@module-base/components/icon-base';
 import { Typography } from '@module-base/components/typography';
-import { ButtonRetry } from '@module-base/providers/NotifyProvider/FallbackDefault/ButtonRetry';
+import { ButtonRetry } from '@app/providers/NotifyProvider/FallbackDefault/ButtonRetry';
 
 /** screens */
 import LayerScreen from '@module-base/screens/LayerScreen';

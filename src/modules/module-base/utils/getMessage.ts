@@ -9,7 +9,7 @@ import { AppLocale } from '@module-base/constants/config';
 
 type MessageModule = Record<App.ModuleBase.Data.Locale, App.ModuleBase.Data.LanguageMessages>;
 
-const localeLoaders = import.meta.glob<MessageModule>('/src/langs/*.ts', { eager: false });
+const localeLoaders = import.meta.glob<MessageModule>('@langs/*');
 
 const messagesCache = {} as MessageModule;
 
@@ -28,12 +28,17 @@ export async function getMessage(locale: App.ModuleBase.Data.Locale): Promise<Ap
     }
 
     const defaultLocale = AppLocale.en;
-    const loaderPath = `/src/langs/${locale}.ts`;
-    const loader = localeLoaders[loaderPath];
+    const loaderPath = `/langs/${locale}.`;
+    const matchedPath = Object.keys(localeLoaders).find((key) => key.includes(loaderPath));
+    if (!matchedPath) {
+        throw new Error(`Locale not found for: ${locale}`);
+    }
+
+    const loader = localeLoaders[matchedPath];
 
     if (!loader) {
         if (locale === defaultLocale) {
-            throw new Error('Default locale is missing');
+            throw new Error('Default locale is missing...!');
         }
         console.warn(`Loader not found for locale: "${locale}". Falling back to "${defaultLocale}".`);
         return getMessage(defaultLocale);

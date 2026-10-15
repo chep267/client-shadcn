@@ -8,7 +8,7 @@
 import { createRoot } from 'react-dom/client';
 
 /** components */
-import { App } from '@src/App';
+import { App } from '@src/app';
 
 const root = createRoot(document.getElementById('root')!);
 root.render(<App />);

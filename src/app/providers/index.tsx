@@ -12,9 +12,9 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import { AppTimer } from '@module-base/constants/config';
 
 /** providers */
-import { LanguageProvider } from '@module-base/providers/LanguageProvider';
-import { ThemeProvider } from '@module-base/providers/ThemeProvider';
-import { NotifyProvider } from '@module-base/providers/NotifyProvider';
+import LanguageProvider from '@app/providers/LanguageProvider';
+import ThemeProvider from '@app/providers/ThemeProvider';
+import NotifyProvider from '@app/providers/NotifyProvider';
 
 /** Create a client */
 const queryClient = new QueryClient({

@@ -9,13 +9,13 @@ import * as React from 'react';
 import { RouterProvider } from 'react-router/dom';
 
 /** providers */
-import { AppProvider } from '@module-base/providers/AppProvider';
+import { AppProvider } from '@app/providers';
 
 /** utils */
-import { router } from '@src/utils/router';
+import { router } from '@app/router';
 
 /** styles */
-import '@src/styles/index.css';
+import '@app/styles/index.css';
 
 export function App() {
     return (

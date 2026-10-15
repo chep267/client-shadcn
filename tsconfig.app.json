@@ -11,7 +11,8 @@
         "paths": {
             "@src/*": ["./src/*"],
             "@test/*": ["./test/*"],
-            "@langs/*": ["./src/langs/*"],
+            "@app/*": ["./src/app/*"],
+            "@langs/*": ["./src/app/langs/*"],
             "@modules/*": ["./src/modules/*"],
             "@module-base/*": ["./src/modules/module-base/*"],
             "@module-user/*": ["./src/modules/module-user/*"],
