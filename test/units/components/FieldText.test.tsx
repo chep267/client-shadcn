@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import { render } from '@test/utils';
 
 /** components */
-import { FieldEmail } from '@module-auth/components/general/FieldEmail';
+import { FieldEmail } from '@modules/auth/components/general/FieldEmail';
 
 const ElementTest = (props: { name: string; label: string; value: string }) => {
     const { name, label, value } = props;

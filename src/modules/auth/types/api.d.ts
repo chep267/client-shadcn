@@ -1,0 +1,34 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** types */
+import type { ApiResponse } from '@modules/base/types/api.d';
+import type { User } from '@modules/user/types/data.d';
+
+/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+/** api auth */
+export interface AuthService {
+    Signin: {
+        Payload: { email: string; password: string };
+        Response: ApiResponse<User, { token: { exp: number; value: string } }>;
+    };
+    Signout: {
+        Payload: void;
+        Response: ApiResponse<null>;
+    };
+    Restart: {
+        Payload: void;
+        Response: ApiResponse<User, { token: { exp: number; value: string } }>;
+    };
+    Register: {
+        Payload: { email: string; password: string };
+        Response: ApiResponse<null>;
+    };
+    Recover: {
+        Payload: { email: string };
+        Response: ApiResponse<null>;
+    };
+}

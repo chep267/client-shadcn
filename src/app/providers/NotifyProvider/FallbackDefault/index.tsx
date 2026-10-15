@@ -9,15 +9,15 @@ import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { BaseLanguage } from '@module-base/constants/language';
+import { BaseLanguage } from '@modules/base/constants/language';
 
 /** components */
-import { IconBase } from '@module-base/components/icon-base';
-import { Typography } from '@module-base/components/typography';
+import { IconBase } from '@modules/base/components/icon-base';
+import { Typography } from '@modules/base/components/typography';
 import { ButtonRetry } from '@app/providers/NotifyProvider/FallbackDefault/ButtonRetry';
 
 /** screens */
-import LayerScreen from '@module-base/screens/LayerScreen';
+import LayerScreen from '@modules/base/screens/LayerScreen';
 
 export function FallbackDefault(props: App.ModuleBase.Component.FallbackDefaultProps) {
     const { isAutoReload } = props;

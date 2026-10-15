@@ -1,0 +1,33 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** libs */
+import { useLocation } from 'react-router';
+
+/** constants */
+import { SidebarItems } from '@modules/global/constants/SidebarItems';
+
+/** components */
+import { SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu } from '@modules/base/components/sidebar';
+import { AppSidebarItem } from '@modules/global/components/AppSidebar/AppSidebarContent/AppSidebarItem';
+
+export function AppSidebarContent() {
+    const { pathname } = useLocation();
+
+    return (
+        <SidebarContent className="scrollbar-custom scrollbar-thin overscroll-none">
+            <SidebarGroup>
+                <SidebarGroupContent>
+                    <SidebarMenu>
+                        {SidebarItems.map((item) => (
+                            <AppSidebarItem key={item.path} item={item} active={pathname.startsWith(item.path)} />
+                        ))}
+                    </SidebarMenu>
+                </SidebarGroupContent>
+            </SidebarGroup>
+        </SidebarContent>
+    );
+}

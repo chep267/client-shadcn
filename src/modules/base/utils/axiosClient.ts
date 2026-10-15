@@ -1,0 +1,64 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** libs */
+import axios from 'axios';
+import Cookies from 'js-cookie';
+
+/** constants */
+import { AppEnv, AppKey } from '@modules/base/constants/env';
+import { AppTimer } from '@modules/base/constants/config';
+
+/** utils */
+import { isTokenExpired } from '@modules/base/utils/axiosHelper';
+import { sleep } from '@modules/base/utils/sleep';
+
+/** stores */
+import { useSettingStore } from '@modules/base/stores/useSettingStore';
+
+/** types */
+import type { AxiosError } from 'axios';
+
+/** default api */
+export const axiosClient = axios.create({
+    baseURL: AppEnv.serverURL,
+    headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
+        lang: 'en',
+    },
+    timeout: AppTimer.timeoutApi,
+    withCredentials: true,
+});
+
+/** request interceptor */
+axiosClient.interceptors.request.use(
+    (config) => {
+        const token = Cookies.get(AppKey.token);
+        config.headers.Authorization = token ? `Bearer ${token}` : undefined;
+        return config;
+    },
+    (error: AxiosError) => Promise.reject(error)
+);
+
+/** response interceptor */
+axiosClient.interceptors.response.use(
+    (response) => {
+        return response;
+    },
+    async (error: AxiosError) => {
+        if (isTokenExpired(error)) {
+            const { action } = useSettingStore.getState();
+            if (error.config) {
+                action.addApiQueue(error.config);
+            }
+            action.updateStatusCode(axios.HttpStatusCode.Unauthorized);
+        }
+        /** Waiting, pause for about 600 ms */
+        await sleep(AppTimer.pendingApi);
+        return Promise.reject(error);
+    }
+);

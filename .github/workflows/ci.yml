@@ -57,7 +57,7 @@ jobs:
                   VITE_APP_CLIENT_LOCALE: ${{ vars.VITE_APP_CLIENT_LOCALE || secrets.VITE_APP_CLIENT_LOCALE }}
                   VITE_APP_CLIENT_THEME: ${{ vars.VITE_APP_CLIENT_THEME || secrets.VITE_APP_CLIENT_THEME }}
 
-                  VITE_APP_API_HOST: ${{ vars.VITE_APP_API_HOST || secrets.VITE_APP_API_HOST }}
+                  VITE_APP_SERVER_URL: ${{ vars.VITE_APP_SERVER_URL || secrets.VITE_APP_SERVER_URL }}
                   VITE_APP_PUSHER_KEY: ${{ vars.VITE_APP_PUSHER_KEY || secrets.VITE_APP_PUSHER_KEY }}
                   VITE_APP_PUSHER_CLUSTER: ${{ vars.VITE_APP_PUSHER_CLUSTER || secrets.VITE_APP_PUSHER_CLUSTER }}
 

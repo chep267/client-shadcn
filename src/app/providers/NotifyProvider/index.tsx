@@ -8,10 +8,10 @@
 import * as React from 'react';
 
 /** constants */
-import { AppTimer } from '@module-base/constants/config';
+import { AppTimer } from '@modules/base/constants/config';
 
 /** components */
-import { TooltipProvider } from '@module-base/components/tooltip';
+import { TooltipProvider } from '@modules/base/components/tooltip';
 import { FallbackDefault } from '@app/providers/NotifyProvider/FallbackDefault';
 import { NotifyBoundary } from '@app/providers/NotifyProvider/NotifyBoundary';
 

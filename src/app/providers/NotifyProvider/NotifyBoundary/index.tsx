@@ -5,13 +5,13 @@
  */
 
 /** constants */
-import { AppTimer } from '@module-base/constants/config';
+import { AppTimer } from '@modules/base/constants/config';
 
 /** stores */
-import { useSettingStore } from '@module-base/stores/useSettingStore';
+import { useSettingStore } from '@modules/base/stores/useSettingStore';
 
 /** components */
-import { Toaster } from '@module-base/components/sonner';
+import { Toaster } from '@modules/base/components/sonner';
 
 export function NotifyBoundary() {
     const theme = useSettingStore(({ data }) => data.theme);

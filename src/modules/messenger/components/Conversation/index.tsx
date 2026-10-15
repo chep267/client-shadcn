@@ -1,0 +1,27 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** libs */
+import { cn } from 'cn';
+
+/** components */
+import { Card } from '@modules/base/components/card';
+import { ConversationHeader } from '@modules/messenger/components/Conversation/ConversationHeader';
+import { ConversationBody } from '@modules/messenger/components/Conversation/ConversationBody';
+import { ConversationFooter } from '@modules/messenger/components/Conversation/ConversationFooter';
+
+export function Conversation() {
+    return (
+        <Card
+            data-slot="messenger-center"
+            className={cn('flex-1', 'ml-1 gap-0 rounded-sm border-l p-0', 'overflow-hidden')}
+        >
+            <ConversationHeader />
+            <ConversationBody />
+            <ConversationFooter />
+        </Card>
+    );
+}

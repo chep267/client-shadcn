@@ -1,0 +1,33 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** libs */
+import { cn } from 'cn';
+
+/** components */
+import { Checkbox } from '@modules/base/components/checkbox';
+import { TableCell } from '@modules/base/components/table';
+
+export function TableBodyCellCheckbox<Data>(props: App.ModuleBase.Component.TableCellCheckboxOneProps<Data>) {
+    const { className, id, store } = props;
+
+    const isChecked = store((state) => state.data.selectedIds.has(id));
+    const hasCheckbox = store((state) => state.data.hasCheckbox);
+    const toggleOne = store((state) => state.action.toggleOne);
+
+    if (!hasCheckbox) return null;
+
+    return (
+        <TableCell className={cn('w-10', className)}>
+            <Checkbox
+                aria-label="Select one"
+                className="cursor-pointer"
+                checked={isChecked}
+                onClick={() => toggleOne(id)}
+            />
+        </TableCell>
+    );
+}

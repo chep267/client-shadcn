@@ -8,10 +8,10 @@
 import * as React from 'react';
 
 /** constants */
-import { AppTheme } from '@module-base/constants/config';
+import { AppTheme } from '@modules/base/constants/config';
 
 /** stores */
-import { useSettingStore } from '@module-base/stores/useSettingStore';
+import { useSettingStore } from '@modules/base/stores/useSettingStore';
 
 export default function ThemeProvider(props: React.PropsWithChildren) {
     const { children } = props;

@@ -10,7 +10,7 @@ interface ImportMetaEnv {
     readonly VITE_APP_MODE: 'dev' | 'prod';
     readonly VITE_APP_TITLE: string;
     readonly VITE_APP_NAME: string;
-    readonly VITE_APP_API_HOST: string;
+    readonly VITE_APP_SERVER_URL: string;
     readonly VITE_APP_CLIENT_HOST: string;
     readonly VITE_APP_CLIENT_PORT: string;
     readonly VITE_APP_CLIENT_LOCALE: App.ModuleBase.Data.Locale;

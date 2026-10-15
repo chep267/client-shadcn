@@ -8,15 +8,15 @@
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { AppTimer } from '@module-base/constants/config';
-import { BaseLanguage } from '@module-base/constants/language';
+import { AppTimer } from '@modules/base/constants/config';
+import { BaseLanguage } from '@modules/base/constants/language';
 
 /** hooks */
-import { useCountdown } from '@module-base/hooks/useCountdown';
+import { useCountdown } from '@modules/base/hooks/useCountdown';
 
 /** components */
-import { Button } from '@module-base/components/button';
-import { Typography } from '@module-base/components/typography';
+import { Button } from '@modules/base/components/button';
+import { Typography } from '@modules/base/components/typography';
 
 function Timer() {
     const { second } = useCountdown({

@@ -1,0 +1,39 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** libs */
+import { cn } from 'cn';
+import { useParams } from 'react-router';
+
+/** components */
+import { CardHeader, CardTitle } from '@modules/base/components/card';
+import { ButtonInfo } from '@modules/messenger/components/Conversation/ConversationHeader/ButtonInfo';
+import { ThreadItem } from '@modules/messenger/components/Threads/ThreadList/ThreadItem';
+
+export function ConversationHeader() {
+    const { tid = '' } = useParams();
+
+    return (
+        <CardHeader
+            className={cn(
+                'gap-0 border-b p-2!',
+                'grid-rows-[auto] items-center',
+                'h-(--app-size-height-messenger-conversation-header) w-full'
+            )}
+        >
+            <CardTitle className={cn('flex items-center justify-between', 'gap-2 overflow-hidden')}>
+                <ThreadItem
+                    className="p-0 hover:bg-inherit"
+                    id={tid}
+                    hasLink={false}
+                    hasOption={false}
+                    hasDescription={false}
+                />
+                <ButtonInfo />
+            </CardTitle>
+        </CardHeader>
+    );
+}

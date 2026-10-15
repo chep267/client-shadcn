@@ -19,7 +19,7 @@ In this project, you need to create a `.env` file in the root directory to confi
 - **VITE_APP_CLIENT_LOCALE**: The default language (`en`, `vi`, etc.).
 - **VITE_APP_CLIENT_THEME**: The theme of the application (`light` or `dark`).
 
-- **VITE_APP_API_HOST**: The base URL for your API.
+- **VITE_APP_SERVER_URL**: The base URL for your API.
 - **VITE_APP_ACCESS_KEY**: The access key for external services or CDN.
 
 ## Project Setup

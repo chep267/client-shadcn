@@ -13,16 +13,7 @@
             "@test/*": ["./test/*"],
             "@app/*": ["./src/app/*"],
             "@langs/*": ["./src/app/langs/*"],
-            "@modules/*": ["./src/modules/*"],
-            "@module-base/*": ["./src/modules/module-base/*"],
-            "@module-user/*": ["./src/modules/module-user/*"],
-            "@module-auth/*": ["./src/modules/module-auth/*"],
-            "@module-global/*": ["./src/modules/module-global/*"],
-            "@module-dashboard/*": ["./src/modules/module-dashboard/*"],
-            "@module-calendar/*": ["./src/modules/module-calendar/*"],
-            "@module-poem/*": ["./src/modules/module-poem/*"],
-            "@module-feed/*": ["./src/modules/module-feed/*"],
-            "@module-messenger/*": ["./src/modules/module-messenger/*"]
+            "@modules/*": ["./src/modules/*"]
         }
     }
 }

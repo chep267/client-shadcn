@@ -9,7 +9,7 @@ import * as React from 'react';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 /** constants */
-import { AppTimer } from '@module-base/constants/config';
+import { AppTimer } from '@modules/base/constants/config';
 
 /** providers */
 import LanguageProvider from '@app/providers/LanguageProvider';

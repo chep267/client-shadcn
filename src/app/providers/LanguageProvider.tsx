@@ -12,13 +12,13 @@ import 'dayjs/locale/vi';
 import 'dayjs/locale/en';
 
 /** constants */
-import { AppLocale } from '@module-base/constants/config';
+import { AppLocale } from '@modules/base/constants/config';
 
 /** stores */
-import { useSettingStore } from '@module-base/stores/useSettingStore';
+import { useSettingStore } from '@modules/base/stores/useSettingStore';
 
 /** utils */
-import { getMessage } from '@module-base/utils/getMessage';
+import { getMessage } from '@modules/base/utils/getMessage';
 
 export default function LanguageProvider(props: React.PropsWithChildren) {
     const { children } = props;

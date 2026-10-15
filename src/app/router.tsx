@@ -9,17 +9,17 @@ import axios from 'axios';
 import { createBrowserRouter, Navigate, replace } from 'react-router';
 
 /** constants */
-import { AuthRouterPath } from '@module-auth/constants/path';
-import { AccountState } from '@module-auth/constants/status';
-import { CalendarRouterPath } from '@module-calendar/constants/path';
-import { PoemRouterPath } from '@module-poem/constants/path';
-import { MessengerRouterPath } from '@module-messenger/constants/path';
-import { FeedRouterPath } from '@module-feed/constants/path';
-import { GlobalRouterPath } from '@module-global/constants/path';
+import { AuthRouterPath } from '@modules/auth/constants/path';
+import { AccountState } from '@modules/auth/constants/status';
+import { CalendarRouterPath } from '@modules/calendar/constants/path';
+import { PoemRouterPath } from '@modules/poem/constants/path';
+import { MessengerRouterPath } from '@modules/messenger/constants/path';
+import { FeedRouterPath } from '@modules/feed/constants/path';
+import { GlobalRouterPath } from '@modules/global/constants/path';
 
 /** stores */
-import { useSettingStore } from '@module-base/stores/useSettingStore';
-import { useAuthStore } from '@module-auth/stores/useAuthStore';
+import { useSettingStore } from '@modules/base/stores/useSettingStore';
+import { useAuthStore } from '@modules/auth/stores/useAuthStore';
 
 const authMiddleware = async ({ request }: { request: Request }) => {
     const {
@@ -75,8 +75,8 @@ export const router = createBrowserRouter([
     {
         path: GlobalRouterPath.home,
         lazy: {
-            Component: async () => (await import('@module-global/screens/MainScreen')).default,
-            HydrateFallback: async () => (await import('@module-base/components/start-loading')).default,
+            Component: async () => (await import('@modules/global/screens/MainScreen')).default,
+            HydrateFallback: async () => (await import('@modules/base/components/start-loading')).default,
         },
         children: [
             { index: true, element: <Navigate to={GlobalRouterPath.default} /> },
@@ -87,14 +87,14 @@ export const router = createBrowserRouter([
                 path: AuthRouterPath.start,
                 middleware: [authMiddleware],
                 lazy: {
-                    Component: async () => (await import('@module-base/components/start-loading')).default,
+                    Component: async () => (await import('@modules/base/components/start-loading')).default,
                 },
             },
             {
                 path: AuthRouterPath.signin,
                 middleware: [authMiddleware],
                 lazy: {
-                    Component: async () => (await import('@module-auth/screens/AuthScreen')).default,
+                    Component: async () => (await import('@modules/auth/screens/AuthScreen')).default,
                 },
                 handle: {
                     includes: ['header'],
@@ -104,7 +104,7 @@ export const router = createBrowserRouter([
                 path: AuthRouterPath.register,
                 middleware: [authMiddleware],
                 lazy: {
-                    Component: async () => (await import('@module-auth/screens/AuthScreen')).default,
+                    Component: async () => (await import('@modules/auth/screens/AuthScreen')).default,
                 },
                 handle: {
                     includes: ['header'],
@@ -114,7 +114,7 @@ export const router = createBrowserRouter([
                 path: AuthRouterPath.recover,
                 middleware: [authMiddleware],
                 lazy: {
-                    Component: async () => (await import('@module-auth/screens/AuthScreen')).default,
+                    Component: async () => (await import('@modules/auth/screens/AuthScreen')).default,
                 },
                 handle: {
                     includes: ['header'],
@@ -127,7 +127,7 @@ export const router = createBrowserRouter([
                 path: GlobalRouterPath.default,
                 middleware: [authMiddleware],
                 lazy: {
-                    Component: async () => (await import('@module-global/screens/Dashboard')).default,
+                    Component: async () => (await import('@modules/global/screens/Dashboard')).default,
                 },
                 handle: {
                     includes: ['header', 'sider'],
@@ -137,7 +137,7 @@ export const router = createBrowserRouter([
                 path: FeedRouterPath.root,
                 middleware: [authMiddleware],
                 lazy: {
-                    Component: async () => (await import('@module-feed/screens/FeedRouter')).default,
+                    Component: async () => (await import('@modules/feed/screens/FeedRouter')).default,
                 },
                 handle: {
                     includes: ['header', 'sider'],
@@ -147,7 +147,7 @@ export const router = createBrowserRouter([
                 path: MessengerRouterPath.root,
                 middleware: [authMiddleware],
                 lazy: {
-                    Component: async () => (await import('@module-messenger/screens/MessengerRouter')).default,
+                    Component: async () => (await import('@modules/messenger/screens/MessengerRouter')).default,
                 },
                 handle: {
                     includes: ['header', 'sider'],
@@ -157,7 +157,7 @@ export const router = createBrowserRouter([
                 path: CalendarRouterPath.root,
                 middleware: [authMiddleware],
                 lazy: {
-                    Component: async () => (await import('@module-calendar/screens/CalendarRouter')).default,
+                    Component: async () => (await import('@modules/calendar/screens/CalendarRouter')).default,
                 },
                 handle: {
                     includes: ['header', 'sider'],
@@ -167,7 +167,7 @@ export const router = createBrowserRouter([
                 path: PoemRouterPath.root,
                 middleware: [authMiddleware],
                 lazy: {
-                    Component: async () => (await import('@module-poem/screens/PoemRouter')).default,
+                    Component: async () => (await import('@modules/poem/screens/PoemRouter')).default,
                 },
                 handle: {
                     includes: ['header', 'sider'],
@@ -177,7 +177,7 @@ export const router = createBrowserRouter([
                 path: '*',
                 middleware: [authMiddleware],
                 lazy: {
-                    Component: async () => (await import('@module-base/screens/NotFoundScreen')).default,
+                    Component: async () => (await import('@modules/base/screens/NotFoundScreen')).default,
                 },
                 handle: {
                     includes: ['header'],

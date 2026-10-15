@@ -1,0 +1,38 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** libs */
+import { cn } from 'cn';
+import { FormattedMessage } from 'react-intl';
+
+/** constants */
+import { AuthLanguage } from '@modules/auth/constants/language';
+
+/** components */
+import { Button } from '@modules/base/components/button';
+import { Spinner } from '@modules/base/components/spinner';
+
+export function AuthButtonSubmit(props: App.ModuleAuth.Component.AuthButtonSubmitProps) {
+    const { loading, mode = 'signin', ...btnProps } = props;
+
+    return (
+        <Button
+            type="button"
+            variant="outline"
+            className={cn('cursor-pointer', 'mobile:w-1/3 w-full', 'hover:text-main hover:border-main', {
+                'text-main !border-main': loading,
+            })}
+            size="lg"
+            {...btnProps}
+        >
+            {loading ? (
+                <Spinner />
+            ) : (
+                <FormattedMessage id={AuthLanguage.component.button[mode]} defaultMessage="Submit" />
+            )}
+        </Button>
+    );
+}

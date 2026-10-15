@@ -1,0 +1,61 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** libs */
+import * as React from 'react';
+import { cn } from 'cn';
+
+/** utils */
+import { getNestedValue } from '@modules/base/utils/virtual';
+
+/** components */
+import { TableCell, TableRow } from '@modules/base/components/table';
+import { TableBodyCellCheckbox } from '@modules/base/components/table-base/table-body/table-body-cell-checkbox';
+
+function TableBodyRow<Data>(props: App.ModuleBase.Component.TableBodyRowProps<Data>) {
+    const { asChild, indexRow, item, store } = props;
+
+    const columns = store((state) => state.data.columns);
+    const dataKeyForCheckbox = store((state) => state.data.dataKeyForCheckbox);
+
+    const id = React.useMemo(() => {
+        const value = dataKeyForCheckbox ? getNestedValue(item, dataKeyForCheckbox) : undefined;
+        return typeof value === 'string' || typeof value === 'number' ? value : `row-${indexRow}`;
+    }, [item, dataKeyForCheckbox]);
+
+    const renderRow = React.useMemo(() => {
+        return columns?.map(({ dataKey, className, render, onClick }, indexCell) => {
+            const value = getNestedValue(item, dataKey);
+            return (
+                <TableCell
+                    key={dataKey}
+                    className={className}
+                    onClick={(event) => onClick?.(event, { item, indexRow, indexCell })}
+                >
+                    {typeof render === 'function' ? render({ indexRow, indexCell, item }) : <span>{`${value}`}</span>}
+                </TableCell>
+            );
+        });
+    }, [columns, item, indexRow]);
+
+    if (asChild) {
+        return (
+            <React.Fragment>
+                <TableBodyCellCheckbox id={id} store={store} />
+                {renderRow}
+            </React.Fragment>
+        );
+    }
+
+    return (
+        <TableRow className={cn('h-10')}>
+            <TableBodyCellCheckbox id={id} store={store} />
+            {renderRow}
+        </TableRow>
+    );
+}
+
+export { TableBodyRow };

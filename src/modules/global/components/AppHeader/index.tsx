@@ -1,0 +1,40 @@
+/**
+ *
+ * @author dongntd267@gmail.com
+ *
+ */
+
+/** libs */
+import { cn } from 'cn';
+import { BellIcon } from 'lucide-react';
+
+/** components */
+import { AppInfo } from '@modules/global/components/AppHeader/AppInfo';
+import { AppTimer } from '@modules/global/components/AppHeader/AppTimer';
+import { AppButtonDev } from '@modules/global/components/AppHeader/AppButtonDev';
+import { AppSetting } from '@modules/global/components/AppHeader/AppSetting';
+
+export default function AppHeader() {
+    return (
+        <header
+            className={cn(
+                'fixed top-0 right-0 left-0 z-(--z-index-header)',
+                'flex items-center justify-between',
+                'h-(--app-size-height-header) max-h-(--app-size-height-header) min-h-(--app-size-height-header) w-full',
+                'border-b px-2 py-0 shadow-lg',
+                'text-main bg-white',
+                'dark:bg-background dark:text-white',
+                'tablet:px-5'
+            )}
+        >
+            <div className="flex items-center gap-5">
+                <AppInfo />
+                <AppTimer />
+            </div>
+            <div className="flex items-center gap-1">
+                <AppButtonDev icon={<BellIcon />} />
+                <AppSetting />
+            </div>
+        </header>
+    );
+}

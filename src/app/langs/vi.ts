@@ -5,14 +5,14 @@
  */
 
 /** utils */
-import { vi as viBase } from '@module-base/utils/langs/vi';
-import { vi as viUser } from '@module-user/utils/langs/vi';
-import { vi as viAuth } from '@module-auth/utils/langs/vi';
-import { vi as viGlobal } from '@module-global/utils/langs/vi';
-import { vi as viCalendar } from '@module-calendar/utils/langs/vi';
-import { vi as viPoem } from '@module-poem/utils/langs/vi';
-import { vi as viFeed } from '@module-feed/utils/langs/vi';
-import { vi as viMessenger } from '@module-messenger/utils/langs/vi';
+import { vi as viBase } from '@modules/base/utils/langs/vi';
+import { vi as viUser } from '@modules/user/utils/langs/vi';
+import { vi as viAuth } from '@modules/auth/utils/langs/vi';
+import { vi as viGlobal } from '@modules/global/utils/langs/vi';
+import { vi as viCalendar } from '@modules/calendar/utils/langs/vi';
+import { vi as viPoem } from '@modules/poem/utils/langs/vi';
+import { vi as viFeed } from '@modules/feed/utils/langs/vi';
+import { vi as viMessenger } from '@modules/messenger/utils/langs/vi';
 
 export const vi: App.ModuleBase.Data.LanguageMessages = Object.assign(
     {},

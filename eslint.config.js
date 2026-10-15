@@ -118,7 +118,7 @@ export default defineConfig(
         },
     },
     {
-        files: ['src/modules/module-base/components/**/*.{ts,tsx,js,jsx}'],
+        files: ['src/modules/base/components/**/*.{ts,tsx,js,jsx}'],
         rules: {
             'react-refresh/only-export-components': 'off',
         },
