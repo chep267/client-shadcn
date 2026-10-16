@@ -45,16 +45,17 @@ export default ({ mode }: ConfigEnv) => {
             pluginReact(),
             config.isDevMode ? pluginBasicSsl() : undefined,
             pluginTailwindcss(),
-            // Gzip compression for production builds
             config.isGzip
                 ? pluginViteCompression({
-                      algorithm: 'gzip', // Use gzip compression
-                      ext: '.gz', // Output extension
-                      threshold: 10240, // Only compress files larger than 10KB
-                      deleteOriginFile: false, // Keep original files
+                      algorithm: 'gzip',
+                      ext: '.gz',
+                      threshold: 10240,
+                      deleteOriginFile: false,
                   })
                 : undefined,
-            config.isDevMode ? pluginVisualizer({ filename: 'stats.html', open: true }) : undefined,
+            config.isDevMode
+                ? pluginVisualizer({ filename: 'stats.html', open: true, gzipSize: true, brotliSize: true })
+                : undefined,
         ],
         base: config.isGithub ? '/client-shadcn/' : '/',
         resolve: {
@@ -69,9 +70,11 @@ export default ({ mode }: ConfigEnv) => {
             chunkSizeWarningLimit: 500,
             assetsInlineLimit: 4096,
             cssCodeSplit: true,
-            rolldownOptions: {
+            rollupOptions: {
+                treeshake: true,
                 output: {
                     codeSplitting: true,
+                    minifyInternalExports: true,
                     manualChunks(id) {
                         if (!id.includes('node_modules')) return;
 
@@ -140,12 +143,6 @@ export default ({ mode }: ConfigEnv) => {
         },
         optimizeDeps: {
             include: ['react', 'react-dom'],
-            rolldownOptions: {
-                treeshake: true,
-                output: {
-                    minifyInternalExports: true,
-                },
-            },
         },
     });
 };

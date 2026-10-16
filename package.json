@@ -1,10 +1,13 @@
 {
-    "name": "client-shadcn",
+    "name": "dongntd-client",
     "sideEffects": false,
     "private": true,
     "version": "1.0.0",
     "packageManager": "pnpm@12.11.2",
+    "description": "client ReactJS",
     "type": "module",
+    "author": "dongntd",
+    "license": "",
     "scripts": {
         "prepare": "husky",
         "test": "vitest",
