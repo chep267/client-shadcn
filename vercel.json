@@ -17,7 +17,7 @@
                 },
                 {
                     "key": "Content-Security-Policy",
-                    "value": "default-src 'self' https://dongntd-client.vercel.app; script-src 'self'; style-src 'self' 'unsafe-inline'; require-trusted-types-for 'script';"
+                    "value": "default-src 'self' https://dongntd-client.vercel.app; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';"
                 }
             ]
         }
