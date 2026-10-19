@@ -34,7 +34,7 @@ export default function MainScreen() {
             <React.Suspense fallback={<StartLoading />}>
                 {hasHeader && <AppHeader />}
 
-                <div className={cn('flex flex-1', 'pt-(--app-size-height-header)')}>
+                <main className={cn('flex flex-1', 'pt-(--app-size-height-header)')}>
                     {hasSider ? (
                         <SidebarProvider className="min-h-(--app-size-height-screen)">
                             <AppSidebar />
@@ -43,7 +43,7 @@ export default function MainScreen() {
                     ) : (
                         <Outlet />
                     )}
-                </div>
+                </main>
 
                 <AppSocket />
                 <AppModal />
