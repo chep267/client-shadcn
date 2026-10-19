@@ -5,18 +5,21 @@
     "tsx": true,
     "tailwind": {
         "config": "",
-        "css": "src/styles/index.css",
+        "css": "src/app/styles/index.css",
         "baseColor": "neutral",
         "cssVariables": true,
         "prefix": ""
     },
     "iconLibrary": "lucide",
+    "rtl": false,
     "aliases": {
-        "components": "@module/base/components",
-        "utils": "@module/base/utils/shadcn",
-        "ui": "@module/base/components",
-        "lib": "@module/base/utils",
-        "hooks": "@module/base/hooks"
+        "components": "@modules/base/components",
+        "utils": "@modules/base/utils/shadcn",
+        "ui": "@modules/base/components",
+        "lib": "@modules/base/utils",
+        "hooks": "@modules/base/hooks"
     },
+    "menuColor": "default",
+    "menuAccent": "subtle",
     "registries": {}
 }

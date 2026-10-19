@@ -40,7 +40,7 @@ Below are common use cases and examples for utilizing `module-auth`.
 The `SigninForm` is a key component for user authentication. Here is an example of how to use it:
 
 ```tsx
-import { SigninForm } from '@module/auth/screens/SigninForm';
+import { SigninForm } from '@modules/auth/screens/SigninForm';
 
 export function App() {
     return <SigninForm />;

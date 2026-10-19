@@ -38,7 +38,7 @@ You can import and use functions, components, or hooks from `module-base` wherev
 1. **Using Utility Functions:**
 
     ```typescript
-    import { normalizeString } from '@module/base/utils/string';
+    import { normalizeString } from '@modules/base/utils/string';
 
     const normalized = normalizeString('àéïöú');
     console.log(normalized); // Output: 'aeiou'
@@ -47,15 +47,15 @@ You can import and use functions, components, or hooks from `module-base` wherev
 2. **Using Custom Hooks:**
 
     ```typescript
-    import { useCustomHook } from '@module/base/hooks/useCustomHook';
+    import { useCustomHook } from '@modules/base/hooks/useCustomHook';
 
     const { data, error } = useCustomHook();
     ```
 
 3. **Accessing Constants / Components:**
     ```typescript
-    import { BASE_CONSTANT } from '@module/base/constants/base';
-    import { Button } from '@module/base/components/button';
+    import { BASE_CONSTANT } from '@modules/base/constants/base';
+    import { Button } from '@modules/base/components/button';
     ```
 
 ## Contribution Guidelines
