@@ -5,35 +5,32 @@
  */
 
 /** libs */
-import * as React from 'react';
 import { cn } from 'cn';
 import { Link } from 'react-router';
+
+/** constants */
+import { UserRouterPath } from '@modules/user/constants/path';
 
 /** components */
 import { UserAvatar } from '@modules/user/components/UserAvatar';
 import { UserName } from '@modules/user/components/UserName';
 
-interface UserInfoProps {
-    className?: string;
-    uid?: string;
-    size?: React.ComponentProps<typeof UserAvatar>['size'];
-    description?: React.ReactNode | (() => React.ReactNode);
-}
+export function UserInfo(props: App.Module.User.Component.UserInfoProps) {
+    const { className, id, sizeAvatar, sizeName, description, link } = props;
 
-export function UserInfo(props: UserInfoProps) {
-    const { className, uid, size, description } = props;
+    const Comp = link ? Link : 'div';
 
     return (
-        <Link
+        <Comp
             data-slot="user-info"
-            to={`/profile/${uid}`}
+            to={link && !!id ? UserRouterPath.profile.replace(':uid', id) : ''}
             className={cn('group/user flex items-center gap-3', className)}
         >
-            <UserAvatar uid={uid} size={size} />
-            <div data-slot="user-info-content" className="flex flex-col">
-                <UserName uid={uid} className="group-hover/user:text-main!" />
+            <UserAvatar id={id} size={sizeAvatar} className="border" />
+            <div className="flex flex-col">
+                <UserName id={id} className={cn({ 'group-hover/user:text-main!': link })} component={sizeName} />
                 {typeof description === 'function' ? description() : description}
             </div>
-        </Link>
+        </Comp>
     );
 }

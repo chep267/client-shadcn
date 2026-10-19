@@ -13,7 +13,7 @@ import dayjs from 'dayjs';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@modules/base/components/card';
 
 interface PoemProps {
-    data: App.ModulePoem.Data.TypePoem;
+    data: App.Module.Poem.Data.TypePoem;
 }
 
 export function Poem(props: PoemProps) {

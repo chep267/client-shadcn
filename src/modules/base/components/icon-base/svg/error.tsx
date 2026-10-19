@@ -4,7 +4,7 @@
  *
  */
 
-function Error(props: App.ModuleBase.Component.IconSVGProps) {
+function Error(props: App.Module.Base.Component.IconSVGProps) {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 237 213" {...props}>
             <g className="fill-inherit">

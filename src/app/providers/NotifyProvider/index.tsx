@@ -16,10 +16,10 @@ import { FallbackDefault } from '@app/providers/NotifyProvider/FallbackDefault';
 import { NotifyBoundary } from '@app/providers/NotifyProvider/NotifyBoundary';
 
 class NotifyProvider extends React.Component<
-    App.ModuleBase.Component.NotifyProviderProps,
-    App.ModuleBase.Component.NotifyProviderStates
+    App.Module.Base.Component.NotifyProviderProps,
+    App.Module.Base.Component.NotifyProviderStates
 > {
-    constructor(props: App.ModuleBase.Component.NotifyProviderProps) {
+    constructor(props: App.Module.Base.Component.NotifyProviderProps) {
         super(props);
         this.state = { hasError: false };
     }

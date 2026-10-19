@@ -16,7 +16,7 @@ import { threadService } from '@modules/messenger/services/thread';
 /** stores */
 import { useThreadStore } from '@modules/messenger/stores/useThreadStore';
 
-export function useSearchThreads(payload: App.ModuleMessenger.Api.ThreadService['Gets']['Payload'] = {}) {
+export function useSearchThreads(payload: App.Module.Messenger.Api.ThreadService['Gets']['Payload'] = {}) {
     return useQuery({
         queryKey: [MessengerQueryKey.searchThreads, payload],
         queryFn: async () => {

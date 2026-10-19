@@ -11,7 +11,7 @@ import type * as TypeStore from '@modules/user/types/store.d';
 import type * as TypeComponent from '@modules/user/types/component.d';
 
 declare global {
-    namespace App.ModuleUser {
+    namespace App.Module.User {
         export import Data = TypeData;
         export import Api = TypeApi;
         export import Store = TypeStore;

@@ -39,7 +39,7 @@ export function ButtonSend() {
     const isDraft = tid.startsWith('uid.');
     const Icon = isTyping ? SendHorizonalIcon : ThumbsUpIcon;
 
-    const onCreateMessage = React.useCallback((message: App.ModuleMessenger.Data.Message, callback?: () => void) => {
+    const onCreateMessage = React.useCallback((message: App.Module.Messenger.Data.Message, callback?: () => void) => {
         messengerAction.sentMessage({ tid: message.tid });
         sendMessage(
             { data: message },
@@ -50,7 +50,7 @@ export function ButtonSend() {
     }, []);
 
     const onCreateThread = React.useCallback(
-        (message: App.ModuleMessenger.Data.Message) => {
+        (message: App.Module.Messenger.Data.Message) => {
             createThread(
                 {
                     data: messengerAction.genThread({

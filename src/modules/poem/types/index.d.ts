@@ -9,7 +9,7 @@ import * as TypeData from '@modules/poem/types/data.d';
 import * as TypeApi from '@modules/poem/types/api.d';
 
 declare global {
-    namespace App.ModulePoem {
+    namespace App.Module.Poem {
         export import Data = TypeData;
         export import Api = TypeApi;
     }

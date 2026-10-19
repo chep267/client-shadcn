@@ -5,17 +5,12 @@
  */
 
 /** libs */
-import * as React from 'react';
 import { cn } from 'cn';
 
 /** components */
 import { Typography } from '@modules/base/components/typography';
 
-interface UserNameNoGetProps extends React.ComponentProps<typeof Typography> {
-    name?: string;
-}
-
-export function UserNameNoGet(props: UserNameNoGetProps) {
+export function UserNameNoGet(props: App.Module.User.Component.UserNameProps) {
     const { className, name, ...otherProps } = props;
 
     return (

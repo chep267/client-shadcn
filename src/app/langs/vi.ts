@@ -14,7 +14,7 @@ import { vi as viPoem } from '@modules/poem/utils/langs/vi';
 import { vi as viFeed } from '@modules/feed/utils/langs/vi';
 import { vi as viMessenger } from '@modules/messenger/utils/langs/vi';
 
-export const vi: App.ModuleBase.Data.LanguageMessages = Object.assign(
+export const vi: App.Module.Base.Data.LanguageMessages = Object.assign(
     {},
     viBase,
     viUser,

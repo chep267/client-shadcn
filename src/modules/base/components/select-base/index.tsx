@@ -29,7 +29,7 @@ import {
 const ITEM_CLEAR_VALUE = '__MODULE_BASE_SELECT_CLEAR_ITEM_DO_NOT_USE__';
 const ITEM_EMPTY_VALUE = '__MODULE_BASE_SELECT_EMPTY_ITEM_DO_NOT_USE__';
 
-export function SelectBase<Value extends string = string>(props: App.ModuleBase.Component.SelectBaseProps<Value>) {
+export function SelectBase<Value extends string = string>(props: App.Module.Base.Component.SelectBaseProps<Value>) {
     const {
         className,
         popperClassName,

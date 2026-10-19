@@ -38,7 +38,7 @@ export function ButtonSignout() {
         >
             {hookSignout.isPending ? <Spinner /> : <LogOutIcon />}
             <Typography className="text-sm">
-                <FormattedMessage id={UserLanguage.component.label.signout} defaultMessage="Account" />
+                <FormattedMessage id={UserLanguage.component.button.signout} defaultMessage="Signout" />
             </Typography>
         </Button>
     );

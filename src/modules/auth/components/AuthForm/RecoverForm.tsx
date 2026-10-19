@@ -32,7 +32,7 @@ import { FieldEmail } from '@modules/auth/components/general/FieldEmail';
 /** types */
 import type { AxiosError } from 'axios';
 
-const FormFieldsName: { [Key in App.ModuleAuth.Component.FormRecoverFieldsName]: Key } = {
+const FormFieldsName: { [Key in App.Module.Auth.Component.FormRecoverFieldsName]: Key } = {
     email: 'email',
 };
 
@@ -44,7 +44,7 @@ const schema = z.object({
 });
 
 function RecoverForm() {
-    const { handleSubmit, control, setError, clearErrors } = useForm<App.ModuleAuth.Component.FormRecoverData>({
+    const { handleSubmit, control, setError, clearErrors } = useForm<App.Module.Auth.Component.FormRecoverData>({
         defaultValues: {
             [FormFieldsName.email]: Cookies.get(AppKey.email) ?? '',
         },

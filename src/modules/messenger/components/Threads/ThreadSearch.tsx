@@ -16,7 +16,7 @@ import { InputSearch } from '@modules/base/components/input-search';
 import { ThreadSearchList } from '@modules/messenger/components/Threads/ThreadSearchList';
 
 export function ThreadSearch() {
-    const inputRef = React.useRef<App.ModuleBase.Component.InputSearchRef>(null);
+    const inputRef = React.useRef<App.Module.Base.Component.InputSearchRef>(null);
     const openSearch = useMessengerStore((store) => store.data.openSearch);
     const action = useMessengerStore((store) => store.action);
 

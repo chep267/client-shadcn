@@ -10,7 +10,7 @@ import { useSignin } from '@modules/auth/hooks/useSignin';
 /** components */
 import { AuthButtonSubmit } from '@modules/auth/components/general/AuthButtonSubmit';
 
-export function ButtonSignin(props: App.ModuleAuth.Component.ButtonSigninProps) {
+export function ButtonSignin(props: App.Module.Auth.Component.ButtonSigninProps) {
     const { handleSubmit, onSubmitError: onError } = props;
 
     const { isPending, mutate } = useSignin();

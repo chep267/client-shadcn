@@ -8,7 +8,7 @@
 import type * as TypeComponent from '@modules/global/types/component.d';
 
 declare global {
-    namespace App.ModuleGlobal {
+    namespace App.Module.Global {
         export import Component = TypeComponent;
     }
 }

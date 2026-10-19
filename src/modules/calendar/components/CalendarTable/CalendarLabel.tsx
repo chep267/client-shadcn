@@ -12,7 +12,7 @@ import { Typography } from '@modules/base/components/typography';
 /** stores */
 import { useSettingStore } from '@modules/base/stores/useSettingStore';
 
-export function CalendarLabel(props: App.ModuleCalendar.Component.CalendarLabelProps) {
+export function CalendarLabel(props: App.Module.Calendar.Component.CalendarLabelProps) {
     const { day } = props;
 
     const locale = useSettingStore(({ data }) => data.locale);

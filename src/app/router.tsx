@@ -20,6 +20,7 @@ import { GlobalRouterPath } from '@modules/global/constants/path';
 /** stores */
 import { useSettingStore } from '@modules/base/stores/useSettingStore';
 import { useAuthStore } from '@modules/auth/stores/useAuthStore';
+import { UserRouterPath } from '@modules/user/constants/path';
 
 const authMiddleware = async ({ request }: { request: Request }) => {
     const {
@@ -128,6 +129,16 @@ export const router = createBrowserRouter([
                 middleware: [authMiddleware],
                 lazy: {
                     Component: async () => (await import('@modules/global/screens/Dashboard')).default,
+                },
+                handle: {
+                    includes: ['header', 'sider'],
+                },
+            },
+            {
+                path: UserRouterPath.root,
+                middleware: [authMiddleware],
+                lazy: {
+                    Component: async () => (await import('@modules/user/screens/UserRouter')).default,
                 },
                 handle: {
                     includes: ['header', 'sider'],

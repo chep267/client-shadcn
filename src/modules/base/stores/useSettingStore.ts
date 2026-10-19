@@ -18,7 +18,7 @@ import { getDeviceLocale } from '@modules/base/utils/getDeviceLocale';
 import { getDeviceTheme } from '@modules/base/utils/getDeviceTheme';
 import { registerStore } from '@modules/base/utils/store';
 
-const defaultData: Readonly<App.ModuleBase.Store.SettingStore['data']> = {
+const defaultData: Readonly<App.Module.Base.Store.SettingStore['data']> = {
     locale: getDeviceLocale(),
     theme: getDeviceTheme(),
     api: {
@@ -27,10 +27,10 @@ const defaultData: Readonly<App.ModuleBase.Store.SettingStore['data']> = {
     },
 };
 
-export const useSettingStore = create<App.ModuleBase.Store.SettingStore>((set) => {
+export const useSettingStore = create<App.Module.Base.Store.SettingStore>((set) => {
     registerStore(() => {
         set(
-            produce<App.ModuleBase.Store.SettingStore>((store) => {
+            produce<App.Module.Base.Store.SettingStore>((store) => {
                 store.data = {
                     ...structuredClone(defaultData),
                     locale: store.data.locale,
@@ -46,7 +46,7 @@ export const useSettingStore = create<App.ModuleBase.Store.SettingStore>((set) =
             changeLocale: (locale = defaultData.locale) => {
                 Cookies.set(AppKey.locale, locale);
                 set(
-                    produce<App.ModuleBase.Store.SettingStore>((store) => {
+                    produce<App.Module.Base.Store.SettingStore>((store) => {
                         store.data.locale = locale;
                     })
                 );
@@ -54,28 +54,28 @@ export const useSettingStore = create<App.ModuleBase.Store.SettingStore>((set) =
             changeTheme: (theme = defaultData.theme) => {
                 Cookies.set(AppKey.theme, theme);
                 set(
-                    produce<App.ModuleBase.Store.SettingStore>((store) => {
+                    produce<App.Module.Base.Store.SettingStore>((store) => {
                         store.data.theme = theme;
                     })
                 );
             },
             updateStatusCode: (code = axios.HttpStatusCode.Ok) => {
                 set(
-                    produce<App.ModuleBase.Store.SettingStore>((store) => {
+                    produce<App.Module.Base.Store.SettingStore>((store) => {
                         store.data.api.statusCode = code;
                     })
                 );
             },
-            addApiQueue: (apiConfig: App.ModuleBase.Store.SettingStore['data']['api']['queues'][number]) => {
+            addApiQueue: (apiConfig: App.Module.Base.Store.SettingStore['data']['api']['queues'][number]) => {
                 set(
-                    produce<App.ModuleBase.Store.SettingStore>((store) => {
+                    produce<App.Module.Base.Store.SettingStore>((store) => {
                         store.data.api.queues.push(apiConfig);
                     })
                 );
             },
             clearApiQueue: () => {
                 set(
-                    produce<App.ModuleBase.Store.SettingStore>((store) => {
+                    produce<App.Module.Base.Store.SettingStore>((store) => {
                         store.data.api.queues = [];
                     })
                 );

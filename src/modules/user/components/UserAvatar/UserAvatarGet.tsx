@@ -5,7 +5,6 @@
  */
 
 /** libs */
-import * as React from 'react';
 import { cn } from 'cn';
 
 /** hooks */
@@ -16,14 +15,9 @@ import { Skeleton } from '@modules/base/components/skeleton';
 import { Avatar } from '@modules/base/components/avatar';
 import { UserAvatarNoGet } from '@modules/user/components/UserAvatar/UserAvatarNoGet';
 
-interface UserAvatarGetProps extends React.ComponentProps<typeof Avatar> {
-    loading?: boolean;
-    uid?: string;
-}
-
-export function UserAvatarGet(props: UserAvatarGetProps) {
-    const { uid, className, loading, size, ...otherProps } = props;
-    const { isFetching, data } = useGetUser(uid);
+export function UserAvatarGet(props: App.Module.User.Component.UserAvatarProps) {
+    const { id, className, loading, size, ...otherProps } = props;
+    const { isFetching, data } = useGetUser(id);
     const { data: user } = data ?? {};
 
     if (loading || isFetching) {

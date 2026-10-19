@@ -14,15 +14,10 @@ import { genAvatarFallbackFromName } from '@modules/user/utils/user';
 
 /** components */
 import { Skeleton } from '@modules/base/components/skeleton';
-import { Avatar, AvatarFallback, AvatarImage } from '@modules/base/components/avatar';
+import { Avatar, AvatarBadge, AvatarFallback, AvatarImage } from '@modules/base/components/avatar';
 
-interface UserAvatarNoGetProps extends React.ComponentProps<typeof Avatar> {
-    src?: string;
-    name?: string;
-}
-
-export function UserAvatarNoGet(props: UserAvatarNoGetProps) {
-    const { className, size, src, name, ...otherProps } = props;
+export function UserAvatarNoGet(props: App.Module.User.Component.UserAvatarProps) {
+    const { className, src, name, ...otherProps } = props;
     const [loading, setLoading] = React.useState(true);
 
     const handleLoadingAvatar = (status: string) => {
@@ -32,17 +27,18 @@ export function UserAvatarNoGet(props: UserAvatarNoGetProps) {
     };
 
     return (
-        <Avatar data-slot="user-avatar" className={cn('relative', className)} size={size} {...otherProps}>
-            <AvatarImage
-                className={cn({ 'opacity-0': loading })}
-                alt={src ? `Avatar of ${name}` : `Fallback avatar of ${name}`}
-                src={src}
-                onLoadingStatusChange={handleLoadingAvatar}
-            />
-            <AvatarFallback className={cn({ 'opacity-0': loading })}>
-                {name ? genAvatarFallbackFromName(name) : <UserIcon className="size-5" />}
-            </AvatarFallback>
-            {loading && <Skeleton className="absolute inset-0 h-full w-full rounded-full" />}
+        <Avatar data-slot="user-avatar" className={cn('relative', className)} {...otherProps}>
+            <AvatarImage alt={`Avatar of ${name}`} src={src} onLoadingStatusChange={handleLoadingAvatar} />
+            {loading ? (
+                <Skeleton className="absolute inset-0 h-full w-full rounded-full" />
+            ) : (
+                <>
+                    <AvatarFallback>
+                        {name ? genAvatarFallbackFromName(name) : <UserIcon className="size-5" />}
+                    </AvatarFallback>
+                    <AvatarBadge className="bg-green-600 dark:bg-green-800" />
+                </>
+            )}
         </Avatar>
     );
 }

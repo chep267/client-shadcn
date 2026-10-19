@@ -7,7 +7,7 @@
 /** libs */
 import * as React from 'react';
 
-const defaultState: App.ModuleBase.Hook.UseListSearchProps = {
+const defaultState: App.Module.Base.Hook.UseListSearchProps = {
     disableEventKey: false, // có tắt phím mũi tên không, mặc định là không
     total: 0, // số phần tử
     indexSelect: 0, // vị trí đang select, mặc định là chưa chọn
@@ -15,8 +15,8 @@ const defaultState: App.ModuleBase.Hook.UseListSearchProps = {
     idSelect: '', // id đang select, mặc định là chưa chọn
 };
 
-export const useListSearch = (props: Partial<App.ModuleBase.Hook.UseListSearchProps> = defaultState) => {
-    const [state, setState] = React.useState<App.ModuleBase.Hook.UseListSearchProps>({
+export const useListSearch = (props: Partial<App.Module.Base.Hook.UseListSearchProps> = defaultState) => {
+    const [state, setState] = React.useState<App.Module.Base.Hook.UseListSearchProps>({
         ...defaultState,
         ...props,
     });

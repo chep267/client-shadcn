@@ -4,7 +4,7 @@
  *
  */
 
-export const CalendarDisplay: Readonly<{ [Key in App.ModuleCalendar.Data.CalendarDisplay]: Key }> = {
+export const CalendarDisplay: Readonly<{ [Key in App.Module.Calendar.Data.CalendarDisplay]: Key }> = {
     sunday: 'sunday',
     monday: 'monday',
     weekend: 'weekend',

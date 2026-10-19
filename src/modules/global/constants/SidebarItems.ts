@@ -19,7 +19,7 @@ import { FeedRouterPath } from '@modules/feed/constants/path';
 import { GlobalLanguage } from '@modules/global/constants/language';
 import { GlobalRouterPath } from '@modules/global/constants/path';
 
-const SidebarItems: App.ModuleGlobal.Component.SidebarItemProps['item'][] = [
+const SidebarItems: App.Module.Global.Component.SidebarItemProps['item'][] = [
     {
         path: FeedRouterPath.home,
         name: FeedLanguage.component.label.router,

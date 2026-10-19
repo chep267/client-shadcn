@@ -20,7 +20,7 @@ import { useLatest } from '@modules/base/hooks/useLatest';
 import { Input } from '@modules/base/components/input';
 import { Button } from '@modules/base/components/button';
 
-export function InputSearch(props: App.ModuleBase.Component.InputSearchProps) {
+export function InputSearch(props: App.Module.Base.Component.InputSearchProps) {
     const {
         ref,
         className,

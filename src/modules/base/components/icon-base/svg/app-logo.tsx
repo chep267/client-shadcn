@@ -4,7 +4,7 @@
  *
  */
 
-function AppLogo(props: App.ModuleBase.Component.IconSVGProps) {
+function AppLogo(props: App.Module.Base.Component.IconSVGProps) {
     return (
         <svg
             width="32px"

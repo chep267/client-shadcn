@@ -10,7 +10,7 @@ import * as TypeApi from '@modules/messenger/types/api.d';
 import * as TypeStore from '@modules/messenger/types/store.d';
 
 declare global {
-    namespace App.ModuleMessenger {
+    namespace App.Module.Messenger {
         export import Data = TypeData;
         export import Api = TypeApi;
         export import Store = TypeStore;

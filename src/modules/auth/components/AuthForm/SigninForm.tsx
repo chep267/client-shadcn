@@ -33,7 +33,7 @@ import { FieldPassword } from '@modules/auth/components/general/FieldPassword';
 /** types */
 import type { AxiosError } from 'axios';
 
-const FormFieldsName: App.ModuleBase.Data.Constant<App.ModuleAuth.Component.FormSigninFieldsName> = {
+const FormFieldsName: App.Module.Base.Data.Constant<App.Module.Auth.Component.FormSigninFieldsName> = {
     email: 'email',
     password: 'password',
 };
@@ -50,7 +50,7 @@ const schema = z.object({
 });
 
 function SigninForm() {
-    const { handleSubmit, control, setError, clearErrors } = useForm<App.ModuleAuth.Component.FormSigninData>({
+    const { handleSubmit, control, setError, clearErrors } = useForm<App.Module.Auth.Component.FormSigninData>({
         defaultValues: {
             [FormFieldsName.email]: Cookies.get(AppKey.email) || 'dong.nguyenthanh@powergatesoftware.com',
             [FormFieldsName.password]: 'Midom@2024',

@@ -30,7 +30,7 @@ export const SelectDisplay = React.memo(function SelectDisplay(props: SelectDisp
     const items = React.useMemo<
         {
             label: React.ReactNode;
-            value: App.ModuleCalendar.Data.CalendarDisplay;
+            value: App.Module.Calendar.Data.CalendarDisplay;
         }[]
     >(() => {
         return [

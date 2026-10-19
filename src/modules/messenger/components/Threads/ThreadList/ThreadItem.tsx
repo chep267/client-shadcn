@@ -23,14 +23,14 @@ import { ThreadOption } from '@modules/messenger/components/Threads/ThreadOption
 import { LastMessageText } from '@modules/messenger/components/Threads/ThreadList/LastMessageText';
 
 interface ThreadItemContainerProps extends React.ComponentProps<'div'> {
-    id: App.ModuleMessenger.Data.Thread['id'];
+    id: App.Module.Messenger.Data.Thread['id'];
     hasOption?: boolean;
     hasDescription?: boolean;
     hasLink?: boolean;
 }
 
 interface ThreadItemProps extends Omit<ThreadItemContainerProps, 'id'> {
-    thread: App.ModuleMessenger.Data.Thread;
+    thread: App.Module.Messenger.Data.Thread;
 }
 
 function SingleThread(props: ThreadItemProps) {
@@ -54,9 +54,9 @@ function SingleThread(props: ThreadItemProps) {
             )}
             {...otherProps}
         >
-            <UserAvatar className="border" size="lg" uid={peerId} />
+            <UserAvatar className="border" size="lg" id={peerId} />
             <div className="flex flex-1 flex-col justify-center overflow-hidden">
-                <UserName className="w-full" uid={peerId} />
+                <UserName className="w-full" id={peerId} />
                 {hasDescription ? <LastMessageText mid={lastMessageId} /> : null}
             </div>
             {hasOption ? <ThreadOption thread={thread} /> : null}

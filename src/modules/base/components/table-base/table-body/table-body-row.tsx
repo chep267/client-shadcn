@@ -15,7 +15,7 @@ import { getNestedValue } from '@modules/base/utils/virtual';
 import { TableCell, TableRow } from '@modules/base/components/table';
 import { TableBodyCellCheckbox } from '@modules/base/components/table-base/table-body/table-body-cell-checkbox';
 
-function TableBodyRow<Data>(props: App.ModuleBase.Component.TableBodyRowProps<Data>) {
+function TableBodyRow<Data>(props: App.Module.Base.Component.TableBodyRowProps<Data>) {
     const { asChild, indexRow, item, store } = props;
 
     const columns = store((state) => state.data.columns);

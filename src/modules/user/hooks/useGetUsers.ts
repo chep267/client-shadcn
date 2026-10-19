@@ -16,7 +16,7 @@ import { userServices } from '@modules/user/services/api';
 /** stores */
 import { useUserStore } from '@modules/user/stores/useUserStore';
 
-export function useGetUsers(payload: App.ModuleUser.Api.UserService['Gets']['Payload'] = {}) {
+export function useGetUsers(payload: App.Module.User.Api.UserService['Gets']['Payload'] = {}) {
     return useQuery({
         queryKey: [UserQueryKey.users, payload],
         queryFn: async () => {

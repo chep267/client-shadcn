@@ -6,7 +6,7 @@
 
 export const UserLanguage = {
     component: {
-        label: {
+        button: {
             signout: 'module.user.component.label.signout',
             account: 'module.user.component.label.account',
         },

@@ -14,7 +14,7 @@ import { en as enPoem } from '@modules/poem/utils/langs/en';
 import { en as enFeed } from '@modules/feed/utils/langs/en';
 import { en as enMessenger } from '@modules/messenger/utils/langs/en';
 
-export const en: App.ModuleBase.Data.LanguageMessages = Object.assign(
+export const en: App.Module.Base.Data.LanguageMessages = Object.assign(
     {},
     enBase,
     enUser,

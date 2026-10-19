@@ -7,18 +7,18 @@
 /** constants */
 import { AppLocale } from '@modules/base/constants/config';
 
-type MessageModule = Record<App.ModuleBase.Data.Locale, App.ModuleBase.Data.LanguageMessages>;
+type MessageModule = Record<App.Module.Base.Data.Locale, App.Module.Base.Data.LanguageMessages>;
 
 const localeLoaders = import.meta.glob<MessageModule>('@langs/*');
 
 const messagesCache = {} as MessageModule;
 
 const pendingPromises = {} as Record<
-    App.ModuleBase.Data.Locale,
-    Promise<App.ModuleBase.Data.LanguageMessages> | undefined
+    App.Module.Base.Data.Locale,
+    Promise<App.Module.Base.Data.LanguageMessages> | undefined
 >;
 
-export async function getMessage(locale: App.ModuleBase.Data.Locale): Promise<App.ModuleBase.Data.LanguageMessages> {
+export async function getMessage(locale: App.Module.Base.Data.Locale): Promise<App.Module.Base.Data.LanguageMessages> {
     if (messagesCache[locale]) {
         return messagesCache[locale];
     }

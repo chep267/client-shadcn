@@ -23,8 +23,8 @@ interface TableItem {
 }
 
 export default function Dashboard() {
-    const baseRef: App.ModuleBase.Component.TableProps<TableItem>['ref'] = React.useRef(null);
-    const virtualRef: App.ModuleBase.Component.TableProps<TableItem>['ref'] = React.useRef(null);
+    const baseRef: App.Module.Base.Component.TableProps<TableItem>['ref'] = React.useRef(null);
+    const virtualRef: App.Module.Base.Component.TableProps<TableItem>['ref'] = React.useRef(null);
 
     return (
         <div className={cn('flex h-full w-full', 'max-h-(--app-size-height-screen)', 'gap-10 px-2 py-4', 'tablet:p-5')}>

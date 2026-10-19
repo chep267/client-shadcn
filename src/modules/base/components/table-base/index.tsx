@@ -20,7 +20,7 @@ import { TableHeader } from '@modules/base/components/table-base/table-header';
 import { TableBody } from '@modules/base/components/table-base/table-body';
 import { TableLoading } from '@modules/base/components/table-base/table-loading';
 
-export function TableBase<Data = unknown>(props: App.ModuleBase.Component.TableProps<Data>) {
+export function TableBase<Data = unknown>(props: App.Module.Base.Component.TableProps<Data>) {
     const { ref, className, setup, items, emptyContent, columns } = props;
 
     const virtuoso = React.useRef<HTMLTableElement | null>(null);

@@ -7,7 +7,7 @@
 /** libs */
 import * as React from 'react';
 
-export const useCountdown = (props: App.ModuleBase.Hook.UseCountdownProps) => {
+export const useCountdown = (props: App.Module.Base.Hook.UseCountdownProps) => {
     const { numberCountdown = 10, timer = 1000, callback, isContinue } = props;
 
     const countdownRef = React.useRef<number>(undefined);

@@ -12,7 +12,7 @@ import { Link } from 'react-router';
 /** components */
 import { Button } from '@modules/base/components/button';
 
-const AppSidebarMiniItem = React.memo(function AppSidebarMiniItem(props: App.ModuleGlobal.Component.SidebarItemProps) {
+const AppSidebarMiniItem = React.memo(function AppSidebarMiniItem(props: App.Module.Global.Component.SidebarItemProps) {
     const { item, active } = props;
 
     return (

@@ -13,7 +13,7 @@ import { registerStore } from '@modules/base/utils/store';
 
 enableMapSet();
 
-const defaultData: Readonly<App.ModuleUser.Store.UserStore['data']> = {
+const defaultData: Readonly<App.Module.User.Store.UserStore['data']> = {
     users: new Map(),
     metadata: {
         currentPage: 1,
@@ -23,7 +23,7 @@ const defaultData: Readonly<App.ModuleUser.Store.UserStore['data']> = {
     },
 };
 
-export const useUserStore = create<App.ModuleUser.Store.UserStore>((set) => {
+export const useUserStore = create<App.Module.User.Store.UserStore>((set) => {
     registerStore(() => {
         set({ data: structuredClone(defaultData) });
     });
@@ -33,14 +33,14 @@ export const useUserStore = create<App.ModuleUser.Store.UserStore>((set) => {
         action: {
             add: (user) => {
                 set(
-                    produce<App.ModuleUser.Store.UserStore>((store) => {
+                    produce<App.Module.User.Store.UserStore>((store) => {
                         store.data.users.set(user.id, user);
                     })
                 );
             },
             multiAdd: (users) => {
                 set(
-                    produce<App.ModuleUser.Store.UserStore>((store) => {
+                    produce<App.Module.User.Store.UserStore>((store) => {
                         users.forEach((user) => {
                             store.data.users.set(user.id, user);
                         });
@@ -49,7 +49,7 @@ export const useUserStore = create<App.ModuleUser.Store.UserStore>((set) => {
             },
             remove: (uid) => {
                 set(
-                    produce<App.ModuleUser.Store.UserStore>((store) => {
+                    produce<App.Module.User.Store.UserStore>((store) => {
                         store.data.users.delete(uid);
                     })
                 );

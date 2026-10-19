@@ -19,7 +19,7 @@ import { createBigdataStore } from '@modules/base/stores/useBigdataStore';
 import { ListLoading } from '@modules/base/components/virtual-list/list-loading';
 import { ListEmpty } from '@modules/base/components/virtual-list/list-empty';
 
-export function VirtualList<Data>(props: App.ModuleBase.Component.ListProps<Data>) {
+export function VirtualList<Data>(props: App.Module.Base.Component.ListProps<Data>) {
     const { ref, className, setup, items, emptyContent, ...otherProps } = props;
 
     const virtuoso = React.useRef<VirtuosoHandle>(null);

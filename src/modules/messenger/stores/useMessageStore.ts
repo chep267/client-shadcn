@@ -13,12 +13,12 @@ import { registerStore } from '@modules/base/utils/store';
 
 enableMapSet();
 
-const defaultData: Readonly<App.ModuleMessenger.Store.MessageStore['data']> = {
+const defaultData: Readonly<App.Module.Messenger.Store.MessageStore['data']> = {
     messageIds: new Map(),
     messages: new Map(),
 };
 
-export const useMessageStore = create<App.ModuleMessenger.Store.MessageStore>((set) => {
+export const useMessageStore = create<App.Module.Messenger.Store.MessageStore>((set) => {
     registerStore(() => {
         set({ data: structuredClone(defaultData) });
     });
@@ -28,7 +28,7 @@ export const useMessageStore = create<App.ModuleMessenger.Store.MessageStore>((s
         action: {
             unshift: (tid, message) => {
                 set(
-                    produce<App.ModuleMessenger.Store.MessageStore>(({ data }) => {
+                    produce<App.Module.Messenger.Store.MessageStore>(({ data }) => {
                         data.messages.set(message.id, message);
                         const ids = data.messageIds.get(tid) || new Set();
                         ids.delete(message.id);
@@ -38,7 +38,7 @@ export const useMessageStore = create<App.ModuleMessenger.Store.MessageStore>((s
             },
             add: (tid, message) => {
                 set(
-                    produce<App.ModuleMessenger.Store.MessageStore>(({ data }) => {
+                    produce<App.Module.Messenger.Store.MessageStore>(({ data }) => {
                         data.messages.set(message.id, message);
                         const ids = data.messageIds.get(tid) || new Set();
                         ids.add(message.id);
@@ -48,7 +48,7 @@ export const useMessageStore = create<App.ModuleMessenger.Store.MessageStore>((s
             },
             multiAdd: (tid, messages) => {
                 set(
-                    produce<App.ModuleMessenger.Store.MessageStore>(({ data }) => {
+                    produce<App.Module.Messenger.Store.MessageStore>(({ data }) => {
                         messages.forEach((message) => {
                             data.messages.set(message.id, message);
                             const ids = data.messageIds.get(tid) || new Set();
@@ -60,7 +60,7 @@ export const useMessageStore = create<App.ModuleMessenger.Store.MessageStore>((s
             },
             remove: (tid, mid) => {
                 set(
-                    produce<App.ModuleMessenger.Store.MessageStore>(({ data }) => {
+                    produce<App.Module.Messenger.Store.MessageStore>(({ data }) => {
                         data.messages.delete(mid);
                         data.messageIds.get(tid)?.delete(mid);
                     })

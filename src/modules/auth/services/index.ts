@@ -15,55 +15,55 @@ class AuthService extends ApiService {
         super(url);
     }
 
-    public signin = (payload: App.ModuleAuth.Api.AuthService['Signin']['Payload']) => {
+    public signin = (payload: App.Module.Auth.Api.AuthService['Signin']['Payload']) => {
         return this.withDelay(
             this.post<
-                App.ModuleAuth.Api.AuthService['Signin']['Response'],
-                App.ModuleAuth.Api.AuthService['Signin']['Payload']
+                App.Module.Auth.Api.AuthService['Signin']['Response'],
+                App.Module.Auth.Api.AuthService['Signin']['Payload']
             >(payload, {
                 url: AuthApiPath.signin,
             })
         );
     };
 
-    public signout = (payload: App.ModuleAuth.Api.AuthService['Signout']['Payload']) => {
+    public signout = (payload: App.Module.Auth.Api.AuthService['Signout']['Payload']) => {
         return this.withDelay(
             this.post<
-                App.ModuleAuth.Api.AuthService['Signout']['Response'],
-                App.ModuleAuth.Api.AuthService['Signout']['Payload']
+                App.Module.Auth.Api.AuthService['Signout']['Response'],
+                App.Module.Auth.Api.AuthService['Signout']['Payload']
             >(payload, {
                 url: AuthApiPath.signout,
             })
         );
     };
 
-    public restart = (payload: App.ModuleAuth.Api.AuthService['Restart']['Payload']) => {
+    public restart = (payload: App.Module.Auth.Api.AuthService['Restart']['Payload']) => {
         return this.withDelay(
             this.post<
-                App.ModuleAuth.Api.AuthService['Restart']['Response'],
-                App.ModuleAuth.Api.AuthService['Restart']['Payload']
+                App.Module.Auth.Api.AuthService['Restart']['Response'],
+                App.Module.Auth.Api.AuthService['Restart']['Payload']
             >(payload, {
                 url: AuthApiPath.restart,
             })
         );
     };
 
-    public register = (payload: App.ModuleAuth.Api.AuthService['Register']['Payload']) => {
+    public register = (payload: App.Module.Auth.Api.AuthService['Register']['Payload']) => {
         return this.withDelay(
             this.post<
-                App.ModuleAuth.Api.AuthService['Register']['Response'],
-                App.ModuleAuth.Api.AuthService['Register']['Payload']
+                App.Module.Auth.Api.AuthService['Register']['Response'],
+                App.Module.Auth.Api.AuthService['Register']['Payload']
             >(payload, {
                 url: AuthApiPath.register,
             })
         );
     };
 
-    public recover = (payload: App.ModuleAuth.Api.AuthService['Recover']['Payload']) => {
+    public recover = (payload: App.Module.Auth.Api.AuthService['Recover']['Payload']) => {
         return this.withDelay(
             this.post<
-                App.ModuleAuth.Api.AuthService['Recover']['Response'],
-                App.ModuleAuth.Api.AuthService['Recover']['Payload']
+                App.Module.Auth.Api.AuthService['Recover']['Response'],
+                App.Module.Auth.Api.AuthService['Recover']['Payload']
             >(payload, {
                 url: AuthApiPath.recover,
             })

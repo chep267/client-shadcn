@@ -6,35 +6,34 @@
 
 /** libs */
 import { cn } from 'cn';
+import { useParams } from 'react-router';
 
-/** stores */
-import { useAuthStore } from '@modules/auth/stores/useAuthStore';
+/** hooks */
+import { useGetUser } from '@modules/user/hooks/useGetUser';
 
 /** components */
 import { Typography } from '@modules/base/components/typography';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@modules/base/components/card';
-import { MyAvatar } from '@modules/user/components/MyAvatar';
-import { MyName } from '@modules/user/components/MyName';
 import { ButtonSignout } from '@modules/user/components/ButtonSignout';
+import { UserInfo } from '@modules/user/components/UserInfo';
 
 export default function UserScreen() {
-    const user = useAuthStore((store) => store.data.user);
-
-    if (!user) return null;
+    const { uid = '' } = useParams();
+    const { data } = useGetUser(uid);
+    const user = data?.data;
 
     return (
         <div className={cn('flex flex-1 flex-col', 'px-2 py-4', 'tablet:px-5')}>
             <Card>
                 <CardHeader>
                     <CardTitle className="flex flex-1 items-center gap-4">
-                        <MyAvatar className="h-20 w-20 [&_span]:data-[slot=avatar-fallback]:text-4xl" />
-                        <MyName component="h1" />
+                        <UserInfo sizeName="h4" sizeAvatar="lg" />
                     </CardTitle>
                 </CardHeader>
                 <CardContent className="flex flex-col gap-2">
-                    <Typography>Email: {user.email}</Typography>
-                    <Typography>Phone: {user.phone ?? '0123456789'}</Typography>
-                    <Typography>Role: {user.role}</Typography>
+                    <Typography>Email: {user?.email ?? 'abc@d.com'}</Typography>
+                    <Typography>Phone: {user?.phone ?? '0123456789'}</Typography>
+                    <Typography>Role: {user?.role ?? 'user'}</Typography>
                 </CardContent>
                 <CardFooter>
                     <ButtonSignout />

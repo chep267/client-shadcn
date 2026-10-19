@@ -23,7 +23,7 @@ import { TableBodyRow } from '@modules/base/components/table-base/table-body/tab
 import { TableLoading } from '@modules/base/components/table-base/table-loading';
 import { TableBody } from '@modules/base/components/table-base/table-body';
 
-export function VirtualTable<Data>(props: App.ModuleBase.Component.TableProps<Data>) {
+export function VirtualTable<Data>(props: App.Module.Base.Component.TableProps<Data>) {
     const { ref, className, setup, items, emptyContent, columns, ...otherProps } = props;
 
     const virtuoso = React.useRef<TableVirtuosoHandle>(null);

@@ -14,13 +14,13 @@ import { registerStore } from '@modules/base/utils/store';
 
 enableMapSet();
 
-const defaultData: Readonly<App.ModuleMessenger.Store.ThreadStore['data']> = {
+const defaultData: Readonly<App.Module.Messenger.Store.ThreadStore['data']> = {
     threadIds: new Set(),
     threads: new Map(),
     searches: new Map(),
 };
 
-export const useThreadStore = create<App.ModuleMessenger.Store.ThreadStore>((set) => {
+export const useThreadStore = create<App.Module.Messenger.Store.ThreadStore>((set) => {
     registerStore(() => {
         set({ data: structuredClone(defaultData) });
     });
@@ -30,7 +30,7 @@ export const useThreadStore = create<App.ModuleMessenger.Store.ThreadStore>((set
         action: {
             unshift: (thread) => {
                 set(
-                    produce<App.ModuleMessenger.Store.ThreadStore>(({ data }) => {
+                    produce<App.Module.Messenger.Store.ThreadStore>(({ data }) => {
                         data.threads.set(thread.id, thread);
                         const ids = data.threadIds || new Set();
                         ids.delete(thread.id);
@@ -40,7 +40,7 @@ export const useThreadStore = create<App.ModuleMessenger.Store.ThreadStore>((set
             },
             add: (thread) => {
                 set(
-                    produce<App.ModuleMessenger.Store.ThreadStore>(({ data }) => {
+                    produce<App.Module.Messenger.Store.ThreadStore>(({ data }) => {
                         data.threads.set(thread.id, thread);
                         const ids = data.threadIds || new Set();
                         ids.add(thread.id);
@@ -50,7 +50,7 @@ export const useThreadStore = create<App.ModuleMessenger.Store.ThreadStore>((set
             },
             multiAdd: (threads) => {
                 set(
-                    produce<App.ModuleMessenger.Store.ThreadStore>(({ data }) => {
+                    produce<App.Module.Messenger.Store.ThreadStore>(({ data }) => {
                         threads.forEach((thread) => {
                             data.threads.set(thread.id, thread);
                             const ids = data.threadIds || new Set();
@@ -62,7 +62,7 @@ export const useThreadStore = create<App.ModuleMessenger.Store.ThreadStore>((set
             },
             multiSearch: (threads) => {
                 set(
-                    produce<App.ModuleMessenger.Store.ThreadStore>(({ data }) => {
+                    produce<App.Module.Messenger.Store.ThreadStore>(({ data }) => {
                         threads.forEach((item) => {
                             data.searches.set(item.id, item);
                         });
@@ -71,7 +71,7 @@ export const useThreadStore = create<App.ModuleMessenger.Store.ThreadStore>((set
             },
             remove: (tid) => {
                 set(
-                    produce<App.ModuleMessenger.Store.ThreadStore>(({ data }) => {
+                    produce<App.Module.Messenger.Store.ThreadStore>(({ data }) => {
                         data.threadIds.delete(tid);
                         data.threads.delete(tid);
                         data.searches.delete(tid);
@@ -80,7 +80,7 @@ export const useThreadStore = create<App.ModuleMessenger.Store.ThreadStore>((set
             },
             update: (thread) => {
                 set(
-                    produce<App.ModuleMessenger.Store.ThreadStore>(({ data }) => {
+                    produce<App.Module.Messenger.Store.ThreadStore>(({ data }) => {
                         if (data.threads.has(thread.id)) {
                             merge(data.threads.get(thread.id), thread);
                         }

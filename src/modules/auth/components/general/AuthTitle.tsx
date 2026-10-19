@@ -14,7 +14,7 @@ import { AuthLanguage } from '@modules/auth/constants/language';
 import { CardHeader, CardTitle } from '@modules/base/components/card';
 import { Typography } from '@modules/base/components/typography';
 
-export function AuthTitle(props: App.ModuleAuth.Component.AuthTitleProps) {
+export function AuthTitle(props: App.Module.Auth.Component.AuthTitleProps) {
     const { mode = 'signin' } = props;
 
     return (

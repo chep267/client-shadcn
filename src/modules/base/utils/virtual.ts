@@ -103,7 +103,7 @@ const compareValues = <Data>(a: Data, b: Data): number => {
 
 export const sortBigdata = <Data>(payload: {
     items?: Data[] | null;
-    orderType?: App.ModuleBase.Data.OrderType | null;
+    orderType?: App.Module.Base.Data.OrderType | null;
     orderBy?: string | null;
 }): Data[] => {
     const { items, orderType = OrderType.asc, orderBy } = payload;

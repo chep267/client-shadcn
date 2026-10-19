@@ -15,7 +15,7 @@ import { Field, FieldError, FieldLabel } from '@modules/base/components/field';
 /** types */
 import type { FieldValues } from 'react-hook-form';
 
-export function FieldEmail<T extends FieldValues>(props: App.ModuleAuth.Component.FormTextFieldProps<T>) {
+export function FieldEmail<T extends FieldValues>(props: App.Module.Auth.Component.FormTextFieldProps<T>) {
     const { name, control, label, ...fieldProps } = props;
     const {
         field,

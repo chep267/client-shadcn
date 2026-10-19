@@ -10,7 +10,7 @@ import type * as TypeStore from '@modules/calendar/types/store.d';
 import type * as TypeComponent from '@modules/calendar/types/component.d';
 
 declare global {
-    namespace App.ModuleCalendar {
+    namespace App.Module.Calendar {
         export import Data = TypeData;
         export import Store = TypeStore;
         export import Component = TypeComponent;

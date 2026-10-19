@@ -10,7 +10,7 @@ import type * as TypeComponent from '@modules/auth/types/component.d';
 import type * as TypeStore from '@modules/auth/types/store.d';
 
 declare global {
-    namespace App.ModuleAuth {
+    namespace App.Module.Auth {
         export import Api = TypeApi;
         export import Store = TypeStore;
         export import Component = TypeComponent;

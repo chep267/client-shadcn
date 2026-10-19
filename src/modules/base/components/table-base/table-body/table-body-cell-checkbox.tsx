@@ -11,7 +11,7 @@ import { cn } from 'cn';
 import { Checkbox } from '@modules/base/components/checkbox';
 import { TableCell } from '@modules/base/components/table';
 
-export function TableBodyCellCheckbox<Data>(props: App.ModuleBase.Component.TableCellCheckboxOneProps<Data>) {
+export function TableBodyCellCheckbox<Data>(props: App.Module.Base.Component.TableCellCheckboxOneProps<Data>) {
     const { className, id, store } = props;
 
     const isChecked = store((state) => state.data.selectedIds.has(id));

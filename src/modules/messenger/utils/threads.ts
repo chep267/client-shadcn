@@ -4,7 +4,7 @@
  *
  */
 
-export const mapUserToThread = (user: App.ModuleUser.Data.User): App.ModuleMessenger.Data.Thread => ({
+export const mapUserToThread = (user: App.Module.User.Data.User): App.Module.Messenger.Data.Thread => ({
     id: user.id,
     name: user.name,
     avatar: user.photo,

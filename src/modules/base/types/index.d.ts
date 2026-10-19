@@ -12,7 +12,7 @@ import * as TypeHook from '@modules/base/types/hook.d';
 import * as TypeComponent from '@modules/base/types/component.d';
 
 declare global {
-    namespace App.ModuleBase {
+    namespace App.Module.Base {
         export import Data = TypeData;
         export import Api = TypeApi;
         export import Store = TypeStore;

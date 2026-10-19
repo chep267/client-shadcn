@@ -15,20 +15,20 @@ class FeedService extends ApiService {
         super(url);
     }
 
-    getOne = async (payload: App.ModuleFeed.Api.FeedService['Get']['Payload']) => {
+    getOne = async (payload: App.Module.Feed.Api.FeedService['Get']['Payload']) => {
         const { pid } = payload;
         const response = await this.withDelay(
-            this.get<App.ModuleFeed.Api.FeedService['Get']['Response']>({
+            this.get<App.Module.Feed.Api.FeedService['Get']['Response']>({
                 url: `${FeedApiPath.feed}/${pid}`,
             })
         );
         return response.data;
     };
 
-    gets = async (payload: App.ModuleFeed.Api.FeedService['Gets']['Payload']) => {
+    gets = async (payload: App.Module.Feed.Api.FeedService['Gets']['Payload']) => {
         const { q = '', page = '1', skip = '0', limit = '20' } = payload;
         const response = await this.withDelay(
-            this.get<App.ModuleFeed.Api.FeedService['Gets']['Response']>({
+            this.get<App.Module.Feed.Api.FeedService['Gets']['Response']>({
                 url: FeedApiPath.feeds,
                 params: {
                     q,

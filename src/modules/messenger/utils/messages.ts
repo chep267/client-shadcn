@@ -6,7 +6,7 @@
 
 export const mapFileToAttachment = (
     file: File
-): Omit<App.ModuleMessenger.Data.Attachment, 'id' | 'createdAt' | 'updatedAt'> => ({
+): Omit<App.Module.Messenger.Data.Attachment, 'id' | 'createdAt' | 'updatedAt'> => ({
     uid: '',
     fileName: file.name,
     fileType: file.type,
@@ -14,7 +14,7 @@ export const mapFileToAttachment = (
     url: URL.createObjectURL(file),
 });
 
-export const genCacheData = <Data = unknown>(data: Data): App.ModuleBase.Api.ApiResponse<Data> => {
+export const genCacheData = <Data = unknown>(data: Data): App.Module.Base.Api.ApiResponse<Data> => {
     return {
         message: 'OK',
         data,

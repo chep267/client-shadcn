@@ -12,7 +12,7 @@ import { useIntl } from 'react-intl';
 /** components */
 import { SidebarMenuButton, SidebarMenuItem } from '@modules/base/components/sidebar';
 
-const AppSidebarItem = React.memo(function SidebarItem(props: App.ModuleGlobal.Component.SidebarItemProps) {
+const AppSidebarItem = React.memo(function SidebarItem(props: App.Module.Global.Component.SidebarItemProps) {
     const { item, active } = props;
     const { formatMessage } = useIntl();
     const appName = formatMessage({ id: item.name, defaultMessage: item.name });

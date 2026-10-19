@@ -14,7 +14,7 @@ import { BaseLanguage } from '@modules/base/constants/language';
 /** components */
 import { TableRow, TableCell } from '@modules/base/components/table';
 
-export function TableEmpty<Data>(props: App.ModuleBase.Component.ComponentWithBigdataStoreProps<Data>) {
+export function TableEmpty<Data>(props: App.Module.Base.Component.ComponentWithBigdataStoreProps<Data>) {
     const { store } = props;
 
     const isEmpty = store((state) => state.data.currentItems.length === 0);

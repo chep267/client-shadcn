@@ -9,19 +9,19 @@ import { useThreadStore } from '@modules/messenger/stores/useThreadStore';
 import { useMessageStore } from '@modules/messenger/stores/useMessageStore';
 
 class SocketService {
-    private readonly threadAction: App.ModuleMessenger.Store.ThreadStore['action'];
-    private readonly messageAction: App.ModuleMessenger.Store.MessageStore['action'];
+    private readonly threadAction: App.Module.Messenger.Store.ThreadStore['action'];
+    private readonly messageAction: App.Module.Messenger.Store.MessageStore['action'];
 
     constructor() {
         this.messageAction = useMessageStore.getState().action;
         this.threadAction = useThreadStore.getState().action;
     }
 
-    public receiveThread = (thread: App.ModuleMessenger.Data.Thread) => {
+    public receiveThread = (thread: App.Module.Messenger.Data.Thread) => {
         this.threadAction.unshift(thread);
     };
 
-    public receiveMessage = (message: App.ModuleMessenger.Data.Message) => {
+    public receiveMessage = (message: App.Module.Messenger.Data.Message) => {
         this.messageAction.unshift(message.tid, message);
         this.threadAction.update({
             id: message.tid,

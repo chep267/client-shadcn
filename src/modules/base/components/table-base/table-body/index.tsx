@@ -15,7 +15,7 @@ import { TableBody as TableBodyComp } from '@modules/base/components/table';
 import { TableEmpty } from '@modules/base/components/table-base/table-empty';
 import { TableBodyRow } from '@modules/base/components/table-base/table-body/table-body-row';
 
-export function TableBody<Data>(props: App.ModuleBase.Component.TableBodyProps<Data>) {
+export function TableBody<Data>(props: App.Module.Base.Component.TableBodyProps<Data>) {
     const { className, children, store, ...otherProps } = props;
 
     const currentItems = store((state) => state.data.currentItems);

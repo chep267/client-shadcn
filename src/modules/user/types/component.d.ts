@@ -5,13 +5,28 @@
  */
 
 /** types */
-import type { User } from '@modules/user/types/data.d';
+import { type ReactNode, type ComponentProps } from 'react';
+import type { Avatar } from '@modules/base/components/avatar';
+import type { Typography } from '@modules/base/components/typography';
 
-export interface UserAvatarProps {
-    uid?: User['uid'];
+export interface UserAvatarProps extends ComponentProps<typeof Avatar> {
+    loading?: boolean;
+    id?: string;
+    src?: string;
+    name?: string;
 }
 
-export interface UserNameProps {
-    uid?: User['uid'];
-    name?: User['displayName'];
+export interface UserNameProps extends ComponentProps<typeof Typography> {
+    loading?: boolean;
+    id?: string;
+    name?: string;
+}
+
+export interface UserInfoProps {
+    className?: string;
+    id?: string;
+    sizeAvatar?: UserAvatarProps['size'];
+    sizeName?: UserNameProps['component'];
+    description?: ReactNode | (() => ReactNode);
+    link?: boolean;
 }

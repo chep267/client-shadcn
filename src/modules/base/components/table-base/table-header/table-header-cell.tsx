@@ -8,7 +8,7 @@
 import { TableHead } from '@modules/base/components/table';
 import { TableHeaderCellSort } from '@modules/base/components/table-base/table-header/table-header-cell-sort';
 
-export function TableHeaderCell<Data>(props: App.ModuleBase.Component.TableHeaderCellProps<Data>) {
+export function TableHeaderCell<Data>(props: App.Module.Base.Component.TableHeaderCellProps<Data>) {
     const { column } = props;
 
     if (!column.sortable) {

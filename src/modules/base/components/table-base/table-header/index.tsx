@@ -12,7 +12,7 @@ import { TableHeader as TableHeaderComp, TableRow } from '@modules/base/componen
 import { TableHeaderCellCheckbox } from '@modules/base/components/table-base/table-header/table-header-cell-checkbox';
 import { TableHeaderCell } from '@modules/base/components/table-base/table-header/table-header-cell';
 
-export function TableHeader<Data>(props: App.ModuleBase.Component.TableHeaderProps<Data>) {
+export function TableHeader<Data>(props: App.Module.Base.Component.TableHeaderProps<Data>) {
     const { className, store } = props;
 
     const columns = store((state) => state.data.columns);

@@ -16,6 +16,7 @@ export default function UserRouter() {
         <React.Suspense>
             <Routes>
                 <Route index element={<UserScreen />} />
+                <Route path=":uid" element={<UserScreen />} />
             </Routes>
         </React.Suspense>
     );

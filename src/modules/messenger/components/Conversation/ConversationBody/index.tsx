@@ -56,7 +56,7 @@ export function ConversationBody() {
     }, [messageIds]);
 
     const itemContent = React.useCallback(
-        (id: App.ModuleMessenger.Data.Message['id']) => {
+        (id: App.Module.Messenger.Data.Message['id']) => {
             const message = messages.get(id);
             if (!message) return null;
             return <Message key={id} message={message} isMe={message.uid === meId} />;

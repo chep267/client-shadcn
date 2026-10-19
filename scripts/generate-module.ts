@@ -10,7 +10,7 @@ import path from 'node:path';
 import { execSync } from 'node:child_process';
 
 // Hàm chính để tạo module
-const createModuleStructure = (moduleName = 'module-test') => {
+const createModuleStructure = (moduleName = 'test') => {
     if (!moduleName || typeof moduleName !== 'string') {
         console.error('❌ Vui lòng nhập tên module hợp lệ.');
         return;

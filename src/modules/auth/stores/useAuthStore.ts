@@ -15,13 +15,13 @@ import { AppKey } from '@modules/base/constants/env';
 /** utils */
 import { registerStore } from '@modules/base/utils/store';
 
-const defaultData: Readonly<App.ModuleAuth.Store.AuthStore['data']> = {
+const defaultData: Readonly<App.Module.Auth.Store.AuthStore['data']> = {
     user: null,
     prePath: '/',
     token: Cookies.get(AppKey.token) ?? '',
 };
 
-export const useAuthStore = create<App.ModuleAuth.Store.AuthStore>((set) => {
+export const useAuthStore = create<App.Module.Auth.Store.AuthStore>((set) => {
     registerStore(() => {
         set({ data: structuredClone(defaultData) });
     });
@@ -31,14 +31,14 @@ export const useAuthStore = create<App.ModuleAuth.Store.AuthStore>((set) => {
         action: {
             setData: (updateData = {}) => {
                 set(
-                    produce<App.ModuleAuth.Store.AuthStore>(({ data }) => {
+                    produce<App.Module.Auth.Store.AuthStore>(({ data }) => {
                         Object.assign(data, updateData);
                     })
                 );
             },
             refreshToken: () => {
                 set(
-                    produce<App.ModuleAuth.Store.AuthStore>(({ data }) => {
+                    produce<App.Module.Auth.Store.AuthStore>(({ data }) => {
                         data.token = Cookies.get(AppKey.token) ?? '';
                     })
                 );

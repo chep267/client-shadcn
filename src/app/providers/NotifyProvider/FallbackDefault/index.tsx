@@ -19,7 +19,7 @@ import { ButtonRetry } from '@app/providers/NotifyProvider/FallbackDefault/Butto
 /** screens */
 import LayerScreen from '@modules/base/screens/LayerScreen';
 
-export function FallbackDefault(props: App.ModuleBase.Component.FallbackDefaultProps) {
+export function FallbackDefault(props: App.Module.Base.Component.FallbackDefaultProps) {
     const { isAutoReload } = props;
 
     return (

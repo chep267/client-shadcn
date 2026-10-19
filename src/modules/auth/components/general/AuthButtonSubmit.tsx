@@ -15,7 +15,7 @@ import { AuthLanguage } from '@modules/auth/constants/language';
 import { Button } from '@modules/base/components/button';
 import { Spinner } from '@modules/base/components/spinner';
 
-export function AuthButtonSubmit(props: App.ModuleAuth.Component.AuthButtonSubmitProps) {
+export function AuthButtonSubmit(props: App.Module.Auth.Component.AuthButtonSubmitProps) {
     const { loading, mode = 'signin', ...btnProps } = props;
 
     return (

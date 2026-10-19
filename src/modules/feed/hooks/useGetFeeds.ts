@@ -13,7 +13,7 @@ import { FeedQueryKey } from '@modules/feed/constants/query';
 /** services */
 import { feedService } from '@modules/feed/services';
 
-export function useGetFeeds(payload: App.ModulePoem.Api.PoemService['Gets']['Payload'] = {}) {
+export function useGetFeeds(payload: App.Module.Poem.Api.PoemService['Gets']['Payload'] = {}) {
     const { isPending, data } = useQuery({
         queryKey: [FeedQueryKey.feeds, payload],
         queryFn: () => feedService.gets(payload),

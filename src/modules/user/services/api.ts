@@ -15,10 +15,10 @@ class UserServices extends ApiService {
         super(url);
     }
 
-    getOne = async (payload: App.ModuleUser.Api.UserService['Get']['Payload']) => {
+    getOne = async (payload: App.Module.User.Api.UserService['Get']['Payload']) => {
         const { uid = '' } = payload;
         const response = await this.withDelay(
-            this.get<App.ModuleUser.Api.UserService['Get']['Response']>({
+            this.get<App.Module.User.Api.UserService['Get']['Response']>({
                 url: UserApiPath.user.replace(':uid', uid),
             })
         );
@@ -26,9 +26,9 @@ class UserServices extends ApiService {
         return response.data;
     };
 
-    gets = async (payload: App.ModuleUser.Api.UserService['Gets']['Payload']) => {
+    gets = async (payload: App.Module.User.Api.UserService['Gets']['Payload']) => {
         const response = await this.withDelay(
-            this.get<App.ModuleUser.Api.UserService['Gets']['Response']>({
+            this.get<App.Module.User.Api.UserService['Gets']['Response']>({
                 url: UserApiPath.users,
                 params: payload,
             })

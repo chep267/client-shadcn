@@ -24,7 +24,7 @@ export default function LanguageProvider(props: React.PropsWithChildren) {
     const { children } = props;
 
     const locale = useSettingStore((store) => store.data.locale);
-    const [messages, setMessages] = React.useState<App.ModuleBase.Data.LanguageMessages | null>(null);
+    const [messages, setMessages] = React.useState<App.Module.Base.Data.LanguageMessages | null>(null);
 
     React.useEffect(() => {
         dayjs.locale(locale);

@@ -105,7 +105,7 @@ function MenuSettingItem(props: { item: MenuSettingItemProps; step?: number }) {
 }
 
 interface MenuOptionProps {
-    thread: App.ModuleMessenger.Data.Thread;
+    thread: App.Module.Messenger.Data.Thread;
 }
 
 export function MenuOption(props: MenuOptionProps) {

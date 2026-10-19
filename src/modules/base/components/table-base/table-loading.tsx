@@ -10,7 +10,7 @@ import { cn } from 'cn';
 /** components */
 import { Spinner } from '@modules/base/components/spinner';
 
-export function TableLoading<Data>(props: App.ModuleBase.Component.ComponentWithBigdataStoreProps<Data>) {
+export function TableLoading<Data>(props: App.Module.Base.Component.ComponentWithBigdataStoreProps<Data>) {
     const { store } = props;
 
     const loading = store((state) => state.data.loading);

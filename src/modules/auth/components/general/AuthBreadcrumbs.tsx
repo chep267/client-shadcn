@@ -22,10 +22,10 @@ import {
     BreadcrumbSeparator,
 } from '@modules/base/components/breadcrumb';
 
-export function AuthBreadcrumbs(props: App.ModuleAuth.Component.AuthBreadcrumbsProps) {
+export function AuthBreadcrumbs(props: App.Module.Auth.Component.AuthBreadcrumbsProps) {
     const { mode = 'signin' } = props;
 
-    const items: App.ModuleAuth.Component.AuthBreadcrumbsItem[] = [
+    const items: App.Module.Auth.Component.AuthBreadcrumbsItem[] = [
         {
             title: AuthLanguage.component.title.signin,
             path: AuthRouterPath.signin,

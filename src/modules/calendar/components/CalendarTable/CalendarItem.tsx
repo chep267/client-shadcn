@@ -13,7 +13,7 @@ import { useCalendarStore } from '@modules/calendar/stores/useCalendarStore';
 /** components */
 import { Typography } from '@modules/base/components/typography';
 
-export function CalendarItem(props: App.ModuleCalendar.Component.CalendarItemProps) {
+export function CalendarItem(props: App.Module.Calendar.Component.CalendarItemProps) {
     const { day } = props;
 
     const isOnlyMonth = useCalendarStore(({ data }) => data.isOnlyMonth);

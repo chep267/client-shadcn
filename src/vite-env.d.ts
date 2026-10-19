@@ -13,8 +13,8 @@ interface ImportMetaEnv {
     readonly VITE_APP_SERVER_URL: string;
     readonly VITE_APP_CLIENT_HOST: string;
     readonly VITE_APP_CLIENT_PORT: string;
-    readonly VITE_APP_CLIENT_LOCALE: App.ModuleBase.Data.Locale;
-    readonly VITE_APP_CLIENT_THEME: App.ModuleBase.Data.Theme;
+    readonly VITE_APP_CLIENT_LOCALE: App.Module.Base.Data.Locale;
+    readonly VITE_APP_CLIENT_THEME: App.Module.Base.Data.Theme;
 
     readonly VITE_APP_PUSHER_KEY: string;
     readonly VITE_APP_PUSHER_CLUSTER: string;

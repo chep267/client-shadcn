@@ -16,7 +16,7 @@ import { Typography } from '@modules/base/components/typography';
 
 interface FeedAttachmentsProps {
     className?: string;
-    attachments?: App.ModuleBase.Store.TypeAttachment[] | null;
+    attachments?: App.Module.Base.Store.TypeAttachment[] | null;
 }
 
 export default function FeedAttachments(props: FeedAttachmentsProps) {
@@ -26,7 +26,7 @@ export default function FeedAttachments(props: FeedAttachmentsProps) {
     const count = attachments?.length ?? 0;
     if (!attachments || count === 0) return null;
 
-    const renderImage = (file: App.ModuleBase.Store.TypeAttachment, index = 0, className = '') => {
+    const renderImage = (file: App.Module.Base.Store.TypeAttachment, index = 0, className = '') => {
         return (
             <ImageBase
                 key={file.url}

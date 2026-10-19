@@ -20,7 +20,7 @@ import { userServices } from '@modules/user/services/api';
 import { useUserStore } from '@modules/user/stores/useUserStore';
 import { useThreadStore } from '@modules/messenger/stores/useThreadStore';
 
-export function useSearchUsers(payload: App.ModuleMessenger.Api.ThreadService['Gets']['Payload'] = {}) {
+export function useSearchUsers(payload: App.Module.Messenger.Api.ThreadService['Gets']['Payload'] = {}) {
     return useQuery({
         queryKey: [MessengerQueryKey.searchUsers, payload],
         queryFn: async () => {

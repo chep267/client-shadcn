@@ -20,7 +20,7 @@ enableMapSet();
 const NUMBER_ITEM_THRESHOLD_LOADING = 200;
 
 export const createBigdataStore = <Data>() => {
-    return create<App.ModuleBase.Component.BigdataStore<Data>>((set, get) => ({
+    return create<App.Module.Base.Component.BigdataStore<Data>>((set, get) => ({
         data: {
             // state
             element: undefined,
@@ -45,10 +45,10 @@ export const createBigdataStore = <Data>() => {
             currentItems: [],
         },
         action: {
-            setup: (initialData: Partial<App.ModuleBase.Component.BigdataStore<Data>['data']>) => {
+            setup: (initialData: Partial<App.Module.Base.Component.BigdataStore<Data>['data']>) => {
                 const isImmediate = !initialData.searchKey && !initialData.filters?.length;
                 set(
-                    produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
+                    produce<App.Module.Base.Component.BigdataStore<Data>>(({ data }) => {
                         Object.assign(data, initialData);
                         data.loading = !isImmediate;
                     })
@@ -57,7 +57,7 @@ export const createBigdataStore = <Data>() => {
             },
             toggleOne: (id) => {
                 set(
-                    produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
+                    produce<App.Module.Base.Component.BigdataStore<Data>>(({ data }) => {
                         if (data.selectedIds.has(id)) {
                             data.selectedIds.delete(id);
                         } else {
@@ -72,7 +72,7 @@ export const createBigdataStore = <Data>() => {
             },
             toggleAll: () => {
                 set(
-                    produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
+                    produce<App.Module.Base.Component.BigdataStore<Data>>(({ data }) => {
                         data.isIndeterminate = false;
                         if (data.isCheckedAll) {
                             data.isCheckedAll = false;
@@ -95,7 +95,7 @@ export const createBigdataStore = <Data>() => {
                 const isImmediate = currentItems.length < NUMBER_ITEM_THRESHOLD_LOADING;
 
                 set(
-                    produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
+                    produce<App.Module.Base.Component.BigdataStore<Data>>(({ data }) => {
                         const nextOrderType =
                             orderType ||
                             (orderBy !== data.orderBy
@@ -123,7 +123,7 @@ export const createBigdataStore = <Data>() => {
                 }
 
                 set(
-                    produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
+                    produce<App.Module.Base.Component.BigdataStore<Data>>(({ data }) => {
                         data.searchKey = nextSearchKey;
                         data.loading = true;
                     })
@@ -132,7 +132,7 @@ export const createBigdataStore = <Data>() => {
             },
             filter: (filters) => {
                 set(
-                    produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
+                    produce<App.Module.Base.Component.BigdataStore<Data>>(({ data }) => {
                         data.filters = filters as typeof data.filters;
                         data.loading = true;
                     })
@@ -183,7 +183,7 @@ export const createBigdataStore = <Data>() => {
                     }
 
                     set(
-                        produce<App.ModuleBase.Component.BigdataStore<Data>>(({ data }) => {
+                        produce<App.Module.Base.Component.BigdataStore<Data>>(({ data }) => {
                             const total = nextItems.length ?? 0;
                             const selected = data.selectedIds.size ?? 0;
                             data.isCheckedAll = total > 0 && selected >= total;

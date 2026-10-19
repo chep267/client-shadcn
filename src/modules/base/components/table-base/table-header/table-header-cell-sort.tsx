@@ -15,7 +15,7 @@ import { OrderType } from '@modules/base/constants/config';
 import { Button } from '@modules/base/components/button';
 import { TableHead } from '@modules/base/components/table';
 
-export function TableHeaderCellSort<Data>(props: App.ModuleBase.Component.TableHeaderCellProps<Data>) {
+export function TableHeaderCellSort<Data>(props: App.Module.Base.Component.TableHeaderCellProps<Data>) {
     const { column, store } = props;
 
     const action = store((state) => state.action);

@@ -11,7 +11,7 @@ import { cn } from 'cn';
 /** constants */
 import { BaseLanguage } from '@modules/base/constants/language';
 
-export function ListEmpty<Data>(props: App.ModuleBase.Component.ComponentWithBigdataStoreProps<Data>) {
+export function ListEmpty<Data>(props: App.Module.Base.Component.ComponentWithBigdataStoreProps<Data>) {
     const { store } = props;
 
     const isEmpty = store((state) => state.data.currentItems.length === 0);

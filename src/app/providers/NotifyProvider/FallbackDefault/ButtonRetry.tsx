@@ -34,7 +34,7 @@ function Timer() {
     );
 }
 
-export function ButtonRetry(props: Pick<App.ModuleBase.Component.FallbackDefaultProps, 'isAutoReload'>) {
+export function ButtonRetry(props: Pick<App.Module.Base.Component.FallbackDefaultProps, 'isAutoReload'>) {
     const { isAutoReload = true } = props;
 
     return (

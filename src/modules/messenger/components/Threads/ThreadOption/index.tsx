@@ -16,7 +16,7 @@ import { ButtonOption } from '@modules/messenger/components/Threads/ThreadOption
 const MenuOption = React.lazy(() => import('@modules/messenger/components/Threads/ThreadOption/MenuOption'));
 
 interface ThreadOptionProps {
-    thread: App.ModuleMessenger.Data.Thread;
+    thread: App.Module.Messenger.Data.Thread;
 }
 
 export function ThreadOption(props: ThreadOptionProps) {

@@ -5,12 +5,12 @@
  */
 
 class StorageBase {
-    constructor(storageName: App.ModuleBase.Data.StorageName) {
+    constructor(storageName: App.Module.Base.Data.StorageName) {
         this.storageName = storageName;
         this.storageCache = new Map();
     }
 
-    private readonly storageName: App.ModuleBase.Data.StorageName;
+    private readonly storageName: App.Module.Base.Data.StorageName;
     private storageCache: Map<string, string | null>;
 
     private checkParams = (method: string, variable: unknown, name: string) => {
@@ -28,21 +28,21 @@ class StorageBase {
     };
     getList = (keys: string[]) => {
         this.checkParams('getList', keys, 'array storage key');
-        const results: Record<string, App.ModuleBase.Data.StorageValue> = {};
+        const results: Record<string, App.Module.Base.Data.StorageValue> = {};
         for (const key of keys) {
             results[key] = this.get(key);
         }
         return results;
     };
 
-    set = (key: string, data: App.ModuleBase.Data.StorageValue) => {
+    set = (key: string, data: App.Module.Base.Data.StorageValue) => {
         this.checkParams('set', key, 'storage key');
         this.checkParams('set', data, 'data');
         const value = data ?? '';
         window[this.storageName].setItem(key, value);
         this.storageCache.set(key, value);
     };
-    setList = (keys: string[], data: App.ModuleBase.Data.StorageValue[]) => {
+    setList = (keys: string[], data: App.Module.Base.Data.StorageValue[]) => {
         this.checkParams('setList', keys, 'array storage key');
         this.checkParams('setList', data, 'array data');
         keys.forEach((key, index) => {

@@ -17,7 +17,7 @@ import { FeedOption } from '@modules/feed/components/FeedOption';
 import { UserInfo } from '@modules/user/components/UserInfo';
 
 interface FeedProps {
-    data: App.ModuleFeed.Data.TypeFeed;
+    data: App.Module.Feed.Data.TypeFeed;
 }
 
 export function Feed(props: FeedProps) {
@@ -33,8 +33,9 @@ export function Feed(props: FeedProps) {
             <CardHeader>
                 <CardTitle className="flex items-start justify-between gap-2">
                     <UserInfo
-                        size="lg"
-                        uid={feed.authorId}
+                        sizeAvatar="lg"
+                        id={feed.authorId}
+                        link
                         description={
                             <CardDescription className="text-xs font-normal">
                                 {dayjs(feed.createdAt).format('DD/MM/YYYY - HH:mm')}

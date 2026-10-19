@@ -5,7 +5,6 @@
  */
 
 /** libs */
-import * as React from 'react';
 import { cn } from 'cn';
 
 /** hooks */
@@ -16,14 +15,9 @@ import { Skeleton } from '@modules/base/components/skeleton';
 import { Typography } from '@modules/base/components/typography';
 import { UserNameNoGet } from '@modules/user/components/UserName/UserNameNoGet';
 
-interface UserNameGetProps extends React.ComponentProps<typeof Typography> {
-    uid?: string;
-    loading?: boolean;
-}
-
-export function UserNameGet(props: UserNameGetProps) {
-    const { uid, className, loading, ...otherProps } = props;
-    const { isFetching, data } = useGetUser(uid);
+export function UserNameGet(props: App.Module.User.Component.UserNameProps) {
+    const { id, className, loading, ...otherProps } = props;
+    const { isFetching, data } = useGetUser(id);
     const { data: user } = data ?? {};
 
     if (loading || isFetching) {
