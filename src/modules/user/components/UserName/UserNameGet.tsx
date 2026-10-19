@@ -23,7 +23,7 @@ export function UserNameGet(props: App.Module.User.Component.UserNameProps) {
     if (loading || isFetching) {
         return (
             <Typography className={cn('relative size-full min-h-5 max-w-20 min-w-10', className)} {...otherProps}>
-                <Skeleton className="absolute inset-0 h-full w-full" />
+                <Skeleton className="absolute inset-0 size-full" />
             </Typography>
         );
     }

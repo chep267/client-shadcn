@@ -26,7 +26,7 @@ export function WavyLoading(props: WavyLoadingProps) {
     return (
         <div
             className={cn(
-                'flex h-full w-full items-center justify-center',
+                'flex size-full items-center justify-center',
                 'text-main text-2xl font-bold tracking-widest',
                 className
             )}

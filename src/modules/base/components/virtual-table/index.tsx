@@ -70,18 +70,14 @@ export function VirtualTable<Data>(props: App.Module.Base.Component.TableProps<D
 
     return (
         <div
-            className={cn(
-                'relative h-full w-full overflow-hidden rounded-sm border',
-                { 'max-h-40!': isEmpty },
-                className
-            )}
+            className={cn('relative size-full overflow-hidden rounded-sm border', { 'max-h-40!': isEmpty }, className)}
         >
             <TableLoading store={dataStore} />
             <TableVirtuoso
                 ref={virtuoso}
                 data-slot="table-container"
                 className={cn(
-                    'h-full w-full',
+                    'size-full',
                     '**:data-[slot=table]:h-auto **:data-[slot=table-container]:h-full **:data-[slot=table-container]:overflow-visible',
                     'scrollbar-custom scrollbar-thin'
                 )}

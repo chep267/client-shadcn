@@ -46,12 +46,12 @@ export function VirtualList<Data>(props: App.Module.Base.Component.ListProps<Dat
     }, []);
 
     return (
-        <div className={cn('relative h-full w-full overflow-hidden', { 'max-h-40!': isEmpty }, className)}>
+        <div className={cn('relative size-full overflow-hidden', { 'max-h-40!': isEmpty }, className)}>
             <ListLoading store={dataStore} />
             <ListEmpty store={dataStore} />
             <Virtuoso
                 ref={virtuoso}
-                className={cn('h-full w-full', 'scrollbar-custom scrollbar-thin')}
+                className={cn('size-full', 'scrollbar-custom scrollbar-thin')}
                 data={currentItems}
                 {...otherProps}
             />

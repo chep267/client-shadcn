@@ -23,7 +23,7 @@ export function UserAvatarGet(props: App.Module.User.Component.UserAvatarProps) 
     if (loading || isFetching) {
         return (
             <Avatar className={cn('relative', className)} size={size} {...otherProps}>
-                <Skeleton className="absolute inset-0 h-full w-full rounded-full" />
+                <Skeleton className="absolute inset-0 size-full rounded-full" />
             </Avatar>
         );
     }

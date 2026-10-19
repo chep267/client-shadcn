@@ -30,7 +30,7 @@ export function UserAvatarNoGet(props: App.Module.User.Component.UserAvatarProps
         <Avatar data-slot="user-avatar" className={cn('relative', className)} {...otherProps}>
             <AvatarImage alt={`Avatar of ${name}`} src={src} onLoadingStatusChange={handleLoadingAvatar} />
             {loading ? (
-                <Skeleton className="absolute inset-0 h-full w-full rounded-full" />
+                <Skeleton className="absolute inset-0 size-full rounded-full" />
             ) : (
                 <>
                     <AvatarFallback>
