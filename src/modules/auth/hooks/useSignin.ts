@@ -19,7 +19,7 @@ import { AuthLanguage } from '@modules/auth/constants';
 import { isClientError } from '@modules/base/utils/axiosHelper';
 
 /** services */
-import { authService } from '@modules/auth/services';
+import { authService } from '@modules/auth/services/api';
 
 /** stores */
 import { useAuthStore } from '@modules/auth/stores/useAuthStore';

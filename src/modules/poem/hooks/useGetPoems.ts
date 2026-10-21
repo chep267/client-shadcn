@@ -11,7 +11,7 @@ import { useQuery } from '@tanstack/react-query';
 import { PoemQueryKey } from '@modules/poem/constants';
 
 /** services */
-import { poemService } from '@modules/poem/services';
+import { poemService } from '@modules/poem/services/api';
 
 export function useGetPoems(payload: App.Module.Poem.Api.PoemService['Gets']['Payload'] = {}) {
     const { isPending, data } = useQuery({

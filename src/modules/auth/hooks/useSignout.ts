@@ -16,7 +16,7 @@ import { AppKey } from '@modules/base/constants';
 import { resetStores } from '@modules/base/utils/store';
 
 /** services */
-import { authService } from '@modules/auth/services';
+import { authService } from '@modules/auth/services/api';
 
 export function useSignout() {
     const queryClient = useQueryClient();

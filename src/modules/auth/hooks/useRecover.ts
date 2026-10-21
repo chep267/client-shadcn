@@ -16,7 +16,7 @@ import { AuthLanguage } from '@modules/auth/constants';
 import { isClientError } from '@modules/base/utils/axiosHelper';
 
 /** services */
-import { authService } from '@modules/auth/services';
+import { authService } from '@modules/auth/services/api';
 
 /** types */
 import type { AxiosError } from 'axios';

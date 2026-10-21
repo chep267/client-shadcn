@@ -11,7 +11,7 @@ import { useQuery } from '@tanstack/react-query';
 import { FeedQueryKey } from '@modules/feed/constants';
 
 /** services */
-import { feedService } from '@modules/feed/services';
+import { feedService } from '@modules/feed/services/api';
 
 export function useGetFeeds(payload: App.Module.Poem.Api.PoemService['Gets']['Payload'] = {}) {
     const { isPending, data } = useQuery({
