@@ -11,7 +11,7 @@ import { useParams } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { MessengerLanguage } from '@modules/messenger/constants/language';
+import { MessengerLanguage } from '@modules/messenger/constants';
 
 /** stores */
 import { useAuthStore } from '@modules/auth/stores/useAuthStore';

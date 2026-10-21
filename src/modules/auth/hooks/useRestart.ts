@@ -12,7 +12,7 @@ import { useIntl } from 'react-intl';
 import { toast } from 'sonner';
 
 /** constants */
-import { AppKey } from '@modules/base/constants/env';
+import { AppKey } from '@modules/base/constants';
 import { AuthLanguage } from '@modules/auth/constants';
 
 /** utils */

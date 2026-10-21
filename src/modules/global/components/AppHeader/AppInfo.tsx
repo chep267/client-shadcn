@@ -9,8 +9,8 @@ import { cn } from 'cn';
 import { Link } from 'react-router';
 
 /** constants */
-import { AppEnv } from '@modules/base/constants/env';
-import { GlobalRouterPath } from '@modules/global/constants/path';
+import { AppEnv } from '@modules/base/constants';
+import { GlobalRouterPath } from '@modules/global/constants';
 
 /** components */
 import { IconBase } from '@modules/base/components/icon-base';

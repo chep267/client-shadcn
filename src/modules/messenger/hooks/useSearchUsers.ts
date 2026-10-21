@@ -8,7 +8,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 /** constants */
-import { MessengerQueryKey } from '@modules/messenger/constants/query';
+import { MessengerQueryKey } from '@modules/messenger/constants';
 
 /** utils */
 import { mapUserToThread } from '@modules/messenger/utils/threads';

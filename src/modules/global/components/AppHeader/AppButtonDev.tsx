@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import { toast } from 'sonner';
 
 /** constants */
-import { BaseLanguage } from '@modules/base/constants/language';
+import { BaseLanguage } from '@modules/base/constants';
 
 /** stores */
 import { useSettingStore } from '@modules/base/stores/useSettingStore';

@@ -9,7 +9,7 @@ import { cn } from 'cn';
 import { Link } from 'react-router';
 
 /** constants */
-import { UserRouterPath } from '@modules/user/constants/path';
+import { UserRouterPath } from '@modules/user/constants';
 
 /** components */
 import { UserAvatar } from '@modules/user/components/UserAvatar';

@@ -9,7 +9,7 @@ import * as React from 'react';
 import { Routes, Route } from 'react-router';
 
 /** constants */
-import { MessengerRouterPath } from '@modules/messenger/constants/path';
+import { MessengerRouterPath } from '@modules/messenger/constants';
 
 /** screens */
 const MessengerScreen = React.lazy(() => import('@modules/messenger/screens/MessengerScreen'));

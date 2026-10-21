@@ -8,7 +8,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 /** constants */
-import { UserQueryKey } from '@modules/user/constants/query';
+import { UserQueryKey } from '@modules/user/constants';
 
 /** services */
 import { userServices } from '@modules/user/services/api';

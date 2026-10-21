@@ -8,7 +8,7 @@
 import { io } from 'socket.io-client';
 
 /** constants */
-import { AppEnv } from '@modules/base/constants/env';
+import { AppEnv } from '@modules/base/constants';
 
 /** types */
 import type { Socket } from 'socket.io-client';

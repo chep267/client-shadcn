@@ -9,7 +9,7 @@ import * as React from 'react';
 import { useNavigate, useParams } from 'react-router';
 
 /** constants */
-import { MessengerRouterPath } from '@modules/messenger/constants/path';
+import { MessengerRouterPath } from '@modules/messenger/constants';
 
 /** hooks */
 import { useGetThreads } from '@modules/messenger/hooks/useGetThreads';

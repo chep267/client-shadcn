@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { AppTimer } from '@modules/base/constants/config';
+import { AppTimer } from '@modules/base/constants';
 
 /** utils */
 import { sleep } from '@modules/base/utils/sleep';

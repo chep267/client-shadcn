@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { ThumbsUpIcon, MessageSquareIcon, ForwardIcon } from 'lucide-react';
 
 /** constants */
-import { FeedLanguage } from '@modules/feed/constants/language';
+import { FeedLanguage } from '@modules/feed/constants';
 
 /** components */
 import { Typography } from '@modules/base/components/typography';

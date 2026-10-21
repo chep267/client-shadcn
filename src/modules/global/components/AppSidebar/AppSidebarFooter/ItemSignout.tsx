@@ -11,7 +11,7 @@ import { LogOutIcon } from 'lucide-react';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { GlobalLanguage } from '@modules/global/constants/language';
+import { GlobalLanguage } from '@modules/global/constants';
 
 /** hooks */
 import { useSignout } from '@modules/auth/hooks/useSignout';

@@ -8,7 +8,7 @@
 import { useLocation } from 'react-router';
 
 /** constants */
-import { SidebarItems } from '@modules/global/constants/SidebarItems';
+import { SidebarItems } from '@modules/global/components/SidebarItems';
 
 /** components */
 import { SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu } from '@modules/base/components/sidebar';

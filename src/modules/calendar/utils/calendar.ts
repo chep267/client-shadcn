@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { CalendarDisplay } from '@modules/calendar/constants/config';
+import { CalendarDisplay } from '@modules/calendar/constants';
 
 /** types */
 import type { Dayjs } from 'dayjs';

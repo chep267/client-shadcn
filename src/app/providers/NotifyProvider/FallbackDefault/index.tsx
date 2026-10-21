@@ -9,7 +9,7 @@ import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { BaseLanguage } from '@modules/base/constants/language';
+import { BaseLanguage } from '@modules/base/constants';
 
 /** components */
 import { IconBase } from '@modules/base/components/icon-base';

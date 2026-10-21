@@ -11,8 +11,8 @@ import { FormattedMessage } from 'react-intl';
 import { PaletteIcon, LanguagesIcon, MoonStarIcon, SunIcon } from 'lucide-react';
 
 /** constants */
-import { AppLocale, AppTheme } from '@modules/base/constants/config';
-import { BaseLanguage } from '@modules/base/constants/language';
+import { AppLocale, AppTheme } from '@modules/base/constants';
+import { BaseLanguage } from '@modules/base/constants';
 
 /** components */
 import {

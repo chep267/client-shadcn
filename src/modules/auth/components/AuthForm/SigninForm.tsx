@@ -13,9 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import delay from 'lodash-es/delay';
 
 /** constants */
-import { AppKey } from '@modules/base/constants/env';
-import { AppRegex } from '@modules/base/constants/regex';
-import { AppTimer } from '@modules/base/constants/config';
+import { AppKey, AppRegex, AppTimer } from '@modules/base/constants';
 import { AuthLanguage } from '@modules/auth/constants';
 
 /** utils */

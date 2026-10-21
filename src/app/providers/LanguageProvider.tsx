@@ -12,7 +12,7 @@ import 'dayjs/locale/vi';
 import 'dayjs/locale/en';
 
 /** constants */
-import { AppLocale } from '@modules/base/constants/config';
+import { AppLocale } from '@modules/base/constants';
 
 /** stores */
 import { useSettingStore } from '@modules/base/stores/useSettingStore';

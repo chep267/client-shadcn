@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { OrderType } from '@modules/base/constants/config';
+import { OrderType } from '@modules/base/constants';
 
 /**
  * Đọc giá trị theo deep key dạng 'a.b.c' (hỗ trợ cả mảng index như 'a.0.b')

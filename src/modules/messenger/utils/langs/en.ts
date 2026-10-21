@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { MessengerLanguage } from '@modules/messenger/constants/language';
+import { MessengerLanguage } from '@modules/messenger/constants';
 
 export const en = {
     [MessengerLanguage.component.label.router]: 'Messenger',

@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import { MenuIcon } from 'lucide-react';
 
 /** constants */
-import { GlobalLanguage } from '@modules/global/constants/language';
+import { GlobalLanguage } from '@modules/global/constants';
 
 /** components */
 import { Button } from '@modules/base/components/button';

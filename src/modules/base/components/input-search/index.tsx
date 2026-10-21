@@ -11,7 +11,7 @@ import { useIntl } from 'react-intl';
 import { SearchIcon, XIcon } from 'lucide-react';
 
 /** constants */
-import { BaseLanguage } from '@modules/base/constants/language';
+import { BaseLanguage } from '@modules/base/constants';
 
 /** hooks */
 import { useLatest } from '@modules/base/hooks/useLatest';

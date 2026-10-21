@@ -9,7 +9,7 @@ import * as React from 'react';
 import { cn } from 'cn';
 
 /** constants */
-import { ParticleOptions } from '@modules/base/constants/option';
+import { ParticleOptions } from '@modules/base/constants';
 
 /** stores */
 import { useSettingStore } from '@modules/base/stores/useSettingStore';

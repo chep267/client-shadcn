@@ -9,7 +9,7 @@ import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { MessengerLanguage } from '@modules/messenger/constants/language';
+import { MessengerLanguage } from '@modules/messenger/constants';
 
 /** components */
 import { Typography } from '@modules/base/components/typography';

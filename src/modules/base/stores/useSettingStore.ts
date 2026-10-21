@@ -11,7 +11,7 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 
 /** constants */
-import { AppKey } from '@modules/base/constants/env';
+import { AppKey } from '@modules/base/constants';
 
 /** utils */
 import { getDeviceLocale } from '@modules/base/utils/getDeviceLocale';

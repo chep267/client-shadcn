@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { AppTimer } from '@modules/base/constants/config';
+import { AppTimer } from '@modules/base/constants';
 
 export const sleep = (timer: number = AppTimer.delay): Promise<void> => {
     return new Promise((resolve) => setTimeout(resolve, timer));

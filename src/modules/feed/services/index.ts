@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { FeedApiPath } from '@modules/feed/constants/path';
+import { FeedApiPath } from '@modules/feed/constants';
 
 /** services */
 import { ApiService } from '@modules/base/services/api';

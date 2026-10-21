@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { MessengerLanguage } from '@modules/messenger/constants/language';
+import { MessengerLanguage } from '@modules/messenger/constants';
 
 export const vi = {
     [MessengerLanguage.component.label.router]: 'Tin nhắn',

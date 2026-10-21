@@ -10,7 +10,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 
 /** constants */
-import { AppKey } from '@modules/base/constants/env';
+import { AppKey } from '@modules/base/constants';
 
 /** utils */
 import { resetStores } from '@modules/base/utils/store';

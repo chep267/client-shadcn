@@ -11,7 +11,7 @@ import { useNavigate, useParams } from 'react-router';
 import { SendHorizonalIcon, ThumbsUpIcon } from 'lucide-react';
 
 /** constants */
-import { MessengerRouterPath } from '@modules/messenger/constants/path';
+import { MessengerRouterPath } from '@modules/messenger/constants';
 
 /** stores */
 import { useAuthStore } from '@modules/auth/stores/useAuthStore';

@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { PoemApiPath } from '@modules/poem/constants/path';
+import { PoemApiPath } from '@modules/poem/constants';
 
 /** services */
 import { ApiService } from '@modules/base/services/api';

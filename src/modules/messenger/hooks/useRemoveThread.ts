@@ -11,8 +11,8 @@ import { useIntl } from 'react-intl';
 import { toast } from 'sonner';
 
 /** constants */
-import { BaseLanguage } from '@modules/base/constants/language';
-import { MessengerRouterPath } from '@modules/messenger/constants/path';
+import { BaseLanguage } from '@modules/base/constants';
+import { MessengerRouterPath } from '@modules/messenger/constants';
 
 /** services */
 import { threadService } from '@modules/messenger/services/thread';

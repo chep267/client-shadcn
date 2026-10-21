@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { MessengerApiPath } from '@modules/messenger/constants/path';
+import { MessengerApiPath } from '@modules/messenger/constants';
 
 /** services */
 import { ApiService } from '@modules/base/services/api';

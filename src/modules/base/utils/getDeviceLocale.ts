@@ -8,8 +8,7 @@
 import Cookies from 'js-cookie';
 
 /** constants */
-import { AppEnv, AppKey } from '@modules/base/constants/env';
-import { AppLocale } from '@modules/base/constants/config';
+import { AppEnv, AppKey, AppLocale } from '@modules/base/constants';
 
 export const getDeviceLocale = (): App.Module.Base.Data.Locale => {
     // get from cookie

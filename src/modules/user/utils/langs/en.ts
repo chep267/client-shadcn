@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { UserLanguage } from '@modules/user/constants/language';
+import { UserLanguage } from '@modules/user/constants';
 
 export const en = {
     // label

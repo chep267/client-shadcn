@@ -10,7 +10,7 @@ import { useIntl } from 'react-intl';
 import { toast } from 'sonner';
 
 /** constants */
-import { BaseLanguage } from '@modules/base/constants/language';
+import { BaseLanguage } from '@modules/base/constants';
 
 /** services */
 import { messageService } from '@modules/messenger/services/message';

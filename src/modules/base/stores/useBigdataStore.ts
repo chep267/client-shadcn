@@ -10,7 +10,7 @@ import { produce, enableMapSet } from 'immer';
 import debounce from 'lodash-es/debounce';
 
 /** constants */
-import { AppTimer, OrderType } from '@modules/base/constants/config';
+import { AppTimer, OrderType } from '@modules/base/constants';
 
 /** utils */
 import { deepIncludes, normalizeString } from '@modules/base/utils/string';

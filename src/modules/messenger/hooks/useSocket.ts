@@ -8,7 +8,7 @@
 import * as React from 'react';
 
 /** constants */
-import { MessengerSocketEvent } from '@modules/messenger/constants/key';
+import { MessengerSocketEvent } from '@modules/messenger/constants';
 
 /** utils */
 import { getChannel } from '@modules/base/utils/pusher';

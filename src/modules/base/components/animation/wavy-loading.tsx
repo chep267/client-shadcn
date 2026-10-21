@@ -9,7 +9,7 @@ import { cn } from 'cn';
 import { useIntl } from 'react-intl';
 
 /** constants */
-import { BaseLanguage } from '@modules/base/constants/language';
+import { BaseLanguage } from '@modules/base/constants';
 
 interface WavyLoadingProps {
     className?: string;

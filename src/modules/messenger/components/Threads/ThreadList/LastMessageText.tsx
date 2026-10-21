@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { LucideThumbsUp } from 'lucide-react';
 
 /** constants */
-import { MessengerLanguage } from '@modules/messenger/constants/language';
+import { MessengerLanguage } from '@modules/messenger/constants';
 
 /** hooks */
 import { useGetMessage } from '@modules/messenger/hooks/useGetMessage';

@@ -10,7 +10,7 @@ import { cn } from 'cn';
 import { Link } from 'react-router';
 
 /** constants */
-import { MessengerRouterPath } from '@modules/messenger/constants/path';
+import { MessengerRouterPath } from '@modules/messenger/constants';
 
 /** stores */
 import { useAuthStore } from '@modules/auth/stores/useAuthStore';

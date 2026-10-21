@@ -9,7 +9,7 @@ import * as React from 'react';
 import { cn } from 'cn';
 
 /** constants */
-import { CalendarDisplay } from '@modules/calendar/constants/config';
+import { CalendarDisplay } from '@modules/calendar/constants';
 
 /** utils */
 import { genMatrixCalendarDayJS, reverseMatrix } from '@modules/calendar/utils/calendar';

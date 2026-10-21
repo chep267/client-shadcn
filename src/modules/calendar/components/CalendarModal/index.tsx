@@ -9,7 +9,7 @@ import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { CalendarLanguage } from '@modules/calendar/constants/language';
+import { CalendarLanguage } from '@modules/calendar/constants';
 
 /** utils */
 import VietnameseDate from '@modules/calendar/utils/lunar';

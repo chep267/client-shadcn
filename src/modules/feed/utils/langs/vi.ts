@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { FeedLanguage } from '@modules/feed/constants/language';
+import { FeedLanguage } from '@modules/feed/constants';
 
 export const vi = {
     [FeedLanguage.component.label.router]: 'Bảng tin',

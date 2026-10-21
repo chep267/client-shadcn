@@ -8,7 +8,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 /** constants */
-import { FeedQueryKey } from '@modules/feed/constants/query';
+import { FeedQueryKey } from '@modules/feed/constants';
 
 /** services */
 import { feedService } from '@modules/feed/services';

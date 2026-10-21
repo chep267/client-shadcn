@@ -8,16 +8,11 @@
 import { LayoutDashboardIcon, CalendarIcon, CalculatorIcon, SendIcon, NotebookIcon } from 'lucide-react';
 
 /** constants */
-import { CalendarRouterPath } from '@modules/calendar/constants/path';
-import { CalendarLanguage } from '@modules/calendar/constants/language';
-import { PoemRouterPath } from '@modules/poem/constants/path';
-import { PoemLanguage } from '@modules/poem/constants/language';
-import { MessengerRouterPath } from '@modules/messenger/constants/path';
-import { MessengerLanguage } from '@modules/messenger/constants/language';
-import { FeedLanguage } from '@modules/feed/constants/language';
-import { FeedRouterPath } from '@modules/feed/constants/path';
-import { GlobalLanguage } from '@modules/global/constants/language';
-import { GlobalRouterPath } from '@modules/global/constants/path';
+import { CalendarRouterPath, CalendarLanguage } from '@modules/calendar/constants';
+import { PoemRouterPath, PoemLanguage } from '@modules/poem/constants';
+import { FeedRouterPath, FeedLanguage } from '@modules/feed/constants';
+import { MessengerRouterPath, MessengerLanguage } from '@modules/messenger/constants';
+import { GlobalRouterPath, GlobalLanguage } from '@modules/global/constants';
 
 const SidebarItems: App.Module.Global.Component.SidebarItemProps['item'][] = [
     {

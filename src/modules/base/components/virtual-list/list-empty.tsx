@@ -9,7 +9,7 @@ import { FormattedMessage } from 'react-intl';
 import { cn } from 'cn';
 
 /** constants */
-import { BaseLanguage } from '@modules/base/constants/language';
+import { BaseLanguage } from '@modules/base/constants';
 
 export function ListEmpty<Data>(props: App.Module.Base.Component.ComponentWithBigdataStoreProps<Data>) {
     const { store } = props;

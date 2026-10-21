@@ -10,7 +10,7 @@ import { create } from 'zustand';
 import { produce } from 'immer';
 
 /** constants */
-import { AppKey } from '@modules/base/constants/env';
+import { AppKey } from '@modules/base/constants';
 
 /** utils */
 import { registerStore } from '@modules/base/utils/store';

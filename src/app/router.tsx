@@ -9,17 +9,17 @@ import axios from 'axios';
 import { createBrowserRouter, Navigate, replace } from 'react-router';
 
 /** constants */
+import { UserRouterPath } from '@modules/user/constants';
 import { AuthRouterPath, AccountState } from '@modules/auth/constants';
-import { CalendarRouterPath } from '@modules/calendar/constants/path';
-import { PoemRouterPath } from '@modules/poem/constants/path';
-import { MessengerRouterPath } from '@modules/messenger/constants/path';
-import { FeedRouterPath } from '@modules/feed/constants/path';
-import { GlobalRouterPath } from '@modules/global/constants/path';
+import { CalendarRouterPath } from '@modules/calendar/constants';
+import { PoemRouterPath } from '@modules/poem/constants';
+import { FeedRouterPath } from '@modules/feed/constants';
+import { MessengerRouterPath } from '@modules/messenger/constants';
+import { GlobalRouterPath } from '@modules/global/constants';
 
 /** stores */
 import { useSettingStore } from '@modules/base/stores/useSettingStore';
 import { useAuthStore } from '@modules/auth/stores/useAuthStore';
-import { UserRouterPath } from '@modules/user/constants/path';
 
 const authMiddleware = async ({ request }: { request: Request }) => {
     const {

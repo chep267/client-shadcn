@@ -10,8 +10,7 @@ import { User2Icon } from 'lucide-react';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { GlobalRouterPath } from '@modules/global/constants/path';
-import { GlobalLanguage } from '@modules/global/constants/language';
+import { GlobalRouterPath, GlobalLanguage } from '@modules/global/constants';
 
 /** components */
 import { DropdownMenuItem } from '@modules/base/components/dropdown-menu';
@@ -19,7 +18,7 @@ import { Typography } from '@modules/base/components/typography';
 
 export function ItemAccount() {
     return (
-        <DropdownMenuItem asChild className="hover:*:!text-main cursor-pointer">
+        <DropdownMenuItem asChild className="hover:*:text-main! cursor-pointer">
             <Link to={GlobalRouterPath.account}>
                 <User2Icon />
                 <Typography className="text-sm">

@@ -9,8 +9,7 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 
 /** constants */
-import { AppEnv, AppKey } from '@modules/base/constants/env';
-import { AppTimer } from '@modules/base/constants/config';
+import { AppEnv, AppKey, AppTimer } from '@modules/base/constants';
 
 /** utils */
 import { isTokenExpired } from '@modules/base/utils/axiosHelper';

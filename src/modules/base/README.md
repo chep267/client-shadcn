@@ -54,7 +54,7 @@ You can import and use functions, components, or hooks from `module-base` wherev
 
 3. **Accessing Constants / Components:**
     ```typescript
-    import { BASE_CONSTANT } from '@modules/base/constants/base';
+    import { BASE_CONSTANT } from '@modules/base/constants';
     import { Button } from '@modules/base/components/button';
     ```
 

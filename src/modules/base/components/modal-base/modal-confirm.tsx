@@ -8,7 +8,7 @@
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { BaseLanguage } from '@modules/base/constants/language';
+import { BaseLanguage } from '@modules/base/constants';
 
 /** components */
 import { Spinner } from '@modules/base/components/spinner';

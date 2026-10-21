@@ -9,7 +9,7 @@ import { cn } from 'cn';
 import { useLocation } from 'react-router';
 
 /** constants */
-import { SidebarItems } from '@modules/global/constants/SidebarItems';
+import { SidebarItems } from '@modules/global/components/SidebarItems';
 
 /** components */
 import { ButtonGroup } from '@modules/base/components/button-group';

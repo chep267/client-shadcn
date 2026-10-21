@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { CalendarLanguage } from '@modules/calendar/constants/language';
+import { CalendarLanguage } from '@modules/calendar/constants';
 
 export const en = {
     [CalendarLanguage.component.label.router]: 'Calendar',

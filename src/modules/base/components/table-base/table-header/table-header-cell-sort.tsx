@@ -9,7 +9,7 @@ import { ArrowUpDown } from 'lucide-react';
 import { cn } from 'cn';
 
 /** constants */
-import { OrderType } from '@modules/base/constants/config';
+import { OrderType } from '@modules/base/constants';
 
 /** components */
 import { Button } from '@modules/base/components/button';

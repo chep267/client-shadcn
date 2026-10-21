@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import { EllipsisIcon } from 'lucide-react';
 
 /** constants */
-import { FeedLanguage } from '@modules/feed/constants/language';
+import { FeedLanguage } from '@modules/feed/constants';
 
 /** components */
 import { Button } from '@modules/base/components/button';

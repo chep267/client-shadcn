@@ -8,7 +8,7 @@
 import { useQuery } from '@tanstack/react-query';
 
 /** constants */
-import { PoemQueryKey } from '@modules/poem/constants/query';
+import { PoemQueryKey } from '@modules/poem/constants';
 
 /** services */
 import { poemService } from '@modules/poem/services';

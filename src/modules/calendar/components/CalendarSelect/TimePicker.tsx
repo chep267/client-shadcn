@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl';
 import { ChevronLeftIcon, ChevronsLeftIcon, ChevronRightIcon, ChevronsRightIcon } from 'lucide-react';
 
 /** constants */
-import { CalendarLanguage } from '@modules/calendar/constants/language';
+import { CalendarLanguage } from '@modules/calendar/constants';
 
 /** stores */
 import { useSettingStore } from '@modules/base/stores/useSettingStore';

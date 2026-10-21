@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { BaseLanguage } from '@modules/base/constants/language';
+import { BaseLanguage } from '@modules/base/constants';
 
 export const en = {
     [BaseLanguage.component.label.default]: '',

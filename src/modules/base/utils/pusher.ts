@@ -9,7 +9,7 @@ import Pusher from 'pusher-js';
 import Cookies from 'js-cookie';
 
 /** constants */
-import { AppEnv, AppKey } from '@modules/base/constants/env';
+import { AppEnv, AppKey } from '@modules/base/constants';
 import { AuthApiPath } from '@modules/auth/constants';
 
 Pusher.logToConsole = import.meta.env.DEV;
