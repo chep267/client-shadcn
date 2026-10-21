@@ -8,7 +8,7 @@
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { AuthLanguage } from '@modules/auth/constants/language';
+import { AuthLanguage } from '@modules/auth/constants';
 
 /** components */
 import { CardHeader, CardTitle } from '@modules/base/components/card';

@@ -9,8 +9,7 @@ import axios from 'axios';
 import { createBrowserRouter, Navigate, replace } from 'react-router';
 
 /** constants */
-import { AuthRouterPath } from '@modules/auth/constants/path';
-import { AccountState } from '@modules/auth/constants/status';
+import { AuthRouterPath, AccountState } from '@modules/auth/constants';
 import { CalendarRouterPath } from '@modules/calendar/constants/path';
 import { PoemRouterPath } from '@modules/poem/constants/path';
 import { MessengerRouterPath } from '@modules/messenger/constants/path';

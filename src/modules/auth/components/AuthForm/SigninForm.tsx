@@ -16,7 +16,7 @@ import delay from 'lodash-es/delay';
 import { AppKey } from '@modules/base/constants/env';
 import { AppRegex } from '@modules/base/constants/regex';
 import { AppTimer } from '@modules/base/constants/config';
-import { AuthLanguage } from '@modules/auth/constants/language';
+import { AuthLanguage } from '@modules/auth/constants';
 
 /** utils */
 import { isClientError } from '@modules/base/utils/axiosHelper';

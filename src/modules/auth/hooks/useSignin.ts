@@ -13,7 +13,7 @@ import { toast } from 'sonner';
 
 /** constants */
 import { AppKey } from '@modules/base/constants/env';
-import { AuthLanguage } from '@modules/auth/constants/language';
+import { AuthLanguage } from '@modules/auth/constants';
 
 /** utils */
 import { isClientError } from '@modules/base/utils/axiosHelper';

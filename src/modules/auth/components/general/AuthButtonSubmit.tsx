@@ -9,7 +9,7 @@ import { cn } from 'cn';
 import { FormattedMessage } from 'react-intl';
 
 /** constants */
-import { AuthLanguage } from '@modules/auth/constants/language';
+import { AuthLanguage } from '@modules/auth/constants';
 
 /** components */
 import { Button } from '@modules/base/components/button';
@@ -23,7 +23,7 @@ export function AuthButtonSubmit(props: App.Module.Auth.Component.AuthButtonSubm
             type="button"
             variant="outline"
             className={cn('cursor-pointer', 'mobile:w-1/3 w-full', 'hover:text-main hover:border-main', {
-                'text-main !border-main': loading,
+                'text-main border-main!': loading,
             })}
             size="lg"
             {...btnProps}

@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { AuthLanguage } from '@modules/auth/constants/language';
+import { AuthLanguage } from '@modules/auth/constants';
 
 export const vi = {
     // title

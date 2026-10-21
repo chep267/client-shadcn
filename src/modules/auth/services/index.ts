@@ -5,7 +5,7 @@
  */
 
 /** constants */
-import { AuthApiPath } from '@modules/auth/constants/path';
+import { AuthApiPath } from '@modules/auth/constants';
 
 /** services */
 import { ApiService } from '@modules/base/services/api';
