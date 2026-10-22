@@ -15,6 +15,7 @@ export const AuthApiPath = {
 } as const;
 
 export const AuthRouterPath = {
+    root: '/auth/*',
     start: '/start',
     signin: '/signin',
     register: '/register',

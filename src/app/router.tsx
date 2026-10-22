@@ -34,37 +34,37 @@ const authMiddleware = async ({ request }: { request: Request }) => {
     const url = new URL(request.url);
     const pathname = url.pathname;
     const currentPath = `${url.pathname}${url.search}${url.hash}`;
-    const requireAuth = !Object.values<string>(AuthRouterPath).includes(pathname);
+    const isProtectedRoute = Object.values<string>(AuthRouterPath).every((path) => !pathname.endsWith(path));
 
     switch (true) {
         case accountState === AccountState.signin: {
             /** not signed in => must be signin
              * pathname in auth routers && pathname !== start => not redirect
              */
-            if (pathname !== AuthRouterPath.start && !requireAuth) return;
+            if (!pathname.endsWith(AuthRouterPath.start) && !isProtectedRoute) return;
 
             /** pathname is other => save this url
              * redirect to signin */
-            authAction.setData({ prePath: requireAuth ? currentPath : GlobalRouterPath.default });
-            throw replace(AuthRouterPath.signin);
+            authAction.setData({ prePath: isProtectedRoute ? currentPath : GlobalRouterPath.default });
+            throw replace(AuthRouterPath.root.replace('/*', AuthRouterPath.signin));
         }
         case accountState === AccountState.start: {
             /** has token => must be restart
-             * if requireAuth => save this url, replace it after restart
+             * if isProtectedRoute => save this url, replace it after restart
              * pathname is "start" => not redirect
              * pathname is other => redirect to start
              */
-            if (pathname === AuthRouterPath.start) return;
+            if (pathname.endsWith(AuthRouterPath.start)) return;
             settingAction.updateStatusCode(axios.HttpStatusCode.Unauthorized);
-            authAction.setData({ prePath: requireAuth ? currentPath : GlobalRouterPath.default });
-            throw replace(AuthRouterPath.start);
+            authAction.setData({ prePath: isProtectedRoute ? currentPath : GlobalRouterPath.default });
+            throw replace(AuthRouterPath.root.replace('/*', AuthRouterPath.start));
         }
         case accountState === AccountState.verified: {
             /** verified => ok
              * pathname in protected routers => nothing
              * pathname in auth routers => redirect to home
              */
-            if (requireAuth) return;
+            if (isProtectedRoute) return;
             throw replace(prePath);
         }
         default: // nothing
@@ -84,34 +84,7 @@ export const router = createBrowserRouter([
             /** ----------------------------------------------------------------------------------------------------- */
             /** auth routes */
             {
-                path: AuthRouterPath.start,
-                middleware: [authMiddleware],
-                lazy: {
-                    Component: async () => (await import('@modules/base/components/start-loading')).default,
-                },
-            },
-            {
-                path: AuthRouterPath.signin,
-                middleware: [authMiddleware],
-                lazy: {
-                    Component: async () => (await import('@modules/auth/screens/AuthScreen')).default,
-                },
-                handle: {
-                    includes: ['header'],
-                },
-            },
-            {
-                path: AuthRouterPath.register,
-                middleware: [authMiddleware],
-                lazy: {
-                    Component: async () => (await import('@modules/auth/screens/AuthScreen')).default,
-                },
-                handle: {
-                    includes: ['header'],
-                },
-            },
-            {
-                path: AuthRouterPath.recover,
+                path: AuthRouterPath.root,
                 middleware: [authMiddleware],
                 lazy: {
                     Component: async () => (await import('@modules/auth/screens/AuthScreen')).default,

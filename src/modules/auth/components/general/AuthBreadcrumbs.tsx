@@ -27,17 +27,17 @@ export function AuthBreadcrumbs(props: App.Module.Auth.Component.AuthBreadcrumbs
     const items: App.Module.Auth.Component.AuthBreadcrumbsItem[] = [
         {
             title: AuthLanguage.component.title.signin,
-            path: AuthRouterPath.signin,
+            path: AuthRouterPath.root.replace('/*', AuthRouterPath.signin),
             hidden: mode === 'signin',
         },
         {
             title: AuthLanguage.component.title.register,
-            path: AuthRouterPath.register,
+            path: AuthRouterPath.root.replace('/*', AuthRouterPath.register),
             hidden: mode === 'register',
         },
         {
             title: AuthLanguage.component.title.recover,
-            path: AuthRouterPath.recover,
+            path: AuthRouterPath.root.replace('/*', AuthRouterPath.recover),
             hidden: mode === 'recover',
         },
     ];

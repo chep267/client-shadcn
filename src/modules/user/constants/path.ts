@@ -13,5 +13,5 @@ export const UserApiPath = {
 
 export const UserRouterPath = {
     root: '/profile/*',
-    profile: '/profile/:uid',
+    profile: '/:uid',
 } as const;

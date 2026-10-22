@@ -14,7 +14,7 @@ export function UserNameNoGet(props: App.Module.User.Component.UserNameProps) {
     const { className, name, ...otherProps } = props;
 
     return (
-        <Typography data-slot="user-name" className={cn('truncate', className)} {...otherProps}>
+        <Typography className={cn('truncate', className)} {...otherProps}>
             {name || 'Unknown user'}
         </Typography>
     );

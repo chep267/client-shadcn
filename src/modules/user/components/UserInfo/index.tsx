@@ -23,7 +23,7 @@ export function UserInfo(props: App.Module.User.Component.UserInfoProps) {
     return (
         <Comp
             data-slot="user-info"
-            to={link && !!id ? UserRouterPath.profile.replace(':uid', id) : ''}
+            to={link && !!id ? UserRouterPath.root.replace('/*', id) : ''}
             className={cn('group/user flex items-center gap-3', className)}
         >
             <UserAvatar id={id} size={sizeAvatar} className="border" />

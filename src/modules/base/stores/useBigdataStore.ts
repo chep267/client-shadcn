@@ -111,7 +111,7 @@ export const createBigdataStore = <Data>() => {
                 );
                 calculateData(isImmediate);
             },
-            search: (value = '') => {
+            search: (value: string = '') => {
                 const {
                     action: { calculateData },
                     data: { searchKey },

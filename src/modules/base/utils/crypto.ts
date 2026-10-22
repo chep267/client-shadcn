@@ -13,7 +13,7 @@ const CIPHER_KEY = 'to-la-chep';
  * func Encrypt
  * return: chuỗi mã hóa
  */
-function Encrypt(message = '', key = CIPHER_KEY) {
+function Encrypt(message: string = '', key = CIPHER_KEY) {
     try {
         return AES.encrypt(message, key).toString();
     } catch {
@@ -25,7 +25,7 @@ function Encrypt(message = '', key = CIPHER_KEY) {
  * func Decrypt
  * return: chuỗi giải mã hóa
  */
-function Decrypt(message = '', key = CIPHER_KEY) {
+function Decrypt(message: string = '', key = CIPHER_KEY) {
     try {
         return AES.decrypt(message, key).toString(Utf8);
     } catch {
